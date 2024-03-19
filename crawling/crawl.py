@@ -5,23 +5,21 @@ from selenium.webdriver.chrome.options import Options
 import chromedriver_autoinstaller
 import json
 from selenium.common.exceptions import NoSuchElementException
-from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound
+from youtube_transcript_api import YouTubeTranscriptApi
+from win10toast import ToastNotifier
+from youtube_transcript_api._errors import TranscriptsDisabled
+
 chromedriver_autoinstaller.install()
 
 chrome_options = Options()
 chrome_options.add_argument("headless")  # headless 모드로 설정
 
 
-video_seq = 7
+video_seq = 409
 
 video_links = [
-"https://www.youtube.com/watch?v=LXrh2AJa8nU",
-"https://www.youtube.com/watch?v=26PrgjTboVQ",
-"https://www.youtube.com/watch?v=6DNa48Hei9c",
-"https://www.youtube.com/watch?v=2zFyz6uO9-0",
-"https://www.youtube.com/watch?v=Sy8sBMdAdnY",
-"https://www.youtube.com/watch?v=j9zSv4aZglk",
-"https://www.youtube.com/watch?v=U10yerJA_ds",
+    "https://www.youtube.com/watch?v=mSLRtzVkK-w",
+    "https://www.youtube.com/watch?v=FWTNMzK9vG4",
 ]
 
 def extract_video_id(video_link):
@@ -46,8 +44,6 @@ except FileNotFoundError:
 for link in video_links:
     
     driver = webdriver.Chrome(options=chrome_options)
-    # chrome 창을 원하는 가로폭과 세로폭으로 저정합니다.
-    driver.set_window_size(2048, 1200)
 
     driver.get(link)
     time.sleep(1)
@@ -62,19 +58,23 @@ for link in video_links:
     playtime_selector = "#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > div.ytp-time-display.notranslate > span:nth-child(2) > span.ytp-time-duration"
     playtime = driver.find_element(By.CSS_SELECTOR, playtime_selector).text
     
-    minutes, seconds = map(int, playtime.split(':'))
-    # 분이 1 미만이면서 재생시간이 1분 미만인 경우를 처리하는 조건문입니다.
-    if minutes < 1:
-        print("재생시간이 1분 미만입니다.")
-        driver.quit()
-        continue
-
-    
     # 설정 더보기 클릭
     time.sleep(2)
     setting_selector = "#buttons > ytd-topbar-menu-button-renderer"
     setting_button = driver.find_element(By.CSS_SELECTOR, setting_selector)
     setting_button.click()
+    time.sleep(1.5)
+    
+    # 언어 설정 클릭
+    lang_selector = "#items > ytd-compact-link-renderer:nth-child(3)"
+    lang_button = driver.find_element(By.CSS_SELECTOR, lang_selector)
+    lang_button.click()
+    
+    # 언어 클릭
+    time.sleep(1.5)
+    en_selector = "#items > ytd-compact-link-renderer:nth-child(13)"
+    en_button = driver.find_element(By.CSS_SELECTOR, en_selector)
+    en_button.click()
     time.sleep(1.5)
     
     # 더보기 버튼 클릭
@@ -84,15 +84,13 @@ for link in video_links:
     time.sleep(1)
 
     # 영상 요약 받아오기
+    time.sleep(2)
     discription_selector = "#description-inline-expander > yt-attributed-string > span > span"
     discription = driver.find_element(By.CSS_SELECTOR, discription_selector)
     time.sleep(1)
     
     try:
-        try:
-            transcript = YouTubeTranscriptApi.get_transcript(video_id)
-        except NoTranscriptFound:
-            transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['en-GB'])
+        transcript = YouTubeTranscriptApi.get_transcript(video_id)
         timeline_removed_results = []
     
         # 스크립트 내용 추출
@@ -114,6 +112,8 @@ for link in video_links:
         }
         data.append(video_data)
         
+    except TranscriptsDisabled:
+        print("해당 비디오의 자막이 비활성화되어 있거나 자막이 없습니다. 건너뜁니다.")
     except NoSuchElementException:
         print("스크립트 표시 버튼이 없습니다. 건너뜁니다.")
 
@@ -122,5 +122,8 @@ for link in video_links:
 # 데이터 저장
 with open('crawl.json', 'w', encoding='utf8') as f:
     json.dump(data, f, ensure_ascii=False, indent=4)
+    
+toaster = ToastNotifier()
+toaster.show_toast("작업 완료", "파이썬 작업이 완료되었습니다.", duration=10)
 
 input()
