@@ -9,6 +9,8 @@ from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound
 chromedriver_autoinstaller.install()
 
 chrome_options = Options()
+chrome_options.add_argument("headless")  # headless 모드로 설정
+
 
 video_seq = 7
 
@@ -43,7 +45,7 @@ except FileNotFoundError:
 
 for link in video_links:
     
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options=chrome_options)
     # chrome 창을 원하는 가로폭과 세로폭으로 저정합니다.
     driver.set_window_size(2048, 1200)
 
