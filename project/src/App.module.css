@@ -1,0 +1,10 @@
+.App {
+  /* display: flex; */
+  height: 100vh;
+}
+
+.Nav {
+  /* position: fixed; */
+  top: 1rem;
+  height: 10%;
+}
