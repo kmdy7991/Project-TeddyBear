@@ -1,17 +1,17 @@
-import voca from "../assets/단어장.png";
-import profile from "../assets/gg_profile.png";
-import search from "../assets/Search.png";
-import templogo from "../assets/임시로고-removebg-preview.png";
+import voca from "../../assets/단어장.png";
+import profile from "../../assets/gg_profile.png";
+import search from "../../assets/Search.png";
+import templogo from "../../assets/임시로고-removebg-preview.png";
 import { Link } from "react-router-dom";
 import styles from "./Nav.module.css";
 
-interface NavProps {
-  className?: string;
-}
+// interface NavProps {
+//   className?: string;
+// }
 
-function Nav({ className }: NavProps) {
+function Nav() {
   return (
-    <div className={`${className} ${styles.container}`}>
+    <div className={`${styles.container}`}>
       <div className={styles.logo}>
         <Link to="/">
           <img className={styles.logoicon} src={templogo} alt="임시로고" />

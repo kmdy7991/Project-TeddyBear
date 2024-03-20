@@ -13,14 +13,15 @@ import VocabularyList from "./pages/VocabularyList/VocabularyList";
 import MyVocabulary from "./pages/VocabularyList/MyVocabulary";
 import ClassVocabulary from "./pages/VocabularyList/ClassVocabulary";
 import VideoDetail from "./pages/Video/VideoDetail";
-import Nav from "./components/Nav";
+import Nav from "./components/Nav/Nav";
+import LandingPage from "./pages/Landing/LandingPage";
 function App() {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <div className={styles.App}>
-          <Nav className={styles.Nav} />
+          {/* <Nav className={styles.Nav} /> */}
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Main />} />
@@ -35,6 +36,7 @@ function App() {
               <Route path="classvoca" element={<ClassVocabulary />} />
             </Route>
             <Route path="videoDetail" element={<VideoDetail />} />
+            <Route path="landing" element={<LandingPage />} />
           </Routes>
         </div>
       </BrowserRouter>
