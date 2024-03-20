@@ -1,0 +1,6 @@
+.mainContent {
+  padding-top: 4rem;
+  scroll-snap-align: start; /* 스크롤 위치 맞춤 */
+  /* height: 100vh;  */
+  scroll-snap-stop: always;
+}
