@@ -1,0 +1,42 @@
+.description {
+  display: flex;
+  flex-direction: column;
+  margin-top: 6%;
+  margin-left: 3rem;
+}
+
+.pageContainer {
+  min-height: 100vh;
+  position: relative;
+  padding-top: 4rem;
+}
+.secimg {
+  display: flex;
+  justify-content: center;
+}
+
+.slogan {
+  display: flex;
+  color: #808080;
+  font-size: 24px;
+  font-weight: lighter;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 900;
+  color: #c89aff;
+  margin-bottom: 5vh;
+}
+
+.teddy {
+  height: 250px;
+  position: absolute;
+  bottom: 0%;
+  left: 50;
+}
+
+.sp2 {
+  font-weight: lighter;
+  color: #c89aff;
+}
