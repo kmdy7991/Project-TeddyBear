@@ -11,7 +11,7 @@ import torch
 import multiprocessing
 import pandas as pd
 
-data_files = {"train": "train.tsv", "valid": "valid.tsv", "test": "test.tsv"}
+data_files = {"train": "train2.tsv", "valid": "valid.tsv", "test": "test.tsv"}
 dataset =  load_dataset("csv", data_files=data_files, delimiter="\t")
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -23,17 +23,34 @@ max_token_length = 64
 #  KE-T5 모델이 학습할때 함께 사용한 토크나이저
 tokenizer = AutoTokenizer.from_pretrained(model_ckpt)
 
-tokenized_sample_en = tokenizer(dataset['train'][10]['en'], 
-                                max_length=max_token_length, 
-                                padding=True, truncation=True)
+# tokenized_sample_en = tokenizer(dataset['train'][10]['en'], 
+#                                 max_length=max_token_length, 
+#                                 padding=True, truncation=True)
 
 # tokenized_sample_ko = tokenizer(dataset['train'][10]['ko'], 
 #                                 max_length=max_token_length, 
 #                                 padding=True, truncation=True)
 
-pd.DataFrame(
-    [
-        tokenized_sample_en['input_ids'],
-        tokenizer.convert_ids_to_tokens(tokenized_sample_en['input_ids'])
-    ], index=('ids', 'tokens')
-)
+# df = pd.DataFrame(
+#     [
+#         tokenized_sample_en['input_ids'],
+#         tokenizer.convert_ids_to_tokens(tokenized_sample_en['input_ids'])
+#     ], index=('ids', 'tokens')
+# )
+
+# dataset 내의 문장을 토큰화 하기 위한 함수
+def convert_examples_to_features(examples):
+    model_inputs = tokenizer(examples['en'],
+                             text_target=examples['ko'], 
+                             max_length=max_token_length, truncation=True)
+    
+    return model_inputs
+
+
+
+tokenized_datasets = dataset.map(convert_examples_to_features, 
+                                 batched=True, 
+                                 remove_columns=dataset["train"].column_names,
+                                ) 
+
+print(tokenized_datasets['train'][2])
