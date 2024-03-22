@@ -20,32 +20,34 @@ model = AutoModelForSeq2SeqLM.from_pretrained(model_dir)
 max_token_length = 64
 
 
-input_text = [
-    # "fuck you, man. you are flicky ratchet"
-    "The remaining staff will stay in the current space on the 3rd floor, and the division will continue to be called the advertising department."
-]
+def translate(text) : 
+    input_text = [ text
+        # "fuck you, man. you are flicky ratchet"
+    ]
 
-inputs = tokenizer(input_text, return_tensors="pt", 
-                   padding=True, max_length=max_token_length)
+    inputs = tokenizer(input_text, return_tensors="pt", 
+                    padding=True, max_length=max_token_length)
 
 
 
-koreans = model.generate(
-    **inputs,
-    max_length=max_token_length,
-    num_beams=5,
-)
+    koreans = model.generate(
+        **inputs,
+        max_length=max_token_length,
+        num_beams=5,
+    )
 
-koreans.shape
-[ 
-    tokenizer.convert_tokens_to_string(
-    tokenizer.convert_ids_to_tokens(korean)) for korean in koreans
-]
+    koreans.shape
+    [ 
+        tokenizer.convert_tokens_to_string(
+        tokenizer.convert_ids_to_tokens(korean)) for korean in koreans
+    ]
 
-decoded_texts = [
-    tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(korean)) for korean in koreans
-]
+    decoded_texts = [
+        tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(korean)) for korean in koreans
+    ]
 
-# 디코딩된 텍스트 출력
-for text in decoded_texts:
-    print(text)
+    # 문자열 리스트를 하나의 문자열로 합치기
+    combined_text = ' '.join(decoded_texts)  # 빈 공간을 구분자로 사용하여 합침
+
+    # 합쳐진 문자열 반환
+    return combined_text
