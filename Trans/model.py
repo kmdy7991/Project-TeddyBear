@@ -11,12 +11,17 @@ import torch
 import multiprocessing
 import pandas as pd
 import evaluate
+import os
+
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
 data_files = {"train": "train2.tsv", "valid": "valid.tsv", "test": "test.tsv"}
 dataset =  load_dataset("csv", data_files=data_files, delimiter="\t")
 
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 device
+
 
 model_ckpt = "KETI-AIR/ke-t5-base"
 max_token_length = 64
