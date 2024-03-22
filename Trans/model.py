@@ -23,11 +23,12 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 device
 
 
-model_ckpt = "KETI-AIR/ke-t5-base"
+model_path = "./results"  # 저장된 모델의 경로
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+
 max_token_length = 64
 
 #  KE-T5 모델이 학습할때 함께 사용한 토크나이저
-tokenizer = AutoTokenizer.from_pretrained(model_ckpt)
 
 # tokenized_sample_en = tokenizer(dataset['train'][10]['en'], 
 #                                 max_length=max_token_length, 
@@ -60,7 +61,7 @@ tokenized_datasets = dataset.map(convert_examples_to_features,
                                 ) 
 
 # 모델 로딩
-model = AutoModelForSeq2SeqLM.from_pretrained(model_ckpt).to(device)
+model = AutoModelForSeq2SeqLM.from_pretrained(model_path).to(device)
 
 # 테스트
 # encoder_inputs = tokenizer(
@@ -142,7 +143,7 @@ def compute_metrics(eval_preds):
 
 # 학습 설정
 training_args = Seq2SeqTrainingArguments(
-    output_dir="chkpt",
+    output_dir="chkpt2",
     learning_rate=0.0005,
     weight_decay=0.01,
     per_device_train_batch_size=64,
@@ -173,4 +174,4 @@ trainer = Seq2SeqTrainer(
 trainer.train()
 
 # 학습 결과 저장
-trainer.save_model("./results")
+trainer.save_model("./results2")
