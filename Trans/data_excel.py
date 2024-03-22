@@ -7,7 +7,7 @@ xlsx_path = 'Trans/excel/3_문어체_뉴스(3).xlsx'
 df = pd.read_excel(xlsx_path, usecols=['원문', '번역문'])
 
 # 필요한 컬럼 이름으로 데이터프레임의 컬럼 이름 변경
-df = df.rename(columns={'원문': 'en', '번역문': 'ko'})
+df = df.rename(columns={'번역문': 'en', '원문': 'ko'})
 
 # 데이터프레임을 나눌 크기 설정
 num_train = 1200000  # 예시 크기, 실제 데이터 크기에 맞게 조정 필요
