@@ -3,6 +3,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/Login";
+import Testguide from "./pages/Login/TestGuide"
+import Profil from "./pages/Login/Profil";
 import Main from "./pages/Main/Main";
 import MyLecture from "./pages/MyPage/MyLecture/MyLecture";
 import Statistics from "./pages/MyPage/Statstics/Statstics";
@@ -24,6 +26,8 @@ function App() {
           {/* <Nav className={styles.Nav} /> */}
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path='/testguide' element={<Testguide/>} />
+            <Route path="/profil" element={<Profil/>}/>
             <Route path="/" element={<Main />} />
             <Route path="mypage" element={<Statistics />}>
               <Route path="myLecture" element={<MyLecture />} />
