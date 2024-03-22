@@ -3,7 +3,7 @@ import pandas as pd
 import os
 
 # 엑셀 파일 로드
-xlsx_path = 'Trans/excel/3_문어체_뉴스(3).xlsx'
+xlsx_path = 'Trans/excel/6_문어체_지자체웹사이트.xlsx'
 df = pd.read_excel(xlsx_path, usecols=['원문', '번역문'])
 
 # 필요한 컬럼 이름으로 데이터프레임의 컬럼 이름 변경

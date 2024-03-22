@@ -29,3 +29,47 @@ async def translate_text(request: TranslationRequest):
 if __name__ == "__main__":
     
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+
+
+
+
+# from fastapi import FastAPI, HTTPException
+# from pydantic import BaseModel
+# from typing import Dict
+# import py_eureka_client.eureka_client as eureka
+# import uvicorn
+# from contextlib import asynccontextmanager
+# from res import translate
+
+# app = FastAPI()
+
+# # Pydantic 모델 정의
+# class TranslationRequest(BaseModel):
+#     text: str
+
+# # Eureka 서버에 애플리케이션을 등록하고 관리하는 비동기 컨텍스트 매니저
+# @asynccontextmanager
+# async def eureka_context(app: FastAPI):
+#     await eureka.init_async(
+#         eureka_server="http://localhost:8671/eureka",
+#         app_name="python-service",
+#         instance_ip="localhost",
+#         instance_port=8000
+#     )
+#     yield
+
+# # FastAPI 앱의 생명주기 이벤트를 사용하여 Eureka 서버와의 연동을 관리
+# app.add_event_handler("startup", eureka_context(app).__aenter__)
+# app.add_event_handler("shutdown", eureka_context(app).__aexit__)
+
+# # 번역 API 경로 연산
+# @app.post("/python/translate/")
+# async def translate_text(request: TranslationRequest):
+#     try:
+#         translated_texts = translate(request.text)
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=str(e))
+#     return {"translated_text": translated_texts}
+
+# if __name__ == "__main__":
+#     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
