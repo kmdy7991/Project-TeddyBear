@@ -1,10 +1,47 @@
+import { useEffect, useRef, useState } from "react";
 import pteddy from "../../assets/purple_teddy.png";
 import styles from "./secPage.module.css";
 
-function secPage() {
+function SecPage() {
+  const [isVisible, setIsVisible] = useState(false);
+  // 요소 참조 저장
+  const descriptionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // entries: 관찰 요소 배열(descriptionRef)
+        entries.forEach((entry) => {
+          // isIntersecting: 뷰포트 파악
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        });
+      },
+      {
+        rootMargin: "0px",
+        threshold: 0.3, // 30% 요소 보이면 콜백 ㄱㄱ
+      }
+    );
+
+    if (descriptionRef.current) {
+      observer.observe(descriptionRef.current);
+    }
+
+    return () => {
+      // 컴포넌트 언마운트시 옵저버 정리
+      if (descriptionRef.current) {
+        observer.unobserve(descriptionRef.current);
+      }
+    };
+  }, []);
   return (
-    <div className={`${styles.pageContainer}`}>
-      <div data-aos="fade-right" className={`${styles.description}`}>
+    <div ref={descriptionRef} className={`${styles.pageContainer}`}>
+      <div
+        className={`${styles.description} ${isVisible ? styles.isVisible : ""}`}
+      >
         <div className={`${styles.title}`}>개인화된 학습 추천</div>
         <div>
           <p className={`${styles.slogan}`}>
@@ -24,4 +61,4 @@ function secPage() {
   );
 }
 
-export default secPage;
+export default SecPage;
