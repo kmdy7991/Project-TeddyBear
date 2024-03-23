@@ -1,9 +1,46 @@
+import { useEffect, useRef, useState } from "react";
 import styles from "./fouthPage.module.css";
 import gteddy from "../../assets/green_teddy.png";
-function fourthPage() {
+function FourthPage() {
+  const [isVisible, setIsVisible] = useState(false);
+  // 요소 참조 저장
+  const descriptionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // entries: 관찰 요소 배열(descriptionRef)
+        entries.forEach((entry) => {
+          // isIntersecting: 뷰포트 파악
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        });
+      },
+      {
+        rootMargin: "0px",
+        threshold: 0.3, // 30% 요소 보이면 콜백 ㄱㄱ
+      }
+    );
+
+    if (descriptionRef.current) {
+      observer.observe(descriptionRef.current);
+    }
+
+    return () => {
+      // 컴포넌트 언마운트시 옵저버 정리
+      if (descriptionRef.current) {
+        observer.unobserve(descriptionRef.current);
+      }
+    };
+  }, []);
   return (
-    <div className={`${styles.pageContainer}`}>
-      <div data-aos="fade-left" className={`${styles.description}`}>
+    <div ref={descriptionRef} className={`${styles.pageContainer}`}>
+      <div
+        className={`${styles.description} ${isVisible ? styles.isVisible : ""}`}
+      >
         <div className={`${styles.title}`}>영어, 당신의 방식대로 배우세요</div>
         <div>
           <p className={`${styles.slogan}`}>
@@ -22,4 +59,4 @@ function fourthPage() {
   );
 }
 
-export default fourthPage;
+export default FourthPage;

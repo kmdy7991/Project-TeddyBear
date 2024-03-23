@@ -3,9 +3,9 @@ import "aos/dist/aos.css";
 import React, { useEffect } from "react";
 import styles from "./LandingPage.module.css";
 import Page1 from "./firstPage";
-import Page2 from "./secPage";
-import Page3 from "./thirdPage";
-import Page4 from "./fourthPage";
+import Page2 from "./SecPage";
+import Page3 from "./ThirdPage";
+import Page4 from "./FourthPage";
 import LoginNav from "../../components/Nav/LoginNav";
 function LandingPage() {
   useEffect(() => {
@@ -15,12 +15,18 @@ function LandingPage() {
   });
 
   return (
-    <div>
+    <div className={`${styles.scrollContainer}`}>
       <LoginNav />
       <div className={`${styles.mainContent}`}>
         <Page1 />
+      </div>
+      <div className={`${styles.mainContent}`}>
         <Page2 />
+      </div>
+      <div className={`${styles.mainContent}`}>
         <Page3 />
+      </div>
+      <div className={`${styles.mainContent}`}>
         <Page4 />
       </div>
     </div>
