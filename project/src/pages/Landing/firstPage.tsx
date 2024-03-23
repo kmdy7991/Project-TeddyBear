@@ -17,7 +17,10 @@ function firstPage() {
         </div>
       </div>
       <div className={`${styles.firstimg}`}>
-        <img src={yteddy} alt="노란 곰돌이" className={`${styles.teddy}`}></img>
+        <img src={yteddy} alt="노란 곰돌이" className={`${styles.teddy}`} />
+        <div className={`${styles.field}`}>
+          <div className={`${styles.scroll}`}></div>
+        </div>
       </div>
     </div>
   );

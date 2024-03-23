@@ -1,14 +1,32 @@
 .description {
   display: flex;
   flex-direction: column;
-  margin-top: 6%;
+  /* margin-top: 6%; */
   padding-right: 3rem;
+  padding-top: 10%;
+  position: relative;
+  opacity: 0;
+}
+
+.isVisible {
+  animation: fadeInRight 1s forwards; /* isVisible이 true일 때 애니메이션 실행 */
+  opacity: 1;
+}
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateZ(0);
+  }
 }
 
 .pageContainer {
   min-height: 100vh;
   position: relative;
-  padding-top: 4rem;
+  /* padding-top: 4rem; */
 }
 .secimg {
   display: flex;
