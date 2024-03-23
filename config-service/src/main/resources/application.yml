@@ -1,35 +1,35 @@
 server:
-  port: 8888
+    port: 8763
 
 spring:
-  application:
-    name: config-service
+    application:
+        name: config-service
 
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
+    rabbitmq:
+        host: rabbitmq
+        port: 5672
+        username: ssafy
+        password: b107
 
-#  profiles:
-#    active: native
+    #  profiles:
+    #    active: native
 
-  cloud:
-    config:
-      server:
-#        native:
-#          search-locations: file:///${user.home}/Desktop/git-repo/native
-        git:
-          uri: https://lab.ssafy.com/kmdy7991/springcloud.git
-          username: kmdy7991@naver.com
-          password: w4VXzyDs4Wg9XshL1jRb
-          default-label: master
+    cloud:
+        config:
+            server:
+                #        native:
+                #          search-locations: file:///${user.home}/Desktop/git-repo/native
+                git:
+                    uri: https://lab.ssafy.com/kmdy7991/springcloud.git
+                    username: kmdy7991@naver.com
+                    password: w4VXzyDs4Wg9XshL1jRb
+                    default-label: master
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: health, busrefresh
+    endpoints:
+        web:
+            exposure:
+                include: health, busrefresh
 
 encrypt:
-  key: fdsjafjkhalskhuwetyioghadsjklvbzxj
+    key: fdsjafjkhalskhuwetyioghadsjklvbzxj
