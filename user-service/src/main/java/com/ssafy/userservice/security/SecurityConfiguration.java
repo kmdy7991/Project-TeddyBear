@@ -32,8 +32,8 @@ public class SecurityConfiguration {
     private final Environment env;
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    public static final String ALLOWED_IP_ADDRESS = "127.0.0.1";
-    public static final String SUBNET = "/32";
+    public static final String ALLOWED_IP_ADDRESS = "172.84.0.0";
+    public static final String SUBNET = "/24";
     public static final IpAddressMatcher ALLOWED_IP_ADDRESS_MATCHER = new IpAddressMatcher(ALLOWED_IP_ADDRESS + SUBNET);
 
     @Bean
@@ -53,7 +53,7 @@ public class SecurityConfiguration {
 //                        .requestMatchers("/users/**").permitAll()
                                 .requestMatchers("/**").access(
                                         new WebExpressionAuthorizationManager(
-                                                "hasIpAddress('127.0.0.1') or hasIpAddress('192.168.31.42') or hasIpAddress('192.168.35.199') or hasIpAddress('j10b107.p.ssafy.io')"
+                                                "hasIpAddress('127.0.0.1') or hasIpAddress('192.168.31.42') or hasIpAddress('192.168.35.199') or hasIpAddress('172.84.0.14')"
                                         )
                                 )
                                 .anyRequest().authenticated()
