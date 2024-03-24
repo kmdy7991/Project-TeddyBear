@@ -6,7 +6,6 @@ import Login from "./pages/Login/Login";
 import Testguide from "./pages/Login/TestGuide";
 import Profil from "./pages/Login/Profil";
 import CefrTest from "./pages/Login/CefrTest";
-import CefrScore from "./pages/Login/CefrScore";
 import Main from "./pages/Main/Main";
 import MyLecture from "./pages/MyPage/MyLecture/MyLecture";
 import Statistics from "./pages/MyPage/Statstics/Statstics";
@@ -31,7 +30,6 @@ function App() {
             <Route path='/testguide' element={<Testguide/>} />
             <Route path="/profil" element={<Profil/>}/>
             <Route path="/cefrtest" element={<CefrTest/>}/>
-            <Route path="/cefrscore" element={<CefrScore/>}/>
             <Route path="/" element={<Main />} />
             <Route path="mypage" element={<Statistics />}>
               <Route path="myLecture" element={<MyLecture />} />
