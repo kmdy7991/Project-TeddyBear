@@ -73,7 +73,8 @@
   margin-left: 2rem;
 }
 .slick-list {
-  overflow: visible !important;
+  /* overflow: hidden !important; */
+  /* overflow-x: hidden; */
 }
 
 /* VideoList.css 추가 */
