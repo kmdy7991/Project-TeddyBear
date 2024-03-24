@@ -53,7 +53,7 @@ public class SecurityConfiguration {
 //                        .requestMatchers("/users/**").permitAll()
                                 .requestMatchers("/**").access(
                                         new WebExpressionAuthorizationManager(
-                                                "hasIpAddress('127.0.0.1') or hasIpAddress('192.168.31.42') or hasIpAddress('192.168.35.199') or hasIpAddress('172.84.0.14')"
+                                                "hasIpAddress('127.0.0.1') or hasIpAddress('192.168.31.42') or hasIpAddress('192.168.35.199') or hasIpAddress('172.84.0.0/24')  hasIpAddress('j10b107.p.ssafy.io')"
                                         )
                                 )
                                 .anyRequest().authenticated()
