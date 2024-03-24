@@ -5,7 +5,7 @@ spring:
     cloud:
         config:
             name: cloud
-            profile: user
+            # profile: user
 
     application:
         name: user-service
@@ -49,11 +49,9 @@ spring:
 
     # jpa
     jpa:
+        database-platform: org.hibernate.dialect.MySQLDialect
         hibernate:
             ddl-auto: create
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.MySQL8InnoDBDialect
 #eureka
 #eureka:
 #  instance:
