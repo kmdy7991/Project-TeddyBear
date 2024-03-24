@@ -6,8 +6,8 @@ plugins {
 }
 sonar {
 	properties {
-		// 컴파일되면서 생성된 바이너리 파일을 분석
-		property 'sonar.java.binaries', 'target/classes'
+		// 컴파일되면서 생성된 바이너리 파일을 분석 maven = target, gradle = build
+		property 'sonar.java.binaries', 'build/classes'
 	}
 }
 group = 'com.ssafy'
