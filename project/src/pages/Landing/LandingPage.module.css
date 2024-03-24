@@ -1,0 +1,14 @@
+.scrollContainer {
+  overflow: auto;
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+}
+
+.mainContent {
+  overflow: auto;
+  /* padding-top: 4rem; */
+  scroll-snap-align: start; /* 스크롤 위치 맞춤 */
+  /* height: 100vh;  */
+  scroll-snap-stop: always;
+  /* height: 100vh; */
+}
