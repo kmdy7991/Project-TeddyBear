@@ -1,0 +1,6 @@
+.mainContent {
+  padding-top: 5rem;
+  /* display: flex; */
+  min-height: 100vh;
+  /* overflow-x: hidden; */
+}
