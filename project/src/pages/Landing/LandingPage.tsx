@@ -2,7 +2,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import React, { useEffect } from "react";
 import styles from "./LandingPage.module.css";
-import Page1 from "./firstPage";
+import Page1 from "./FirstPage";
 import Page2 from "./SecPage";
 import Page3 from "./ThirdPage";
 import Page4 from "./FourthPage";
