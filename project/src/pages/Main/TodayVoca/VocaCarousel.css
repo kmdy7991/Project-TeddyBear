@@ -3,10 +3,10 @@
   padding: 0px 40px 40px 40px;
   text-align: center;
 }
-h3 {
+.card-h3 {
   background: white;
   color: rgb(55, 55, 55);
-  height: 200px;
+  height: 180px;
   font-size: 36px;
   line-height: 100px;
   margin: 20px;
@@ -50,11 +50,11 @@ h3 {
   color: #000;
 }
 .center .slick-center h3 {
-  background-color: #85beff;
+  background-color: #ffda03;
   color: white;
   opacity: 1;
   -ms-transform: scale(1.08);
-  transform: scale(1.08);
+  transform: scale(1.1);
   box-shadow: 2px 2px 5px 0;
 }
 .center h3 {
@@ -98,5 +98,6 @@ h3 {
 
 .flip:hover .card {
   transform: rotateY(180deg);
-  transition: 0.2s;
+  transition: 0.8s;
+  cursor: pointer;
 }
