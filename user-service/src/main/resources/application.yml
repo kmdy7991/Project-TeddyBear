@@ -1,58 +1,56 @@
 server:
-  port: 8764
+    port: 8764
 
 spring:
-  cloud:
+    cloud:
+        config:
+            name: cloud
+            profile: user
+
+    application:
+        name: user-service
+
     config:
-      name: cloud
-      profile: user
+        import: optional:configserver:http://config:8763
 
-  application:
-    name: user-service
+    # rabbitmq
+    rabbitmq:
+        host: rabbitmq
+        port: 5672
+        username: ssafy
+        password: b107
 
-  config:
-    import: optional:configserver:http://config:8763
+    # sql connect
+    datasource:
+        url: jdbc:mysql://mysql:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+        username: root
+        password: ssafy
+        driver-class-name: com.mysql.cj.jdbc.Driver
 
+    #  datasource:
+    ##   h2 db
+    #    driver-class-name: com.mysql.jdbc.Driver
+    ##   db url
+    #    url:
+    ##   db name
+    #    username: sa
+    ##   db password
+    #    password:
+    #
+    #  h2:
+    #    console:
+    ##     H2 console 사용 여부(사용 시 해당 port에서 접근)
+    #      enabled: true
+    #      settings:
+    ##       외부 접근 허용
+    #        web-allow-others: true
+    ##     H2 console path정보 port/h2-console 시 콘솔로 접근함
+    #      path: /h2-console
 
-  # rabbitmq
-  rabbitmq:
-    host: rabbitmq
-    port: 5672
-    username: ssafy
-    password: b107
-
-  # sql connect
-  datasource:
-    url: jdbc:mysql://mysql:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
-    username: root
-    password: ssafy
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-#  datasource:
-##   h2 db
-#    driver-class-name: com.mysql.jdbc.Driver
-##   db url
-#    url:
-##   db name
-#    username: sa
-##   db password
-#    password:
-#
-#  h2:
-#    console:
-##     H2 console 사용 여부(사용 시 해당 port에서 접근)
-#      enabled: true
-#      settings:
-##       외부 접근 허용
-#        web-allow-others: true
-##     H2 console path정보 port/h2-console 시 콘솔로 접근함
-#      path: /h2-console
-
-  # jpa
-  jpa:
-    hibernate:
-      ddl-auto: create
-
+    # jpa
+    jpa:
+        hibernate:
+            ddl-auto: create
 #eureka
 #eureka:
 #  instance:
