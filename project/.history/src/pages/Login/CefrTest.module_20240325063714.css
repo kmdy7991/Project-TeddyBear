@@ -1,0 +1,13 @@
+.boxflex{
+    display: flex;
+
+}
+
+.box {
+    border: 2px solid black;
+    border-radius: 30px;
+    padding: 10px;
+    margin: 10px;
+    width: 1000px;
+}
+
