@@ -1,0 +1,132 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10;
+  /* overflow-y: hidden; */
+  min-height: 100vh;
+}
+
+.modalBox {
+  position: absolute;
+  right: 0;
+  background-color: #f3f3f3;
+  min-height: 100vh;
+  width: 40vw;
+  animation: fadeOut 0.25s ease-out forwards;
+}
+
+.vocaCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  margin: 2rem 0.4rem;
+  /* line-height: 20px; */
+  font-size: 36px;
+  background-color: #ffda03;
+  color: white;
+  width: 35vw;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.word {
+  font-size: 42px;
+  /* margin-bottom: 10px; */
+  font-weight: bold;
+}
+
+.part,
+.meant {
+  font-weight: lighter;
+}
+.part {
+  font-size: 20px;
+  margin-bottom: 1rem;
+}
+
+.mean {
+  font-size: 24px;
+}
+
+.todayVideo {
+  margin-left: 1rem;
+}
+
+.title {
+  margin-top: 2rem;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.videoImage {
+  width: 13rem;
+  border-radius: 0.8vw;
+}
+
+.video {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.videoDes {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 0.5rem;
+}
+
+.videoD {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1rem;
+}
+
+.videoT {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.bookmark {
+  width: 42px;
+  height: 54px;
+  position: absolute;
+  top: 2rem;
+  right: 4rem;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
+.modalEnter {
+  animation-name: fadeInRight;
+  animation-duration: 0.5s; /* 애니메이션 지속 시간 설정 */
+  animation-timing-function: ease-out; /* 애니메이션 속도 곡선 설정 */
+}
