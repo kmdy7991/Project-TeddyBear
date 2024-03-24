@@ -51,6 +51,9 @@ spring:
     jpa:
         hibernate:
             ddl-auto: create
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL8InnoDBDialect
 #eureka
 #eureka:
 #  instance:
