@@ -51,12 +51,13 @@ public class SecurityConfiguration {
                                 // h2 사용
 //                                .requestMatchers(PathRequest.toH2Console()).permitAll()
 //                        .requestMatchers("/users/**").permitAll()
-                                .requestMatchers("/**").access(
-                                        new WebExpressionAuthorizationManager(
-                                                "hasIpAddress('127.0.0.1') or hasIpAddress('192.168.31.42') or hasIpAddress('192.168.35.199') or hasIpAddress('172.84.0.0/24') or hasIpAddress('j10b107.p.ssafy.io')"
-                                        )
-                                )
-                                .anyRequest().authenticated()
+//                                .requestMatchers("/**").access(
+//                                        new WebExpressionAuthorizationManager(
+//                                                "hasIpAddress('127.0.0.1') or hasIpAddress('192.168.31.42') or hasIpAddress('192.168.35.199') or hasIpAddress('j10b107.p.ssafy.io')"
+//                                        )
+//                                )
+                                .requestMatchers("/**").permitAll()
+//                                .anyRequest().authenticated()
                 )
                 .authenticationManager(authenticationManager)
                 .sessionManagement(session -> session
