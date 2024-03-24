@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
         orderDto.calculatePrice(orderDto.getQty(), orderDto.getUnitPrice());
 
         OrderEntity orderEntity = OrderEntity.builder()
-                .productId(orderDto.getUserId())
+                .productId(orderDto.getProductId())
                 .qty(orderDto.getQty())
                 .unitPrice(orderDto.getUnitPrice())
                 .totalPrice(orderDto.getTotalPrice())

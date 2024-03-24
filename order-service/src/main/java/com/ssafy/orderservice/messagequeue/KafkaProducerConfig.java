@@ -18,7 +18,7 @@ public class KafkaProducerConfig {
     @Bean
     public Map<String, Object> producerConfiguration() {
         return ImmutableMap.<String, Object>builder()
-                .put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "3.106.124.241:29092")
+                .put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "j10b107.p.ssafy.io:29092")
                 .put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class)
                 .put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class)
                 .build();

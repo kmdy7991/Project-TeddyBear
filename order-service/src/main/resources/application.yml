@@ -1,66 +1,66 @@
 server:
-  port: 0
+    port: 8766
 spring:
-  application:
-    name: order-service
+    application:
+        name: order-service
 
-  datasource:
-    url: jdbc:mysql://3.106.124.241:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
-    username: root
-    password: ssafy
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    datasource:
+        url: jdbc:mysql://mysql:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+        username: root
+        password: ssafy
+        driver-class-name: com.mysql.cj.jdbc.Driver
 
-#  h2:
-#    console:
-#      enabled: true
-#      settings:
-#        web-allow-others: true
-#      path: /h2-console
+    #  h2:
+    #    console:
+    #      enabled: true
+    #      settings:
+    #        web-allow-others: true
+    #      path: /h2-console
 
-  jpa:
-    hibernate:
-      ddl-auto: create
-#    show-sql: true
-    generate-ddl: true
-    # ddl, dml console print(pretty)
-    properties:
-      hibernate:
-        format_sql: true
-    # script(data.sql) ?? ?? hibernate? ???? ???? ????? ? ??? ???? script? ?? ?? ??
+    jpa:
+        hibernate:
+            ddl-auto: create
+        #    show-sql: true
+        generate-ddl: true
+        # ddl, dml console print(pretty)
+        properties:
+            hibernate:
+                format_sql: true
+        # script(data.sql) ?? ?? hibernate? ???? ???? ????? ? ??? ???? script? ?? ?? ??
 #    defer-datasource-initialization: true
-  # DDL -> schema.sql / DML -> data.sql
-  # ??? ?? ?? db? ?? data? ?? ? ? ?? (embedded - ??, always - ??, never - ?? ??)
+# DDL -> schema.sql / DML -> data.sql
+# ??? ?? ?? db? ?? data? ?? ? ? ?? (embedded - ??, always - ??, never - ?? ??)
 #  sql:
 #    init:
 #      mode: always
 
 eureka:
-  instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
+    instance:
+        instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    client:
+        register-with-eureka: true
+        fetch-registry: true
+        service-url:
+            defaultZone: http://discovery:8761/eureka
 
 logging:
-  level:
-    com.ssafy.orderservice: DEBUG
-#    org.hibernate.SQL: debug
-  pattern:
-    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+    level:
+        com.ssafy.orderservice: DEBUG
+    #    org.hibernate.SQL: debug
+    pattern:
+        level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: info, metrics, prometheus
-  tracing:
-    sampling:
-      probability: 1.0
-    propagation:
-      consume: B3
-      produce: B3_MULTI
-  zipkin:
+    endpoints:
+        web:
+            exposure:
+                include: info, metrics, prometheus
     tracing:
-      endpoint: 'http://localhost:9411/api/v2/spans'
+        sampling:
+            probability: 1.0
+        propagation:
+            consume: B3
+            produce: B3_MULTI
+    zipkin:
+        tracing:
+            endpoint: 'http://zipkin:9411/api/v2/spans'
