@@ -6,7 +6,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+//@AllArgsConstructor
 public class Schema {
     private String type;
     private List<Field> fields;

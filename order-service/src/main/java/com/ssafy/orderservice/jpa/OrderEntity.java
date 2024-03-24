@@ -39,12 +39,13 @@ public class OrderEntity implements Serializable {
     private LocalDate createAt;
 
     @Builder
-    public OrderEntity(String productId, int qty, int unitPrice, int totalPrice, String userId, String orderId) {
+    public OrderEntity(String productId, int qty, int unitPrice, int totalPrice, String userId, String orderId, LocalDate date) {
         this.productId = productId;
         this.qty = qty;
         this.unitPrice = unitPrice;
         this.totalPrice = totalPrice;
         this.userId = userId;
         this.orderId = orderId;
+        this.createAt = date;
     }
 }
