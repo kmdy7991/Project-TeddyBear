@@ -18,6 +18,7 @@ import MyVocabulary from "./pages/VocabularyList/MyVocabulary";
 import ClassVocabulary from "./pages/VocabularyList/ClassVocabulary";
 import VideoDetail from "./pages/Video/VideoDetail";
 import Nav from "./components/Nav/Nav";
+import CategoryVideoList from "./components/Video/CategoryVideoList";
 import LandingPage from "./pages/Landing/LandingPage";
 function App() {
   const queryClient = new QueryClient();
@@ -28,16 +29,20 @@ function App() {
           {/* <Nav className={styles.Nav} /> */}
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route path='/testguide' element={<Testguide/>} />
-            <Route path="/profil" element={<Profil/>}/>
-            <Route path="/cefrtest" element={<CefrTest/>}/>
-            <Route path="/cefrscore" element={<CefrScore/>}/>
+            <Route path="/testguide" element={<Testguide />} />
+            <Route path="/profil" element={<Profil />} />
+            <Route path="/cefrtest" element={<CefrTest />} />
+            <Route path="/cefrscore" element={<CefrScore />} />
             <Route path="/" element={<Main />} />
             <Route path="mypage" element={<Statistics />}>
               <Route path="myLecture" element={<MyLecture />} />
               <Route path="myNote" element={<MyNote />} />
             </Route>
-            <Route path="search" element={<Search />} />
+            <Route path="search" element={<Search />}></Route>
+            <Route
+              path="category/:categoryId"
+              element={<CategoryVideoList />}
+            />
             <Route path="test" element={<Test />} />
             <Route path="vocalist" element={<VocabularyList />}>
               <Route path="myvoca" element={<MyVocabulary />} />
