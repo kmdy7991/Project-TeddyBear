@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import styles from './CefrTest.module.css'
+import CefrScore from './CefrScore'
+import Modal from '../../components/Test/TestModal';
+import { ReactDOM } from 'react';
 
 
 // 문제와 답변 타입 정의
@@ -414,7 +417,10 @@ const CefrTest: React.FC = () => {
   const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>(new Array(questions.length).fill(null));
   const [score, setScore] = useState(0);
   const navigate = useNavigate(); 
-
+  const [isModalopen, setismodalopen] = useState(false);
+  const [finalscore, setFinalscore] = useState(0);
+  const [isOpen, setisOpen] = useState(false)
+  
 
   useEffect(() => {
     const allQuestionsAnswered = selectedAnswers.every((answer) => answer !== null);
@@ -433,9 +439,10 @@ const CefrTest: React.FC = () => {
       }
     });
     setScore(calculatedScore);
+    setismodalopen(true);
 
-    // 점수 확인 페이지로 이동
-    navigate('/cefrscore', { state: { score: calculatedScore } }); // navigate 함수를 사용하여 페이지 이동
+    // // 점수 확인 페이지로 이동
+    // navigate('/cefrscore', { state: { score: calculatedScore } }); // navigate 함수를 사용하여 페이지 이동
   };
 
 
@@ -466,7 +473,10 @@ const CefrTest: React.FC = () => {
         </div>
       ))}
       {/* 정답 제출 버튼 */}
-      <button onClick={handleSubmit} className={styles.button}>정답 제출</button>
+      <button onClick={() => setisOpen(true)} className={styles.button}>정답 제출</button>
+      <Modal isOpen={isOpen} onClose={() => setisOpen(false)}>
+        <CefrScore score={score} onClose={() => setisOpen(false)} /> {/* CefrScore 컴포넌트 삽입 */}
+      </Modal>
     </div>
   );
   
