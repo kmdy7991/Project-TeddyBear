@@ -1,0 +1,31 @@
+.container {
+  width: 18rem;
+  height: 18rem;
+  position: relative;
+  margin: 1.8rem 1.8rem;
+  border-radius: 1vw;
+}
+
+.container img {
+  width: 13rem;
+  position: absolute;
+  bottom: 1rem;
+  right: 0.2rem;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: 700;
+  color: white;
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+}
+
+.big {
+  width: 9rem;
+}
+
+.container:hover {
+  cursor: pointer;
+}

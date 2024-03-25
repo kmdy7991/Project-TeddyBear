@@ -1,0 +1,23 @@
+.mainContent {
+  padding-top: 5.5rem;
+  /* display: flex; */
+  min-height: 100vh;
+  /* overflow-x: hidden; */
+}
+
+.category {
+  margin: 5vh 3vw;
+}
+
+.title {
+  font-size: 34px;
+  font-weight: 700;
+  margin-left: 3vw;
+}
+
+.categoryBox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.3vh;
+}
