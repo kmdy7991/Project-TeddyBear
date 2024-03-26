@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import CategoryDummy from "./CategoryDummy";
 import styles from "./CategoryVideoList.module.css";
+import Nav from "../Nav/Nav";
 export default function CategoryVideoList() {
   let { categoryId } = useParams<{ categoryId?: string }>();
   // id에 해당하는 애 찾아서 목록 띄우기
@@ -20,6 +21,7 @@ export default function CategoryVideoList() {
     "#FDC699",
     "#FFDA03",
   ];
+
   const gradientStyle = {
     background: `linear-gradient(${categoryColors[categoryIdx]}, #402544)`,
   };
@@ -27,14 +29,31 @@ export default function CategoryVideoList() {
   // 카테고리 데이터를 사용한 렌더링 로직
   return (
     <div className={`${styles.container}`} style={gradientStyle}>
-      <div className={`${styles.title}`}>{categoryData?.category}</div>
+      <Nav />
+      <div className={`${styles.category}`}>{categoryData?.category}</div>
       <div className={`${styles.videolist}`}>
         {categoryData?.videos.map((video) => (
           <div className={`${styles.video}`}>
             <div className={`${styles.videoImg}`}>
               <img src={video.thumbnailUrl} alt="썸네일 이미지" />
             </div>
-            <div></div>
+            <div className={`${styles.text}`}>
+              <div className={`${styles.dh}`}>
+                <div
+                  className={`${styles.dif}`}
+                  style={{ backgroundColor: `${categoryColors[categoryIdx]}` }}
+                >
+                  {video.difficulty}
+                </div>
+                {video.hashtags.map((hash) => (
+                  <div className={`${styles.hash}`}>
+                    <div>{hash}</div>
+                  </div>
+                ))}
+              </div>
+              <div className={`${styles.title}`}>{video.title}</div>
+              <div className={`${styles.description}`}>{video.description}</div>
+            </div>
           </div>
         ))}
       </div>
