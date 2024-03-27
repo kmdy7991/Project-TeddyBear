@@ -6,11 +6,12 @@
 }
 
 .box {
-    border: 2px solid black;
+    /* border: 2px solid black; */
     border-radius: 30px;
     padding: 20px;
     margin: 10px;
     width: 700px;
+    background-color: rgb(255, 252, 238);
 }
 
 .button {

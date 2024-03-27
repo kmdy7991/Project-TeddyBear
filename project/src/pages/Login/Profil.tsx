@@ -83,11 +83,11 @@ function Profil() {
 
 
       <div className={styles.box2}>
-        <h1>잠시만요, </h1>
-        <h3>여러분의 맞춤 학습을 위한 첫걸음입니다!</h3>
-        <h3>여러분의 성별과 나이를 알려주세요.</h3>
-        <h3>작성하신 프로필을 기반으로 </h3>
-        <h3>여러분에게 딱 맞는 학습 영상을 추천해 드려요.</h3>
+        <h1 className={styles.text1}>잠시만요, </h1>
+        <h3 className={styles.text2}>여러분의 맞춤 학습을 위한 첫걸음입니다!</h3>
+        <h3 className={styles.text3}>여러분의 성별과 나이를 알려주세요.</h3>
+        <h3 className={styles.text4}>작성하신 프로필을 기반으로 </h3>
+        <h3 className={styles.text5}>여러분에게 딱 맞는 학습 영상을 추천해 드려요.</h3>
       </div>
     </div>
 
