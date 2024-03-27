@@ -9,7 +9,7 @@ import CefrTest from "./pages/Login/CefrTest";
 import CefrScore from "./pages/Login/CefrScore";
 import Main from "./pages/Main/Main";
 import MyLecture from "./pages/MyPage/MyLecture/MyLecture";
-import Statistics from "./pages/MyPage/Statstics/Statstics";
+import MyPage from "./pages/MyPage/MyPage";
 import MyNote from "./pages/MyPage/MyNote/MyNote";
 import Search from "./pages/Search/Search";
 import Test from "./pages/Test/Test";
@@ -34,7 +34,7 @@ function App() {
             <Route path="/cefrtest" element={<CefrTest />} />
             <Route path="/cefrscore" element={<CefrScore />} />
             <Route path="/" element={<Main />} />
-            <Route path="mypage" element={<Statistics />}>
+            <Route path="mypage" element={<MyPage />}>
               <Route path="myLecture" element={<MyLecture />} />
               <Route path="myNote" element={<MyNote />} />
             </Route>
