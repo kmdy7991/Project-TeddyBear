@@ -9,7 +9,7 @@ import Profil from "./pages/Login/Profil";
 import CefrTest from "./pages/Login/CefrTest";
 import Main from "./pages/Main/Main";
 import MyLecture from "./pages/MyPage/MyLecture/MyLecture";
-import Statistics from "./pages/MyPage/Statstics/Statstics";
+import MyPage from "./pages/MyPage/MyPage";
 import MyNote from "./pages/MyPage/MyNote/MyNote";
 import Search from "./pages/Search/Search";
 import Test from "./pages/Test/Test";
@@ -18,6 +18,7 @@ import MyVocabulary from "./pages/VocabularyList/MyVocabulary";
 import ClassVocabulary from "./pages/VocabularyList/ClassVocabulary";
 import VideoDetail from "./pages/Video/VideoDetail";
 import Nav from "./components/Nav/Nav";
+import CategoryVideoList from "./components/Video/CategoryVideoList";
 import LandingPage from "./pages/Landing/LandingPage";
 function App() {
   const queryClient = new QueryClient();
@@ -32,11 +33,15 @@ function App() {
             <Route path="/profil" element={<Profil/>}/>
             <Route path="/cefrtest" element={<CefrTest/>}/>
             <Route path="/" element={<Main />} />
-            <Route path="mypage" element={<Statistics />}>
+            <Route path="mypage" element={<MyPage />}>
               <Route path="myLecture" element={<MyLecture />} />
               <Route path="myNote" element={<MyNote />} />
             </Route>
-            <Route path="search" element={<Search />} />
+            <Route path="search" element={<Search />}></Route>
+            <Route
+              path="category/:categoryId"
+              element={<CategoryVideoList />}
+            />
             <Route path="test" element={<Test />} />
             <Route path="levelUptest" element={<LevelUptest />} />
             <Route path="vocalist" element={<VocabularyList />}>
