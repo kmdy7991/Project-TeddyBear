@@ -8,7 +8,7 @@ from contextlib import asynccontextmanager
 async def start_load(init: FastAPI):
     await eureka_client.init_async(eureka_server="j10b107.p.ssafy.io:8761",
                                    app_name="python-service",
-                                   instance_ip="172.84.0.17",
+                                   instance_ip_network="172.84.0.0/24",
                                    instance_port=8778
                                    )
     yield
@@ -18,12 +18,12 @@ app = FastAPI(lifespan=start_load)
 
 
 @app.get("/")
-async def root():
+def root():
     return {"message": "Hello World"}
 
 
 @app.get("/hello/{name}")
-async def say_hello(name: str):
+def say_hello(name: str):
     return {"message": f"Hello {name}"}
 
 
