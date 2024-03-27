@@ -4,9 +4,9 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Testguide from "./pages/Login/TestGuide";
+import LevelUptest from "./pages/Test/LevelupTest";
 import Profil from "./pages/Login/Profil";
 import CefrTest from "./pages/Login/CefrTest";
-import CefrScore from "./pages/Login/CefrScore";
 import Main from "./pages/Main/Main";
 import MyLecture from "./pages/MyPage/MyLecture/MyLecture";
 import MyPage from "./pages/MyPage/MyPage";
@@ -29,10 +29,9 @@ function App() {
           {/* <Nav className={styles.Nav} /> */}
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route path="/testguide" element={<Testguide />} />
-            <Route path="/profil" element={<Profil />} />
-            <Route path="/cefrtest" element={<CefrTest />} />
-            <Route path="/cefrscore" element={<CefrScore />} />
+            <Route path='/testguide' element={<Testguide/>} />
+            <Route path="/profil" element={<Profil/>}/>
+            <Route path="/cefrtest" element={<CefrTest/>}/>
             <Route path="/" element={<Main />} />
             <Route path="mypage" element={<MyPage />}>
               <Route path="myLecture" element={<MyLecture />} />
@@ -44,6 +43,7 @@ function App() {
               element={<CategoryVideoList />}
             />
             <Route path="test" element={<Test />} />
+            <Route path="levelUptest" element={<LevelUptest />} />
             <Route path="vocalist" element={<VocabularyList />}>
               <Route path="myvoca" element={<MyVocabulary />} />
               <Route path="classvoca" element={<ClassVocabulary />} />
