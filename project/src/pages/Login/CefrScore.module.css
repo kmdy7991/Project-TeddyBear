@@ -14,6 +14,14 @@
   margin-top: 30px;
 }
 
+.boxinboxfail {
+  background-color: rgb(245, 64, 64);
+  border-radius: 30px;
+  width: 350px;
+  height: 200px;
+  margin-top: 30px;
+}
+
 .inboxtext {
   text-align: center; /* 텍스트를 수평 중앙으로 정렬합니다. */
   display: flex;
