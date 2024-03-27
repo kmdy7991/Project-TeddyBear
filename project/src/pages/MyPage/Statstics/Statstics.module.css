@@ -1,0 +1,69 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.현황 {
+  display: grid;
+  min-height: 80vh;
+  grid-template-columns: 0.58fr 0.42fr;
+  grid-template-areas:
+    "attendance current"
+    "attendance current"
+    "topic topic";
+}
+
+.attendance,
+.current,
+.topic {
+  padding: 2rem;
+}
+
+.attendance {
+  grid-area: attendance;
+  border: 2.5px solid #bcb7b7;
+  border-radius: 1.5rem;
+}
+
+.current {
+  grid-area: current;
+  border: 2.5px solid #bcb7b7;
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+
+.topic {
+  grid-area: topic;
+  border: 2.5px solid #bcb7b7;
+  border-radius: 1.5rem;
+  margin-top: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 4rem;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.subtitle {
+  display: flex;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.number {
+  display: flex;
+  justify-content: flex-end;
+  color: #ffc14f;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
