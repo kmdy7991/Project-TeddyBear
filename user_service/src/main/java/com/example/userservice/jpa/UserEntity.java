@@ -44,8 +44,12 @@ public class UserEntity {
 
 
     @Builder(builderMethodName = "signupBuilder")
-    public UserEntity(String email, String token){
+    public UserEntity(String email, String token, int age, String gender, int attendance, LocalDateTime videoViewTime){
         this.email = email;
         this.token = token;
+        this.age = age;
+        this.gender = gender;
+        this.attendance = attendance;
+        this.videoViewTime = videoViewTime;
     }
 }
