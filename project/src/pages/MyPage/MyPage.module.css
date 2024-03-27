@@ -1,0 +1,148 @@
+.container {
+  min-height: 100vh;
+  padding: 5.5rem 0;
+}
+.main {
+  /* width: 100vw; */
+  display: flex;
+  margin: 3rem 10rem;
+}
+
+.profile {
+  /* border: 2px solid green; */
+  width: 25%;
+  height: 100vh;
+}
+
+.render {
+  height: 100%;
+}
+
+.page {
+  width: 75%;
+  /* border: 2px solid rebeccapurple; */
+  margin-left: 3rem;
+}
+
+.tab {
+  height: 7%;
+  margin-left: 2rem;
+  gap: 4.5rem;
+}
+
+.tabButton {
+  border: none;
+  width: 10rem;
+  background-color: transparent;
+  color: #888893;
+  font-size: 18px;
+  margin-right: 2rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #888893;
+}
+
+.tabButtonActive {
+  border: none;
+  width: 10rem;
+  font-size: 18px;
+  background-color: transparent;
+  border-bottom: 0.2rem solid #333236;
+  margin-right: 2rem;
+  padding: 0.5rem;
+  color: #333236;
+  font-weight: 800;
+}
+
+/* .tab button {
+  border: 0;
+  width: 10rem;
+  background-color: transparent;
+  font-size: 20px;
+  border-bottom: 0.2rem solid #333236;
+} */
+
+.tap button:hover {
+  cursor: pointer;
+}
+
+.render {
+  margin-left: 2rem;
+  height: 93%;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 7rem;
+}
+
+.tn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.tierL {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tierL img {
+  width: 80%;
+}
+
+.tierName {
+  position: absolute;
+  bottom: 7rem;
+  left: 39%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: lighter;
+}
+
+.nickname {
+  font-size: 32px;
+  font-weight: 900;
+  margin: 2rem 0;
+}
+
+.exps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.tier {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.exp {
+  margin-left: 0.3rem;
+  /* width: 100%; */
+  padding: 0.3rem 4rem;
+  border-radius: 50px;
+  border: 2px solid red;
+}
+
+.setting {
+  width: 100%;
+  margin-top: 3rem;
+}
+
+.setting button {
+  width: 100%;
+  padding: 1.3rem 0;
+  border: 1px solid #4b4b4b;
+  background-color: transparent;
+  border-radius: 0.5vw;
+}
