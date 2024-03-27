@@ -6,9 +6,9 @@ from contextlib import asynccontextmanager
 
 @asynccontextmanager
 async def start_load(init: FastAPI):
-    await eureka_client.init_async(eureka_server="j10b107.p.ssafy.io:8761",
+    await eureka_client.init_async(eureka_server="discovery:8761",
                                    app_name="python-service",
-                                   instance_ip="127.0.0.1",
+                                   instance_ip="172.84.0.1/24",
                                    instance_port=8778
                                    )
     yield
