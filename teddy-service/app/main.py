@@ -5,15 +5,16 @@ from contextlib import asynccontextmanager
 
 
 @asynccontextmanager
-async def eureka_client(app: FastAPI):
-    await eureka_client.init_async(eureka_server="discovery",
+async def start_load(init: FastAPI):
+    await eureka_client.init_async(eureka_server="j10b107.p.ssafy.io:8761",
                                    app_name="python-service",
-                                   instance_port=8770
+                                   instance_ip="127.0.0.1",
+                                   instance_port=8778
                                    )
     yield
 
 
-app = FastAPI(lifespan=eureka_client)
+app = FastAPI(lifespan=start_load)
 
 
 @app.get("/")
@@ -27,4 +28,4 @@ async def say_hello(name: str):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8770)
+    uvicorn.run("main:app", host="0.0.0.0", port=8778)
