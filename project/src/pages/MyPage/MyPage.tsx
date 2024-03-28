@@ -5,15 +5,19 @@ import Statistics from "./Statstics/Statstics";
 import MyLecture from "./MyLecture/MyLecture";
 import MyNote from "./MyNote/MyNote";
 import gold from "../../assets/testTier.png";
+import { useNavigate } from "react-router-dom";
+import { SwitchTransition, CSSTransition } from "react-transition-group";
 
 type tab = "statistics" | "myLecture" | "myNote";
 
 export default function MyPage() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<tab>("statistics");
 
   const handleClickTab = (tab: tab) => (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setActiveTab(tab);
+    navigate(`${tab}`);
   };
 
   function renderPage() {
@@ -24,7 +28,6 @@ export default function MyPage() {
         return <MyLecture />;
       case "myNote":
         return <MyNote />;
-
       default:
         return <Statistics />;
     }
@@ -89,7 +92,18 @@ export default function MyPage() {
               내 강의노트
             </button>
           </div>
-          <div className={`${styles.render}`}>{renderPage()}</div>
+          <SwitchTransition mode="out-in">
+            <CSSTransition
+              key={activeTab}
+              addEndListener={(node, done) =>
+                node.addEventListener("transitionend", done, false)
+              }
+              classNames="fade"
+              timeout={300}
+            >
+              <div className={`${styles.render}`}>{renderPage()}</div>
+            </CSSTransition>
+          </SwitchTransition>
         </div>
       </div>
     </div>
