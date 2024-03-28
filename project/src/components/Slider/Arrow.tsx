@@ -35,3 +35,19 @@ export function VideoPrevArrow({ onClick }: ArrowProps) {
     </span>
   );
 }
+
+export function MyPagePrevArrow({ onClick }: ArrowProps) {
+  return (
+    <span className="arr-prev" onClick={onClick}>
+      누르면 이전
+    </span>
+  );
+}
+
+export function MyPageNextArrow({ onClick }: ArrowProps) {
+  return (
+    <span className="arr-next" onClick={onClick}>
+      누르면 다음
+    </span>
+  );
+}
