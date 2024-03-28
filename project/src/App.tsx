@@ -1,8 +1,10 @@
 import styles from "./App.module.css";
+import { Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/Login";
+import Loading from "./pages/Login/Loading";
 import Testguide from "./pages/Login/TestGuide";
 import LevelUptest from "./pages/Test/LevelupTest";
 import Profil from "./pages/Login/Profil";
@@ -29,6 +31,7 @@ function App() {
           {/* <Nav className={styles.Nav} /> */}
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/loading" element={<Loading />} />
             <Route path='/testguide' element={<Testguide/>} />
             <Route path="/profil" element={<Profil/>}/>
             <Route path="/cefrtest" element={<CefrTest/>}/>
@@ -50,6 +53,7 @@ function App() {
             </Route>
             <Route path="videoDetail" element={<VideoDetail />} />
             <Route path="landing" element={<LandingPage />} />
+            <Route path="*" element={<Navigate to={"/landing"} />} />
           </Routes>
         </div>
       </BrowserRouter>
