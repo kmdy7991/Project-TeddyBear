@@ -1,0 +1,8 @@
+.thumb {
+  margin: 2vh 1vw;
+}
+
+.thumb img {
+  border-radius: 1vw;
+  width: 15rem;
+}
