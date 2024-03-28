@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import styles from './profil.module.css'
 import templogo from '../../assets/임시로고-removebg-preview.png'
+import axios from 'axios';
 
 function Profil() {
 
@@ -48,6 +49,22 @@ function Profil() {
       navigate('/testguide')
     }
   };
+
+  //   const handleSubmit = async () => {
+  //   if (isFormValid) {
+  //     try {
+  //       const response = await axios.post('여기에_서버_API_엔드포인트', {
+  //         nickname,
+  //         age: parseInt(Age, 10), // API 명세에 따라 나이는 정수로 변환
+  //         gender
+  //       });
+  //       console.log(response.data);
+  //       navigate('/testguide'); // 성공적으로 데이터를 저장한 후 페이지 이동
+  //     } catch (error) {
+  //       console.error('데이터 저장 중 에러 발생:', error);
+  //     }
+  //   }
+  // };
 
   return (
     <div className={styles.container}>
