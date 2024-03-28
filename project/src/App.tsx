@@ -22,6 +22,10 @@ import VideoDetail from "./pages/Video/VideoDetail";
 import Nav from "./components/Nav/Nav";
 import CategoryVideoList from "./components/Video/CategoryVideoList";
 import LandingPage from "./pages/Landing/LandingPage";
+import Watching from "./pages/MyPage/MyLecture/Watching";
+import Watched from "./pages/MyPage/MyLecture/Watched";
+import BookMarked from "./pages/MyPage/MyLecture/BookMarked";
+import Statistics from "./pages/MyPage/Statstics/Statstics";
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -32,13 +36,18 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/loading" element={<Loading />} />
-            <Route path='/testguide' element={<Testguide/>} />
-            <Route path="/profil" element={<Profil/>}/>
-            <Route path="/cefrtest" element={<CefrTest/>}/>
+            <Route path="/testguide" element={<Testguide />} />
+            <Route path="/profil" element={<Profil />} />
+            <Route path="/cefrtest" element={<CefrTest />} />
             <Route path="/" element={<Main />} />
             <Route path="mypage" element={<MyPage />}>
-              <Route path="myLecture" element={<MyLecture />} />
+              <Route path="myLecture" element={<MyLecture />}>
+                <Route path="watching" element={<Watching />} />
+                <Route path="watched" element={<Watched />} />
+                <Route path="bookmarked" element={<BookMarked />} />
+              </Route>
               <Route path="myNote" element={<MyNote />} />
+              <Route path="statistics" element={<Statistics />} />
             </Route>
             <Route path="search" element={<Search />}></Route>
             <Route

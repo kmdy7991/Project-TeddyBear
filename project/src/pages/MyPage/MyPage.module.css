@@ -14,10 +14,6 @@
   height: 100vh;
 }
 
-.render {
-  height: 100%;
-}
-
 .page {
   width: 75%;
   /* border: 2px solid rebeccapurple; */
@@ -25,8 +21,8 @@
 }
 
 .tab {
-  height: 7%;
-  margin-left: 2rem;
+  /* height: 7%; */
+  /* margin-left: 2rem; */
   gap: 4.5rem;
 }
 
@@ -53,21 +49,13 @@
   font-weight: 800;
 }
 
-/* .tab button {
-  border: 0;
-  width: 10rem;
-  background-color: transparent;
-  font-size: 20px;
-  border-bottom: 0.2rem solid #333236;
-} */
-
-.tap button:hover {
+.tab button:hover {
   cursor: pointer;
 }
 
 .render {
-  margin-left: 2rem;
   height: 93%;
+  margin-top: 2rem;
 }
 
 .profile {
@@ -128,8 +116,9 @@
 
 .exp {
   margin-left: 0.3rem;
-  /* width: 100%; */
-  padding: 0.3rem 4rem;
+  width: 80%;
+  padding: 0.3rem 3rem;
+  text-align: center;
   border-radius: 50px;
   border: 2px solid red;
 }
@@ -145,4 +134,25 @@
   border: 1px solid #4b4b4b;
   background-color: transparent;
   border-radius: 0.5vw;
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 300ms, transform 300ms;
 }

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Understanding the Basics of Programming",
+    "content": "In this lecture, we covered the fundamentals of programming, including variables and functions. Variables are used to store data, and functions are used to execute specific tasks. It's crucial to understand these concepts for further programming studies.",
+    "date": "2024-03-24"
+  },
+  {
+    "id": 2,
+    "title": "Introduction to Object-Oriented Programming",
+    "content": "This lecture introduced the concept of Object-Oriented Programming (OOP), which is a programming paradigm based on the concept of objects. We learned about classes, objects, inheritance, and polymorphism. Understanding OOP is essential for designing efficient programs.",
+    "date": "2024-03-25"
+  },
+  {
+    "id": 3,
+    "title": "Mastering Web Development Basics",
+    "content": "Today's lecture focused on the basics of web development, including HTML, CSS, and JavaScript. We explored how to structure web pages using HTML, style them with CSS, and add interactivity using JavaScript. These technologies are the backbone of web development.",
+    "date": "2024-03-26"
+  },
+  {
+    "id": 4,
+    "title": "Exploring Data Structures and Algorithms",
+    "content": "In this lecture, we dove into the world of data structures and algorithms, covering arrays, linked lists, stacks, queues, and sorting algorithms. Understanding these concepts is crucial for solving complex problems efficiently.",
+    "date": "2024-03-27"
+  },
+  {
+    "id": 5,
+    "title": "Advanced Topics in Programming",
+    "content": "This lecture covered more advanced topics in programming, such as recursion, dynamic programming, and space-time complexity analysis. These concepts are important for writing optimized code and preparing for technical interviews.",
+    "date": "2024-03-28"
+  }
+]

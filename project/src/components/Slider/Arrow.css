@@ -1,16 +1,24 @@
 .slick-prev,
 .slick-next,
 .slick-vid-next,
-.slick-vid-prev {
+.slick-vid-prev,
+.arr-prev,
+.arr-next {
   font-size: 0;
   line-height: 0;
   position: absolute;
   transform: translate(0, -50%);
   display: block;
-
   cursor: pointer;
-
   z-index: 1;
+}
+
+.arr-next,
+.arr-prev {
+  width: 1.5rem;
+  height: 70%;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
 }
 
 .slick-next,
@@ -34,11 +42,21 @@
 }
 
 .slick-next,
-.slick-vid-next {
+.slick-vid-next,
+.arr-next {
   right: 0;
 }
 
 .slick-prev,
-.slick-vid-prev {
+.slick-vid-prev,
+.arr-prev {
   left: 0;
+}
+
+.arr-prev {
+  bottom: -20%;
+}
+
+.arr-next {
+  bottom: -20%;
 }
