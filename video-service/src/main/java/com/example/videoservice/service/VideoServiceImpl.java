@@ -1,6 +1,8 @@
 package com.example.videoservice.service;
 
 import com.example.videoservice.jpa.*;
+import com.example.videoservice.vo.RequestBookmarkVideo;
+import com.example.videoservice.vo.RequestWatchVideo;
 import com.example.videoservice.vo.ResponseScript;
 import com.example.videoservice.vo.ResponseVideo;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -26,14 +28,16 @@ public class VideoServiceImpl implements VideoService {
     private final VideoRepository videoRepository;
     private final ScriptRepository scriptRepository;
     private final WatchVideoRepository watchVideoRepository;
+    private final BookmarkVideoRepository bookmarkVideoRepository;
     @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
-    public VideoServiceImpl(VideoRepository videoRepository, ScriptRepository scriptRepository, WatchVideoRepository watchVideoRepository) {
+    public VideoServiceImpl(VideoRepository videoRepository, ScriptRepository scriptRepository, WatchVideoRepository watchVideoRepository, BookmarkVideoRepository bookmarkVideoRepository) {
         this.videoRepository = videoRepository;
         this.scriptRepository = scriptRepository;
         this.watchVideoRepository = watchVideoRepository;
+        this.bookmarkVideoRepository = bookmarkVideoRepository;
     }
 
     public ResponseVideo getVideoById(Long id) {
@@ -55,13 +59,30 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public List<VideoEntity> getVideoByTitle(String videoTitle) {
-        System.out.println("Service Received videoTitle: " + videoTitle);
+    public List<ResponseVideo> getVideoByTitle(String videoTitle) {
+//        System.out.println("Service Received videoTitle: " + videoTitle);
+//        log.info("list size = {}", list.size());
+//        log.info("list get = {}", list.get(0).getVideoTitle());
         List<VideoEntity> list = videoRepository.searchTitle(videoTitle);
-        log.info("list size = {}", list.size());
-        log.info("list get = {}", list.get(0).getVideoTitle());
 
-        return list;
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+        List<ResponseVideo> responseVideos = new ArrayList<>();
+        for(VideoEntity videoEntity : list) {
+            ResponseVideo responseVideo = ResponseVideo.builder()
+                    .id(videoEntity.getId())
+                    .videoTitle(videoEntity.getVideoTitle())
+                    .videoDiscription(videoEntity.getVideoDescription())
+                    .videoUrl(videoEntity.getVideoUrl())
+                    .videoId(videoEntity.getVideoId())
+                    .videoTime(videoEntity.getVideoTime())
+                    .videoThumbnail(videoEntity.getVideoThumbnail())
+                    .videoGrade(videoEntity.getVideoGrade())
+                    .build();
+            responseVideos.add(responseVideo);
+        }
+        return responseVideos;
     }
 
     @Override
@@ -154,7 +175,7 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public List<ResponseVideo> getWatchedVideosByUserIdAndWatchedStatus(Long userId, Boolean videoWatched) {
 
-        // 시청 영상 아이디 조회
+        // 유저 아이디에 해당하는 영상 리스트 조회
         List<WatchVideoEntity> watchedVideos;
         if (videoWatched) {
             watchedVideos = watchVideoRepository.findByUserIdAndVideoWatched(userId, true);
@@ -162,12 +183,14 @@ public class VideoServiceImpl implements VideoService {
             watchedVideos = watchVideoRepository.findByUserIdAndVideoWatched(userId, false);
         }
 
+        // 시청한 영상 아이디에 해당하는 영상 리스트 조회
         List<VideoEntity> videoEntities = new ArrayList<>();
         for (WatchVideoEntity watchedVideo : watchedVideos) {
             VideoEntity videoEntity = videoRepository.findById(watchedVideo.getVideoId().getId()).orElse(null);
             videoEntities.add(videoEntity);
         }
 
+        // VideoEntity를 ResponseVideo로 변환
         List<ResponseVideo> responseVideos = new ArrayList<>();
         for(VideoEntity videoEntity : videoEntities) {
             ResponseVideo responseVideo = ResponseVideo.builder()
@@ -186,6 +209,72 @@ public class VideoServiceImpl implements VideoService {
 
 
         return responseVideos;
+    }
+
+    @Override
+    public void watchVideo(RequestWatchVideo requestWatchVideo) {
+        // 받은 비디오 Id를 저장해서 videoId에 해당하는 VideoEntity를 뽑음
+        Long videoId = requestWatchVideo.getVideoId();
+        VideoEntity videoEntity = videoRepository.findById(videoId)
+                .orElseThrow(() -> new IllegalArgumentException("Video with id " + videoId + " not found"));
+
+        // RequestWatchVideo를 WatchVideoEntity로 변환
+        WatchVideoEntity watchVideoEntity = WatchVideoEntity.builder()
+                .videoWatched(requestWatchVideo.isVideoWatched())
+                .userId(requestWatchVideo.getUserId())
+                .videoId(videoEntity)
+                .build();
+
+        watchVideoRepository.save(watchVideoEntity);
+    }
+
+    @Override
+    public void bookmarkVideo(RequestBookmarkVideo requestBookmarkVideo) {
+        // videoId로부터 VideoEntity 가져오기
+        Long videoId = requestBookmarkVideo.getVideoId();
+        VideoEntity videoEntity = videoRepository.findById(videoId)
+                .orElseThrow(() -> new IllegalArgumentException("Video with id " + videoId + " not found"));
+
+
+        BookmarkVideoEntity bookmarkVideoEntity = BookmarkVideoEntity.builder()
+                .userId(requestBookmarkVideo.getUserId())
+                .video(videoEntity)
+                .build();
+        bookmarkVideoRepository.save(bookmarkVideoEntity);
+    }
+
+    @Override
+    public List<ResponseVideo> getVideoByUserId(Long userId) {
+        List<BookmarkVideoEntity> bookmarkedVideos = bookmarkVideoRepository.findByUserId(userId);
+        List<ResponseVideo> responseVideos = new ArrayList<>();
+
+        for (BookmarkVideoEntity bookmarkedVideo : bookmarkedVideos) {
+            VideoEntity videoEntity = bookmarkedVideo.getVideo();
+            ResponseVideo responseVideo = ResponseVideo.builder()
+                    .id(videoEntity.getId())
+                    .videoTitle(videoEntity.getVideoTitle())
+                    .videoUrl(videoEntity.getVideoUrl())
+                    .videoId(videoEntity.getVideoId())
+                    .videoTime(videoEntity.getVideoTime())
+                    .videoThumbnail(videoEntity.getVideoThumbnail())
+                    .videoGrade(videoEntity.getVideoGrade())
+                    .build();
+            responseVideos.add(responseVideo);
+        }
+
+        return responseVideos;
+
+    }
+
+    @Override
+    public void deleteBookmarkedVideo(RequestBookmarkVideo requestBookmarkVideo) {
+        Long userId = requestBookmarkVideo.getUserId();
+        Long videoId = requestBookmarkVideo.getVideoId();
+
+        // 주어진 userId와 videoId를 만족하는 BookmarkVideoEntity를 삭제
+        List<BookmarkVideoEntity> bookmarkedVideos = bookmarkVideoRepository.findByUserIdAndVideoId(userId, videoId);
+        bookmarkVideoRepository.deleteAll(bookmarkedVideos);
+
     }
 
 
