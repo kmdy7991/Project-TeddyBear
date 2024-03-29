@@ -2,6 +2,8 @@ package com.example.videoservice.controller;
 
 import com.example.videoservice.jpa.VideoEntity;
 import com.example.videoservice.service.VideoService;
+import com.example.videoservice.vo.RequestBookmarkVideo;
+import com.example.videoservice.vo.RequestWatchVideo;
 import com.example.videoservice.vo.ResponseVideo;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -35,29 +37,9 @@ public class VideoController {
 
     @GetMapping("/videos/{videoTitle}") // 제목으로 검색
     public ResponseEntity<List<ResponseVideo>> getVideos(@PathVariable String videoTitle) {
-        System.out.println("Controller Received videoTitle: " + videoTitle);
-        List<VideoEntity> videoEntities = videoService.getVideoByTitle(videoTitle);
-//        log.info("list size = {}", videoEntities.size());
-//        log.info("list size = {}", videoEntities.get(0));
-
-        List<ResponseVideo> responseVideos = new ArrayList<>();
-        if (videoEntities != null) {
-            for (VideoEntity videoEntity : videoEntities) {
-                ResponseVideo video = ResponseVideo.builder()
-                        .id(videoEntity.getId())
-                        .videoTitle(videoEntity.getVideoTitle())
-                        .videoDiscription(videoEntity.getVideoDescription())
-                        .videoUrl(videoEntity.getVideoUrl())
-                        .videoId(videoEntity.getVideoId())
-                        .videoTime(videoEntity.getVideoTime())
-                        .videoThumbnail(videoEntity.getVideoThumbnail())
-                        .videoGrade(videoEntity.getVideoGrade())
-                        .build();
-                responseVideos.add(video);
-            }
-        }
-        log.info("list size = {}", responseVideos.get(0).getVideoTitle());
-
+//        System.out.println("Controller Received videoTitle: " + videoTitle);
+//        log.info("list size = {}", responseVideos.get(0).getVideoTitle());
+        List<ResponseVideo> responseVideos = videoService.getVideoByTitle(videoTitle);
         return ResponseEntity.status(HttpStatus.OK).body(responseVideos);
     }
 
@@ -112,6 +94,32 @@ public class VideoController {
         // videoWatched가 false이면 시청하지 않은 동영상 반환
         List<ResponseVideo> watchedVideos = videoService.getWatchedVideosByUserIdAndWatchedStatus(userId, videoWatched);
         return ResponseEntity.ok(watchedVideos);
+    }
+
+    @PostMapping("/watch") // 시청 영상 생성
+    public ResponseEntity<String> watchVideo(@RequestBody RequestWatchVideo requestWatchVideo) {
+        videoService.watchVideo(requestWatchVideo);
+        return ResponseEntity.status(HttpStatus.OK).body("Watched video saved successfully.");
+    }
+
+    @PostMapping("/bookmarkVideo") // 북마크 영상 생성
+    public ResponseEntity<String> bookmarkVideo(@RequestBody RequestBookmarkVideo requestBookmarkVideo) {
+        videoService.bookmarkVideo(requestBookmarkVideo);
+        return ResponseEntity.status(HttpStatus.OK).body("Video bookmarked successfully.");
+
+    }
+
+    @GetMapping("/bookmarkVideo/{userId}") // 북마크 영상 조회
+    public ResponseEntity<List<ResponseVideo>> getBookmarkVideo(@PathVariable Long userId) {
+        List<ResponseVideo> responseVideos = videoService.getVideoByUserId(userId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseVideos);
+    }
+
+    @DeleteMapping("/bookmarkVideo") // 북마크 영상 삭제
+    public ResponseEntity<String> deleteBookmarkedVideo(@RequestBody RequestBookmarkVideo requestBookmarkVideo) {
+        videoService.deleteBookmarkedVideo(requestBookmarkVideo);
+        return ResponseEntity.status(HttpStatus.OK).body("Bookmarked video deleted successfully.");
     }
 
 

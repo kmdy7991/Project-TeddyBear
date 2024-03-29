@@ -35,13 +35,27 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/user-service/**
+
+        - id: word-service
+          uri: lb://WORD-SERVICE
+          predicates:
+            - Path=/word-service/**
+
         - id: video-service
           uri: lb://VIDEO-SERVICE
           predicates:
             - Path=/video-service/**
+
         - id: python-service
           uri: lb://PYTHON-SERVICE
           predicates:
             - Path=/data-service/**
           filters:
             - RewritePath=/data-service/(?<segment>.*), /$\{segment}
+
+        - id: swagger-ui
+          uri: lb://swagger-service
+          predicates:
+            - Path=/swagger-ui/**
+          filters:
+            - RewritePath=/swagger-ui/(?<path>.*), /$\\{path}

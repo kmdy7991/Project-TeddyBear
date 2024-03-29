@@ -1,16 +1,13 @@
 package com.example.videoservice.jpa;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "watch_video")
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class WatchVideoEntity {
     @Id
@@ -20,9 +17,6 @@ public class WatchVideoEntity {
 
     @Column(nullable = false)
     private boolean videoWatched;
-
-    @Column(nullable = false, length = 500)
-    private String thumbnailUrl;
 
     @Column(nullable = false)
     private Long userId;

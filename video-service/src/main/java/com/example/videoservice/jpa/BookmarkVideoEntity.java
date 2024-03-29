@@ -2,24 +2,22 @@ package com.example.videoservice.jpa;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.w3c.dom.Text;
 
 @Entity
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Table(name = "script")
-public class ScriptEntity {
+public class BookmarkVideoEntity {
     @Id
-    @Column(name = "script_seq")
+    @Column(name = "bm_video_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String  content;
+    @Column(nullable = false)
+    private Long userId;
 
-    @Column(nullable = false, length = 100)
-    private String videoId;
-
+    @ManyToOne
+    @JoinColumn(name = "video_id", nullable = false)
+    private VideoEntity video;
 }
