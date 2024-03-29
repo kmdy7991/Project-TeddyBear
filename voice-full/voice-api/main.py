@@ -6,13 +6,26 @@ import json
 import base64
 import subprocess
 import os
-from func import proCorrect, voiceRecognition
+from record import proCorrect, voiceRecognition
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from google.cloud import texttospeech
+from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
+
 
 app = FastAPI()  # FastAPI 애플리케이션 인스턴스 생성
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 실제 환경에서는 보다 안전한 설정을 사용하세요.
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/upload/")
-async def create_upload_file(file: UploadFile = File(...), text: str = File(...)):
+def create_upload_file(file: UploadFile = File(...), text: str = File(...)):
     # 파일을 서버에 임시 저장
     temp_file_path = f"./audio/{file.filename}"
     with open(temp_file_path, "wb") as buffer:
@@ -64,3 +77,41 @@ async def create_upload_file(file: UploadFile = File(...), text: str = File(...)
     
     except Exception as e:
         return JSONResponse(content={"error": "펑"}, status_code=500)
+
+# 서비스 계정 키 파일 경로 설정
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./api_key/gothic-jigsaw-405113-ce587ad642ae.json"
+
+class TextToSpeechRequest(BaseModel):
+    text: str
+
+@app.post("/text-to-speech/")
+def text_to_speech(request: TextToSpeechRequest):
+    text = request.text
+    # 클라이언트 초기화
+    client = texttospeech.TextToSpeechClient()
+
+    # 텍스트 입력 설정
+    synthesis_input = texttospeech.SynthesisInput(text=text)
+    
+    print(synthesis_input)
+
+    # 음성 설정: 언어, 성별 등
+    voice = texttospeech.VoiceSelectionParams(
+        language_code="en-US",
+        ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
+    )
+
+    # 오디오 설정: 오디오 포맷
+    audio_config = texttospeech.AudioConfig(
+        audio_encoding=texttospeech.AudioEncoding.MP3
+    )
+
+    # TTS 요청 및 응답
+    response = client.synthesize_speech(
+        input=synthesis_input,
+        voice=voice,
+        audio_config=audio_config
+    )
+
+    # 음성 데이터 스트림을 응답으로 반환
+    return StreamingResponse(content=iter([response.audio_content]), media_type="audio/mpeg")
