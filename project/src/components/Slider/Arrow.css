@@ -3,7 +3,9 @@
 .slick-vid-next,
 .slick-vid-prev,
 .arr-prev,
-.arr-next {
+.arr-next,
+.page-next,
+.page-prev {
   font-size: 0;
   line-height: 0;
   position: absolute;
@@ -43,20 +45,33 @@
 
 .slick-next,
 .slick-vid-next,
-.arr-next {
+.arr-next,
+.page-next {
   right: 0;
 }
 
 .slick-prev,
 .slick-vid-prev,
-.arr-prev {
+.arr-prev,
+.page-prev {
   left: 0;
 }
 
-.arr-prev {
+.arr-prev,
+.arr-next {
   bottom: -20%;
 }
 
 .arr-next {
   bottom: -20%;
+}
+
+.page-prev img,
+.page-next img {
+  width: 2rem;
+}
+
+.page-prev,
+.page-next {
+  bottom: -1rem;
 }
