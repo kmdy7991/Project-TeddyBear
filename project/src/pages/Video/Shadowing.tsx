@@ -2,15 +2,17 @@ import styles from "./Shadowing.module.css";
 import mic from "../../assets/mic.png";
 import speaker from "../../assets/listen.png";
 import { ShadowingProps } from "./VideoDetail";
+import TextToSpeechComponent from "../../components/Note/AudioTTS";
 export default function Shadowing({ selectedLine }: ShadowingProps) {
   return (
     <div className={`${styles.container}`}>
       <div className={`${styles.sound}`}>
         <div className={`${styles.listen}`}>
-          <div className={`${styles.listenIcon}`}>
+          {/* <div className={`${styles.listenIcon}`}>
             <img src={speaker} alt="듣기" />
           </div>
-          <div className={`${styles.icon}`}>Example</div>
+          <div className={`${styles.icon}`}>Example</div> */}
+          <TextToSpeechComponent selectedLine={selectedLine} />
         </div>
         <div className={`${styles.speak}`}>
           <div className={`${styles.icon}`}>

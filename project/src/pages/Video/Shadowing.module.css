@@ -1,5 +1,6 @@
 .container {
-  width: 100%;
+  /* width: 100%; */
+  margin: 1rem;
 }
 
 .sound {
@@ -16,7 +17,7 @@
 .icon {
   display: flex;
   margin-left: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: #2492ff;
   justify-content: center;
   align-items: center;

@@ -168,7 +168,7 @@ export default function VideoDetail() {
                     (currentPage - 1) * itemsPerPage + localIndex;
                   return (
                     <p
-                      className={`${styles.scriptLine}`}
+                      className={`${styles.scriptL}`}
                       key={globalIndex} // 키는 전역 인덱스를 사용
                       onClick={() => handleScriptClick(globalIndex)} // 마우스 오버 시 전역 인덱스를 사용
                       // onMouseLeave={handleScriptLeave}
