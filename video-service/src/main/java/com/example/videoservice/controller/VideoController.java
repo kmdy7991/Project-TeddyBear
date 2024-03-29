@@ -53,17 +53,6 @@ public class VideoController {
         }
     }
 
-
-    @PostMapping("/importScript") // 스크립트 넣기
-    public ResponseEntity<String> importScript() {
-        try {
-            videoService.importScript();
-            return ResponseEntity.status(HttpStatus.OK).body("Script imported successfully.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to import script: " + e.getMessage());
-        }
-    }
-
     @GetMapping("/exportVideo") // 영상 빼내기
     public ResponseEntity<String> exportVideoToJson() {
         try {
@@ -71,17 +60,6 @@ public class VideoController {
             return ResponseEntity.status(HttpStatus.OK).body("Video exported successfully.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to export video: " + e.getMessage());
-        }
-
-    }
-
-    @GetMapping("/exportScript") // 스크립트 빼내기
-    public ResponseEntity<String> exportScriptToJson() {
-        try {
-            videoService.exportScriptsToJson();
-            return ResponseEntity.status(HttpStatus.OK).body("Script exported successfully.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to export script: " + e.getMessage());
         }
 
     }
