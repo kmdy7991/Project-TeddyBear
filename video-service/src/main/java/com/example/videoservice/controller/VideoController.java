@@ -21,11 +21,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/video-service")
 public class VideoController {
     private final VideoService videoService;
-    private final ModelMapper modelMapper;
     @Autowired
-    public VideoController(VideoService videoService, ModelMapper modelMapper) {
+    public VideoController(VideoService videoService) {
         this.videoService = videoService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/video/{videoId}") // 영상상세보기
@@ -104,6 +102,16 @@ public class VideoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to export script: " + e.getMessage());
         }
 
+    }
+
+    @GetMapping("/watch/{userId}") // 시청 영상 조회
+    public ResponseEntity<List<ResponseVideo>> getWatchedVideosByUserId(
+            @PathVariable Long userId,
+            @RequestParam(value = "videoWatched", defaultValue = "false") Boolean videoWatched) {
+        // videoWatched가 true이면 시청한 동영상 반환
+        // videoWatched가 false이면 시청하지 않은 동영상 반환
+        List<ResponseVideo> watchedVideos = videoService.getWatchedVideosByUserIdAndWatchedStatus(userId, videoWatched);
+        return ResponseEntity.ok(watchedVideos);
     }
 
 

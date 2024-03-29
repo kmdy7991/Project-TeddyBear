@@ -12,4 +12,6 @@ public interface VideoService {
     void importScript() throws Exception;
     void exportVideoToJson();
     void exportScriptsToJson();
+
+    List<ResponseVideo> getWatchedVideosByUserIdAndWatchedStatus(Long userId, Boolean videoWatched);
 }
