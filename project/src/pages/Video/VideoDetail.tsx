@@ -4,16 +4,18 @@ import mic from "../../assets/voice.png";
 import note from "../../assets/note.png";
 import word from "../../assets/word.png";
 import YouTube from "react-youtube";
-import CategoryDummy from "../../components/Video/CategoryDummy";
+// import CategoryDummy from "../../components/Video/CategoryDummy";
 import dummy from "./DummyVideoData.json";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import Slider from "react-slick";
 import { PagePrevArrow, PageNextArrow } from "../../components/Slider/Arrow";
 import Shadowing from "./Shadowing";
 import Word from "./Word";
 import LectureNote from "./LectureNote";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
-
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { VideoResultProps } from "../Search/Search";
 type tab = "mic" | "note" | "word";
 
 export interface ShadowingProps {
@@ -21,14 +23,47 @@ export interface ShadowingProps {
 }
 
 export default function VideoDetail() {
+  // ----페이지네이션을 위한 요소들---
   // 현재 페이지 번호 추적
   const [currentPage, setCurrentPage] = useState(1);
   const [scriptIdx, setScriptIdx] = useState(0);
-  // 각 탭 버튼 클릭 활성화를 위한 useState(default는 쉐도잉 버튼으로)
-  const [activeTab, setActiveTab] = useState<tab>("mic");
   const [selectedScriptIdx, setSelectedScriptIdx] = useState<number | null>(
     null
   );
+
+  // 비디오id에 해당하는 스크립트 불러오기
+  const [videoScript, setVideoScript] = useState([]);
+  // 각 탭 버튼 클릭 활성화를 위한 useState(default는 쉐도잉 버튼으로)
+  const [activeTab, setActiveTab] = useState<tab>("mic");
+  // pathvariable로 videoId를 받는당
+  const { videoId } = useParams();
+  console.log(videoId);
+  // videoId에 해당하는 videoData 받기
+  const [videoData, setVideoData] = useState<VideoResultProps | null>(null);
+
+  useEffect(() => {
+    // get
+    const fetchVideoData = async () => {
+      try {
+        const response = await axios.get(`/video-service/video/${videoId}`);
+        setVideoData(response.data); // 서버 응답을 videoData 상태에 저장
+        console.log(response.data);
+      } catch (error) {
+        console.error("비디오 상세 조회 실패:", error);
+      }
+    };
+    if (videoId) {
+      fetchVideoData();
+    }
+  }, [videoId]);
+
+  // useEffect(() => {
+  //   if (videoData && videoData.videoScripts) {
+  //     // videoData에서 비디오 스크립트 데이터를 추출하여 videoScripts 상태에 저장
+  //     setVideoScripts(videoData.videoScripts);
+  //   }
+  // }, [videoData]); // videoData가 변경될 때마다 실행
+
   // 페이지네이션을 위한 슬라이더
   let scriptSlider = {
     dots: false,
@@ -94,7 +129,7 @@ export default function VideoDetail() {
         <div className={`${styles.youtube}`}>
           <div className={`${styles.vidWrapper}`}>
             <YouTube
-              videoId={dummy.video_id}
+              videoId={videoData?.videoId}
               opts={{
                 width: "100%",
                 height: "550",
@@ -107,8 +142,10 @@ export default function VideoDetail() {
             ></YouTube>
           </div>
           <div className={`${styles.videoText}`}>
-            <div className={`${styles.videoTitle}`}>{dummy.video_title}</div>
-            {CategoryDummy[1].videos.map((data, index) => (
+            <div className={`${styles.videoTitle}`}>
+              {videoData?.videoTitle}
+            </div>
+            {/* {videoData((data, index) => (
               <div className={`${styles.hashList}`}>
                 {data.hashtags.map((hash, index) => (
                   <div className={`${styles.hashTag}`} key={index}>
@@ -117,7 +154,7 @@ export default function VideoDetail() {
                   </div>
                 ))}
               </div>
-            ))}
+            ))} */}
           </div>
           <SwitchTransition mode="out-in">
             <CSSTransition
