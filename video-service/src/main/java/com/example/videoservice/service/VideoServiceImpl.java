@@ -1,9 +1,6 @@
 package com.example.videoservice.service;
 
-import com.example.videoservice.jpa.ScriptEntity;
-import com.example.videoservice.jpa.ScriptRepository;
-import com.example.videoservice.jpa.VideoEntity;
-import com.example.videoservice.jpa.VideoRepository;
+import com.example.videoservice.jpa.*;
 import com.example.videoservice.vo.ResponseScript;
 import com.example.videoservice.vo.ResponseVideo;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -28,13 +25,15 @@ import java.util.List;
 public class VideoServiceImpl implements VideoService {
     private final VideoRepository videoRepository;
     private final ScriptRepository scriptRepository;
+    private final WatchVideoRepository watchVideoRepository;
     @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
-    public VideoServiceImpl(VideoRepository videoRepository, ScriptRepository scriptRepository) {
+    public VideoServiceImpl(VideoRepository videoRepository, ScriptRepository scriptRepository, WatchVideoRepository watchVideoRepository) {
         this.videoRepository = videoRepository;
         this.scriptRepository = scriptRepository;
+        this.watchVideoRepository = watchVideoRepository;
     }
 
     public ResponseVideo getVideoById(Long id) {
@@ -76,14 +75,23 @@ public class VideoServiceImpl implements VideoService {
         for (int i = 0; i < dateArray.size(); i++) {
             JSONObject element = (JSONObject) dateArray.get(i);
 
+//            VideoEntity videoEntity = VideoEntity.builder()
+//                    .videoTitle((String) element.get("video_title"))
+//                    .videoDescription((String) element.get("video_description"))
+//                    .videoUrl((String) element.get("video_url"))
+//                    .videoId((String) element.get("video_id"))
+//                    .videoTime((String) element.get("video_playtime"))
+//                    .videoThumbnail((String) element.get("video_thumbnail"))
+//                    .videoGrade((String) element.get("video_grade"))
+//                    .build();
             VideoEntity videoEntity = VideoEntity.builder()
-                    .videoTitle((String) element.get("video_title"))
-                    .videoDescription((String) element.get("video_description"))
-                    .videoUrl((String) element.get("video_url"))
-                    .videoId((String) element.get("video_id"))
-                    .videoTime((String) element.get("video_playtime"))
-                    .videoThumbnail((String) element.get("video_thumbnail"))
-                    .videoGrade((String) element.get("video_grade"))
+                    .videoTitle((String) element.get("videoTitle"))
+                    .videoDescription((String) element.get("videoDescription"))
+                    .videoUrl((String) element.get("videoUrl"))
+                    .videoId((String) element.get("videoId"))
+                    .videoTime((String) element.get("videoTime"))
+                    .videoThumbnail((String) element.get("videoThumbnail"))
+                    .videoGrade((String) element.get("videoGrade"))
                     .build();
 
             try {
@@ -91,6 +99,7 @@ public class VideoServiceImpl implements VideoService {
             } catch (DataIntegrityViolationException e) {
                 // 중복된 videoId를 추가하려고 할 때 발생하는 예외를 처리
                 // 여기서는 예외를 무시하도록 설정
+                log.error("중복된 videoId를 무시합니다: {}", videoEntity.getVideoId());
                 dupl++;
             }
         }
@@ -142,7 +151,42 @@ public class VideoServiceImpl implements VideoService {
         }
     }
 
+    @Override
+    public List<ResponseVideo> getWatchedVideosByUserIdAndWatchedStatus(Long userId, Boolean videoWatched) {
 
+        // 시청 영상 아이디 조회
+        List<WatchVideoEntity> watchedVideos;
+        if (videoWatched) {
+            watchedVideos = watchVideoRepository.findByUserIdAndVideoWatched(userId, true);
+        } else {
+            watchedVideos = watchVideoRepository.findByUserIdAndVideoWatched(userId, false);
+        }
+
+        List<VideoEntity> videoEntities = new ArrayList<>();
+        for (WatchVideoEntity watchedVideo : watchedVideos) {
+            VideoEntity videoEntity = videoRepository.findById(watchedVideo.getVideoId().getId()).orElse(null);
+            videoEntities.add(videoEntity);
+        }
+
+        List<ResponseVideo> responseVideos = new ArrayList<>();
+        for(VideoEntity videoEntity : videoEntities) {
+            ResponseVideo responseVideo = ResponseVideo.builder()
+                    .id(videoEntity.getId())
+                    .videoTitle(videoEntity.getVideoTitle())
+                    .videoUrl(videoEntity.getVideoUrl())
+                    .videoId(videoEntity.getVideoId())
+                    .videoTime(videoEntity.getVideoTime())
+                    .videoThumbnail(videoEntity.getVideoThumbnail())
+                    .videoDiscription(videoEntity.getVideoDescription())
+                    .videoGrade(videoEntity.getVideoGrade())
+                    .build();
+
+            responseVideos.add(responseVideo);
+        }
+
+
+        return responseVideos;
+    }
 
 
 }

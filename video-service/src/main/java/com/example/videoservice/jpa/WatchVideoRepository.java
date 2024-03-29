@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface WatchVideoRepository extends JpaRepository<WatchVideoEntity, Long> {
-    List<WatchVideoEntity> findByUserIdAndVideoWatchedTrue(Long userId);
+    List<WatchVideoEntity> findByUserIdAndVideoWatched(Long userId, boolean videoWatched);
 }
