@@ -49,7 +49,10 @@ function App() {
               <Route path="myNote" element={<MyNote />} />
               <Route path="statistics" element={<Statistics />} />
             </Route>
-            <Route path="search" element={<Search />}></Route>
+            <Route path="/search" element={<Search />}>
+              <Route path="search/:videoTitle" element={<Search />} />
+            </Route>
+            <Route path="/video/:videoId" element={<VideoDetail />} />
             <Route
               path="category/:categoryId"
               element={<CategoryVideoList />}
@@ -60,7 +63,7 @@ function App() {
               <Route path="myvoca" element={<MyVocabulary />} />
               <Route path="classvoca" element={<ClassVocabulary />} />
             </Route>
-            <Route path="videoDetail" element={<VideoDetail />} />
+
             <Route path="landing" element={<LandingPage />} />
             <Route path="*" element={<Navigate to={"/landing"} />} />
           </Routes>
