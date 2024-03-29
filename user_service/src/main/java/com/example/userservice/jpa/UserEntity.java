@@ -5,15 +5,14 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Entity
-@Table(name = "users")
+@Table(name = "users" , uniqueConstraints = @UniqueConstraint(name = "VAILD TOKEN", columnNames = {"token"}))
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserEntity {
     @Id
@@ -24,7 +23,7 @@ public class UserEntity {
     @Column(nullable = false, length = 50)
     private String email;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false,unique = true, length = 100)
     private String token;
 
     private int age;

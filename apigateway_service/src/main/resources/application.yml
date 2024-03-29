@@ -15,8 +15,33 @@ spring:
     name: apigateway-service
   cloud:
     gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: '*'
+            allow-credentials: true
+            allowedHeaders: '*'
+            exposedHeaders: '*'
+            allowedMethods:
+              - POST
+              - GET
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
       routes:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
             - Path=/user-service/**
+        - id: video-service
+          uri: lb://VIDEO-SERVICE
+          predicates:
+            - Path=/video-service/**
+        - id: python-service
+          uri: lb://PYTHON-SERVICE
+          predicates:
+            - Path=/data-service/**
+          filters:
+            - RewritePath=/data-service/(?<segment>.*), /$\{segment}
