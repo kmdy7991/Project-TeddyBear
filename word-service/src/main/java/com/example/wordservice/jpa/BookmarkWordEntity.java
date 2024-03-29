@@ -24,7 +24,6 @@ public class BookmarkWordEntity {
     @Column(name = "user_seq")
     private Long  userId;
 
-
     @Builder
     public BookmarkWordEntity(WordEntity wordId, Long userId){
         this.wordId = wordId;
