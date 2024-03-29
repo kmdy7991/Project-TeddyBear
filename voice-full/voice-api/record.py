@@ -46,6 +46,8 @@ def proCorrect(script, audioFilePath):
     recog_text = data['return_object']['score']
     
     print(recog_text)
+    
+    return recog_text
 
 def voiceRecognition(audioFilePath):
     openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
