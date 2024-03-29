@@ -1,5 +1,7 @@
 import React from "react";
 import "./Arrow.css";
+import left from "../../assets/pageleft.png";
+import right from "../../assets/pageright.png";
 interface ArrowProps {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
@@ -48,6 +50,22 @@ export function MyPageNextArrow({ onClick }: ArrowProps) {
   return (
     <span className="arr-next" onClick={onClick}>
       누르면 다음
+    </span>
+  );
+}
+
+export function PagePrevArrow({ onClick }: ArrowProps) {
+  return (
+    <span className="page-prev" onClick={onClick}>
+      <img src={left} alt="왼" />
+    </span>
+  );
+}
+
+export function PageNextArrow({ onClick }: ArrowProps) {
+  return (
+    <span className="page-next" onClick={onClick}>
+      <img src={right} alt="오" />
     </span>
   );
 }
