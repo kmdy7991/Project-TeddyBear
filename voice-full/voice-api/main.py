@@ -35,9 +35,9 @@ async def create_upload_file(file: UploadFile = File(...), text: str = File(...)
     # ffmpeg 명령 실행
     result = subprocess.run(command, capture_output=True, text=True)
     
-    recognized_text = f"{text}"
+    recog_text = f"{text}"
     
-    print(recognized_text)
+    print(recog_text)
 
     # 변환 성공 여부 확인
     if result.returncode != 0:
@@ -46,13 +46,15 @@ async def create_upload_file(file: UploadFile = File(...), text: str = File(...)
     
      # 여기부터 음성 인식과 발음 평가를 수행합니다.     
     try:
-        # recognized_text = voiceRecognition(output_file_path)
+        recognized_text = voiceRecognition(output_file_path)
+        print(recognized_text)
         if not recognized_text:
             raise HTTPException(status_code=500, detail="악 발음 실패")
         
-        pronunciation_score = proCorrect(recognized_text, output_file_path)
-        if pronunciation_score == -1:
-            raise HTTPException(status_code=500, detail="악 음성 인식 실패")
+        pronunciation_score = proCorrect(recog_text, output_file_path)
+        print(pronunciation_score)  
+        # if pronunciation_score == -1:
+        #     raise HTTPException(status_code=500, detail="악 음성 인식 실패")
         
         return JSONResponse(content={
             "message": "성공~",
