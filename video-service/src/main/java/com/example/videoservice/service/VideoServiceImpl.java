@@ -3,13 +3,10 @@ package com.example.videoservice.service;
 import com.example.videoservice.jpa.*;
 import com.example.videoservice.vo.RequestBookmarkVideo;
 import com.example.videoservice.vo.RequestWatchVideo;
-import com.example.videoservice.vo.ResponseScript;
 import com.example.videoservice.vo.ResponseVideo;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -26,16 +23,14 @@ import java.util.List;
 //@Transactional
 public class VideoServiceImpl implements VideoService {
     private final VideoRepository videoRepository;
-    private final ScriptRepository scriptRepository;
     private final WatchVideoRepository watchVideoRepository;
     private final BookmarkVideoRepository bookmarkVideoRepository;
     @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
-    public VideoServiceImpl(VideoRepository videoRepository, ScriptRepository scriptRepository, WatchVideoRepository watchVideoRepository, BookmarkVideoRepository bookmarkVideoRepository) {
+    public VideoServiceImpl(VideoRepository videoRepository,  WatchVideoRepository watchVideoRepository, BookmarkVideoRepository bookmarkVideoRepository) {
         this.videoRepository = videoRepository;
-        this.scriptRepository = scriptRepository;
         this.watchVideoRepository = watchVideoRepository;
         this.bookmarkVideoRepository = bookmarkVideoRepository;
     }
@@ -43,16 +38,18 @@ public class VideoServiceImpl implements VideoService {
     public ResponseVideo getVideoById(Long id) {
         VideoEntity videoEntity = videoRepository.findById(id).orElse(null);
         if (videoEntity != null) {
-            return new ResponseVideo(
-                    videoEntity.getId(),
-                    videoEntity.getVideoTitle(),
-                    videoEntity.getVideoDescription(),
-                    videoEntity.getVideoUrl(),
-                    videoEntity.getVideoGrade(),
-                    videoEntity.getVideoTime(),
-                    videoEntity.getVideoThumbnail(),
-                    videoEntity.getVideoId()
-                    );
+            ResponseVideo responseVideo = ResponseVideo.builder()
+                    .id(videoEntity.getId())
+                    .videoTitle(videoEntity.getVideoTitle())
+                    .videoDiscription(videoEntity.getVideoDescription())
+                    .videoUrl(videoEntity.getVideoUrl())
+                    .videoId(videoEntity.getVideoId())
+                    .videoTime(videoEntity.getVideoTime())
+                    .videoThumbnail(videoEntity.getVideoThumbnail())
+                    .videoGrade(videoEntity.getVideoGrade())
+                    .build();
+
+            return responseVideo;
         } else {
             return null;
         }
@@ -128,45 +125,12 @@ public class VideoServiceImpl implements VideoService {
         System.out.println(dupl);
     }
 
-    @Transactional
-    public void importScript() throws Exception {
-        JSONParser parser = new JSONParser();
-        Reader reader = new FileReader("src/main/resources/ScriptCrawling.json");
-        JSONArray dataArray = (JSONArray) parser.parse(reader);
-
-        for (Object obj : dataArray) {
-            JSONObject jsonScript = (JSONObject) obj;
-            String videoId = (String) jsonScript.get("video_id");
-
-            JSONArray transcript = (JSONArray) jsonScript.get("video_transcript");
-
-            for (Object text : transcript) {
-                ScriptEntity scriptEntity = ScriptEntity.builder()
-                        .videoId(videoId)
-                        .content((String) text)
-                        .build();
-                entityManager.persist(scriptEntity);
-            }
-        }
-    }
-
     public void exportVideoToJson() {
         List<VideoEntity> videoEntities = videoRepository.findAll();
         ObjectMapper objectMapper = new ObjectMapper();
         try (FileWriter fileWriter = new FileWriter("C:/Users/SSAFY/teddyOutput/videos.json")) {
 
             objectMapper.writeValue(fileWriter, videoEntities);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void exportScriptsToJson() {
-        List<ScriptEntity> scriptEntities = scriptRepository.findAll();
-        ObjectMapper objectMapper = new ObjectMapper();
-        try (FileWriter fileWriter = new FileWriter("C:/Users/SSAFY/teddyOutput/scripts.json")) {
-
-            objectMapper.writeValue(fileWriter, scriptEntities);
         } catch (IOException e) {
             e.printStackTrace();
         }

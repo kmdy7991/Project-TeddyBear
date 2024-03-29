@@ -46,6 +46,11 @@ spring:
           predicates:
             - Path=/video-service/**
 
+        - id: script-service
+          uri: lb://SCRIPT-SERVICE
+          predicates:
+            - Path=/script-service/**
+
         - id: python-service
           uri: lb://PYTHON-SERVICE
           predicates:
