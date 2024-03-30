@@ -6,10 +6,17 @@ import com.example.wordservice.jpa.WordEntity;
 import com.example.wordservice.jpa.WordRepository;
 import com.example.wordservice.vo.RequestBookmarkWord;
 import com.example.wordservice.vo.ResponseWord;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileReader;
+import java.io.Reader;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,6 +25,8 @@ import java.util.stream.Collectors;
 public class WordServiceImpl implements WordService{
     private final BookmarkWordRepository bookmarkWordRepository;
     private final WordRepository wordRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
     @Autowired
     public WordServiceImpl(BookmarkWordRepository bookmarkWordRepository, WordRepository wordRepository) {
         this.bookmarkWordRepository = bookmarkWordRepository;
@@ -36,11 +45,23 @@ public class WordServiceImpl implements WordService{
     }
 
     @Override
+    public ResponseWord getWord(Long wordId) {
+        WordEntity wordEntity = wordRepository.findById(wordId).orElse(null);
+        return ResponseWord.builder()
+                .id(wordEntity.getId())
+                .eng(wordEntity.getEng())
+                .kor(wordEntity.getKor())
+                .part(wordEntity.getPart())
+                .tier(wordEntity.getTier())
+                .build();
+    }
+
+    @Override
     public List<WordEntity> getBookmarkWordsBy(Long userId, String value) {
         List<BookmarkWordEntity> bookmarkWordEntities = bookmarkWordRepository.findByUserId(userId);
         if (!bookmarkWordEntities.isEmpty()) {
             List<Long> wordIds = bookmarkWordEntities.stream()
-                    .map(bookmarkWordEntity -> bookmarkWordEntity.getWordId().getId())
+                    .map(bookmarkWordEntity -> bookmarkWordEntity.getWord().getId())
                     .collect(Collectors.toList());
             return wordRepository.findAllByIdIn(wordIds);
         } else {
@@ -54,13 +75,44 @@ public class WordServiceImpl implements WordService{
     }
 
     @Override
-    public RequestBookmarkWord createBookmarkword(RequestBookmarkWord requestBookmarkWord) {
-        BookmarkWordEntity bookmarkWordEntity = BookmarkWordEntity.builder()
-                .wordId(requestBookmarkWord.getWordId())
-                .userId(requestBookmarkWord.getUserId())
-                .build();
-        bookmarkWordRepository.save(bookmarkWordEntity);
-        return null;
+    public void createBookmarkword(RequestBookmarkWord requestBookmarkWord) {
+        Long wordId = requestBookmarkWord.getWordId();
+        WordEntity wordEntity = wordRepository.findById(wordId).orElse(null);
+        Long userId = requestBookmarkWord.getUserId();
+
+        boolean exists = bookmarkWordRepository.existsByIdAndUserId(wordEntity.getId(), userId);
+
+        if (exists) {
+            BookmarkWordEntity bookmarkWordEntity = BookmarkWordEntity.builder()
+                    .word(wordEntity)
+                    .userId(userId)
+                    .build();
+            bookmarkWordRepository.save(bookmarkWordEntity);
+        }
+    }
+
+    @Transactional
+    public void importWord() throws Exception {
+        JSONParser parser = new JSONParser();
+        Reader reader = new FileReader("src/main/resources/word.json");
+        JSONArray dataArray = (JSONArray) parser.parse(reader);
+
+        for (Object obj : dataArray) {
+            JSONObject jsonWord = (JSONObject) obj;
+            String eng = (String) jsonWord.get("eng");
+            String kor = (String) jsonWord.get("kor");
+            String part = (String) jsonWord.get("part");
+            String tier = (String) jsonWord.get("tier");
+
+            WordEntity wordEntity = WordEntity.builder()
+                    .eng(eng)
+                    .kor(kor)
+                    .part(part)
+                    .tier(tier)
+                    .build();
+            entityManager.persist(wordEntity);
+
+        }
     }
 
 

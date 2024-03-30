@@ -13,7 +13,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @Table(name = "video", uniqueConstraints = @UniqueConstraint(name = "unique_video_id", columnNames = {"videoId"}))
 public class VideoEntity {
     @Id
-    @Column(name = "video_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

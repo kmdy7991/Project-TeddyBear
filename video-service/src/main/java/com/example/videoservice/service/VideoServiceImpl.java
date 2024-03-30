@@ -1,9 +1,7 @@
 package com.example.videoservice.service;
 
 import com.example.videoservice.jpa.*;
-import com.example.videoservice.vo.RequestBookmarkVideo;
-import com.example.videoservice.vo.RequestWatchVideo;
-import com.example.videoservice.vo.ResponseVideo;
+import com.example.videoservice.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -25,14 +23,16 @@ public class VideoServiceImpl implements VideoService {
     private final VideoRepository videoRepository;
     private final WatchVideoRepository watchVideoRepository;
     private final BookmarkVideoRepository bookmarkVideoRepository;
+    private final NoteRepository noteRepository;
     @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
-    public VideoServiceImpl(VideoRepository videoRepository,  WatchVideoRepository watchVideoRepository, BookmarkVideoRepository bookmarkVideoRepository) {
+    public VideoServiceImpl(VideoRepository videoRepository,  WatchVideoRepository watchVideoRepository, BookmarkVideoRepository bookmarkVideoRepository, NoteRepository noteRepository) {
         this.videoRepository = videoRepository;
         this.watchVideoRepository = watchVideoRepository;
         this.bookmarkVideoRepository = bookmarkVideoRepository;
+        this.noteRepository = noteRepository;
     }
 
     public ResponseVideo getVideoById(Long id) {
@@ -150,7 +150,7 @@ public class VideoServiceImpl implements VideoService {
         // 시청한 영상 아이디에 해당하는 영상 리스트 조회
         List<VideoEntity> videoEntities = new ArrayList<>();
         for (WatchVideoEntity watchedVideo : watchedVideos) {
-            VideoEntity videoEntity = videoRepository.findById(watchedVideo.getVideoId().getId()).orElse(null);
+            VideoEntity videoEntity = videoRepository.findById(watchedVideo.getVideo().getId()).orElse(null);
             videoEntities.add(videoEntity);
         }
 
@@ -186,7 +186,7 @@ public class VideoServiceImpl implements VideoService {
         WatchVideoEntity watchVideoEntity = WatchVideoEntity.builder()
                 .videoWatched(requestWatchVideo.isVideoWatched())
                 .userId(requestWatchVideo.getUserId())
-                .videoId(videoEntity)
+                .video(videoEntity)
                 .build();
 
         watchVideoRepository.save(watchVideoEntity);
@@ -239,6 +239,56 @@ public class VideoServiceImpl implements VideoService {
         List<BookmarkVideoEntity> bookmarkedVideos = bookmarkVideoRepository.findByUserIdAndVideoId(userId, videoId);
         bookmarkVideoRepository.deleteAll(bookmarkedVideos);
 
+    }
+
+    @Override
+    public void createNote(RequestNote requestNote) {
+        Long videoId = requestNote.getVideoId();
+        VideoEntity videoEntity = videoRepository.findById(videoId)
+                .orElseThrow(() -> new IllegalArgumentException("Video with id " + videoId + " not found"));
+
+        NoteEntity noteEntity = NoteEntity.builder()
+                .userId(requestNote.getUserId())
+                .video(videoEntity)
+                .note(requestNote.getNote())
+                .build();
+
+        noteRepository.save(noteEntity);
+    }
+
+    @Override
+    public ResponseNote getNote(Long userId, Long videoId) {
+        NoteEntity noteEntity = noteRepository.findByUserIdAndVideoId(userId, videoId);
+        System.out.println(noteEntity.getId());
+
+        return ResponseNote.builder()
+                .id(noteEntity.getId())
+                .note(noteEntity.getNote())
+                .noteDate(noteEntity.getNoteDate())
+                .build();
+
+
+    }
+
+    public ResponseNote getNoteByNoteId(Long noteId) {
+        NoteEntity noteEntity = noteRepository.findById(noteId).orElseThrow();
+//        System.out.println(noteEntity.getId());
+        if (noteEntity != null) {
+            ResponseNote responseNote = ResponseNote.builder()
+                    .id(noteEntity.getId())
+                    .note(noteEntity.getNote())
+                    .noteDate(noteEntity.getNoteDate())
+                    .build();
+
+            return responseNote;
+        } else {
+            return null; // 또는 적절한 오류 처리
+        }
+    }
+
+    @Override
+    public List<ResponseVideo> getNoteByUserId(Long userId) {
+        return null;
     }
 
 
