@@ -7,14 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 @Getter
 @Entity
-@Table(name = "ref_word")
+@Table(name = "word")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class WordEntity {
-
-    public WordEntity(Long id) {
-        this.id = id;
-    }
-
     @Id
     @Column(name = "word_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

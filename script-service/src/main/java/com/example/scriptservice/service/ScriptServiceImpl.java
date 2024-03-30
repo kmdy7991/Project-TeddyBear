@@ -2,6 +2,7 @@ package com.example.scriptservice.service;
 
 import com.example.scriptservice.jpa.ScriptEntity;
 import com.example.scriptservice.jpa.ScriptRepository;
+import com.example.scriptservice.vo.ResponseScript;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -16,7 +17,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ScriptServiceImpl implements ScriptService {
@@ -28,7 +31,8 @@ public class ScriptServiceImpl implements ScriptService {
     public ScriptServiceImpl(ScriptRepository scriptRepository) {
         this.scriptRepository = scriptRepository;
     }
-    @Transactional
+
+    @Transactional // 스크립트 파일 입력
     public void importScript() throws Exception {
         JSONParser parser = new JSONParser();
         Reader reader = new FileReader("src/main/resources/ScriptCrawling.json");
@@ -50,7 +54,6 @@ public class ScriptServiceImpl implements ScriptService {
         }
     }
 
-
     public void exportScriptsToJson() {
         List<ScriptEntity> scriptEntities = scriptRepository.findAll();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -62,6 +65,23 @@ public class ScriptServiceImpl implements ScriptService {
         }
     }
 
+    @Override
+    public List<ResponseScript> getScriptsByVideoId(String videoId) {
+        List<ResponseScript> responseScripts = new ArrayList<>();
+        List<ScriptEntity> scriptEntities = scriptRepository.findByVideoIdOrderByIdAsc(videoId);
+
+        for(ScriptEntity scriptEntity : scriptEntities) {
+            ResponseScript responseScript = ResponseScript.builder()
+                    .id(scriptEntity.getId())
+                    .content(scriptEntity.getContent())
+                    .videoId(scriptEntity.getVideoId())
+                    .build();
+
+            responseScripts.add(responseScript);
+        }
+
+        return responseScripts;
+    }
 
 
 }

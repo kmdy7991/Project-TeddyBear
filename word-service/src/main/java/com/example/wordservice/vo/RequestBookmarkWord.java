@@ -1,17 +1,16 @@
 package com.example.wordservice.vo;
 
 import com.example.wordservice.jpa.WordEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class RequestBookmarkWord {
-    private WordEntity wordId;
-    private Long  userId;
-
-    @Builder
-    public RequestBookmarkWord(WordEntity wordId, Long userId) {
-        this.wordId = wordId;
-        this.userId = userId;
-    }
+    private Long wordId;
+    private Long userId;
 }

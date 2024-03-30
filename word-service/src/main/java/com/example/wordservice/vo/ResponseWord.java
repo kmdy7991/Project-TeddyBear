@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 @Data
 @AllArgsConstructor
+@Builder
 public class ResponseWord {
     private Long id;
     private String eng;

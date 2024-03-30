@@ -22,6 +22,6 @@ public class WatchVideoEntity {
     private Long userId;
 
     @ManyToOne
-    @JoinColumn(name = "video_id", nullable = false) // 외래키를 가리키는 컬럼명 지정
-    private VideoEntity videoId;
+    @JoinColumn(name = "video", nullable = false) // 외래키를 가리키는 컬럼명 지정
+    private VideoEntity video;
 }

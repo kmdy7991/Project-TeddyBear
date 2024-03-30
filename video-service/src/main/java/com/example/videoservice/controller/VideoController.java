@@ -2,9 +2,7 @@ package com.example.videoservice.controller;
 
 import com.example.videoservice.jpa.VideoEntity;
 import com.example.videoservice.service.VideoService;
-import com.example.videoservice.vo.RequestBookmarkVideo;
-import com.example.videoservice.vo.RequestWatchVideo;
-import com.example.videoservice.vo.ResponseVideo;
+import com.example.videoservice.vo.*;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -98,6 +96,34 @@ public class VideoController {
     public ResponseEntity<String> deleteBookmarkedVideo(@RequestBody RequestBookmarkVideo requestBookmarkVideo) {
         videoService.deleteBookmarkedVideo(requestBookmarkVideo);
         return ResponseEntity.status(HttpStatus.OK).body("Bookmarked video deleted successfully.");
+    }
+
+    @PostMapping("/note") // 필기노트 생성
+    public ResponseEntity<String> bookmarkVideo(@RequestBody RequestNote requestNote) {
+        videoService.createNote(requestNote);
+        return ResponseEntity.status(HttpStatus.OK).body("note create successfully.");
+
+    }
+
+    @GetMapping("/note/{userId}/{videoId}") // 필기노트 1개 조회
+    public ResponseEntity<ResponseNote> getNote(@PathVariable Long userId, @PathVariable Long videoId) {
+        ResponseNote responseNote = videoService.getNote(userId, videoId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseNote);
+    }
+
+    @GetMapping("/note/{noteId}") // 필기노트 1개 조회
+    public ResponseEntity<ResponseNote> getNote(@PathVariable Long noteId) {
+        ResponseNote responseNote = videoService.getNoteByNoteId(noteId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseNote);
+    }
+
+    @GetMapping("/note/{userId}") // 사용자별 필기노트 리스트 조회
+    public ResponseEntity<List<ResponseNote>> getNotes(@PathVariable Long userId) {
+        List<ResponseNote> responseNotes = videoService.getNoteByUserId(userId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseNotes);
     }
 
 

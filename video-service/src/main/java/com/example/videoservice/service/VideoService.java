@@ -1,9 +1,7 @@
 package com.example.videoservice.service;
 
 import com.example.videoservice.jpa.VideoEntity;
-import com.example.videoservice.vo.RequestBookmarkVideo;
-import com.example.videoservice.vo.RequestWatchVideo;
-import com.example.videoservice.vo.ResponseVideo;
+import com.example.videoservice.vo.*;
 
 import java.util.List;
 
@@ -17,4 +15,8 @@ public interface VideoService {
     void bookmarkVideo(RequestBookmarkVideo requestBookmarkVideo);
     List<ResponseVideo> getVideoByUserId(Long userId);
     void deleteBookmarkedVideo(RequestBookmarkVideo requestBookmarkVideo);
+    void createNote(RequestNote requestNote);
+    ResponseNote getNote(Long userId, Long videoId);
+    ResponseNote getNoteByNoteId(Long noteId);
+    List<ResponseVideo> getNoteByUserId(Long userId);
 }
