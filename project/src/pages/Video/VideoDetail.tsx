@@ -16,6 +16,8 @@ import { SwitchTransition, CSSTransition } from "react-transition-group";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { VideoResultProps } from "../Main/VideoList/Video";
+import IsBookMark from "../../components/Video/IsBookMark";
+
 type tab = "mic" | "note" | "word";
 
 export interface ShadowingProps {
@@ -40,6 +42,16 @@ export default function VideoDetail() {
   console.log(videoId);
   // videoId에 해당하는 videoData 받기
   const [videoData, setVideoData] = useState<VideoResultProps | null>(null);
+
+  // 설명란 더보기 버튼을 위한 상태변경
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  // 더보기 버튼 클릭 핸들러
+  const handleClickFullDes = (e: MouseEvent<HTMLButtonElement>) => {
+    setShowFullDescription(!showFullDescription);
+  };
+
+  // 북마크 상태 관리
+  const [isBookmark, setIsBookmark] = useState(false);
 
   useEffect(() => {
     // get
@@ -142,8 +154,13 @@ export default function VideoDetail() {
             ></YouTube>
           </div>
           <div className={`${styles.videoText}`}>
-            <div className={`${styles.videoTitle}`}>
-              {videoData?.videoTitle}
+            <div className={`${styles.tb}`}>
+              <div className={`${styles.videoTitle}`}>
+                {videoData?.videoTitle}
+              </div>
+              <div className={`${styles.bookmark}`}>
+                <IsBookMark videoId={videoData?.id} />
+              </div>
             </div>
             {/* {videoData((data, index) => (
               <div className={`${styles.hashList}`}>
@@ -155,6 +172,26 @@ export default function VideoDetail() {
                 ))}
               </div>
             ))} */}
+            <div className={`${styles.descriptionWrapper}`}>
+              <span className={`${styles.description}`}>
+                {showFullDescription
+                  ? videoData?.videoDiscription
+                  : videoData?.videoDiscription?.substring(0, 300)}
+              </span>
+              {/* 더보기 버튼 */}
+              {videoData?.videoDiscription &&
+                videoData?.videoDiscription?.length > 30 && (
+                  <span className={styles.moreButtonWrap}>
+                    {"···"}
+                    <button
+                      className={styles.moreButton}
+                      onClick={handleClickFullDes}
+                    >
+                      {showFullDescription ? "닫기" : "자세히 보기"}
+                    </button>
+                  </span>
+                )}
+            </div>
           </div>
           <SwitchTransition mode="out-in">
             <CSSTransition
