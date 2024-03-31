@@ -5,12 +5,14 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import java.util.List;
+
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-@Table(name = "video", uniqueConstraints = @UniqueConstraint(name = "unique_video_id", columnNames = {"videoId"}))
+@Table(name = "video")
 public class VideoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +27,7 @@ public class VideoEntity {
     @Column(nullable = false, length = 500)
     private String videoUrl;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100, unique = true)
     private String videoId;
 
     @Column(nullable = false, length = 50)
@@ -36,5 +38,14 @@ public class VideoEntity {
 
     @Column(nullable = false, length = 5)
     private String videoGrade;
+
+    @OneToMany(mappedBy = "video")
+    private List<WatchVideoEntity> watchHistory;
+
+    @OneToMany(mappedBy = "video")
+    private List<BookmarkVideoEntity> bookmarkHistory;
+
+    @OneToMany(mappedBy = "video")
+    private List<NoteEntity> noteHistory;
 
 }

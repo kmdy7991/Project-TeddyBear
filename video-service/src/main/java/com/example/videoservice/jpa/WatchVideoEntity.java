@@ -11,7 +11,7 @@ import lombok.*;
 @Getter
 public class WatchVideoEntity {
     @Id
-    @Column(name = "w_video_seq")
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

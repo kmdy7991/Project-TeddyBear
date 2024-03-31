@@ -179,8 +179,10 @@ public class VideoServiceImpl implements VideoService {
     public void watchVideo(RequestWatchVideo requestWatchVideo) {
         // 받은 비디오 Id를 저장해서 videoId에 해당하는 VideoEntity를 뽑음
         Long videoId = requestWatchVideo.getVideoId();
+        System.out.println("videoId: " + videoId);
         VideoEntity videoEntity = videoRepository.findById(videoId)
                 .orElseThrow(() -> new IllegalArgumentException("Video with id " + videoId + " not found"));
+        System.out.println("videoEntity: " + videoEntity.getVideoId());
 
         // RequestWatchVideo를 WatchVideoEntity로 변환
         WatchVideoEntity watchVideoEntity = WatchVideoEntity.builder()
@@ -222,6 +224,7 @@ public class VideoServiceImpl implements VideoService {
                     .videoTime(videoEntity.getVideoTime())
                     .videoThumbnail(videoEntity.getVideoThumbnail())
                     .videoGrade(videoEntity.getVideoGrade())
+                    .videoDiscription(videoEntity.getVideoDescription())
                     .build();
             responseVideos.add(responseVideo);
         }
@@ -287,8 +290,31 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public List<ResponseVideo> getNoteByUserId(Long userId) {
-        return null;
+    public List<ResponseNote> getNoteByUserId(Long userId) {
+        List<ResponseNote> responseNotes = new ArrayList<>();
+        List<NoteEntity> noteEntities = noteRepository.findByUserId(userId);
+
+        for (NoteEntity noteEntity : noteEntities) {
+            ResponseNote responseNote = ResponseNote.builder()
+                    .id(noteEntity.getId())
+                    .note(noteEntity.getNote())
+                    .noteDate(noteEntity.getNoteDate())
+                    .build();
+
+            responseNotes.add(responseNote);
+        }
+
+        return responseNotes;
+    }
+
+    @Override
+    public void deleteNote(Long userId, Long videoId) {
+        noteRepository.deleteByUserIdAndVideoId(userId, videoId);
+    }
+
+    @Override
+    public void deleteNoteByNoteId(Long noteId) {
+        noteRepository.deleteById(noteId);
     }
 
 

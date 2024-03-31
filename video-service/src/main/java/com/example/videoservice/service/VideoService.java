@@ -18,5 +18,7 @@ public interface VideoService {
     void createNote(RequestNote requestNote);
     ResponseNote getNote(Long userId, Long videoId);
     ResponseNote getNoteByNoteId(Long noteId);
-    List<ResponseVideo> getNoteByUserId(Long userId);
+    List<ResponseNote> getNoteByUserId(Long userId);
+    void deleteNote(Long userId, Long videoId);
+    void deleteNoteByNoteId(Long noteId);
 }

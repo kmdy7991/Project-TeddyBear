@@ -10,7 +10,6 @@ import lombok.*;
 @AllArgsConstructor
 public class BookmarkVideoEntity {
     @Id
-    @Column(name = "bm_video_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -18,6 +17,6 @@ public class BookmarkVideoEntity {
     private Long userId;
 
     @ManyToOne
-    @JoinColumn(name = "video_id", nullable = false)
+    @JoinColumn(name = "video", nullable = false)
     private VideoEntity video;
 }

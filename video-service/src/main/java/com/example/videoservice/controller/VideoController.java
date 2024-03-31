@@ -1,20 +1,13 @@
 package com.example.videoservice.controller;
 
-import com.example.videoservice.jpa.VideoEntity;
 import com.example.videoservice.service.VideoService;
 import com.example.videoservice.vo.*;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -119,11 +112,25 @@ public class VideoController {
         return ResponseEntity.status(HttpStatus.OK).body(responseNote);
     }
 
-    @GetMapping("/note/{userId}") // 사용자별 필기노트 리스트 조회
+    @GetMapping("/notes/{userId}") // 사용자별 필기노트 리스트 조회
     public ResponseEntity<List<ResponseNote>> getNotes(@PathVariable Long userId) {
         List<ResponseNote> responseNotes = videoService.getNoteByUserId(userId);
 
         return ResponseEntity.status(HttpStatus.OK).body(responseNotes);
+    }
+
+    @DeleteMapping("/note/{userId}/{videoId}") // 필기노트 1개 삭제
+    public ResponseEntity<String> deleteNote(@PathVariable Long userId, @PathVariable Long videoId) {
+        videoService.deleteNote(userId, videoId);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Note deleted successfully.");
+    }
+
+    @DeleteMapping("/note/{noteId}") // 필기노트 1개 삭제
+    public ResponseEntity<String> deleteNote(@PathVariable Long noteId) {
+        videoService.deleteNoteByNoteId(noteId);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Note deleted successfully.");
     }
 
 
