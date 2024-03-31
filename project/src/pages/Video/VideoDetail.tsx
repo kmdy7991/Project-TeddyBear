@@ -4,8 +4,6 @@ import mic from "../../assets/voice.png";
 import note from "../../assets/note.png";
 import word from "../../assets/word.png";
 import YouTube from "react-youtube";
-// import CategoryDummy from "../../components/Video/CategoryDummy";
-import dummy from "./DummyVideoData.json";
 import { MouseEvent, useEffect, useState } from "react";
 import Slider from "react-slick";
 import { PagePrevArrow, PageNextArrow } from "../../components/Slider/Arrow";
@@ -17,11 +15,16 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { VideoResultProps } from "../Main/VideoList/Video";
 import IsBookMark from "../../components/Video/IsBookMark";
-
 type tab = "mic" | "note" | "word";
 
 export interface ShadowingProps {
   selectedLine: string | null;
+}
+
+export interface ScriptProps {
+  id?: number | null;
+  content?: string | null;
+  videoId?: string | null;
 }
 
 export default function VideoDetail() {
@@ -34,7 +37,7 @@ export default function VideoDetail() {
   );
 
   // 비디오id에 해당하는 스크립트 불러오기
-  const [videoScript, setVideoScript] = useState([]);
+  const [videoScript, setVideoScript] = useState<ScriptProps[]>([]);
   // 각 탭 버튼 클릭 활성화를 위한 useState(default는 쉐도잉 버튼으로)
   const [activeTab, setActiveTab] = useState<tab>("mic");
   // pathvariable로 videoId를 받는당
@@ -54,7 +57,7 @@ export default function VideoDetail() {
   const [isBookmark, setIsBookmark] = useState(false);
 
   useEffect(() => {
-    // get
+    // getVideoDetail
     const fetchVideoData = async () => {
       try {
         const response = await axios.get(`/video-service/video/${videoId}`);
@@ -69,12 +72,52 @@ export default function VideoDetail() {
     }
   }, [videoId]);
 
+  // getScript
+  useEffect(() => {
+    const fetchScript = async () => {
+      if (videoData && videoData.videoId) {
+        try {
+          console.log(videoData.videoId);
+          const response = await axios.get(
+            `/script-service/script/${videoData.videoId}`
+          );
+          setVideoScript(response.data);
+        } catch (error) {
+          console.error("스크립트 상세 조회 실패:", error);
+        }
+      }
+    };
+
+    if (videoData) {
+      fetchScript();
+    }
+  }, [videoData]);
+
+  // 여부 조회
+  // const userId = 1;
   // useEffect(() => {
-  //   if (videoData && videoData.videoScripts) {
-  //     // videoData에서 비디오 스크립트 데이터를 추출하여 videoScripts 상태에 저장
-  //     setVideoScripts(videoData.videoScripts);
-  //   }
-  // }, [videoData]); // videoData가 변경될 때마다 실행
+  //   const checkBookmarkStatus = async () => {
+  //     if (videoData?.id) {
+  //       try {
+  //         // API 호출
+  //         const response = await axios.get(
+  //           `/video-service/bookmarkVideo/isExist`,
+  //           {
+  //             params: {
+  //               userId: userId,
+  //               videoId: videoData.id,
+  //             },
+  //           }
+  //         );
+  //         setIsBookmark(response.data); // API 응답에 따라 상태 업데이트
+  //       } catch (error) {
+  //         console.error("북마크 여부 조회 실패", error);
+  //       }
+  //     }
+  //   };
+
+  //   checkBookmarkStatus();
+  // }, [videoId]);
 
   // 페이지네이션을 위한 슬라이더
   let scriptSlider = {
@@ -93,13 +136,10 @@ export default function VideoDetail() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   // slice 메서드 활용해서 현재 페이지의 첫번째~마지막 줄 가져오기
-  const currentItems = dummy.video_transcript.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
+  const currentItems = videoScript.slice(indexOfFirstItem, indexOfLastItem);
 
   // 전체 페이지 수 계산
-  const pageCount = Math.ceil(dummy.video_transcript.length / itemsPerPage);
+  const pageCount = Math.ceil(videoScript.length / itemsPerPage);
   const pageNumbers = [];
   for (let i = 1; i <= pageCount; i++) {
     pageNumbers.push(i);
@@ -118,19 +158,23 @@ export default function VideoDetail() {
 
   function renderComponent() {
     const selectedScriptLine =
-      selectedScriptIdx !== null
-        ? dummy.video_transcript[selectedScriptIdx]
-        : null;
+      selectedScriptIdx !== null && videoScript[selectedScriptIdx]
+        ? videoScript[selectedScriptIdx].content // 문자열을 가져옵니다.
+        : null; // `selectedScriptIdx`가 `null`이거나 `content`가 `undefined`인 경우 `null`을 반환합니다.
     switch (activeTab) {
       case "mic":
-        return <Shadowing selectedLine={selectedScriptLine} />;
+        return <Shadowing selectedLine={selectedScriptLine || null} />;
       case "word":
         return <Word />;
       case "note":
-        return <LectureNote />;
-
+        if (videoData && videoData.id !== undefined) {
+          // videoData가 존재하고, videoData.id가 undefined가 아니라면
+          return <LectureNote userId={2} videoId={videoData.id} />; // videoId를 number로 전달합니다.
+        } else {
+          return null;
+        }
       default:
-        return <Shadowing selectedLine={selectedScriptLine} />;
+        return <Shadowing selectedLine={selectedScriptLine || null} />;
     }
   }
 
@@ -187,7 +231,7 @@ export default function VideoDetail() {
                       className={styles.moreButton}
                       onClick={handleClickFullDes}
                     >
-                      {showFullDescription ? "닫기" : "자세히 보기"}
+                      {showFullDescription ? "닫기" : "더보기"}
                     </button>
                   </span>
                 )}
@@ -236,16 +280,14 @@ export default function VideoDetail() {
           <div className={`${styles.script}`}>
             <div className={`${styles.scriptContainer}`}>
               <div className={`${styles.scriptContainer}`}>
-                {currentItems.map((line, localIndex) => {
-                  // 현재 페이지의 첫 번째 항목의 전역 인덱스를 계산
+                {currentItems.map((script, localIndex) => {
                   const globalIndex =
                     (currentPage - 1) * itemsPerPage + localIndex;
                   return (
                     <p
                       className={`${styles.scriptL}`}
-                      key={globalIndex} // 키는 전역 인덱스를 사용
-                      onClick={() => handleScriptClick(globalIndex)} // 마우스 오버 시 전역 인덱스를 사용
-                      // onMouseLeave={handleScriptLeave}
+                      key={globalIndex}
+                      onClick={() => handleScriptClick(globalIndex)}
                     >
                       <span
                         className={`${styles.scriptLine} ${
@@ -254,7 +296,7 @@ export default function VideoDetail() {
                             : ""
                         }`}
                       >
-                        {line}
+                        {script.content} {/* 여기서 content 속성을 렌더링 */}
                       </span>
                     </p>
                   );
@@ -265,12 +307,19 @@ export default function VideoDetail() {
               <Slider {...scriptSlider}>
                 {pageNumbers.map((number, index) => (
                   <div
+                    key={index}
                     className="pageIdx"
                     onMouseEnter={() => setScriptIdx(index)}
                     onMouseLeave={() => setScriptIdx(-1)}
                     style={{ position: "relative", transition: "all 0.3s" }}
                   >
-                    <button key={number} onClick={() => paginate(number)}>
+                    <button
+                      key={number} // key를 button 태그에 적용합니다.
+                      onClick={() => paginate(number)}
+                      onMouseEnter={() => setScriptIdx(number - 1)} // 인덱스 조정
+                      onMouseLeave={() => setScriptIdx(-1)}
+                      style={{ position: "relative", transition: "all 0.3s" }}
+                    >
                       {number}
                     </button>
                   </div>

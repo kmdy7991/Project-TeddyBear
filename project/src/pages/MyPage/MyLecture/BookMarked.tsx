@@ -11,7 +11,7 @@ export default function BookMarked() {
 
   useEffect(() => {
     const fetchBookMarkList = async () => {
-      const userId = 1;
+      const userId = 2;
       try {
         const bookmarkedVideos = await getBookMarkedVideoList(userId);
         setBookmarkList(bookmarkedVideos);
