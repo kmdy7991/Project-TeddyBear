@@ -15,7 +15,7 @@ import LectureNote from "./LectureNote";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { VideoResultProps } from "../Search/Search";
+import { VideoResultProps } from "../Main/VideoList/Video";
 type tab = "mic" | "note" | "word";
 
 export interface ShadowingProps {
