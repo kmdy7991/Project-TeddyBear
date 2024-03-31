@@ -21,5 +21,7 @@ public interface VideoService {
     List<ResponseNote> getNoteByUserId(Long userId);
     void deleteNote(Long userId, Long videoId);
     void deleteNoteByNoteId(Long noteId);
-    Boolean existBookmarkVideo(RequestBookmarkVideo requestBookmarkVideo);
+    boolean existBookmarkVideo(RequestBookmarkVideo requestBookmarkVideo);
+    boolean updateNoteByNoteId(Long noteId, String updatedNote);
+    boolean updateNoteContent(Long userId, Long videoId, String updatedNote);
 }
