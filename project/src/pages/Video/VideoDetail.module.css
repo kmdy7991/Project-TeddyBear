@@ -47,6 +47,7 @@
 }
 
 .bookmark {
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,11 +55,22 @@
 }
 
 .descriptionWrapper {
+  padding: 1rem 0;
   margin-top: 1rem;
   width: 100%;
-  border: 1px solid gray;
+  background-color: #f4f4f4;
 }
 
+.moreButton {
+  margin-left: 1rem;
+  border: 0;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.moreButton:hover {
+  cursor: pointer;
+}
 /* .description {
   overflow: hidden;
   display: -webkit-box;

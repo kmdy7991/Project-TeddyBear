@@ -1,6 +1,30 @@
+import { useEffect, useState } from "react";
 import styles from "./MyNote.module.css";
 import dummy from "./NoteDummy.json";
+import axios from "axios";
+
+interface noteProp {
+  id?: number;
+  note?: string;
+  noteDate?: string;
+}
+
 export default function MyNote() {
+  const userId = 2; // 더미 유저
+  const [notes, setNotes] = useState<noteProp[]>([]);
+
+  useEffect(() => {
+    const fetchNoteList = async () => {
+      try {
+        const response = await axios.get(`/video-service/notes/${userId}`);
+        console.log("노트 리스트 조회 성공", response.data);
+        setNotes(response.data);
+      } catch (error) {
+        console.error("노트 리스트 조회 실패", error);
+      }
+    };
+    fetchNoteList();
+  }, [userId]);
   return (
     <div className={`${styles.container}`}>
       <div className={`${styles.tdtext}`}>
@@ -10,13 +34,13 @@ export default function MyNote() {
         </div>
       </div>
       <div className={`${styles.noteList}`}>
-        {dummy.map((data, index) => (
+        {notes.map((data, index) => (
           <div className={`${styles.note}`} key={index}>
             <div className={`${styles.text}`}>
-              <div className={`${styles.vidTitle}`}>{data.title}</div>
-              <div className={`${styles.noteContent}`}>{data.content}</div>
+              <div className={`${styles.vidTitle}`}>{data.id}</div>
+              <div className={`${styles.noteContent}`}>{data.note}</div>
             </div>
-            <div className={`${styles.created}`}>{data.date}</div>
+            <div className={`${styles.created}`}>{data.noteDate}</div>
           </div>
         ))}
       </div>
