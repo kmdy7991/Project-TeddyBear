@@ -1,6 +1,11 @@
 import { PreviewVideoProps } from "./Video";
 import styles from "./VideoPreview.module.css";
-function VideoPreview({ video, index }: PreviewVideoProps & { index: number }) {
+function VideoPreview({
+  video,
+  index,
+  hoverIndex,
+}: PreviewVideoProps & { index: number }) {
+  const isHovered = index === hoverIndex; // 현재 인덱스가 호버된 인덱스인지 확인
   const modal5th = (): string => {
     if ((index + 1) % 5 === 0) {
       return `${styles.videoPreviewModal} ${styles.specialClass}`;
@@ -11,12 +16,12 @@ function VideoPreview({ video, index }: PreviewVideoProps & { index: number }) {
     }
   };
   return (
-    <div className={modal5th()}>
+    <div className={isHovered ? `${modal5th()} ${styles.hovered}` : modal5th()}>
       <div className={`${styles.videoPrImg}`}>
-        <img src={video.imageUrl} alt="썸네일 이미지" />
+        <img src={video.videoThumbnail} alt="썸네일 이미지" />
       </div>
-      <div className={`${styles.title}`}>{video.title}</div>
-      <div className={`${styles.des}`}>{video.description}</div>
+      <div className={`${styles.title}`}>{video.videoTitle}</div>
+      <div className={`${styles.des}`}>{video.videoDescription}</div>
     </div>
   );
 }
