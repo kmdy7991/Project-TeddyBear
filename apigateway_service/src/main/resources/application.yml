@@ -46,7 +46,7 @@ spring:
           uri: lb://VIDEO-SERVICE
           predicates:
             - Path=/video-service/**
-            -
+
         - id: test-service
           uri: lb://TEST-SERVICE
           predicates:
@@ -56,6 +56,11 @@ spring:
           uri: lb://SCRIPT-SERVICE
           predicates:
             - Path=/script-service/**
+
+        - id: category-service
+          uri: lb://CATEGORY-SERVICE
+          predicates:
+            - Path=/category-service/**
 
         - id: python-service
           uri: lb://PYTHON-SERVICE

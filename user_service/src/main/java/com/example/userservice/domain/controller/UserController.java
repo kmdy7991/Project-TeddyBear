@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("/user-service")
 public class UserController {
@@ -21,66 +23,39 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<UserDto.UserResponse> update(@PathVariable Long id, @RequestBody UserDto.UserUpdateResponse request) throws Exception {
-        User user = userService.findById(id);
-        UserDto.UserResponse response = UserDto.UserResponse.builder()
-                .birthday(request.getBirthday())
-                .email(user.getEmail())
-                .role(Role.USER)
-                .attendance(user.getAttendance())
-                .gender(request.getGender())
-                .id(user.getId())
-                .nickname(request.getNickname())
-                .videoViewTime(user.getVideoViewTime())
-                .concern(user.getConcern())
-                .build();
-
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody UserDto.UserUpdateResponse request) throws Exception {
+        boolean success = userService.update(id, request);
+        if (success) {
+            return ResponseEntity.ok("User updated successfully");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
-        userService.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body("User deleted successfully.");
+        boolean result = userService.deleteById(id);
+        if (result) {
+            return ResponseEntity.status(HttpStatus.OK).body("User deleted successfully.");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
     }
 
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDto.UserResponse> findById(@PathVariable Long id) throws Exception {
-        User user = userService.findById(id);
-        if (user != null) {
-            UserDto.UserResponse response = UserDto.UserResponse.builder()
-                    .birthday(user.getBirthday())
-                    .email(user.getEmail())
-                    .role(user.getRole())
-                    .attendance(user.getAttendance())
-                    .gender(user.getGender())
-                    .id(user.getId())
-                    .nickname(user.getNickname())
-                    .videoViewTime(user.getVideoViewTime())
-                    .concern(user.getConcern())
-                    .build();
-
+        UserDto.UserResponse response = userService.findById(id);
+        if (response != null) {
             return ResponseEntity.status(HttpStatus.OK).body(response);
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(null);
         }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
     @GetMapping("/tier/{id}")
     public ResponseEntity<UserDto.TierResponse> findByUserId(@PathVariable Long id) {
-        Tier tier = userService.findByUserId(id);
-        if (tier != null) {
-            UserDto.TierResponse response = UserDto.TierResponse.builder()
-                    .tierName(tier.getTierName())
-                    .tierExp(tier.getTierExp())
-                    .level(tier.getLevel())
-                    .levelExp(tier.getLevelExp())
-                    .build();
-
+        UserDto.TierResponse response = userService.findByUserId(id);
+        if (response != null) {
             return ResponseEntity.status(HttpStatus.OK).body(response);
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(null);
         }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
     @GetMapping("/checkNickname/{id}")
@@ -93,5 +68,14 @@ public class UserController {
     public ResponseEntity<String> findTierById(@PathVariable Long id) {
         String response = userService.findTierById(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/info/{id}")
+    public ResponseEntity<UserDto.UserInfoResponse> findUserInfoById(@PathVariable Long id) throws Exception {
+        UserDto.UserInfoResponse response = userService.findUserInfoById(id);
+        if (response != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 }
