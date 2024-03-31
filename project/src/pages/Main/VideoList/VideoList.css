@@ -12,11 +12,23 @@
   margin-top: 3rem;
 }
 
+.no-content {
+  font-size: 1.4rem;
+  margin-bottom: 3rem;
+}
+
 .videoContainer {
-  margin: 2vh 2rem;
+  /* margin: 2vh 0; */
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.videoContainer:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .slick-slide {
@@ -26,7 +38,7 @@
 
 .videoContainer img,
 .y-carousel img {
-  border-radius: 1vw;
+  border-radius: 0.5vw;
   width: 18rem;
 }
 
@@ -43,14 +55,18 @@
   margin-bottom: 1rem;
 }
 
+.vid-title span {
+  font-weight: bold;
+}
+
 .dots_custom {
   display: inline-block;
   vertical-align: middle;
   margin: auto 0;
   padding: 0;
   position: absolute;
-  top: -1rem;
-  right: 9.5rem;
+  top: -2rem;
+  right: 1rem;
 }
 
 .dots_custom li {
@@ -80,18 +96,18 @@
   width: 100%;
 }
 
-/* VideoList.css 추가 */
 .thumbnail {
   /* opacity: 0; */
   /* visibility: hidden; */
   /* transition: 2s; */
-  height: 150%;
+  /* height: 30rem; */
   top: 5%;
   /* height: 500px; */
   /* transform: scale(1.3); */
-  position: absolute;
+  /* position: absolute; */
   /* height: 250px; */
   z-index: 10;
+  /* overflow: visible; */
 }
 
 /* 마우스 호버 시 확대와 더불어 높이도 시각적으로 커지도록 설정 */

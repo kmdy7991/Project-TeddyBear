@@ -1,7 +1,7 @@
-/* VideoList.css */
 .videoPreviewModal {
   position: absolute;
   width: 20rem;
+  height: 30rem;
   /* height: 300px; */
   /* top: 1rem; */
   /* left: 2rem; */
@@ -11,11 +11,11 @@
   /* padding: 20px; */
   box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
   border-radius: 0.2vw;
-  z-index: 100;
+  /* z-index: 100; */
   display: flex;
   justify-content: center;
   flex-direction: column;
-  overflow: hidden;
+  /* overflow: hidden; */
   cursor: pointer;
   transition: transform 0.3s ease; /* 부드러운 확대/축소를 위한 전환 */
 }
@@ -38,7 +38,7 @@
 }
 
 .videoPrImg img {
-  /* height: 150px; */
+  height: 10rem;
 }
 
 .title {
