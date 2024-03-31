@@ -1,0 +1,48 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: auth-service
+  datasource:
+    url: jdbc:mysql://j10b107.p.ssafy.io:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+    username: root
+    password: ssafy
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 198743836956-ls6nit1j3mee99nui7h95tud1vfgoean.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile, email, https://www.googleapis.com/auth/youtube
+#               강제로 scope를 email과 profile로 등록한 이유는?
+# scope의 기본값은 openid, email, profile
+# 하지만 openid라는 scope가 있으면 OpenId Provider로 인식
+# 그렇게 되면 OpenId Provider인 서비스(구글)와 그렇지 않은 서비스(네이버, 카카오 등)로 나눠서 각각 OAuth2Service를 만들어야 함
+# 하나의 OAuth2Service를 사용하기 위해 일부러 openid scope를 빼고 등록
+
+#  application-oauth.yml을 따로 만들 경우 주석 해제
+#  profiles:
+#    include: oauth
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    hostname: localhost
+
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
