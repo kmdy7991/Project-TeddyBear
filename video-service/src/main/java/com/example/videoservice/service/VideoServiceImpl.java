@@ -198,15 +198,21 @@ public class VideoServiceImpl implements VideoService {
     public void bookmarkVideo(RequestBookmarkVideo requestBookmarkVideo) {
         // videoId로부터 VideoEntity 가져오기
         Long videoId = requestBookmarkVideo.getVideoId();
+        Long userId = requestBookmarkVideo.getUserId();
         VideoEntity videoEntity = videoRepository.findById(videoId)
                 .orElseThrow(() -> new IllegalArgumentException("Video with id " + videoId + " not found"));
 
+        boolean exist = bookmarkVideoRepository.existsByVideoIdAndUserId(videoId, userId);
+        System.out.println("exist: " + exist);
 
-        BookmarkVideoEntity bookmarkVideoEntity = BookmarkVideoEntity.builder()
-                .userId(requestBookmarkVideo.getUserId())
-                .video(videoEntity)
-                .build();
-        bookmarkVideoRepository.save(bookmarkVideoEntity);
+        if(!exist){
+            BookmarkVideoEntity bookmarkVideoEntity = BookmarkVideoEntity.builder()
+                    .userId(userId)
+                    .video(videoEntity)
+                    .build();
+            bookmarkVideoRepository.save(bookmarkVideoEntity);
+        }
+
     }
 
     @Override
@@ -315,6 +321,14 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public void deleteNoteByNoteId(Long noteId) {
         noteRepository.deleteById(noteId);
+    }
+
+    @Override
+    public Boolean existBookmarkVideo(RequestBookmarkVideo requestBookmarkVideo) {
+        Long userId = requestBookmarkVideo.getUserId();
+        Long videoId = requestBookmarkVideo.getVideoId();
+        return bookmarkVideoRepository.existsByVideoIdAndUserId(videoId, userId);
+
     }
 
 
