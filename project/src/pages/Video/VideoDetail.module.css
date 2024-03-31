@@ -31,7 +31,13 @@
   min-height: 10vh;
 }
 
+.tb {
+  width: 100%;
+  display: flex;
+}
+
 .videoTitle {
+  width: 95%;
   font-size: 1.5rem;
   font-weight: 800;
   margin-top: 0.6rem;
@@ -39,6 +45,27 @@
   overflow: hidden;
   text-overflow: ellipsis; */
 }
+
+.bookmark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5%;
+}
+
+.descriptionWrapper {
+  margin-top: 1rem;
+  width: 100%;
+  border: 1px solid gray;
+}
+
+/* .description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  text-align: justify; 
+} */
 
 .hashList {
   display: flex;

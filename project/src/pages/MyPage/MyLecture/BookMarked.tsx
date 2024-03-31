@@ -48,7 +48,7 @@ export default function BookMarked() {
               </div>
               <div className="myText">
                 <div className="myVidTitle">{data.videoTitle}</div>
-                <div className="myDescription">{data.videoDescription}</div>
+                <div className="myDescription">{data.videoDiscription}</div>
               </div>
             </div>
           ))}

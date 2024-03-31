@@ -43,7 +43,7 @@ function Search() {
                     <div className={`${styles.title}`}>{result.videoTitle}</div>
                   </div>
                   <div className={`${styles.description}`}>
-                    {result.videoDescription}
+                    {result.videoDiscription}
                   </div>
                 </div>
               </div>
