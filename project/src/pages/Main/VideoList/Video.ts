@@ -1,10 +1,15 @@
-export interface VideoThumbnail {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
+export interface VideoResultProps {
+  id: number;
+  videoTitle?: string;
+  videoDescription?: string;
+  videoUrl?: string;
+  videoId?: string;
+  videoTime?: string;
+  videoThumbnail?: string;
+  videoGrade?: string;
 }
 
 export interface PreviewVideoProps {
-  video: VideoThumbnail;
+  video: VideoResultProps;
+  hoverIndex: number;
 }

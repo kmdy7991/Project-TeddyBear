@@ -5,17 +5,8 @@ import SearchInput from "./SearchInput";
 import CategoryDummy from "../../components/Video/CategoryDummy";
 import CategoryBox from "../../components/Video/CategoryBox";
 import { useNavigate } from "react-router-dom";
+import { VideoResultProps } from "../Main/VideoList/Video";
 
-export interface VideoResultProps {
-  id: number;
-  videoTitle: string;
-  videoDiscription: string;
-  videoUrl: string;
-  videoId: string;
-  videoTime: string;
-  videoThumbnail: string;
-  videoGrade: string;
-}
 function Search() {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
@@ -52,7 +43,7 @@ function Search() {
                     <div className={`${styles.title}`}>{result.videoTitle}</div>
                   </div>
                   <div className={`${styles.description}`}>
-                    {result.videoDiscription}
+                    {result.videoDescription}
                   </div>
                 </div>
               </div>
