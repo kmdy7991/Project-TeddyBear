@@ -1,14 +1,16 @@
 package com.example.wordservice.jpa;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
+
 @Getter
 @Entity
 @Table(name = "word")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class WordEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +28,8 @@ public class WordEntity {
     @Column(nullable = false, length = 2)
     private String tier;
 
-    @Builder
-    public WordEntity(String eng, String kor, String part, String tier) {
-        this.eng = eng;
-        this.kor = kor;
-        this.part = part;
-        this.tier = tier;
-    }
+    @OneToMany(mappedBy = "word")
+    private List<BookmarkWordEntity> bookmarkHistory;
 
 
 }

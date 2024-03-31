@@ -57,6 +57,13 @@ public class WordController {
         return ResponseEntity.status(HttpStatus.OK).body("Bookmark saved successfully.");
     }
 
+    @GetMapping("/bookmarkWords/isExist") // 북마크 단어 유무
+    public ResponseEntity<Boolean> existBookmarkword(@RequestBody RequestBookmarkWord requestBookmarkWord) {
+        Boolean isExist = wordService.existBookmarkword(requestBookmarkWord);
+
+        return ResponseEntity.status(HttpStatus.OK).body(isExist);
+    }
+
     @PostMapping("/importWord") // 단어 넣기
     public ResponseEntity<String> importWord() {
         try {

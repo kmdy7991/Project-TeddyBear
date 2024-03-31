@@ -77,18 +77,27 @@ public class WordServiceImpl implements WordService{
     @Override
     public void createBookmarkword(RequestBookmarkWord requestBookmarkWord) {
         Long wordId = requestBookmarkWord.getWordId();
+//        System.out.println("wordId: " + wordId);
         WordEntity wordEntity = wordRepository.findById(wordId).orElse(null);
         Long userId = requestBookmarkWord.getUserId();
+//        System.out.println("userId: " + userId);
 
-        boolean exists = bookmarkWordRepository.existsByIdAndUserId(wordEntity.getId(), userId);
+        boolean exists = bookmarkWordRepository.existsByIdAndUserId(wordId, userId);
+//        System.out.println("exists: " + exists);
 
-        if (exists) {
+        if (!exists) {
             BookmarkWordEntity bookmarkWordEntity = BookmarkWordEntity.builder()
                     .word(wordEntity)
                     .userId(userId)
                     .build();
             bookmarkWordRepository.save(bookmarkWordEntity);
         }
+    }
+    @Override
+    public Boolean existBookmarkword(RequestBookmarkWord requestBookmarkWord) {
+        Long wordId = requestBookmarkWord.getWordId();
+        Long userId = requestBookmarkWord.getUserId();
+        return bookmarkWordRepository.existsByIdAndUserId(wordId, userId);
     }
 
     @Transactional
@@ -114,6 +123,7 @@ public class WordServiceImpl implements WordService{
 
         }
     }
+
 
 
 }

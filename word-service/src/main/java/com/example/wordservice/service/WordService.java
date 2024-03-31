@@ -14,4 +14,5 @@ public interface WordService {
     void deleteBookmarkByUserIdAndWordId(Long userId, WordEntity wordId);
     void createBookmarkword(RequestBookmarkWord requestBookmarkWord);
     void importWord() throws Exception;
+    Boolean existBookmarkword(RequestBookmarkWord requestBookmarkWord);
 }

@@ -9,4 +9,6 @@ import java.util.List;
 public interface BookmarkVideoRepository extends JpaRepository<BookmarkVideoEntity, Long> {
     List<BookmarkVideoEntity> findByUserId(Long userId);
     List<BookmarkVideoEntity> findByUserIdAndVideoId(Long userId, Long videoId);
+    boolean existsByVideoIdAndUserId(Long videoId, Long userId);
+
 }

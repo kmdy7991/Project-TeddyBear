@@ -16,7 +16,7 @@ public class BookmarkWordEntity {
 
 //    @ManyToOne(fetch = FetchType.LAZY)
     @ManyToOne
-    @JoinColumn(name = "word")
+    @JoinColumn(name = "word", nullable = false)
     private WordEntity word;
 
     private Long  userId;

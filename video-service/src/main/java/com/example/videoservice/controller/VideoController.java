@@ -133,5 +133,12 @@ public class VideoController {
         return ResponseEntity.status(HttpStatus.OK).body("Note deleted successfully.");
     }
 
+    @GetMapping("/bookmarkVideo/isExist") // 북마크 영상 유무
+    public ResponseEntity<Boolean> existBookmarkVideo(@RequestBody RequestBookmarkVideo requestBookmarkVideo) {
+        Boolean isExist = videoService.existBookmarkVideo(requestBookmarkVideo);
+
+        return ResponseEntity.status(HttpStatus.OK).body(isExist);
+    }
+
 
 }
