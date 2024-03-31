@@ -1,18 +1,33 @@
+.vcontainer {
+  margin-top: 2rem;
+}
+
 .container {
   margin: 0 auto;
   /* padding: 0px 40px 40px 40px; */
   text-align: center;
 }
 
-.taste {
-  margin-bottom: 2rem;
-}
-.v-container {
-  /* position: relative; */
+.주제 {
+  margin-top: 3rem;
 }
 
-.y-carsousel {
-  /* position: absolute; */
+.videoContainer {
+  margin: 2vh 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slick-slide {
+  display: flex;
+  justify-content: center;
+}
+
+.videoContainer img,
+.y-carousel img {
+  border-radius: 1vw;
+  width: 18rem;
 }
 
 .slick-slide {
@@ -20,12 +35,8 @@
   /* transform-origin: 50% 50%; */
 }
 
-.y-carousel img {
-  height: 180px;
-}
-
 .vid-title {
-  margin-left: 5rem;
+  /* margin-left: 5rem; */
   font-size: 28px;
   font-weight: lighter;
   color: #4b4b4b;
@@ -67,14 +78,6 @@
 .dots_custom li.slick-active button {
   background-color: #aaa;
   width: 100%;
-}
-
-.slick-list {
-  /* margin-left: 2rem; */
-}
-.slick-list {
-  /* overflow: hidden !important; */
-  /* overflow-x: hidden; */
 }
 
 /* VideoList.css 추가 */

@@ -25,7 +25,7 @@ export default function WatchedVideoSlide() {
           onMouseLeave={() => setSlideIdx(-1)}
           style={{ position: "relative", transition: "all 0.3s" }}
         >
-          <img src={data.imageUrl}></img>
+          <img src={data.videoThumbnail}></img>
         </div>
       ))}
     </Slider>
