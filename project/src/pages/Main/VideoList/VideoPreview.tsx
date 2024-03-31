@@ -21,7 +21,7 @@ function VideoPreview({
         <img src={video.videoThumbnail} alt="썸네일 이미지" />
       </div>
       <div className={`${styles.title}`}>{video.videoTitle}</div>
-      <div className={`${styles.des}`}>{video.videoDescription}</div>
+      <div className={`${styles.des}`}>{video.videoDiscription}</div>
     </div>
   );
 }

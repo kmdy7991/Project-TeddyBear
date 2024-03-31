@@ -1,7 +1,7 @@
 export interface VideoResultProps {
   id: number;
   videoTitle?: string;
-  videoDescription?: string;
+  videoDiscription?: string | undefined;
   videoUrl?: string;
   videoId?: string;
   videoTime?: string;

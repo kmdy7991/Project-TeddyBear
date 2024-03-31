@@ -46,7 +46,7 @@ export default function Watching() {
                     <div className="myText">
                       <div className="myVidTitle">{data.videoTime}</div>
                       <div className="myDescription">
-                        {data.videoDescription}
+                        {data.videoDiscription}
                       </div>
                     </div>
                   </div>

@@ -53,7 +53,7 @@ export default function Watched() {
                 <div className="myText">
                   zzz
                   <div className="myVidTitle">{data.videoTitle}</div>
-                  <div className="myDescription">{data.videoDescription}</div>
+                  <div className="myDescription">{data.videoDiscription}</div>
                 </div>
               </div>
             ))}
