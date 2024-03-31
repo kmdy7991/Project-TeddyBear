@@ -19,7 +19,8 @@ spring:
         add-to-simple-url-handler-mapping: true
         corsConfigurations:
           '[/**]':
-            allowedOrigins: '*'
+            allowedOrigins:
+              - "http://localhost:8000"
             allow-credentials: true
             allowedHeaders: '*'
             exposedHeaders: '*'
