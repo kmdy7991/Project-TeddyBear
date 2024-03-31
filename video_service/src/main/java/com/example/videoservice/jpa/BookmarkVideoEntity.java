@@ -8,6 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Table(name = "Bookmark Video")
 public class BookmarkVideoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
