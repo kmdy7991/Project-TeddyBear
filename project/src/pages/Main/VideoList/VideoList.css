@@ -38,6 +38,7 @@
 
 .videoContainer img,
 .y-carousel img {
+  /* display: flex; */
   border-radius: 0.5vw;
   width: 18rem;
 }

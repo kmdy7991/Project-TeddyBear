@@ -17,23 +17,23 @@ function VideoList() {
   const [tasteHoverIndex, setTasteHoverIndex] = useState<number>(0); // 취향저격 호버 인덱스
   const [bmList, setBmList] = useState<VideoResultProps[]>([]);
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   const fetchBookMarkList = async () => {
-  //     const userId = 1;
-  //     try {
-  //       const bookmarkedVideos = await getBookMarkedVideoList(userId);
-  //       setBmList(bookmarkedVideos);
-  //     } catch (error) {
-  //       console.error("북마크 영상 조회 실패:", error);
-  //     }
-  //   };
-  //   fetchBookMarkList();
-  // }, []);
+  useEffect(() => {
+    const fetchBookMarkList = async () => {
+      const userId = 1;
+      try {
+        const bookmarkedVideos = await getBookMarkedVideoList(userId);
+        setBmList(bookmarkedVideos);
+      } catch (error) {
+        console.error("북마크 영상 조회 실패:", error);
+      }
+    };
+    fetchBookMarkList();
+  }, []);
 
   const sliderSettings = (slidesToShow: number) => {
     return {
       dots: true,
-      infinite: true,
+      infinite: false,
       slidesToShow: slidesToShow,
       slidesToScroll: 5,
       speed: 500,
@@ -65,11 +65,12 @@ function VideoList() {
             <Slider {...sliderSettings(Math.min(5, bmList.length))}>
               {bmList.map((video, index) => (
                 <div
-                  key={index}
                   className="videoContainer"
+                  key={index}
                   onMouseEnter={() => setbmHoverIndex(index)}
                   onMouseLeave={() => setbmHoverIndex(-1)}
                   style={{ position: "relative", transition: "all 0.3s" }}
+                  onClick={() => navigate(`/video/${video.id}`)}
                 >
                   <img src={video.videoThumbnail} alt="비디오 썸네일" />
                   {/* {bmHoverIndex === index && (
