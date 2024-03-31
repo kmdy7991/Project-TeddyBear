@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class WordEntity {
     @Id
-    @Column(name = "word_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
