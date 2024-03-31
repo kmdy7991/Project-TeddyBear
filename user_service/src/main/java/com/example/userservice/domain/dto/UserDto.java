@@ -45,4 +45,13 @@ public class UserDto {
         private String gender;
         private String nickname;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserInfoResponse {
+        private int age;
+        private String gender;
+    }
 }
