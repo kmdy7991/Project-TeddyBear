@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, MouseEvent, useEffect, useState } from "react";
 import Slider from "react-slick";
 import {
   NextArrow,
@@ -10,24 +10,25 @@ import { dummyThumbnails } from "./VideoDummy";
 import VideoPreview from "./VideoPreview";
 import { VideoResultProps } from "./Video";
 import { getBookMarkedVideoList } from "../../../components/Video/BookmarkList";
+import { useNavigate } from "react-router-dom";
 
 function VideoList() {
   const [bmHoverIndex, setbmHoverIndex] = useState<number>(0); // 북마크 호버 인덱스
   const [tasteHoverIndex, setTasteHoverIndex] = useState<number>(0); // 취향저격 호버 인덱스
   const [bmList, setBmList] = useState<VideoResultProps[]>([]);
-
-  useEffect(() => {
-    const fetchBookMarkList = async () => {
-      const userId = 1;
-      try {
-        const bookmarkedVideos = await getBookMarkedVideoList(userId);
-        setBmList(bookmarkedVideos);
-      } catch (error) {
-        console.error("북마크 영상 조회 실패:", error);
-      }
-    };
-    fetchBookMarkList();
-  }, []);
+  const navigate = useNavigate();
+  // useEffect(() => {
+  //   const fetchBookMarkList = async () => {
+  //     const userId = 1;
+  //     try {
+  //       const bookmarkedVideos = await getBookMarkedVideoList(userId);
+  //       setBmList(bookmarkedVideos);
+  //     } catch (error) {
+  //       console.error("북마크 영상 조회 실패:", error);
+  //     }
+  //   };
+  //   fetchBookMarkList();
+  // }, []);
 
   const sliderSettings = (slidesToShow: number) => {
     return {
@@ -56,30 +57,36 @@ function VideoList() {
   return (
     <div className="vcontainer">
       <div className="주제">
-        <div className="vid-title">북마크한 영상</div>
+        <div className="vid-title">
+          <span>북마크한 영상</span>
+        </div>
         <div>
-          <Slider {...sliderSettings(Math.min(5, bmList.length))}>
-            {bmList.map((video, index) => (
-              <div
-                key={index}
-                className="videoContainer"
-                onMouseEnter={() => setbmHoverIndex(index)}
-                onMouseLeave={() => setbmHoverIndex(-1)}
-                style={{ position: "relative", transition: "all 0.3s" }}
-              >
-                <img src={video.videoThumbnail} alt="비디오 썸네일" />
-                {bmHoverIndex === index && (
-                  <div className="thumbnail" style={{ transition: "0.5s" }}>
-                    <VideoPreview
-                      video={video}
-                      index={index}
-                      hoverIndex={bmHoverIndex}
-                    />
-                  </div>
-                )}
-              </div>
-            ))}
-          </Slider>
+          {bmList.length > 0 ? (
+            <Slider {...sliderSettings(Math.min(5, bmList.length))}>
+              {bmList.map((video, index) => (
+                <div
+                  key={index}
+                  className="videoContainer"
+                  onMouseEnter={() => setbmHoverIndex(index)}
+                  onMouseLeave={() => setbmHoverIndex(-1)}
+                  style={{ position: "relative", transition: "all 0.3s" }}
+                >
+                  <img src={video.videoThumbnail} alt="비디오 썸네일" />
+                  {/* {bmHoverIndex === index && (
+                    <div className="thumbnail" style={{ transition: "0.5s" }}>
+                      <VideoPreview
+                        video={video}
+                        index={index}
+                        hoverIndex={bmHoverIndex}
+                      />
+                    </div>
+                  )} */}
+                </div>
+              ))}
+            </Slider>
+          ) : (
+            <div className="no-content">북마크한 영상이 없습니다.</div>
+          )}
         </div>
       </div>
       <div className="주제">
@@ -90,14 +97,17 @@ function VideoList() {
           <Slider {...sliderSettings(5)}>
             {dummyThumbnails.map((data, index) => (
               <div
-                className="slick-slide v-container y-carousel"
+                // className="slick-slide v-container y-carousel "
+
+                className="videoContainer"
                 key={index}
                 onMouseEnter={() => setTasteHoverIndex(index)}
                 onMouseLeave={() => setTasteHoverIndex(-1)}
                 style={{ position: "relative", transition: "all 0.3s" }}
+                onClick={() => navigate(`/video/${data.id}`)}
               >
                 <img src={data.videoThumbnail}></img>
-                {tasteHoverIndex === index && (
+                {/* {tasteHoverIndex === index && (
                   <div className="thumbnail" style={{ transition: "0.5s" }}>
                     <VideoPreview
                       video={data}
@@ -105,7 +115,7 @@ function VideoList() {
                       hoverIndex={tasteHoverIndex}
                     />
                   </div>
-                )}
+                )} */}
               </div>
             ))}
           </Slider>
