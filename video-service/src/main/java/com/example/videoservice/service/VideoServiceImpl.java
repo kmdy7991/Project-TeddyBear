@@ -14,8 +14,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @Service
 //@Transactional
@@ -324,11 +327,48 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public Boolean existBookmarkVideo(RequestBookmarkVideo requestBookmarkVideo) {
+    public boolean existBookmarkVideo(RequestBookmarkVideo requestBookmarkVideo) {
         Long userId = requestBookmarkVideo.getUserId();
         Long videoId = requestBookmarkVideo.getVideoId();
         return bookmarkVideoRepository.existsByVideoIdAndUserId(videoId, userId);
 
+    }
+
+    @Override
+    public boolean updateNoteByNoteId(Long noteId, String updatedNote) {
+        NoteEntity note = noteRepository.findById(noteId)
+                .orElseThrow(() -> new RuntimeException("Note not found"));
+
+        // 빌더 클래스를 사용하여 엔티티를 복제하고 수정
+        NoteEntity updatedNoteEntity = NoteEntity.builder()
+                .id(note.getId())
+                .userId(note.getUserId())
+                .video(note.getVideo())
+                .note(updatedNote)
+                .noteDate(LocalDateTime.now())
+                .build();
+
+        noteRepository.save(updatedNoteEntity);
+        return true;
+    }
+
+    @Override
+    public boolean updateNoteContent(Long userId, Long videoId, String updatedNote) {
+        // 주어진 userId와 videoId에 해당하는 NoteEntity 찾기
+        NoteEntity note = noteRepository.findByUserIdAndVideoId(userId, videoId);
+        if (note != null) {
+            NoteEntity updatedNoteEntity = NoteEntity.builder()
+                    .id(note.getId())
+                    .userId(note.getUserId())
+                    .video(note.getVideo())
+                    .note(updatedNote)
+                    .noteDate(LocalDateTime.now())
+                    .build();
+
+            noteRepository.save(updatedNoteEntity);
+            return true;
+        }
+        return false;
     }
 
 
