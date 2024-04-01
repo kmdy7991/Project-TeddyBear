@@ -16,4 +16,12 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+
+  app.use(
+    "/word-service",
+    createProxyMiddleware({
+      target: "http://localhost:8081",
+      changeOrigin: true,
+    })
+  );
 };
