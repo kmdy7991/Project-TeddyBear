@@ -109,3 +109,11 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+
+.noContent {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+  font-size: 2rem;
+  left: 10%;
+}

@@ -10,7 +10,10 @@ import { VideoResultProps } from "../Main/VideoList/Video";
 function Search() {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
-  const [searchResults, setSearchResults] = useState<VideoResultProps[]>([]); // 검색 결과 상태 추가
+  const [searchResults, setSearchResults] = useState<VideoResultProps[] | null>(
+    null
+  ); // 검색 결과 상태 추가
+  const [searchAttempted, setSearchAttempted] = useState(false);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const nextValue = e.target.value;
@@ -19,42 +22,53 @@ function Search() {
   }
 
   return (
-    <div className={`${styles.container}`}>
+    <div className={styles.container}>
       <Nav />
-      <div className={`${styles.mainContent}`}>
+      <div className={styles.mainContent}>
         <SearchInput
           value={searchValue}
           onChange={handleChange}
           onSearch={setSearchResults}
+          onSearchAttempted={() => setSearchAttempted(true)} // 검색 시도됨
         />
-        {searchValue.length > 0 ? (
-          <div className={`${styles.videolist}`}>
-            {searchResults?.map((result, index) => (
-              <div
-                className={`${styles.video}`}
-                onClick={() => navigate(`/video/${result.id}`)}
-              >
-                <div className={`${styles.videoImg}`}>
-                  <img src={result.videoThumbnail} alt="썸네일 이미지" />
-                </div>
-                <div className={`${styles.text}`}>
-                  <div className={`${styles.dt}`}>
-                    <div className={`${styles.dif}`}>{result.videoGrade}</div>
-                    <div className={`${styles.title}`}>{result.videoTitle}</div>
+
+        {searchValue.length > 0 && searchAttempted && (
+          <>
+            {searchResults && searchResults.length > 0 ? (
+              <div className={styles.videolist}>
+                {searchResults.map((result, index) => (
+                  <div
+                    key={index}
+                    className={styles.video}
+                    onClick={() => navigate(`/video/${result.id}`)}
+                  >
+                    <div className={styles.videoImg}>
+                      <img src={result.videoThumbnail} alt="썸네일 이미지" />
+                    </div>
+                    <div className={styles.text}>
+                      <div className={styles.dt}>
+                        <div className={styles.dif}>{result.videoGrade}</div>
+                        <div className={styles.title}>{result.videoTitle}</div>
+                      </div>
+                      <div className={styles.description}>
+                        {result.videoDiscription}
+                      </div>
+                    </div>
                   </div>
-                  <div className={`${styles.description}`}>
-                    {result.videoDiscription}
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
-        ) : (
-          <div className={`${styles.category}`}>
-            <h2 className={`${styles.title}`}>모두 둘러보기</h2>
-            <div className={`${styles.categoryBox}`}>
+            ) : (
+              <div className={styles.noContent}>검색 결과가 없습니다.</div>
+            )}
+          </>
+        )}
+
+        {searchValue.length === 0 && (
+          <div className={styles.category}>
+            <h2 className={styles.title}>모두 둘러보기</h2>
+            <div className={styles.categoryBox}>
               {CategoryDummy.map((categoryData, index) => (
-                <CategoryBox data={categoryData} key={index} />
+                <CategoryBox key={index} data={categoryData} />
               ))}
             </div>
           </div>
