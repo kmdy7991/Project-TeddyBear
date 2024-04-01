@@ -1,12 +1,9 @@
-// ClassVocabulary.tsx
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'; // axios를 불러옵니다.
 import Card from '../../components/Vocabu/Card';
 import Pagination from '../../components/Vocabu/Pagination';
 import styles from './ClassVoca.module.css';
-import dummy from './Classvocadummy.json'
 
-
-// JSON 파일에서 가져올 단어의 타입을 정의합니다.
 interface Word {
   id: number;
   eng: string;
@@ -22,12 +19,22 @@ const ClassVocabulary = () => {
   const CARDS_PER_PAGE = 12;
 
   useEffect(() => {
-    // 로컬 JSON 파일의 데이터를 필터링하여 상태에 설정합니다.
-    setWords(dummy.filter(word => word.tier === currentTier));
-  }, [currentTier]);
+    // 백엔드에서 데이터를 가져옵니다.
+    const fetchWords = async () => {
+      try {
+        // API로부터 데이터를 받아옵니다.
+        const response = await axios.get(`/word-service/words/${currentTier}`);
+        // 응답으로 받은 데이터를 상태에 설정합니다.
+        setWords(response.data);
+      } catch (error) {
+        console.error('단어를 불러오는 데 실패했습니다.', error);
+        // 오류 처리를 적절히 수행합니다.
+      }
+    };
 
-  // 백엔드 API 연결 시 사용할 함수는 주석 처리합니다.
-  // const handleTierChange = (tier: string) => { ... };
+    fetchWords();
+  }, [currentTier]); // currentTier가 변경될 때마다 useEffect가 실행됩니다.
+
 
   const currentCards = words.slice(
     (currentPage - 1) * CARDS_PER_PAGE,
@@ -67,9 +74,7 @@ const ClassVocabulary = () => {
           onPageChange={handlePageChange}
         />
       </div>
-   
     </div>    
-
   );
 };
 
