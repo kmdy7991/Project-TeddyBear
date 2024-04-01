@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from typing import Dict
-from domain.translate.res import translate  # res.py 모듈에서 translate 함수를 가져옴
+from app.domain.translate.res import translate  # res.py 모듈에서 translate 함수를 가져옴
 import uvicorn
 # Pydantic 모델을 사용하면, 요청 바디의 구조를 명확하게 정의할 수 있고,
 # 데이터 검증과 문서 자동 생성의 이점을 얻을 수 있
