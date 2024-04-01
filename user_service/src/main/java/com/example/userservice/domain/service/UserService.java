@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final TierRepository tierRepository;
+    private final LanguageClient languageClient;
 
     public Boolean update(Long id, UserDto.UserUpdateResponse response) {
         Optional<User> user = userRepository.findById(id);
@@ -55,6 +57,11 @@ public class UserService {
                     .levelExp(0L)
                     .build();
             tierRepository.save(updatedTier);
+
+            //********************************************지운이가 만든 비디오리스트 보내기******************************************************
+//            List<UserDto.VideoDto> videoDtoList = new ArrayList<>();
+//            languageClient.videoIdInfo(new UserDto.PythonDto(videoDtoList, userRepository.findById(id).get().getConcern()));
+
             return true;
         }
         return false;
@@ -140,6 +147,14 @@ public class UserService {
                     .concern(user.get().getConcern())
                     .build();
             return response;
+        }
+        return null;
+    }
+
+    public Long findIdByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isPresent()) {
+            return user.get().getId();
         }
         return null;
     }

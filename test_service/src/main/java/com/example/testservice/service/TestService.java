@@ -2,21 +2,17 @@ package com.example.testservice.service;
 
 import com.example.testservice.repository.TestRepository;
 import com.example.testservice.vo.ResponseTest;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TestService {
 
     private final TestRepository repository;
 
-    @Autowired
-    public TestService(TestRepository repository) {
-        this.repository = repository;
-    }
 
     public List<ResponseTest> getAllTest() {
         return repository.findAll();
