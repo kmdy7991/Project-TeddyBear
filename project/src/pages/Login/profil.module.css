@@ -12,6 +12,8 @@
   float: left;
   width:450px; 
   height:450px; 
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
   /* border:1px solid ; */
   /* background-color: rgb(250, 246, 235); */
   margin-top: 30px;
@@ -22,6 +24,8 @@
   float: left;
   width:450px; 
   height:450px; 
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
   border:1px solid rgb(255, 230, 161);
   background-color: rgb(255, 230, 161);
   margin-top: 30px;
@@ -68,11 +72,35 @@
 }
 
 .inputboxsize {
-  width: 300px;
+  width: 290px;
   height: 30px;
   margin: 5px;
   border-radius: 50px;
-  padding-left: 10px;
+  padding-left: 20px;
+}
+
+.yearbox {
+  width: 120px;
+  height: 34px;
+  margin: 5px;
+  border-radius: 50px;
+  padding-left: 15px;
+}
+
+.monthbox {
+  width: 85px;
+  height: 34px;
+  margin: 5px;
+  border-radius: 50px;
+  padding-left: 20px;
+}
+
+.daybox {
+  width: 85px;
+  height: 34px;
+  margin: 5px;
+  border-radius: 50px;
+  padding-left: 20px;
 }
 
 .selectboxsize {
@@ -80,38 +108,38 @@
   height: 34px;
   margin: 5px;
   border-radius: 50px;
-  padding-left: 10px;
+  padding-left: 20px;
 }
 
 .text1 {
-  font-size: 55px;
+  font-size: 50px;
   padding-left: 20px;
   margin-top: 80px;
   color: rgb(129, 129, 129);
 }
 
 .text2 {
-  font-size: 25px;
+  font-size: 20px;
   padding-left: 20px;
   color: rgb(129, 129, 129);
 }
 
 .text3 {
-  font-size: 18px;
+  font-size: 15px;
   padding-left: 20px;
   margin-top: 20px;
   color: rgb(129, 129, 129);
 }
 
 .text4 {
-  font-size: 18px;
+  font-size: 15px;
   padding-left: 20px;
   margin-top: 20px;
   color: rgb(129, 129, 129);
 }
 
 .text5 {
-  font-size: 18px;
+  font-size: 15px;
   padding-left: 20px;
   /* margin-top: 20px; */
   color: rgb(129, 129, 129);
