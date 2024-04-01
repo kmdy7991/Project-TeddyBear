@@ -26,6 +26,15 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
     }
 
+    @PostMapping("/setTier/{id}")
+    public ResponseEntity<String> setTier(@PathVariable Long id, String userTier) {
+//        boolean result = userService.setTier(id, userTier);
+//        if (result) {
+//            return ResponseEntity.status(HttpStatus.OK).body("Tier set successfully.");
+//        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
         boolean result = userService.deleteById(id);
@@ -38,6 +47,15 @@ public class UserController {
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDto.UserResponse> findById(@PathVariable Long id) throws Exception {
         UserDto.UserResponse response = userService.findById(id);
+        if (response != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+
+    @PostMapping("/findId")
+    public ResponseEntity<Long> findIdByEmail(@RequestBody String email) throws Exception {
+        Long response = userService.findIdByEmail(email);
         if (response != null) {
             return ResponseEntity.status(HttpStatus.OK).body(response);
         }

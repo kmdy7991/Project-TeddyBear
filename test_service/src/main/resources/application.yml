@@ -7,6 +7,18 @@ spring:
   data:
     mongodb:
       uri: mongodb://ssafy:b107@j10b107.p.ssafy.io:27017/teddybear?authSource=admin
+  datasource:
+    url: jdbc:mysql://j10b107.p.ssafy.io:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+    username: root
+    password: ssafy
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  cors:
+    # CORS 구성
+    allowed-origins: http://localhost:8000
+    allowed-methods: GET, POST, PUT, DELETE
+    allowed-headers: Authorization, Content-Type
+    max-age: 3600
 
 eureka:
   instance:

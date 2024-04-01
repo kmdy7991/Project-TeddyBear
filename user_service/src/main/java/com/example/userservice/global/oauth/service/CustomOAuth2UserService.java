@@ -43,7 +43,6 @@ import java.util.Map;
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final UserRepository userRepository;
     private final TierRepository tierRepository;
-    private final LanguageClient languageClient;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -86,12 +85,10 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     private User saveUser(OAuthAttributes extractAttributes, String accessToken) {
         // 엑세스 토큰과 관련된 추가 로직을 여기에 구현할 수 있습니다.
         String concern = fetchSubscriptionList(accessToken);
+        System.out.println(concern);
 
         User createdUser = extractAttributes.toEntity(extractAttributes.getEmail(), concern);
         User savedUser = userRepository.save(createdUser);
-
-//        List<UserDto.VideoDto> videoDtoList = new ArrayList<>();
-//        languageClient.videoIdInfo(new UserDto.PythonDto(videoDtoList, concern));
 
         tierRepository.save(Tier.builder()
                         .user(savedUser)
