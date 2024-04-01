@@ -8,25 +8,28 @@ import axios from 'axios';
 function Profil() {
 
   const [nickname, setnickname] = useState("");
-  const [Age, setAge] = useState("");
+  // const [Age, setAge] = useState("");
+  const [year, setYear] = useState(""); // 년도
+  const [month, setMonth] = useState(""); // 월
+  const [day, setDay] = useState(""); // 일
   const [gender, setGender] = useState("")
   const [isFormvalid, setisFormvalid] = useState(false);
   const [isNicknameValid, setIsNicknameValid] = useState(true); // 닉네임 유효성 상태
-  const [isAgeValid, setIsAgeValid] = useState(true); // 나이 유효성 상태
+  // const [isAgeValid, setIsAgeValid] = useState(true); // 나이 유효성 상태
   const [isGenderValid, setIsGenderValid] = useState(true); // 성별 유효성 상태
   const navigate = useNavigate(); 
 
   useEffect(() => {
     // 입력값이 변경될 때마다 유효성을 검사
     setIsNicknameValid(nickname.trim().length > 0); // 닉네임 유효성 검사
-    setIsAgeValid(Age !== ""); // 나이 유효성 검사
+    // setIsAgeValid(Age !== ""); // 나이 유효성 검사
     setIsGenderValid(gender !== ""); // 성별 유효성 검사
-  }, [nickname, Age, gender]);
+  }, [nickname, gender]);
 
   useEffect(() => {
     // 모든 유효성이 만족할 때만 전체 폼 유효성을 설정
-    setisFormvalid(isNicknameValid && isAgeValid && isGenderValid);
-  }, [isNicknameValid, isAgeValid, isGenderValid]);
+    setisFormvalid(isNicknameValid &&  year !== "" && month !== "" && day !== "" && isGenderValid);
+  }, [isNicknameValid, year, month, day, isGenderValid]);
 
   const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 20) {
@@ -34,37 +37,36 @@ function Profil() {
     }
   };
 
-  const onChangeAge = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setAge(e.target.value)
-  };
+  // const onChangeAge = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setAge(e.target.value)
+  // };
 
   const onChangeGender = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setGender (e.target.value)
   };
 
-  const handleSubmit = () => {
-    if (isFormvalid) {
-      // 유효한 경우에만 저장 처리
-      // 여기에 저장 처리하는 코드를 추가
-      navigate('/testguide')
-    }
-  };
-
-  //   const handleSubmit = async () => {
-  //   if (isFormValid) {
-  //     try {
-  //       const response = await axios.post('여기에_서버_API_엔드포인트', {
-  //         nickname,
-  //         age: parseInt(Age, 10), // API 명세에 따라 나이는 정수로 변환
-  //         gender
-  //       });
-  //       console.log(response.data);
-  //       navigate('/testguide'); // 성공적으로 데이터를 저장한 후 페이지 이동
-  //     } catch (error) {
-  //       console.error('데이터 저장 중 에러 발생:', error);
-  //     }
+  // const handleSubmit = () => {
+  //   if (isFormvalid) {
+  //     // 유효한 경우에만 저장 처리
+  //     // 여기에 저장 처리하는 코드를 추가
+  //     navigate('/testguide')
   //   }
   // };
+
+    const handleSubmit = async () => {
+    if (isFormvalid) {
+      const age = `${year}-${month}-${day}`; // 생년월일을 문자열로 합침
+      try {
+        const response = await axios.post('여기에_서버_API_엔드포인트', {
+          nickname, age, gender
+        });
+        console.log(response.data);
+        navigate('/testguide'); // 성공적으로 데이터를 저장한 후 페이지 이동
+      } catch (error) {
+        console.error('데이터 저장 중 에러 발생:', error);
+      }
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -74,14 +76,26 @@ function Profil() {
           <div className={styles.inputbox}>
               <input type="text" value={nickname} onChange={onChangeNickname} placeholder={'닉네임'} className={styles.inputboxsize} />
           </div>
+
           <div className={styles.inputbox}>
-            {/* select 요소를 사용하여 나이를 선택합니다. */}
-            <select value={Age} onChange={onChangeAge} className={styles.selectboxsize}>
-              <option value="">나이를 선택하세요</option>
-                {/* 10살부터 100살까지 option 요소를 생성합니다. */}
-                {Array.from({ length: 91 }, (_, index) => (
-                  <option key={index + 10} value={index + 10}>{index + 10}살</option>
-                ))}
+            {/* 생년월일 입력칸 */}
+            <select value={year} onChange={(e) => setYear(e.target.value)} className={styles.yearbox}>
+              <option value="">YYYY</option>
+              {Array.from({ length: 100 }, (_, index) => (
+                <option key={index} value={new Date().getFullYear() - index}>{new Date().getFullYear() - index}년</option>
+              ))}
+            </select>
+            <select value={month} onChange={(e) => setMonth(e.target.value)} className={styles.monthbox}>
+              <option value="">MM</option>
+              {Array.from({ length: 12 }, (_, index) => (
+                <option key={index + 1} value={(index + 1).toString().padStart(2, '0')}>{index + 1}월</option>
+              ))}
+            </select>
+            <select value={day} onChange={(e) => setDay(e.target.value)} className={styles.daybox}>
+              <option value="">DD</option>
+              {Array.from({ length: 31 }, (_, index) => (
+                <option key={index + 1} value={(index + 1).toString().padStart(2, '0')}>{index + 1}일</option>
+              ))}
             </select>
           </div>
           <div className={styles.inputbox}>
