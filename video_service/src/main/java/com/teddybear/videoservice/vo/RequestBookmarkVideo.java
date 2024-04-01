@@ -1,4 +1,4 @@
-package com.example.videoservice.vo;
+package com.teddybear.videoservice.vo;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

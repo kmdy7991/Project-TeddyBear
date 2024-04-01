@@ -1,9 +1,7 @@
-package com.example.videoservice.jpa;
+package com.teddybear.videoservice.jpa;
 
-import com.fasterxml.jackson.annotation.JsonTypeId;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.util.List;
 

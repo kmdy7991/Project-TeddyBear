@@ -1,4 +1,4 @@
-package com.example.testservice.vo;
+package com.teddybear.testservice.vo;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

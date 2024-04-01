@@ -1,4 +1,4 @@
-package com.example.userservice.domain.entity;
+package com.teddybear.userservice.domain.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

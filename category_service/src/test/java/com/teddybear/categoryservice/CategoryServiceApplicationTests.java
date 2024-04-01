@@ -1,10 +1,10 @@
-package com.example.apigateway_service;
+package com.teddybear.categoryservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApigatewayServiceApplicationTests {
+class CategoryServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

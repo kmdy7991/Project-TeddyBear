@@ -1,4 +1,4 @@
-package com.example.apigateway_service;
+package com.teddybear.apigateway_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

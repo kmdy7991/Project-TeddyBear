@@ -1,8 +1,8 @@
-package com.example.testservice.controller;
+package com.teddybear.testservice.controller;
 
-import com.example.testservice.service.TestService;
-import com.example.testservice.vo.Option;
-import com.example.testservice.vo.ResponseTest;
+import com.teddybear.testservice.service.TestService;
+import com.teddybear.testservice.vo.Option;
+import com.teddybear.testservice.vo.ResponseTest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

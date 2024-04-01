@@ -1,4 +1,4 @@
-package com.example.testservice.vo;
+package com.teddybear.testservice.vo;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

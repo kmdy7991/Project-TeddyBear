@@ -1,7 +1,7 @@
-package com.example.testservice.service;
+package com.teddybear.testservice.service;
 
-import com.example.testservice.repository.TestRepository;
-import com.example.testservice.vo.ResponseTest;
+import com.teddybear.testservice.repository.TestRepository;
+import com.teddybear.testservice.vo.ResponseTest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

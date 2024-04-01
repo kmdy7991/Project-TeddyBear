@@ -1,7 +1,7 @@
-package com.example.userservice.global.oauth.service;
+package com.teddybear.userservice.global.oauth.service;
 
-import com.example.userservice.domain.entity.User;
-import com.example.userservice.domain.repository.UserRepository;
+import com.teddybear.userservice.domain.entity.User;
+import com.teddybear.userservice.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

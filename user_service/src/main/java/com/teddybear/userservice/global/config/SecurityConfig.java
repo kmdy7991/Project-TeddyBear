@@ -1,10 +1,10 @@
-package com.example.userservice.global.config;
+package com.teddybear.userservice.global.config;
 
 //import com.example.authservice.domain.Role;
-import com.example.userservice.global.oauth.handler.OAuth2LoginFailureHandler;
-import com.example.userservice.global.oauth.handler.OAuth2LoginSuccessHandler;
-import com.example.userservice.global.oauth.service.CustomOAuth2UserService;
-import com.example.userservice.global.oauth.service.LoginService;
+import com.teddybear.userservice.global.oauth.handler.OAuth2LoginFailureHandler;
+import com.teddybear.userservice.global.oauth.handler.OAuth2LoginSuccessHandler;
+import com.teddybear.userservice.global.oauth.service.CustomOAuth2UserService;
+import com.teddybear.userservice.global.oauth.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

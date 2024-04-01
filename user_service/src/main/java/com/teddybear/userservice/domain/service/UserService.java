@@ -1,19 +1,17 @@
-package com.example.userservice.domain.service;
+package com.teddybear.userservice.domain.service;
 
-import com.example.userservice.client.LanguageClient;
-import com.example.userservice.domain.entity.Role;
-import com.example.userservice.domain.entity.Tier;
-import com.example.userservice.domain.entity.User;
-import com.example.userservice.domain.dto.UserDto;
-import com.example.userservice.domain.repository.TierRepository;
-import com.example.userservice.domain.repository.UserRepository;
+import com.teddybear.userservice.client.LanguageClient;
+import com.teddybear.userservice.domain.entity.Role;
+import com.teddybear.userservice.domain.entity.Tier;
+import com.teddybear.userservice.domain.entity.User;
+import com.teddybear.userservice.domain.dto.UserDto;
+import com.teddybear.userservice.domain.repository.TierRepository;
+import com.teddybear.userservice.domain.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service

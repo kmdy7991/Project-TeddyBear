@@ -1,4 +1,4 @@
-package com.example.apigateway_service.config;
+package com.teddybear.apigateway_service.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

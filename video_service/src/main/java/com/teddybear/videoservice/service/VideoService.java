@@ -1,7 +1,7 @@
-package com.example.videoservice.service;
+package com.teddybear.videoservice.service;
 
-import com.example.videoservice.jpa.VideoEntity;
 import com.example.videoservice.vo.*;
+import com.teddybear.videoservice.vo.*;
 
 import java.util.List;
 

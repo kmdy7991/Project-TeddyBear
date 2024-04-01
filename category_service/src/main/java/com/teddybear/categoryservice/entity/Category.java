@@ -1,4 +1,4 @@
-package com.example.categoryservice.entity;
+package com.teddybear.categoryservice.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

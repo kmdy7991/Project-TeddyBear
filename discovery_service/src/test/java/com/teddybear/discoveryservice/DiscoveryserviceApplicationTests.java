@@ -1,10 +1,10 @@
-package com.example.categoryservice;
+package com.teddybear.discoveryservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CategoryServiceApplicationTests {
+class DiscoveryserviceApplicationTests {
 
 	@Test
 	void contextLoads() {

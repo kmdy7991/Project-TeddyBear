@@ -1,4 +1,4 @@
-package com.example.videoservice.util;
+package com.teddybear.videoservice.util;
 
 public class EntityUtils {
 }

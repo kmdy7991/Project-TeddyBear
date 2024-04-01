@@ -1,4 +1,4 @@
-package com.example.categoryservice.dto;
+package com.teddybear.categoryservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

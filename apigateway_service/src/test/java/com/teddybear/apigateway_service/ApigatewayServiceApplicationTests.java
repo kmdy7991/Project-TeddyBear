@@ -1,10 +1,10 @@
-package com.example.videoservice;
+package com.teddybear.apigateway_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class VideoServiceApplicationTests {
+class ApigatewayServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

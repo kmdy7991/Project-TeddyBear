@@ -1,6 +1,6 @@
-package com.example.userservice.domain.dto;
+package com.teddybear.userservice.domain.dto;
 
-import com.example.userservice.domain.entity.Role;
+import com.teddybear.userservice.domain.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
