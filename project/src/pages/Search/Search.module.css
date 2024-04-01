@@ -1,6 +1,6 @@
 .mainContent {
   padding-top: 5.5rem;
-  min-height: 100vh;
+  min-height: 130vh;
   /* overflow-x: hidden; */
   margin: 0 4rem;
 }
@@ -108,4 +108,30 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+.noContent {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+  font-size: 2rem;
+  left: 10%;
+}
+
+.pagination {
+  margin: 2rem 5rem;
+  height: 5rem;
+}
+
+.pageIdx button {
+  padding: 0.3rem 0.6rem;
+  /* width: 1rem; */
+  border: 0;
+  margin-right: 0.5rem;
+  margin-left: 1.5rem;
+  background-color: transparent;
+}
+
+.pageIdx button:hover {
+  cursor: pointer;
 }
