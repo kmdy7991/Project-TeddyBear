@@ -16,4 +16,13 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+
+  // 여러 도메인 사용하는 경우
+  app.use(
+    "/user-service",
+    createProxyMiddleware({
+      target: "http://localhost:8080",
+      changeOrigin: true,
+    })
+  );
 };
