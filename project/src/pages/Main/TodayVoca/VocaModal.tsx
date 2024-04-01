@@ -51,7 +51,7 @@ export default function VocaModal({ onClose, data, isOpen }: VocaModalProps) {
         </div>
         <div className={`${styles.todayVideo}`}>
           <div className={`${styles.title}`}>이 단어가 들어간 영상</div>
-          {data.videos?.map((video) => (
+          {/* {data.videos?.map((video) => (
             <div key={video.id} className={`${styles.video}`}>
               <div className={`${styles.videoI}`}>
                 <img
@@ -65,7 +65,7 @@ export default function VocaModal({ onClose, data, isOpen }: VocaModalProps) {
                 <div className={`${styles.videoD}`}>{video.description}</div>
               </div>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

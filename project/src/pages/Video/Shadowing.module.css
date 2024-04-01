@@ -1,0 +1,38 @@
+.container {
+  /* width: 100%; */
+  margin: 1rem;
+}
+
+.sound {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
+.listen,
+.speak {
+  display: flex;
+}
+
+.icon {
+  display: flex;
+  margin-left: 1rem;
+  font-size: 1.3rem;
+  color: #2492ff;
+  justify-content: center;
+  align-items: center;
+}
+
+.listenIcon img {
+  width: 3rem;
+}
+
+.icon img {
+  width: 2rem;
+}
+
+.text {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 2rem;
+}

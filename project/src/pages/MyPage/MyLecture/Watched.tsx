@@ -48,12 +48,12 @@ export default function Watched() {
             {dummyThumbnails.map((data, index) => (
               <div className="myVideo" key={index}>
                 <div className="myVidImg">
-                  <img src={data.imageUrl} />
+                  <img src={data.videoThumbnail} />
                 </div>
                 <div className="myText">
                   zzz
-                  <div className="myVidTitle">{data.title}</div>
-                  <div className="myDescription">{data.description}</div>
+                  <div className="myVidTitle">{data.videoTitle}</div>
+                  <div className="myDescription">{data.videoDiscription}</div>
                 </div>
               </div>
             ))}
