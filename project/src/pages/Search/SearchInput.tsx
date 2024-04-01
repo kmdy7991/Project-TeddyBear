@@ -3,6 +3,8 @@ import styles from "./SearchInput.module.css";
 import search from "../../assets/inputsearch.png";
 import axios from "axios";
 import { VideoResultProps } from "../Main/VideoList/Video";
+import { useDispatch } from "react-redux";
+import { loadingActions } from "../../store/loading";
 interface SearchInputProps {
   value?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -17,8 +19,13 @@ export default function SearchInput({
   onSearch,
   onSearchAttempted,
 }: SearchInputProps) {
+  const dispatch = useDispatch();
+
+  // api 호출 전/후로 loading 상태 업데이트 액션 디스패치
+  // 액션 호출할 때 문자열로 특정 액션 구분해줘야댐
   const handleSearchClick = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    dispatch(loadingActions.startLoading("SEARCH"));
     onSearchAttempted(); // 검색 시도됨
     try {
       const response = await axios.get(
@@ -29,6 +36,8 @@ export default function SearchInput({
       onSearch(response.data !== "" ? response.data : null);
     } catch (err) {
       console.error("Search request failed", err);
+    } finally {
+      dispatch(loadingActions.finishLoading("SEARCH"));
     }
   };
   return (
