@@ -49,9 +49,4 @@ public class User {
 
     @Column(nullable = false, columnDefinition = "text")
     private String concern;
-
-    // 유저 권한 설정 메소드
-    public void authorizeUser() {
-        this.role = Role.GUEST;
-    }
 }
