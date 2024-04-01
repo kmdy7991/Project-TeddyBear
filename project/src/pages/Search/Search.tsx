@@ -103,17 +103,19 @@ function Search() {
                     </div>
                   ))}
                 </div>
-                <div className={`${styles.pagination}`}>
-                  <Slider {...scriptSlider}>
-                    {pageNumbers.map((number) => (
-                      <div key={number} className={styles.pageIdx}>
-                        <button onClick={() => setCurrentPage(number)}>
-                          {number}
-                        </button>
-                      </div>
-                    ))}
-                  </Slider>
-                </div>
+                {searchResults.length > 10 && (
+                  <div className={`${styles.pagination}`}>
+                    <Slider {...scriptSlider}>
+                      {pageNumbers.map((number) => (
+                        <div key={number} className={styles.pageIdx}>
+                          <button onClick={() => setCurrentPage(number)}>
+                            {number}
+                          </button>
+                        </div>
+                      ))}
+                    </Slider>
+                  </div>
+                )}
               </>
             ) : (
               <div className={styles.noContent}>검색 결과가 없습니다.</div>
