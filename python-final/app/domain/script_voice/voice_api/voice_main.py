@@ -95,7 +95,7 @@ import subprocess
 import shutil
 import os
 
-@voice_router.post("/upload/")
+@voice_router.post("/python/upload/")
 def create_upload_file(file: UploadFile = File(...)):
     # 파일을 서버에 임시 저장
     temp_file_path = f"./audio/{file.filename}"
@@ -119,7 +119,7 @@ def create_upload_file(file: UploadFile = File(...)):
     # ffmpeg 명령 실행
     result = subprocess.run(command, capture_output=True, text=True)
     
-    recognized_text = "I'll make a reservation for a shuttle bus at two in the afternoon"
+    recognized_text = stt(result)
 
     # 변환 성공 여부 확인
     if result.returncode != 0:
@@ -142,7 +142,6 @@ def create_upload_file(file: UploadFile = File(...)):
         return JSONResponse(content={
             "message": "성공~",
             "recognized_text": recognized_text,
-            "pronunciation_score": pronunciation_score
         }, status_code=200)
     
     except Exception as e:
@@ -155,7 +154,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./api_key/gothic-jigsaw-405113-c
 class TextToSpeechRequest(BaseModel):
     text: str
 
-@voice_router.post("/text-to-speech/")
+@voice_router.post("/python/text-to-speech/")
 def text_to_speech(request: TextToSpeechRequest):
     text = request.text
     # 클라이언트 초기화
@@ -187,4 +186,41 @@ def text_to_speech(request: TextToSpeechRequest):
     # 음성 데이터 스트림을 응답으로 반환
     return StreamingResponse(content=iter([response.audio_content]), media_type="audio/mpeg")
 
+from google.cloud import speech
+import io
+import os
 
+# 환경 변수에 서비스 계정 키 파일 경로 설정
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./api_key/gothic-jigsaw-405113-ce587ad642ae.json"
+
+def stt(speech_file):
+
+    client = speech.SpeechClient()
+
+    # 음성 파일을 불러와서 인코딩
+    with io.open(speech_file, "rb") as audio_file:
+        content = audio_file.read()
+    audio = speech.RecognitionAudio(content=content)
+    config = speech.RecognitionConfig(
+        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+        sample_rate_hertz=48000,
+        language_code="en-US",  # 한국어 설정
+    )
+
+    # STT 요청 및 결과 처리
+    response = client.recognize(config=config, audio=audio)
+
+     # 변환된 텍스트를 저장할 리스트 생성
+    transcripts = []
+
+    # 결과를 리스트에 추가
+    for result in response.results:
+        transcripts.append(result.alternatives[0].transcript)
+        
+    print(transcripts)
+
+    # 변환된 텍스트 리스트 반환
+    return transcripts
+
+# 실행 예제
+# stt("./audio/audio.wav")
