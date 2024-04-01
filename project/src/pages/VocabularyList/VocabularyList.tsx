@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import Nav from "../../components/Nav/Nav";
 import MyVocabulary from "./MyVocabulary";
 import ClassVocabulary from "./ClassVocabulary";
-import styles from './Vocabulary.module.css'; // 스타일 모듈의 경로를 확인하세요
+import styles from './Vocabulary.module.css'; 
+
 
 function VocabularyList() {
   const [activeTab, setActiveTab] = useState<"myvoca" | "classvoca">("classvoca");
