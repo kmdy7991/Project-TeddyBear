@@ -14,7 +14,7 @@ import evaluate
 import os
 from torch.utils.data import DataLoader
 
-model_dir = "./domain/translate/results"
+model_dir = "./app/domain/translate/results"
 tokenizer = AutoTokenizer.from_pretrained(model_dir)
 model = AutoModelForSeq2SeqLM.from_pretrained(model_dir)
 max_token_length = 64
