@@ -1,7 +1,7 @@
 package com.example.userservice.global.oauth.dto;
 
-import com.example.userservice.domain.Role;
-import com.example.userservice.domain.User;
+import com.example.userservice.domain.entity.Role;
+import com.example.userservice.domain.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 

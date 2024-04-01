@@ -1,15 +1,10 @@
 package com.example.userservice.domain.controller;
 
-import com.example.userservice.domain.Role;
-import com.example.userservice.domain.Tier;
-import com.example.userservice.domain.User;
 import com.example.userservice.domain.dto.UserDto;
 import com.example.userservice.domain.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/user-service")
@@ -56,6 +51,24 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(response);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+
+    @PutMapping("/tier/upgradeTier/{id}")
+    public ResponseEntity<String> upgradeTier(@PathVariable Long id, @RequestBody String firstTier) {
+        boolean success = userService.upgradeTier(id, firstTier);
+        if (success) {
+            return ResponseEntity.ok("Tier updated successfully");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
+    }
+
+    @PutMapping("/tier/upgradeExp/{id}")
+    public ResponseEntity<String> upgradeExp(@PathVariable Long id, @RequestBody UserDto.ExpRequest request) throws Exception {
+        boolean success = userService.upgradeExp(id, request);
+        if (success) {
+            return ResponseEntity.ok("Exp updated successfully");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
     }
 
     @GetMapping("/checkNickname/{id}")

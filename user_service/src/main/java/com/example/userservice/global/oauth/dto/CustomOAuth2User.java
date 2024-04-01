@@ -1,6 +1,6 @@
 package com.example.userservice.global.oauth.dto;
 
-import com.example.userservice.domain.Role;
+import com.example.userservice.domain.entity.Role;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;

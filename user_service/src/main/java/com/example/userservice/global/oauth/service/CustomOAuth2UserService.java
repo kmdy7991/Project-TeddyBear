@@ -1,7 +1,9 @@
 package com.example.userservice.global.oauth.service;
 
-import com.example.userservice.domain.Tier;
-import com.example.userservice.domain.User;
+import com.example.userservice.client.LanguageClient;
+import com.example.userservice.domain.dto.UserDto;
+import com.example.userservice.domain.entity.Tier;
+import com.example.userservice.domain.entity.User;
 import com.example.userservice.domain.repository.TierRepository;
 import com.example.userservice.domain.repository.UserRepository;
 import com.example.userservice.global.oauth.dto.CustomOAuth2User;
@@ -12,7 +14,6 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
@@ -30,7 +31,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 
@@ -40,6 +43,7 @@ import java.util.Map;
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final UserRepository userRepository;
     private final TierRepository tierRepository;
+    private final LanguageClient languageClient;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -85,7 +89,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         User createdUser = extractAttributes.toEntity(extractAttributes.getEmail(), concern);
         User savedUser = userRepository.save(createdUser);
-        System.out.println(savedUser.getId());
+
+//        List<UserDto.VideoDto> videoDtoList = new ArrayList<>();
+//        languageClient.videoIdInfo(new UserDto.PythonDto(videoDtoList, concern));
 
         tierRepository.save(Tier.builder()
                         .user(savedUser)
