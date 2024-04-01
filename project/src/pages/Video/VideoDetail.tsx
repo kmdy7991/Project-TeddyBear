@@ -93,32 +93,6 @@ export default function VideoDetail() {
     }
   }, [videoData]);
 
-  // 여부 조회
-  // const userId = 1;
-  // useEffect(() => {
-  //   const checkBookmarkStatus = async () => {
-  //     if (videoData?.id) {
-  //       try {
-  //         // API 호출
-  //         const response = await axios.get(
-  //           `/video-service/bookmarkVideo/isExist`,
-  //           {
-  //             params: {
-  //               userId: userId,
-  //               videoId: videoData.id,
-  //             },
-  //           }
-  //         );
-  //         setIsBookmark(response.data); // API 응답에 따라 상태 업데이트
-  //       } catch (error) {
-  //         console.error("북마크 여부 조회 실패", error);
-  //       }
-  //     }
-  //   };
-
-  //   checkBookmarkStatus();
-  // }, [videoId]);
-
   // 페이지네이션을 위한 슬라이더
   let scriptSlider = {
     dots: false,
