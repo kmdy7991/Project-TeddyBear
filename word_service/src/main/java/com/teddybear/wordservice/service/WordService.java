@@ -1,10 +1,9 @@
-package com.example.wordservice.service;
+package com.teddybear.wordservice.service;
 
-import com.example.wordservice.jpa.WordEntity;
-import com.example.wordservice.vo.RequestBookmarkWord;
-import com.example.wordservice.vo.ResponseWord;
+import com.teddybear.wordservice.jpa.WordEntity;
+import com.teddybear.wordservice.vo.RequestBookmarkWord;
+import com.teddybear.wordservice.vo.ResponseWord;
 
-import java.util.Iterator;
 import java.util.List;
 
 public interface WordService {

@@ -1,4 +1,4 @@
-package com.example.videoservice;
+package com.teddybear.videoservice;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

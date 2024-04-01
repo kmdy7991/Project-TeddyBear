@@ -1,8 +1,10 @@
-package com.example.videoservice.service;
+package com.teddybear.videoservice.service;
 
 import com.example.videoservice.jpa.*;
 import com.example.videoservice.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.teddybear.videoservice.jpa.*;
+import com.teddybear.videoservice.vo.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +19,6 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service

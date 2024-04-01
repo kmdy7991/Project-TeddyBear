@@ -1,6 +1,6 @@
-package com.example.userservice.domain.repository;
+package com.teddybear.userservice.domain.repository;
 
-import com.example.userservice.domain.entity.Tier;
+import com.teddybear.userservice.domain.entity.Tier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

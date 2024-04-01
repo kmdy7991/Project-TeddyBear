@@ -1,9 +1,10 @@
-package com.example.videoservice.serializer;
+package com.teddybear.videoservice.serializer;
 
-import com.example.videoservice.vo.ResponseNote;
+import com.teddybear.videoservice.vo.ResponseNote;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+
 import java.io.IOException;
 
 public class ResponseNoteSerializer extends StdSerializer<ResponseNote> {

@@ -1,13 +1,11 @@
-package com.example.userservice.global.oauth.service;
+package com.teddybear.userservice.global.oauth.service;
 
-import com.example.userservice.client.LanguageClient;
-import com.example.userservice.domain.dto.UserDto;
-import com.example.userservice.domain.entity.Tier;
-import com.example.userservice.domain.entity.User;
-import com.example.userservice.domain.repository.TierRepository;
-import com.example.userservice.domain.repository.UserRepository;
-import com.example.userservice.global.oauth.dto.CustomOAuth2User;
-import com.example.userservice.global.oauth.dto.OAuthAttributes;
+import com.teddybear.userservice.domain.entity.Tier;
+import com.teddybear.userservice.domain.entity.User;
+import com.teddybear.userservice.domain.repository.TierRepository;
+import com.teddybear.userservice.domain.repository.UserRepository;
+import com.teddybear.userservice.global.oauth.dto.CustomOAuth2User;
+import com.teddybear.userservice.global.oauth.dto.OAuthAttributes;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -31,9 +29,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 

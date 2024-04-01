@@ -1,11 +1,11 @@
-package com.example.wordservice.service;
+package com.teddybear.wordservice.service;
 
-import com.example.wordservice.jpa.BookmarkWordEntity;
-import com.example.wordservice.jpa.BookmarkWordRepository;
-import com.example.wordservice.jpa.WordEntity;
-import com.example.wordservice.jpa.WordRepository;
-import com.example.wordservice.vo.RequestBookmarkWord;
-import com.example.wordservice.vo.ResponseWord;
+import com.teddybear.wordservice.jpa.BookmarkWordEntity;
+import com.teddybear.wordservice.jpa.BookmarkWordRepository;
+import com.teddybear.wordservice.jpa.WordEntity;
+import com.teddybear.wordservice.jpa.WordRepository;
+import com.teddybear.wordservice.vo.RequestBookmarkWord;
+import com.teddybear.wordservice.vo.ResponseWord;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;

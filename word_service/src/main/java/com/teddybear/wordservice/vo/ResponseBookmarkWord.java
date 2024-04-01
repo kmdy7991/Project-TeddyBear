@@ -1,4 +1,4 @@
-package com.example.wordservice.vo;
+package com.teddybear.wordservice.vo;
 
 public class ResponseBookmarkWord {
     private int wordId;

@@ -1,4 +1,4 @@
-package com.example.wordservice.util;
+package com.teddybear.wordservice.util;
 
 import org.hibernate.Hibernate;
 

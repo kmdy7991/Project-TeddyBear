@@ -1,4 +1,4 @@
-package com.example.testservice.config;
+package com.teddybear.testservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

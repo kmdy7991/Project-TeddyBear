@@ -1,6 +1,6 @@
-package com.example.videoservice.vo;
+package com.teddybear.videoservice.vo;
 
-import com.example.videoservice.serializer.ResponseNoteSerializer;
+import com.teddybear.videoservice.serializer.ResponseNoteSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,20 +1,14 @@
-package com.example.wordservice.controller;
+package com.teddybear.wordservice.controller;
 
-import com.example.wordservice.jpa.BookmarkWordEntity;
-import com.example.wordservice.jpa.WordEntity;
-import com.example.wordservice.vo.RequestBookmarkWord;
-import com.example.wordservice.vo.RequestWord;
-import com.example.wordservice.service.WordService;
-import com.example.wordservice.vo.ResponseBookmarkWord;
-import com.example.wordservice.vo.ResponseWord;
+import com.teddybear.wordservice.jpa.WordEntity;
+import com.teddybear.wordservice.vo.RequestBookmarkWord;
+import com.teddybear.wordservice.service.WordService;
+import com.teddybear.wordservice.vo.ResponseWord;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @RestController

@@ -1,6 +1,6 @@
-package com.example.testservice.repository;
+package com.teddybear.testservice.repository;
 
-import com.example.testservice.vo.ResponseTest;
+import com.teddybear.testservice.vo.ResponseTest;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

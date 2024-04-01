@@ -1,6 +1,6 @@
-package com.example.userservice.client;
+package com.teddybear.userservice.client;
 
-import com.example.userservice.domain.dto.UserDto;
+import com.teddybear.userservice.domain.dto.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 
