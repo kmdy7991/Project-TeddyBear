@@ -1,18 +1,18 @@
 package com.example.userservice.domain.service;
 
-import com.example.userservice.domain.Role;
-import com.example.userservice.domain.Tier;
-import com.example.userservice.domain.User;
+import com.example.userservice.client.LanguageClient;
+import com.example.userservice.domain.entity.Role;
+import com.example.userservice.domain.entity.Tier;
+import com.example.userservice.domain.entity.User;
 import com.example.userservice.domain.dto.UserDto;
 import com.example.userservice.domain.repository.TierRepository;
 import com.example.userservice.domain.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,6 +39,78 @@ public class UserService {
                     .concern(user.get().getConcern())
                     .build();
             userRepository.save(updatedUser);
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean upgradeTier(Long id, String firstTier) {
+        Optional<Tier> tier = tierRepository.findByUserId(id);
+        if (tier.isPresent()) {
+            Tier updatedTier = tier.get().builder()
+                    .tierSeq(tier.get().getTierSeq())
+                    .tierName(firstTier)
+                    .tierExp(0L)
+                    .level(1)
+                    .levelExp(0L)
+                    .build();
+            tierRepository.save(updatedTier);
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean upgradeExp(Long id, UserDto.ExpRequest request) {
+        Optional<Tier> tier = tierRepository.findByUserId(id);
+        if (tier.isPresent()) {
+            String[] tiers = {"A1", "A2", "B1", "B2", "C1", "C2"};
+            int userTier = 0;
+            for (int i = 0; i < tiers.length; i++) {
+                if (tiers[i].equals(tier.get().getTierName())) {
+                    userTier = i;
+                }
+            }
+            if (request.isTierExp()) {
+                if (userTier < 5 && (tier.get().getTierExp() + request.getAddExp() - 250) / 250 > userTier) {
+                    Tier updatedExp = tier.get().builder()
+                            .tierSeq(tier.get().getTierSeq())
+                            .tierName(tiers[userTier + 1])
+                            .tierExp(tier.get().getTierExp() + request.getAddExp() - ((userTier + 1) * 250L + 250))
+                            .level(tier.get().getLevel())
+                            .levelExp(tier.get().getLevelExp())
+                            .build();
+                    tierRepository.save(updatedExp);
+                } else {
+                    Tier updatedExp = tier.get().builder()
+                            .tierSeq(tier.get().getTierSeq())
+                            .tierName(tier.get().getTierName())
+                            .tierExp(tier.get().getTierExp() + request.getAddExp())
+                            .level(tier.get().getLevel())
+                            .levelExp(tier.get().getLevelExp())
+                            .build();
+                    tierRepository.save(updatedExp);
+                }
+            } else {
+                if ((tier.get().getLevelExp() + request.getAddExp() - 50) / 50 > tier.get().getLevel() - 1) {
+                    Tier updatedExp = tier.get().builder()
+                            .tierSeq(tier.get().getTierSeq())
+                            .tierName(tier.get().getTierName())
+                            .tierExp(tier.get().getTierExp())
+                            .level(tier.get().getLevel() + 1)
+                            .levelExp(tier.get().getLevelExp() + request.getAddExp() - (tier.get().getLevel() * 50L + 50))
+                            .build();
+                    tierRepository.save(updatedExp);
+                } else {
+                    Tier updatedExp = tier.get().builder()
+                            .tierSeq(tier.get().getTierSeq())
+                            .tierName(tier.get().getTierName())
+                            .tierExp(tier.get().getTierExp())
+                            .level(tier.get().getLevel())
+                            .levelExp(tier.get().getLevelExp() + request.getAddExp())
+                            .build();
+                    tierRepository.save(updatedExp);
+                }
+            }
             return true;
         }
         return false;

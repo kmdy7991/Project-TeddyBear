@@ -1,6 +1,6 @@
 package com.example.userservice.global.oauth.service;
 
-import com.example.userservice.domain.User;
+import com.example.userservice.domain.entity.User;
 import com.example.userservice.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

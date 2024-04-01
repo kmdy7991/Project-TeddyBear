@@ -1,7 +1,6 @@
 package com.example.userservice.domain.repository;
 
-import com.example.userservice.domain.User;
-import com.example.userservice.domain.dto.UserDto;
+import com.example.userservice.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

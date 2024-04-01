@@ -1,7 +1,7 @@
 package com.example.userservice.global.oauth.handler;
 
-import com.example.userservice.domain.Role;
-import com.example.userservice.domain.User;
+import com.example.userservice.domain.entity.Role;
+import com.example.userservice.domain.entity.User;
 import com.example.userservice.domain.repository.UserRepository;
 import com.example.userservice.global.oauth.dto.CustomOAuth2User;
 import jakarta.servlet.ServletException;
