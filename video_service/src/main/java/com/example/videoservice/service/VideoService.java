@@ -1,0 +1,27 @@
+package com.example.videoservice.service;
+
+import com.example.videoservice.jpa.VideoEntity;
+import com.example.videoservice.vo.*;
+
+import java.util.List;
+
+public interface VideoService {
+    ResponseVideo getVideoById(Long videoId);
+    List<ResponseVideo> getVideoByTitle(String videoTitle);
+    void importVideo() throws Exception;
+    void exportVideoToJson();
+    List<ResponseVideo> getWatchedVideosByUserIdAndWatchedStatus(Long userId, Boolean videoWatched);
+    void watchVideo(RequestWatchVideo requestWatchVideo);
+    void bookmarkVideo(RequestBookmarkVideo requestBookmarkVideo);
+    List<ResponseVideo> getVideoByUserId(Long userId);
+    void deleteBookmarkedVideo(RequestBookmarkVideo requestBookmarkVideo);
+    void createNote(RequestNote requestNote);
+    ResponseNote getNote(Long userId, Long videoId);
+    ResponseNote getNoteByNoteId(Long noteId);
+    List<ResponseNote> getNoteByUserId(Long userId);
+    void deleteNote(Long userId, Long videoId);
+    void deleteNoteByNoteId(Long noteId);
+    boolean existBookmarkVideo(RequestBookmarkVideo requestBookmarkVideo);
+    boolean updateNoteByNoteId(Long noteId, String updatedNote);
+    boolean updateNoteContent(Long userId, Long videoId, String updatedNote);
+}
