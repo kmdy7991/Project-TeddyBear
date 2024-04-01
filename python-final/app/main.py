@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 import uvicorn
-from app.domain.script_voice.voice_api.voice_main import voice_router
-from app.domain.translate.trans_main import trans_router
+from domain.script_voice.voice_api.voice_main import voice_router
+from domain.translate.trans_main import trans_router
 import py_eureka_client.eureka_client as eureka_client
 from contextlib import asynccontextmanager
 
