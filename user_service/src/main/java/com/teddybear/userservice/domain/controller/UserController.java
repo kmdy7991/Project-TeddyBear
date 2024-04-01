@@ -2,19 +2,23 @@ package com.teddybear.userservice.domain.controller;
 
 import com.teddybear.userservice.domain.dto.UserDto;
 import com.teddybear.userservice.domain.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/user-service")
 public class UserController {
 
     private final UserService userService;
+    private final HttpSession httpSession;
 
     // 생성자를 통한 의존성 주입
-    public UserController(UserService userService) {
+    public UserController(UserService userService, HttpSession httpSession) {
         this.userService = userService;
+        this.httpSession = httpSession;
     }
 
     @PutMapping("/update/{id}")
@@ -23,15 +27,6 @@ public class UserController {
         if (success) {
             return ResponseEntity.ok("User updated successfully");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
-    }
-
-    @PostMapping("/setTier/{id}")
-    public ResponseEntity<String> setTier(@PathVariable Long id, String userTier) {
-//        boolean result = userService.setTier(id, userTier);
-//        if (result) {
-//            return ResponseEntity.status(HttpStatus.OK).body("Tier set successfully.");
-//        }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
     }
 
@@ -47,6 +42,15 @@ public class UserController {
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDto.UserResponse> findById(@PathVariable Long id) throws Exception {
         UserDto.UserResponse response = userService.findById(id);
+        if (response != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+
+    @GetMapping("/fetchId")
+    public ResponseEntity<Long> fetchId() {
+        Long response = (Long) httpSession.getAttribute("id");
         if (response != null) {
             return ResponseEntity.status(HttpStatus.OK).body(response);
         }
