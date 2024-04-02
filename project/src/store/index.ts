@@ -2,16 +2,18 @@ import { persistReducer, persistStore } from "redux-persist";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import loadingSlice, { loadingActions } from "./loading";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import userSlice from "./user";
 
 const persistConfig = {
   key: "root", // localStorage key
   storage, // localStorage
-  whiteList: ["loading"], // persist 할 reducer 목록
+  whiteList: ["loading", "user"], // persist 할 reducer 목록
 };
 
 // 초기화 방지 위한 redux-persist
 const rootReducer = combineReducers({
   loading: loadingSlice.reducer,
+  user: userSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
