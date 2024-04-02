@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ShadowingProps } from "../../pages/Video/VideoDetail";
 import styles from "./AudioTTS.module.css";
 import speaker from "../../assets/listen.png";
 const TextToSpeechComponent = ({ selectedLine }: ShadowingProps) => {
   const [text, setText] = useState("");
 
-  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // selectedLine prop이 변경될 때마다 text 상태를 업데이트
+  useEffect(() => {
     setText(selectedLine ?? "");
-  };
+  }, [selectedLine]);
 
   const handleSpeech = async () => {
     console.log(text);
-    const response = await fetch("http://localhost:8000/text-to-speech/", {
+    const response = await fetch("/python/text-to-speech", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
