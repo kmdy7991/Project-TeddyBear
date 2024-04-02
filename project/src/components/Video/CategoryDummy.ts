@@ -1,6 +1,6 @@
 const CategoryDummy = [
   {
-    category: "교육",
+    category: "사회",
     categoryId: 1,
     videos: [
       {
@@ -45,7 +45,7 @@ const CategoryDummy = [
     ],
   },
   {
-    category: "과학",
+    category: "생활문화",
     categoryId: 4,
     videos: [
       {
@@ -60,7 +60,7 @@ const CategoryDummy = [
     ],
   },
   {
-    category: "아트",
+    category: "IT과학",
     categoryId: 5,
     videos: [
       {
@@ -89,7 +89,7 @@ const CategoryDummy = [
     ],
   },
   {
-    category: "자연",
+    category: "세계",
     categoryId: 7,
     videos: [
       {
@@ -103,7 +103,7 @@ const CategoryDummy = [
     ],
   },
   {
-    category: "엔터테인먼트",
+    category: "연예",
     categoryId: 8,
     videos: [
       {
