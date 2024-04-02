@@ -2,13 +2,15 @@ import CategoryDummy from "./CategoryDummy";
 import { Category } from "./Category";
 import styles from "./CategoryBox.module.css";
 import art from "../../assets/CategoryTeddy/art.png";
-import science from "../../assets/CategoryTeddy/science.png";
+import culture from "../../assets/CategoryTeddy/culture.png";
 import economy from "../../assets/CategoryTeddy/economy.png";
 import politics from "../../assets/CategoryTeddy/politics.png";
 import nature from "../../assets/CategoryTeddy/nature.png";
-import education from "../../assets/CategoryTeddy/education.png";
+import society from "../../assets/CategoryTeddy/society.png";
 import sport from "../../assets/CategoryTeddy/sport.png";
+import it from "../../assets/CategoryTeddy/it.png";
 import entertainment from "../../assets/CategoryTeddy/entertainment.png";
+import global from "../../assets/CategoryTeddy/global.png";
 import { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 interface CategoryProps {
@@ -24,7 +26,7 @@ export default function CategoryBox({ data }: CategoryProps) {
   // 카테고리명에 따라 카드에 맞는 이미지 배치하기 위한 switch문
   function matchBox(categoryName: string) {
     switch (categoryName) {
-      case "교육":
+      case "사회":
         return (
           <div
             className={`${styles.container}`}
@@ -32,7 +34,7 @@ export default function CategoryBox({ data }: CategoryProps) {
             onClick={handleClick}
           >
             <span className={`${styles.title}`}>{data.category}</span>
-            <img style={{ width: "10rem" }} src={education} alt="교육곰" />
+            <img style={{ width: "12rem" }} src={society} alt="사회곰" />
           </div>
         );
         break;
@@ -60,7 +62,7 @@ export default function CategoryBox({ data }: CategoryProps) {
           </div>
         );
         break;
-      case "과학":
+      case "생활문화":
         return (
           <div
             className={`${styles.container}`}
@@ -68,11 +70,11 @@ export default function CategoryBox({ data }: CategoryProps) {
             onClick={handleClick}
           >
             <span className={`${styles.title}`}>{data.category}</span>
-            <img src={science} alt="과학곰" />
+            <img src={culture} alt="문화곰" />
           </div>
         );
         break;
-      case "아트":
+      case "IT과학":
         return (
           <div
             className={`${styles.container}`}
@@ -80,7 +82,7 @@ export default function CategoryBox({ data }: CategoryProps) {
             onClick={handleClick}
           >
             <span className={`${styles.title}`}>{data.category}</span>
-            <img src={art} alt="예술곰" />
+            <img src={it} alt="코딩곰" />
           </div>
         );
         break;
@@ -96,7 +98,7 @@ export default function CategoryBox({ data }: CategoryProps) {
           </div>
         );
         break;
-      case "자연":
+      case "세계":
         return (
           <div
             className={`${styles.container}`}
@@ -104,22 +106,22 @@ export default function CategoryBox({ data }: CategoryProps) {
             onClick={handleClick}
           >
             <span className={`${styles.title}`}>{data.category}</span>
-            <img src={nature} alt="자연곰" />
+            <img src={global} alt="세계곰" />
           </div>
         );
         break;
-      case "엔터테인먼트":
-        return (
-          <div
-            className={`${styles.container}`}
-            style={{ backgroundColor: "#FFDA03" }}
-            onClick={handleClick}
-          >
-            <span className={`${styles.title}`}>{data.category}</span>
-            <img src={entertainment} alt="엔터테인먼트곰" />
-          </div>
-        );
-        break;
+      // case "연예":
+      //   return (
+      //     <div
+      //       className={`${styles.container}`}
+      //       style={{ backgroundColor: "#FFDA03" }}
+      //       onClick={handleClick}
+      //     >
+      //       <span className={`${styles.title}`}>{data.category}</span>
+      //       <img src={entertainment} alt="엔터테인먼트곰" />
+      //     </div>
+      //   );
+      //   break;
       default:
         return null;
     }
