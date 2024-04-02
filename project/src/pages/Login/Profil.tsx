@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import styles from "./profil.module.css";
 import templogo from "../../assets/임시로고-removebg-preview.png";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { userActions } from "../../store/user";
 
 function Profil() {
   const [nickname, setnickname] = useState("");
@@ -19,8 +20,9 @@ function Profil() {
   const navigate = useNavigate();
 
   const id = useSelector((state: RootState) => state.user.userId);
+  console.log(id);
   const accessToken = localStorage.getItem("token");
-
+  const dispatch = useDispatch();
   useEffect(() => {
     // 입력값이 변경될 때마다 유효성을 검사
     setIsNicknameValid(nickname.trim().length > 0); // 닉네임 유효성 검사
@@ -68,6 +70,7 @@ function Profil() {
           }
         );
         console.log(response.data);
+        dispatch(userActions.loginUser({ userId: id, userNickName: nickname }));
         navigate("/testguide"); // 성공적으로 데이터를 저장한 후 페이지 이동
       } catch (error) {
         console.error("데이터 저장 중 에러 발생:", error);
