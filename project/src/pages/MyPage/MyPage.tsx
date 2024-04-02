@@ -39,14 +39,14 @@ export default function MyPage() {
     const fetchTier = async () => {
       try {
         dispatch(loadingActions.startLoading("PROFILE"));
-        const response = await axios.get(`/user-service/tier/${id}`, {
+        const response = await axios.get(`/api/user-service/tier/${id}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/json",
           },
         });
         console.log("유저 티어 조회 성공", response.data);
-        setTier(response.data.tierName.initialLevel);
+        setTier(response.data.tierName);
         setLevel(response.data.level);
         setTierExp(response.data.tierExp);
         setLevelExp(response.data.levelExp);
@@ -83,7 +83,7 @@ export default function MyPage() {
               <img src={gold} alt="테스트 티어 이미지" />
               <div className={`${styles.tierName}`}>{tier}</div>
             </div>
-            <div className={`${styles.nickname}`}>{nickname}</div>
+            {/* <div className={`${styles.nickname}`}>{nickname}</div> */}
           </div>
           <div className={`${styles.exps}`}>
             <div className={`${styles.tier}`}>
