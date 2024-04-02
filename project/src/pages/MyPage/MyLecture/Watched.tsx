@@ -76,7 +76,7 @@ export default function Watched() {
               </button>
             </div>
           </div>
-          {watchedList.length > 0 ? (
+          {watchedList && watchedList.length > 0 ? (
             <div className="myVideoList">
               {watchedList.map((data, index) => (
                 <div
