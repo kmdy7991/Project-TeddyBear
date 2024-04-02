@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "./profil.module.css";
 import templogo from "../../assets/임시로고-removebg-preview.png";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 function Profil() {
   const [nickname, setnickname] = useState("");
@@ -16,7 +18,7 @@ function Profil() {
   const [isGenderValid, setIsGenderValid] = useState(true); // 성별 유효성 상태
   const navigate = useNavigate();
 
-  const id = 1; // 상태관리****************************************************************************
+  const id = useSelector((state: RootState) => state.user.userId);
   const accessToken = localStorage.getItem("token");
 
   useEffect(() => {
