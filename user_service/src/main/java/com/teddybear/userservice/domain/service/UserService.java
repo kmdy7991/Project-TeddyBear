@@ -7,6 +7,7 @@ import com.teddybear.userservice.domain.entity.User;
 import com.teddybear.userservice.domain.dto.UserDto;
 import com.teddybear.userservice.domain.repository.TierRepository;
 import com.teddybear.userservice.domain.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
+    private final HttpSession httpSession;
     private final UserRepository userRepository;
     private final TierRepository tierRepository;
     private final LanguageClient languageClient;
+
+    public UserDto.AuthResponse fetchAuth() {
+        UserDto.AuthResponse response = UserDto.AuthResponse.builder()
+                .accessToken((String) httpSession.getAttribute("accessToken"))
+                .id((Long) httpSession.getAttribute("id"))
+                .build();
+        return response;
+    }
 
     public Boolean update(Long id, UserDto.UserUpdateResponse response) {
         Optional<User> user = userRepository.findById(id);
@@ -48,6 +58,7 @@ public class UserService {
         Optional<Tier> tier = tierRepository.findByUserId(id);
         if (tier.isPresent()) {
             Tier updatedTier = tier.get().builder()
+                    .user(tier.get().getUser())
                     .tierSeq(tier.get().getTierSeq())
                     .tierName(firstTier)
                     .tierExp(0L)

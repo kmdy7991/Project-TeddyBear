@@ -14,6 +14,15 @@ public class UserDto {
     @Getter
     @Builder
     @AllArgsConstructor
+    public static class AuthResponse {
+        private Long id;
+        private String accessToken;
+    }
+
+    @NoArgsConstructor
+    @Getter
+    @Builder
+    @AllArgsConstructor
     public static class UserResponse {
         private Long id;
         private String email;

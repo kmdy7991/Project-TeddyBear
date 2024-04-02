@@ -1,30 +1,31 @@
 package com.teddybear.userservice.global.config;
 
 //import com.example.authservice.domain.Role;
-import com.teddybear.userservice.global.oauth.handler.OAuth2LoginFailureHandler;
-import com.teddybear.userservice.global.oauth.handler.OAuth2LoginSuccessHandler;
-import com.teddybear.userservice.global.oauth.service.CustomOAuth2UserService;
-import com.teddybear.userservice.global.oauth.service.LoginService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.teddybear.userservice.domain.repository.UserRepository;
+import com.teddybear.userservice.global.jwt.filter.JwtAuthenticationProcessingFilter;
+import com.teddybear.userservice.global.jwt.service.JwtService;
+import com.teddybear.userservice.global.oauth2.handler.OAuth2LoginFailureHandler;
+import com.teddybear.userservice.global.oauth2.handler.OAuth2LoginSuccessHandler;
+import com.teddybear.userservice.global.oauth2.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
-    private final LoginService loginService;
-//    private final UserRepository userRepository;
-//    private final UserService userService;
+    private final JwtService jwtService;
+    private final UserRepository userRepository;
+    private final ObjectMapper objectMapper;
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
     private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
     private final CustomOAuth2UserService customOAuth2UserService;
@@ -70,19 +71,16 @@ public class SecurityConfig {
                                 .userService(customOAuth2UserService) // customUserService 설정
                             )
                 );
+        // 원래 스프링 시큐리티 필터 순서가 LogoutFilter 이후에 로그인 필터 동작
+        // 따라서, LogoutFilter 이후에 우리가 만든 필터 동작하도록 설정
+        // 순서 : LogoutFilter -> JwtAuthenticationProcessingFilter
+        http.addFilterAfter(jwtAuthenticationProcessingFilter(), LogoutFilter.class);
+
         return http.build();
     }
-
-    /**
-     * AuthenticationManager 설정 후 등록
-     * FormLogin(기존 스프링 시큐리티 로그인)과 동일하게 DaoAuthenticationProvider 사용
-     * UserDetailsService는 커스텀 LoginService로 등록
-     * 또한, FormLogin과 동일하게 AuthenticationManager로는 구현체인 ProviderManager 사용(return ProviderManager)
-     */
     @Bean
-    public AuthenticationManager authenticationManager() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(loginService);
-        return new ProviderManager(provider);
+    public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
+        JwtAuthenticationProcessingFilter jwtAuthenticationFilter = new JwtAuthenticationProcessingFilter(jwtService, userRepository);
+        return jwtAuthenticationFilter;
     }
 }

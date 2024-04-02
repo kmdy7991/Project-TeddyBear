@@ -49,4 +49,10 @@ public class User {
 
     @Column(nullable = false, columnDefinition = "text")
     private String concern;
+
+    private String refreshToken; // 리프레시 토큰
+
+    public void updateRefreshToken(String updateRefreshToken) {
+        this.refreshToken = updateRefreshToken;
+    }
 }

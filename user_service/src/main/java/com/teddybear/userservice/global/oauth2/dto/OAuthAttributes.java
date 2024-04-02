@@ -1,4 +1,4 @@
-package com.teddybear.userservice.global.oauth.dto;
+package com.teddybear.userservice.global.oauth2.dto;
 
 import com.teddybear.userservice.domain.entity.Role;
 import com.teddybear.userservice.domain.entity.User;
@@ -15,7 +15,7 @@ public class OAuthAttributes {
     private String name;
     private String email;
     private String picture;
-    private String concern = "education";
+    private String concern;
 
     @Builder
     public OAuthAttributes(Map<String, Object> attributes,
