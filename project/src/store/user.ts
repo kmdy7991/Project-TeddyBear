@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 interface userReduxProps {
   isLoggedIn: boolean;
   userId: number;
+  userNickName: string;
 }
 
 const initialState: userReduxProps = {
   isLoggedIn: false,
   userId: 0,
+  userNickName: "",
 };
 
 const userSlice = createSlice({
@@ -18,11 +20,13 @@ const userSlice = createSlice({
       console.log(action.payload.userId);
       state.userId = action.payload.userId;
       state.isLoggedIn = true;
+      state.userNickName = action.payload.userNickName;
     },
 
     logoutUser: (state, action) => {
       console.log(action.payload.userId);
       state.userId = 0;
+      state.userNickName = "";
       state.isLoggedIn = false;
     },
   },
