@@ -149,7 +149,7 @@ def create_upload_file(file: UploadFile = File(...)):
     
 
 # # 서비스 계정 키 파일 경로 설정
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./api-key/gothic-jigsaw-405113-ce587ad642ae.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./app/domain/script_voice/voice_api/api_key/gothic-jigsaw-405113-ce587ad642ae.json"
 
 class TextToSpeechRequest(BaseModel):
     text: str
@@ -188,10 +188,6 @@ def text_to_speech(request: TextToSpeechRequest):
 
 from google.cloud import speech
 import io
-import os
-
-# 환경 변수에 서비스 계정 키 파일 경로 설정
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./api-key/gothic-jigsaw-405113-ce587ad642ae.json"
 
 def stt(speech_file):
 
