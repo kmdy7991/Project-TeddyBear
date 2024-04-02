@@ -2,6 +2,7 @@ package com.teddybear.videoservice.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teddybear.videoservice.client.LanguageClient;
+import com.teddybear.videoservice.client.UserClient;
 import com.teddybear.videoservice.jpa.*;
 import com.teddybear.videoservice.vo.*;
 import jakarta.persistence.EntityManager;
@@ -29,7 +30,9 @@ public class VideoServiceImpl implements VideoService {
     private final WatchVideoRepository watchVideoRepository;
     private final BookmarkVideoRepository bookmarkVideoRepository;
     private final NoteRepository noteRepository;
+    private final TranslatedVideoRepository translatedVideoRepository;
     private final LanguageClient languageClient;
+    private final UserClient userClient;
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -210,7 +213,6 @@ public class VideoServiceImpl implements VideoService {
                     .build();
             bookmarkVideoRepository.save(bookmarkVideoEntity);
         }
-
     }
 
     @Override
@@ -232,14 +234,17 @@ public class VideoServiceImpl implements VideoService {
                     .build();
             responseVideos.add(responseVideo);
         }
-
         return responseVideos;
-
     }
 
     @Override
-    public List<VideoDto> getTailoredVideos(Long userId) {
-//        languageClient.videoIdInfo()
+    public List<String > getTailoredVideos(Long userId) {
+        if (userClient.findConcernById(userId) != null) {
+            return languageClient.videoIdInfo(PythonDto.builder()
+                    .videoDtoList(translatedVideoRepository.findAll())
+                    .concern(userClient.findConcernById(userId))
+                    .build());
+        }
         return null;
     }
 
