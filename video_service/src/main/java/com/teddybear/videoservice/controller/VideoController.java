@@ -187,5 +187,12 @@ public class VideoController {
         }
     }
 
+    @GetMapping("/watch/isExist") // 시청 영상 유무
+    public ResponseEntity<Boolean> existWatchVideo(@RequestParam Long userId,
+                                                   @RequestParam Long videoId){
+        boolean isExist = videoService.existWatchVideo(userId, videoId);
+        return ResponseEntity.status(HttpStatus.OK).body(isExist);
+    }
+
 
 }
