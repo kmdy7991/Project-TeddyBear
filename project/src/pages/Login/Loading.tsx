@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { userActions } from "../../store/user";
 
 function Loading() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     console.log("오키");
     const response = axios.get(`/user-service/fetchId`);
@@ -18,6 +20,11 @@ function Loading() {
           .then((axiosResponse) => {
             console.log("닉네임");
             console.log(axiosResponse.data);
+            dispatch(
+              userActions.loginUser({
+                userId: id,
+              })
+            );
             if (axiosResponse.data) {
               const response = axios.get(`/user-service/checkTier/${id}`);
               response
