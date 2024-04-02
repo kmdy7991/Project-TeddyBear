@@ -27,6 +27,15 @@ public class ResponseNoteSerializer extends StdSerializer<ResponseNote> {
         gen.writeStringField("note", value.getNote());
         // LocalDateTime을 문자열로 직렬화
         gen.writeStringField("noteDate", value.getNoteDate().toString());
+
+        // VideoEntity 객체의 videoId와 videoTitle을 직렬화
+        if (value.getVideoId() != null) {
+            gen.writeNumberField("videoId", value.getVideoId());
+        }
+        if (value.getVideoTitle() != null) {
+            gen.writeStringField("videoTitle", value.getVideoTitle());
+        }
+
         gen.writeEndObject();
     }
 }
