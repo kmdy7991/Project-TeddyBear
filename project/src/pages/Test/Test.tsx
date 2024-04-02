@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import styles from './Test.module.css';
+import styles from './Test.module.css'; // 모듈 CSS를 import합니다.
 import dummyData from './Vox.json';
 import Modal from '../../components/Test/TestModal'; 
+import Nav from "../../components/Nav/Nav";
+
 
 interface VideoData {
   video_seq: number;
@@ -69,21 +71,34 @@ const Test = () => {
   };
 
   return (
-    <div className={styles.testContainer}>
-      <p>문제 {currentQuizIndex + 1}: {quizzes[currentQuizIndex]?.sentence}</p>
-      {!isAnswerChecked && (
-        <input
-          type="text"
-          value={userAnswer}
-          onChange={(e) => setUserAnswer(e.target.value)}
-          placeholder="빈칸에 들어갈 단어를 입력하세요"
-        />
-      )}
-      <button onClick={handleAnswerSubmission}>{isAnswerChecked ? '다음 문제' : '제출'}</button>
-      {isAnswerChecked && <p>정답은 "{quizzes[currentQuizIndex]?.blankWord}"입니다.</p>}
-      <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-        <p>총점: {correctAnswersCount * 10}점</p>
-      </Modal>
+    <div>
+      <Nav/>
+      <div className={styles.testContainer}> 
+        <div>
+          <p>문제 {currentQuizIndex + 1}: {quizzes[currentQuizIndex]?.sentence}</p>
+        </div>
+        <div>
+          {!isAnswerChecked && (
+            <input
+              type="text"
+              value={userAnswer}
+              onChange={(e) => setUserAnswer(e.target.value)}
+              placeholder="빈칸에 들어갈 단어를 입력하세요"
+            />
+          )}
+        </div>
+        <div>
+          <button className={styles.button} onClick={handleAnswerSubmission}>{isAnswerChecked ? '다음 문제' : '제출'}</button> {/* 모듈 CSS 클래스를 적용합니다. */}
+        </div>
+        <div>
+          {isAnswerChecked && <p>정답은 "{quizzes[currentQuizIndex]?.blankWord}"입니다.</p>}
+        </div>
+
+
+        <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+          <p>총점: {correctAnswersCount * 10}점</p>
+        </Modal>
+      </div>
     </div>
   );
 };
