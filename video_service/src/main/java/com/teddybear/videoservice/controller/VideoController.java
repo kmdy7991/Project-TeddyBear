@@ -83,7 +83,11 @@ public class VideoController {
     public ResponseEntity<List<ResponseVideo>> getBookmarkVideo(@PathVariable Long userId) {
         List<ResponseVideo> responseVideos = videoService.getVideoByUserId(userId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(responseVideos);
+        if (responseVideos != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(responseVideos);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @DeleteMapping("/bookmarkVideo") // 북마크 영상 삭제
@@ -102,15 +106,23 @@ public class VideoController {
     @GetMapping("/note/{userId}/{videoId}") // 필기노트 1개 조회
     public ResponseEntity<ResponseNote> getNote(@PathVariable Long userId, @PathVariable Long videoId) {
         ResponseNote responseNote = videoService.getNote(userId, videoId);
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseNote);
+//        System.out.println("responseNote: " + responseNote.getVideo().getId());
+        if (responseNote != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(responseNote);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        }
     }
 
     @GetMapping("/note/{noteId}") // 필기노트 1개 조회
     public ResponseEntity<ResponseNote> getNote(@PathVariable Long noteId) {
         ResponseNote responseNote = videoService.getNoteByNoteId(noteId);
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseNote);
+//        System.out.println("responseNote: " + responseNote.getVideo().getId());
+        if (responseNote != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(responseNote);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        }
     }
 
     @GetMapping("/notes/{userId}") // 사용자별 필기노트 리스트 조회
@@ -135,14 +147,18 @@ public class VideoController {
     }
 
     @GetMapping("/bookmarkVideo/isExist") // 북마크 영상 유무
-    public ResponseEntity<Boolean> existBookmarkVideo(@RequestBody RequestBookmarkVideo requestBookmarkVideo) {
+    public ResponseEntity<Boolean> existBookmarkVideo(
+            @RequestParam Long userId,
+            @RequestParam Long videoId
+    ) {
+        RequestBookmarkVideo requestBookmarkVideo = new RequestBookmarkVideo(userId, videoId);
         boolean isExist = videoService.existBookmarkVideo(requestBookmarkVideo);
 
         return ResponseEntity.status(HttpStatus.OK).body(isExist);
     }
 
     @PutMapping("/note/{noteId}") // 필기노트 수정
-    public ResponseEntity<String> updateNote(@PathVariable Long noteId, @RequestBody String updatedNote) {
+    public ResponseEntity<String> updateNote(@PathVariable Long noteId, @RequestBody UpdateNote updatedNote) {
         boolean success = videoService.updateNoteByNoteId(noteId, updatedNote);
         if (success) {
             return ResponseEntity.ok("Note updated successfully");
@@ -152,7 +168,7 @@ public class VideoController {
     }
 
     @PutMapping("/note/{userId}/{videoId}") // 필기노트 수정
-    public ResponseEntity<String> updateNote(@PathVariable Long userId, @PathVariable Long videoId, @RequestBody String updatedNote) {
+    public ResponseEntity<String> updateNote(@PathVariable Long userId, @PathVariable Long videoId, @RequestBody UpdateNote updatedNote) {
         boolean isUpdated = videoService.updateNoteContent(userId, videoId, updatedNote);
         if (isUpdated) {
             return ResponseEntity.ok("Note updated successfully.");

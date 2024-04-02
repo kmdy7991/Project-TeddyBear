@@ -272,25 +272,34 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public ResponseNote getNote(Long userId, Long videoId) {
         NoteEntity noteEntity = noteRepository.findByUserIdAndVideoId(userId, videoId);
-        System.out.println(noteEntity.getId());
-
-        return ResponseNote.builder()
-                .id(noteEntity.getId())
-                .note(noteEntity.getNote())
-                .noteDate(noteEntity.getNoteDate())
-                .build();
-
+        VideoEntity videoEntity = videoRepository.findById(videoId).orElse(null);
+        System.out.println("videoId: " + noteEntity.getVideo().getId());
+        if (noteEntity != null) {
+            return ResponseNote.builder()
+                    .id(noteEntity.getId())
+                    .note(noteEntity.getNote())
+                    .noteDate(noteEntity.getNoteDate())
+                    .videoId(videoId)
+                    .videoTitle(videoEntity.getVideoTitle())
+                    .build();
+        } else {
+            return null; // 또는 적절한 오류 처리
+        }
 
     }
 
     public ResponseNote getNoteByNoteId(Long noteId) {
-        NoteEntity noteEntity = noteRepository.findById(noteId).orElseThrow();
+        NoteEntity noteEntity = noteRepository.findById(noteId).orElse(null);
+        VideoEntity videoEntity = videoRepository.findById(noteEntity.getVideo().getId()).orElse(null);
 //        System.out.println(noteEntity.getId());
+        System.out.println("videoId: " + noteEntity.getVideo().getId());
         if (noteEntity != null) {
             ResponseNote responseNote = ResponseNote.builder()
                     .id(noteEntity.getId())
                     .note(noteEntity.getNote())
                     .noteDate(noteEntity.getNoteDate())
+                    .videoId(videoEntity.getId())
+                    .videoTitle(videoEntity.getVideoTitle())
                     .build();
 
             return responseNote;
@@ -336,7 +345,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public boolean updateNoteByNoteId(Long noteId, String updatedNote) {
+    public boolean updateNoteByNoteId(Long noteId, UpdateNote updatedNote) {
         NoteEntity note = noteRepository.findById(noteId)
                 .orElseThrow(() -> new RuntimeException("Note not found"));
 
@@ -345,7 +354,7 @@ public class VideoServiceImpl implements VideoService {
                 .id(note.getId())
                 .userId(note.getUserId())
                 .video(note.getVideo())
-                .note(updatedNote)
+                .note(updatedNote.getUpdatedNote())
                 .noteDate(LocalDateTime.now())
                 .build();
 
@@ -354,7 +363,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public boolean updateNoteContent(Long userId, Long videoId, String updatedNote) {
+    public boolean updateNoteContent(Long userId, Long videoId, UpdateNote updatedNote) {
         // 주어진 userId와 videoId에 해당하는 NoteEntity 찾기
         NoteEntity note = noteRepository.findByUserIdAndVideoId(userId, videoId);
         if (note != null) {
@@ -362,7 +371,7 @@ public class VideoServiceImpl implements VideoService {
                     .id(note.getId())
                     .userId(note.getUserId())
                     .video(note.getVideo())
-                    .note(updatedNote)
+                    .note(updatedNote.getUpdatedNote())
                     .noteDate(LocalDateTime.now())
                     .build();
 
