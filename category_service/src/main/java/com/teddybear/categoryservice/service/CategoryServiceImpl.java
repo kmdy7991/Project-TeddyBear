@@ -1,7 +1,7 @@
 package com.teddybear.categoryservice.service;
 
 import com.teddybear.categoryservice.client.CategoryClient;
-import com.teddybear.categoryservice.response.CategoryResponseDto;
+import com.teddybear.categoryservice.dto.CategoryResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
