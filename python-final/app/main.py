@@ -4,7 +4,7 @@ from app.domain.script_voice.voice_api.voice_main import voice_router
 from app.domain.translate.trans_main import trans_router
 import py_eureka_client.eureka_client as eureka_client
 from contextlib import asynccontextmanager
-
+from starlette.middleware.cors import CORSMiddleware
 
 @asynccontextmanager
 async def start_load(init: FastAPI):
@@ -17,6 +17,15 @@ async def start_load(init: FastAPI):
 
 
 app = FastAPI(lifespan=start_load)
+
+# CORS 미들웨어 설정
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 모든 도메인 허용
+    allow_credentials=True,
+    allow_methods=["*"],  # 모든 HTTP 메소드 허용
+    allow_headers=["*"],  # 모든 HTTP 헤더 허용
+)
 
 # API Router를 등록합니다.
 app.include_router(voice_router)
