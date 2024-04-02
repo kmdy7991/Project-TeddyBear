@@ -21,6 +21,22 @@ module.exports = function (app) {
     "/word-service",
     createProxyMiddleware({
       target: "http://localhost:8081",
+  // 여러 도메인 사용하는 경우
+      })
+  );
+
+  app.use(
+    "/user-service",
+    createProxyMiddleware({
+      target: "http://localhost:8080",
+      changeOrigin: true,
+    })
+  );
+
+    app.use(
+    "/test-service",
+    createProxyMiddleware({
+      target: "http://localhost:8084",
       changeOrigin: true,
     })
   );
