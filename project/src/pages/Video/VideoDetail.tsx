@@ -15,6 +15,10 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { VideoResultProps } from "../Main/VideoList/Video";
 import IsBookMark from "../../components/Video/IsBookMark";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { loadingActions } from "../../store/loading";
+import Loading from "../../components/Loading";
 type tab = "mic" | "note" | "word";
 
 export interface ShadowingProps {
@@ -56,15 +60,21 @@ export default function VideoDetail() {
   // 북마크 상태 관리
   const [isBookmark, setIsBookmark] = useState(false);
 
+  const dispatch = useDispatch();
+  const loading = useSelector((state: RootState) => state.loading["SCRIPT"]);
+
   useEffect(() => {
     // getVideoDetail
     const fetchVideoData = async () => {
       try {
+        dispatch(loadingActions.startLoading("SCRIPT"));
         const response = await axios.get(`/video-service/video/${videoId}`);
         setVideoData(response.data); // 서버 응답을 videoData 상태에 저장
         console.log(response.data);
       } catch (error) {
         console.error("비디오 상세 조회 실패:", error);
+      } finally {
+        dispatch(loadingActions.finishLoading("SCRIPT"));
       }
     };
     if (videoId) {
@@ -156,6 +166,7 @@ export default function VideoDetail() {
     <div className={`${styles.container}`}>
       <Nav />
       <div className={`${styles.main}`}>
+        {loading && <Loading />}
         <div className={`${styles.youtube}`}>
           <div className={`${styles.vidWrapper}`}>
             <YouTube
