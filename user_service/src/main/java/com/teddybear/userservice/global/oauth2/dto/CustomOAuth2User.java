@@ -1,4 +1,4 @@
-package com.teddybear.userservice.global.oauth.dto;
+package com.teddybear.userservice.global.oauth2.dto;
 
 import com.teddybear.userservice.domain.entity.Role;
 import lombok.Getter;

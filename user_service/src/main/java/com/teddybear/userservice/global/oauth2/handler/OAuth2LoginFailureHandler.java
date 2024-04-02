@@ -1,4 +1,4 @@
-package com.teddybear.userservice.global.oauth.handler;
+package com.teddybear.userservice.global.oauth2.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

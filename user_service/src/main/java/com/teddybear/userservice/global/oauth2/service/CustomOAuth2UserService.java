@@ -1,11 +1,11 @@
-package com.teddybear.userservice.global.oauth.service;
+package com.teddybear.userservice.global.oauth2.service;
 
 import com.teddybear.userservice.domain.entity.Tier;
 import com.teddybear.userservice.domain.entity.User;
 import com.teddybear.userservice.domain.repository.TierRepository;
 import com.teddybear.userservice.domain.repository.UserRepository;
-import com.teddybear.userservice.global.oauth.dto.CustomOAuth2User;
-import com.teddybear.userservice.global.oauth.dto.OAuthAttributes;
+import com.teddybear.userservice.global.oauth2.dto.CustomOAuth2User;
+import com.teddybear.userservice.global.oauth2.dto.OAuthAttributes;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -38,6 +38,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+
     private final UserRepository userRepository;
     private final TierRepository tierRepository;
     private final HttpSession httpSession;
@@ -119,7 +120,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     }
 
     public String fetchSubscriptionList(String accessToken) {
-        String concern = "education";
+        String concern = "교육";
         BufferedReader in = null;
         try {
             URL url = new URL("https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet,contentDetails&mine=true&maxResults=50");
