@@ -1,5 +1,6 @@
 package com.example.videoservice.vo;
 
+import com.example.videoservice.jpa.VideoEntity;
 import com.example.videoservice.serializer.ResponseNoteSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
@@ -17,4 +18,6 @@ public class ResponseNote {
     private Long id;
     private String note;
     private LocalDateTime noteDate;
+    private Long videoId;
+    private String videoTitle;
 }
