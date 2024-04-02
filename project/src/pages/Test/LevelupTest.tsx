@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 Re
 import Modal from "../../components/Test/TestModal"; // 사용자 정의 모달 컴포넌트
 import styles from '../Login/CefrTest.module.css'; // 스타일링을 위한 CSS 모듈
 import axios from "axios"; // HTTP 요청을 위한 axios 라이브러리
+import LevelupScore from './LevelupScore';
+
 
 // API 응답 타입을 정의하는 인터페이스
 interface TestOption {
@@ -39,41 +41,43 @@ const LevelUptest: React.FC = () => {
   const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수
   const [isOpen, setIsOpen] = useState(false); // 모달의 열림/닫힘 상태
 
-  // 컴포넌트 마운트 후 API 요청을 보내기 위한 useEffect 훅
-  useEffect(() => {
-    const userId = 1; // 사용자 ID (예시)
-    console.log("test")
+useEffect(() => {
+  const userId = 1; // 사용자 ID (예시)
 
-    // 첫 번째 API 요청: 사용자의 tier 정보를 가져옴
-    axios.get(`/user-service/tier/${userId}`)
-      .then(response => {
-        const tierName = response.data.tierName; // 응답에서 tierName 추출
-        // 두 번째 API 요청: tierName에 해당하는 테스트 질문 세트를 가져옴
-        console.log(tierName)
-        return axios.get(`/test-service/test/${tierName}`);
-      })
-      .then(response => {
-        // 응답 데이터를 Question 배열로 변환
-        const questionSets: Question[] = response.data.map((test: Test) => ({
-          id: test.id,
-          question: test.test_question,
-          options: test.options.map((option: TestOption) => option.option),
-          answer: test.options.findIndex((option: TestOption) => option._answer),
-          score: 1, // 점수는 예시값으로 설정
-        }));
+  // 첫 번째 API 요청: 사용자의 tier 정보를 가져옴
+  axios.get(`/user-service/tier/${userId}`)
+    .then(response => {
+      const tierName = response.data.tierName; // 응답에서 tierName 추출
+      // 두 번째 API 요청: tierName에 해당하는 테스트 질문 세트를 가져옴
+      console.log(tierName)
+      return axios.get(`/test-service/test/${tierName}`);
+    })
+    .then(response => {
+      // 응답 데이터를 Question 배열로 변환
+      const questionSets: Question[] = response.data.map((test: Test) => ({
+        id: test.id,
+        question: test.test_question,
+        options: test.options.map((option: TestOption) => option.option),
+        answer: test.options.findIndex((option: TestOption) => option._answer),
+        score: 1, // 점수는 예시값으로 설정
+      }));
 
-        // 새로운 질문 세트 생성 및 상태 업데이트
-        const newQuestionSet: QuestionSet = {
-          set_num: 1,
-          setquestion: questionSets,
-        };
+      // 8개의 문제만 선택
+      const limitedQuestions = questionSets.slice(0, 9);
 
-        // 질문 세트와 선택된 답안들의 초기 상태를 업데이트
-        setQuestionSet([newQuestionSet]);
-        setSelectedAnswers(new Array(questionSets.length).fill(null));
-      })
-      .catch(error => console.error("API 요청 중 오류 발생:", error)); // 오류 처리
-  }, []); // 빈 의존성 배열로 인해 컴포넌트 마운트 시에만 실행
+      // 새로운 질문 세트 생성 및 상태 업데이트
+      const newQuestionSet: QuestionSet = {
+        set_num: 1,
+        setquestion: limitedQuestions,
+      };
+
+      // 질문 세트와 선택된 답안들의 초기 상태를 업데이트
+      setQuestionSet([newQuestionSet]);
+      setSelectedAnswers(new Array(limitedQuestions.length).fill(null));
+    })
+    .catch(error => console.error("API 요청 중 오류 발생:", error)); // 오류 처리
+}, []);
+
 
   // 답안 선택 핸들러: 선택된 답안을 상태에 업데이트
   const handleAnswerSelection = (questionIndex: number, selectedAnswer: number) => {
@@ -104,9 +108,9 @@ const LevelUptest: React.FC = () => {
           {questionSet.length > 0 && questionSet[0].setquestion.map((question, index) => (
             <div key={question.id} className={styles.question}>
               <h2>문제 {index + 1}: {question.question}</h2>
-              <div className={styles.options}>
+              <div className={styles.options2}>
                 {question.options.map((option, optionIndex) => (
-                  <div key={optionIndex} className={styles.option}>
+                  <div key={optionIndex} className={styles.option2}>
                     <input
                       type="radio"
                       id={`option_${index}_${optionIndex}`}
@@ -115,7 +119,7 @@ const LevelUptest: React.FC = () => {
                       checked={selectedAnswers[index] === optionIndex}
                       onChange={() => handleAnswerSelection(index, optionIndex)}
                     />
-                    <label htmlFor={`option_${index}_${optionIndex}`}>{option}</label>
+                    <label htmlFor={`option_${index}_${optionIndex}`}>   {option}</label>
                   </div>
                 ))}
               </div>
@@ -125,8 +129,8 @@ const LevelUptest: React.FC = () => {
         <button onClick={handleSubmit} className={styles.button}>정답 제출</button>
         {/* 점수 표시를 위한 모달 */}
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <div>당신의 점수는 {score}점입니다!</div>
-        </Modal>
+          <LevelupScore score={score} onClose={() => setIsOpen(false)} />
+        </Modal> 
       </div>
     </div>
   );

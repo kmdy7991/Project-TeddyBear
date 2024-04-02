@@ -75,11 +75,17 @@ const Test = () => {
       <Nav/>
       <div className={styles.testContainer}> 
         <div>
-          <p>문제 {currentQuizIndex + 1}: {quizzes[currentQuizIndex]?.sentence}</p>
+          <h1>문제 {currentQuizIndex + 1}</h1>          
+        </div>
+        <div className={styles.scrbox}>
+          <h1>번역본</h1>
+        </div>
+        <div className={styles.quebox}>
+          <h1>{quizzes[currentQuizIndex]?.sentence}</h1>
         </div>
         <div>
           {!isAnswerChecked && (
-            <input
+            <input  className={styles.ansbox}
               type="text"
               value={userAnswer}
               onChange={(e) => setUserAnswer(e.target.value)}
