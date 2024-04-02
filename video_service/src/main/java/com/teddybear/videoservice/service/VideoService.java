@@ -1,6 +1,5 @@
 package com.teddybear.videoservice.service;
 
-import com.example.videoservice.vo.*;
 import com.teddybear.videoservice.vo.*;
 
 import java.util.List;
@@ -14,6 +13,7 @@ public interface VideoService {
     void watchVideo(RequestWatchVideo requestWatchVideo);
     void bookmarkVideo(RequestBookmarkVideo requestBookmarkVideo);
     List<ResponseVideo> getVideoByUserId(Long userId);
+    List<VideoDto> getTailoredVideos(Long userId);
     void deleteBookmarkedVideo(RequestBookmarkVideo requestBookmarkVideo);
     void createNote(RequestNote requestNote);
     ResponseNote getNote(Long userId, Long videoId);

@@ -1,6 +1,5 @@
 package com.teddybear.userservice.domain.service;
 
-import com.teddybear.userservice.client.LanguageClient;
 import com.teddybear.userservice.domain.entity.Role;
 import com.teddybear.userservice.domain.entity.Tier;
 import com.teddybear.userservice.domain.entity.User;
@@ -23,7 +22,6 @@ public class UserService {
     private final HttpSession httpSession;
     private final UserRepository userRepository;
     private final TierRepository tierRepository;
-    private final LanguageClient languageClient;
 
     public UserDto.AuthResponse fetchAuth() {
         UserDto.AuthResponse response = UserDto.AuthResponse.builder()
@@ -47,6 +45,7 @@ public class UserService {
                     .videoViewTime(user.get().getVideoViewTime())
                     .role(Role.USER)
                     .concern(user.get().getConcern())
+                    .refreshToken(user.get().getRefreshToken())
                     .build();
             userRepository.save(updatedUser);
             return true;

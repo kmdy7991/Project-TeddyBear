@@ -1,12 +1,12 @@
 package com.teddybear.videoservice.service;
 
-import com.example.videoservice.jpa.*;
-import com.example.videoservice.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.teddybear.videoservice.client.LanguageClient;
 import com.teddybear.videoservice.jpa.*;
 import com.teddybear.videoservice.vo.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,22 +22,16 @@ import java.util.List;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 //@Transactional
 public class VideoServiceImpl implements VideoService {
     private final VideoRepository videoRepository;
     private final WatchVideoRepository watchVideoRepository;
     private final BookmarkVideoRepository bookmarkVideoRepository;
     private final NoteRepository noteRepository;
+    private final LanguageClient languageClient;
     @PersistenceContext
     private EntityManager entityManager;
-
-    @Autowired
-    public VideoServiceImpl(VideoRepository videoRepository,  WatchVideoRepository watchVideoRepository, BookmarkVideoRepository bookmarkVideoRepository, NoteRepository noteRepository) {
-        this.videoRepository = videoRepository;
-        this.watchVideoRepository = watchVideoRepository;
-        this.bookmarkVideoRepository = bookmarkVideoRepository;
-        this.noteRepository = noteRepository;
-    }
 
     public ResponseVideo getVideoById(Long id) {
         VideoEntity videoEntity = videoRepository.findById(id).orElse(null);
@@ -241,6 +235,12 @@ public class VideoServiceImpl implements VideoService {
 
         return responseVideos;
 
+    }
+
+    @Override
+    public List<VideoDto> getTailoredVideos(Long userId) {
+//        languageClient.videoIdInfo()
+        return null;
     }
 
     @Override
