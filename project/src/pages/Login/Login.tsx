@@ -15,10 +15,8 @@ function Login() {
     <div className={`${styles.pageContainer}`}>
       <div className={`${styles.description}`}>
         <div className={`${styles.title}`}>TEDDYBEAR</div>
-        <div>
-          <button onClick={handleGoogleLogin} className={styles.loginbutton}>
-            구글 소셜 로그인
-          </button>
+        <div onClick={handleGoogleLogin} className={styles.loginbutton}>
+          <button>구글 소셜 로그인</button>
         </div>
       </div>
       <div className={`${styles.loginimg}`}>

@@ -6,33 +6,29 @@ function Loading() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("오키");
     const response = axios.get(`/user-service/fetchId`);
     response
       .then((axiosResponse) => {
-        const id = axiosResponse.data; // 데이터
-        const nickname = axios.get(`/user-service/checkNickname/${id}`);
-        console.log("nickname");
-        console.log(nickname);
-        nickname
+        const id = axiosResponse.data.id; // id
+        const accessToken = axiosResponse.data.accessToken; // accessToken
+        const nicknameData = axios.get(`/user-service/checkNickname/${id}`);
+        nicknameData
           .then((axiosResponse) => {
             console.log("닉네임");
             console.log(axiosResponse.data);
             if (axiosResponse.data) {
-              const response = axios.get(`/user-service/checkTier/${id}`);
-              response
-                .then((axiosResponse) => {
-                  console.log("티어");
-                  console.log(axiosResponse.data);
-                  if (axiosResponse.data) {
-                    navigate(`/`);
-                  } else {
-                    navigate(`/cefrtest`);
-                  }
-                })
-                .catch((error) => {
-                  console.error(error); // 오류 처리
-                });
+              const TierData = axios.get(`/user-service/checkTier/${id}`);
+              TierData.then((axiosResponse) => {
+                console.log("티어");
+                console.log(axiosResponse.data);
+                if (axiosResponse.data) {
+                  navigate(`/`);
+                } else {
+                  navigate(`/testguide`);
+                }
+              }).catch((error) => {
+                console.error(error); // 오류 처리
+              });
             } else {
               navigate(`/profil`);
             }
