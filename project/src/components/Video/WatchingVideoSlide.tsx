@@ -36,7 +36,7 @@ export default function WatchingVideoSlide() {
 
   return (
     <>
-      {watchingSlideList.length > 0 ? (
+      {watchingSlideList && watchingSlideList.length > 0 ? (
         <Slider {...myPageSlider}>
           {watchingSlideList.map((data, index) => (
             <div
