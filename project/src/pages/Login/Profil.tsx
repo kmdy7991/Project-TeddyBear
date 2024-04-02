@@ -30,7 +30,13 @@ function Profil() {
 
   useEffect(() => {
     // 모든 유효성이 만족할 때만 전체 폼 유효성을 설정
-    setisFormvalid(isNicknameValid && year !== "" && month !== "" && day !== "" && isGenderValid);
+    setisFormvalid(
+      isNicknameValid &&
+        year !== "" &&
+        month !== "" &&
+        day !== "" &&
+        isGenderValid
+    );
   }, [isNicknameValid, year, month, day, isGenderValid]);
 
   const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,17 +53,20 @@ function Profil() {
     if (isFormvalid) {
       const birthday = `${year}${month}${day}`; // 생년월일을 문자열로 합침
       try {
-        const response = await axios.put(`/user-service/update/${id}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
+        const response = await axios.put(
+          `/user-service/update/${id}`,
+          {
             nickname: nickname,
             birthday: birthday,
             gender: gender,
-          }),
-        });
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         console.log(response.data);
         navigate("/testguide"); // 성공적으로 데이터를 저장한 후 페이지 이동
       } catch (error) {
@@ -83,7 +92,11 @@ function Profil() {
 
           <div className={styles.inputbox}>
             {/* 생년월일 입력칸 */}
-            <select value={year} onChange={(e) => setYear(e.target.value)} className={styles.yearbox}>
+            <select
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+              className={styles.yearbox}
+            >
               <option value="">YYYY</option>
               {Array.from({ length: 100 }, (_, index) => (
                 <option key={index} value={new Date().getFullYear() - index}>
@@ -91,32 +104,54 @@ function Profil() {
                 </option>
               ))}
             </select>
-            <select value={month} onChange={(e) => setMonth(e.target.value)} className={styles.monthbox}>
+            <select
+              value={month}
+              onChange={(e) => setMonth(e.target.value)}
+              className={styles.monthbox}
+            >
               <option value="">MM</option>
               {Array.from({ length: 12 }, (_, index) => (
-                <option key={index + 1} value={(index + 1).toString().padStart(2, "0")}>
+                <option
+                  key={index + 1}
+                  value={(index + 1).toString().padStart(2, "0")}
+                >
                   {index + 1}월
                 </option>
               ))}
             </select>
-            <select value={day} onChange={(e) => setDay(e.target.value)} className={styles.daybox}>
+            <select
+              value={day}
+              onChange={(e) => setDay(e.target.value)}
+              className={styles.daybox}
+            >
               <option value="">DD</option>
               {Array.from({ length: 31 }, (_, index) => (
-                <option key={index + 1} value={(index + 1).toString().padStart(2, "0")}>
+                <option
+                  key={index + 1}
+                  value={(index + 1).toString().padStart(2, "0")}
+                >
                   {index + 1}일
                 </option>
               ))}
             </select>
           </div>
           <div className={styles.inputbox}>
-            <select value={gender} onChange={onChangeGender} className={styles.selectboxsize}>
+            <select
+              value={gender}
+              onChange={onChangeGender}
+              className={styles.selectboxsize}
+            >
               <option value="">성별을 선택하세요</option>
               <option value="female">여자</option>
               <option value="male">남자</option>
             </select>
           </div>
           <div className={styles.inputbox}>
-            <button onClick={handleSubmit} disabled={!isFormvalid} className={styles.button}>
+            <button
+              onClick={handleSubmit}
+              disabled={!isFormvalid}
+              className={styles.button}
+            >
               저장
             </button>
           </div>
@@ -125,10 +160,14 @@ function Profil() {
 
       <div className={styles.box2}>
         <h1 className={styles.text1}>잠시만요, </h1>
-        <h3 className={styles.text2}>여러분의 맞춤 학습을 위한 첫걸음입니다!</h3>
+        <h3 className={styles.text2}>
+          여러분의 맞춤 학습을 위한 첫걸음입니다!
+        </h3>
         <h3 className={styles.text3}>여러분의 성별과 나이를 알려주세요.</h3>
         <h3 className={styles.text4}>작성하신 프로필을 기반으로 </h3>
-        <h3 className={styles.text5}>여러분에게 딱 맞는 학습 영상을 추천해 드려요.</h3>
+        <h3 className={styles.text5}>
+          여러분에게 딱 맞는 학습 영상을 추천해 드려요.
+        </h3>
       </div>
     </div>
   );
