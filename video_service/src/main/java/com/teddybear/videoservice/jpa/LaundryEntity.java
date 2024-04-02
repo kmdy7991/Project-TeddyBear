@@ -1,4 +1,4 @@
-package com.example.videoservice.jpa;
+package com.teddybear.videoservice.jpa;
 
 import jakarta.persistence.*;
 import lombok.*;

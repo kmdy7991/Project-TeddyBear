@@ -1,6 +1,6 @@
 package com.teddybear.videoservice.service;
 
-import com.example.videoservice.vo.*;
+import com.teddybear.videoservice.vo.*;
 import com.teddybear.videoservice.vo.*;
 
 import java.util.List;
@@ -22,6 +22,6 @@ public interface VideoService {
     void deleteNote(Long userId, Long videoId);
     void deleteNoteByNoteId(Long noteId);
     boolean existBookmarkVideo(RequestBookmarkVideo requestBookmarkVideo);
-    boolean updateNoteByNoteId(Long noteId, UpdateNote updatedNote);
-    boolean updateNoteContent(Long userId, Long videoId, UpdateNote updatedNote);
+    boolean updateNoteByNoteId(Long noteId, com.example.videoservice.vo.UpdateNote updatedNote);
+    boolean updateNoteContent(Long userId, Long videoId, com.example.videoservice.vo.UpdateNote updatedNote);
 }

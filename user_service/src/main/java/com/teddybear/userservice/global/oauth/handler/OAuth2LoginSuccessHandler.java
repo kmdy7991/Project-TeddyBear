@@ -26,7 +26,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         log.info("OAuth2 Login 성공!");
         try {
-            CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+            CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal(); //인증된 사용자의 정보를 가져옴
             response.sendRedirect("http://localhost:3000/loading"); // 프론트의 회원가입 추가 정보 입력 폼으로 리다이렉트
 
             // User의 Role이 GUEST일 경우 처음 요청한 회원이므로 회원가입 페이지로 리다이렉트

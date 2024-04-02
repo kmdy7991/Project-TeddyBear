@@ -1,6 +1,6 @@
-package com.example.videoservice.controller;
+package com.teddybear.videoservice.controller;
 
-import com.example.videoservice.service.LaundryService;
+import com.teddybear.videoservice.service.LaundryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

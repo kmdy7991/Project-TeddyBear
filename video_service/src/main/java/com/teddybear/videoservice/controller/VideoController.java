@@ -1,7 +1,7 @@
 package com.teddybear.videoservice.controller;
 
 import com.teddybear.videoservice.service.VideoService;
-import com.example.videoservice.vo.*;
+import com.teddybear.videoservice.vo.*;
 import com.teddybear.videoservice.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -158,7 +158,7 @@ public class VideoController {
     }
 
     @PutMapping("/note/{noteId}") // 필기노트 수정
-    public ResponseEntity<String> updateNote(@PathVariable Long noteId, @RequestBody UpdateNote updatedNote) {
+    public ResponseEntity<String> updateNote(@PathVariable Long noteId, @RequestBody com.example.videoservice.vo.UpdateNote updatedNote) {
         boolean success = videoService.updateNoteByNoteId(noteId, updatedNote);
         if (success) {
             return ResponseEntity.ok("Note updated successfully");
@@ -168,7 +168,7 @@ public class VideoController {
     }
 
     @PutMapping("/note/{userId}/{videoId}") // 필기노트 수정
-    public ResponseEntity<String> updateNote(@PathVariable Long userId, @PathVariable Long videoId, @RequestBody UpdateNote updatedNote) {
+    public ResponseEntity<String> updateNote(@PathVariable Long userId, @PathVariable Long videoId, @RequestBody com.example.videoservice.vo.UpdateNote updatedNote) {
         boolean isUpdated = videoService.updateNoteContent(userId, videoId, updatedNote);
         if (isUpdated) {
             return ResponseEntity.ok("Note updated successfully.");

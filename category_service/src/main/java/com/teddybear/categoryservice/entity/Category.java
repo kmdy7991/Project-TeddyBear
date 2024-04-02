@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
-@NoArgsConstructor
 @Entity
-@Builder
 @Table(name = "category")
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
