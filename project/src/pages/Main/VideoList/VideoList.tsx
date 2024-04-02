@@ -61,7 +61,7 @@ function VideoList() {
           <span>북마크한 영상</span>
         </div>
         <div>
-          {bmList.length > 0 ? (
+          {bmList && bmList.length > 0 ? (
             <Slider {...sliderSettings(Math.min(5, bmList.length))}>
               {bmList.map((video, index) => (
                 <div
