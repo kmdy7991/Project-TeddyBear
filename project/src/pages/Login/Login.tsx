@@ -8,7 +8,7 @@ function Login() {
   // 구글 로그인 버튼을 클릭할 때 호출되는 함수
   const handleGoogleLogin = async () => {
     setIsLogin(true);
-    window.location.href = `http://localhost:8080/oauth2/authorization/google`;
+    window.location.href = `http://localhost:8086/oauth2/authorization/google`;
   };
 
   return (

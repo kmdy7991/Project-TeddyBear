@@ -15,11 +15,17 @@ export default function MyNote() {
   const userId = useSelector((state: RootState) => state.user.userId);
   console.log(userId);
   const [notes, setNotes] = useState<noteProp[]>([]);
+  const accessToken = localStorage.getItem("access_token");
 
   useEffect(() => {
     const fetchNoteList = async () => {
       try {
-        const response = await axios.get(`/video-service/notes/${userId}`);
+        const response = await axios.get(`/api/video-service/notes/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        });
         console.log("노트 리스트 조회 성공", response.data);
         setNotes(response.data);
       } catch (error) {
