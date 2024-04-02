@@ -1,0 +1,20 @@
+.listenIcon {
+  display: flex;
+}
+.listenIcon button {
+  border: 0;
+  background-color: transparent;
+}
+
+.listenIcon button img {
+  width: 3rem;
+}
+
+.icon {
+  display: flex;
+  margin-left: 1rem;
+  font-size: 1.3rem;
+  color: #2492ff;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,18 +1,31 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { userActions } from "../../store/user";
 
 function Loading() {
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
   useEffect(() => {
+    console.log("오키");
     const response = axios.get(`/user-service/fetchId`);
     response
       .then((axiosResponse) => {
         const id = axiosResponse.data.id; // id
         const accessToken = axiosResponse.data.accessToken; // accessToken
-        const nicknameData = axios.get(`/user-service/checkNickname/${id}`);
-        nicknameData
+        // 로컬에 저장
+        localStorage.setItem("access_token", accessToken);
+        const nickname = axios.get(`/user-service/checkNickname/${id}`);
+        console.log("nickname");
+        console.log(nickname);
+        dispatch(
+          userActions.loginUser({
+            userId: id,
+          })
+        );
+        nickname
           .then((axiosResponse) => {
             console.log("닉네임");
             console.log(axiosResponse.data);

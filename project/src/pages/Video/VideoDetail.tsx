@@ -15,6 +15,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { VideoResultProps } from "../Main/VideoList/Video";
 import IsBookMark from "../../components/Video/IsBookMark";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { loadingActions } from "../../store/loading";
+import Loading from "../../components/Loading";
+import { Root } from "react-dom/client";
 type tab = "mic" | "note" | "word";
 
 export interface ShadowingProps {
@@ -56,15 +61,25 @@ export default function VideoDetail() {
   // 북마크 상태 관리
   const [isBookmark, setIsBookmark] = useState(false);
 
+  const dispatch = useDispatch();
+  const videoLoading = useSelector(
+    (state: RootState) => state.loading["VIDEO"]
+  );
+  const scriptLoading = useSelector(
+    (state: RootState) => state.loading["SCRIPT"]
+  );
   useEffect(() => {
     // getVideoDetail
     const fetchVideoData = async () => {
       try {
+        dispatch(loadingActions.startLoading("VIDEO"));
         const response = await axios.get(`/video-service/video/${videoId}`);
         setVideoData(response.data); // 서버 응답을 videoData 상태에 저장
         console.log(response.data);
       } catch (error) {
         console.error("비디오 상세 조회 실패:", error);
+      } finally {
+        dispatch(loadingActions.finishLoading("VIDEO"));
       }
     };
     if (videoId) {
@@ -77,6 +92,7 @@ export default function VideoDetail() {
     const fetchScript = async () => {
       if (videoData && videoData.videoId) {
         try {
+          dispatch(loadingActions.startLoading("SCRIPT"));
           console.log(videoData.videoId);
           const response = await axios.get(
             `/script-service/script/${videoData.videoId}`
@@ -84,6 +100,8 @@ export default function VideoDetail() {
           setVideoScript(response.data);
         } catch (error) {
           console.error("스크립트 상세 조회 실패:", error);
+        } finally {
+          dispatch(loadingActions.finishLoading("SCRIPT"));
         }
       }
     };
@@ -156,6 +174,7 @@ export default function VideoDetail() {
     <div className={`${styles.container}`}>
       <Nav />
       <div className={`${styles.main}`}>
+        {videoLoading && scriptLoading && <Loading />}
         <div className={`${styles.youtube}`}>
           <div className={`${styles.vidWrapper}`}>
             <YouTube
