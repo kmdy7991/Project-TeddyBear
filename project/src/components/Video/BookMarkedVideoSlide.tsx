@@ -3,7 +3,7 @@ import { MyPageNextArrow, MyPagePrevArrow } from "../Slider/Arrow";
 import Slider from "react-slick";
 import { dummyThumbnails } from "../../pages/Main/VideoList/VideoDummy";
 import "./WatchingVideoSlide.css";
-import { getBookMarkedVideoList } from "./BookmarkList";
+import { getBookMarkedVideoList } from "./MyLectureAPI";
 import { VideoResultProps } from "../../pages/Main/VideoList/Video";
 
 // 북마크 비디오 슬라이드 (마이페이지)
@@ -35,18 +35,24 @@ export default function BookMarkedVideoSlide() {
   }, []);
 
   return (
-    <Slider {...myPageSlider}>
-      {bookmarkList.map((data, index) => (
-        <div
-          className="thumb"
-          key={index}
-          onMouseEnter={() => setSlideIdx(index)}
-          onMouseLeave={() => setSlideIdx(-1)}
-          style={{ position: "relative", transition: "all 0.3s" }}
-        >
-          <img src={data.videoThumbnail}></img>
-        </div>
-      ))}
-    </Slider>
+    <>
+      {bookmarkList.length > 0 ? (
+        <Slider {...myPageSlider}>
+          {bookmarkList.map((data, index) => (
+            <div
+              className="thumb"
+              key={index}
+              onMouseEnter={() => setSlideIdx(index)}
+              onMouseLeave={() => setSlideIdx(-1)}
+              style={{ position: "relative", transition: "all 0.3s" }}
+            >
+              <img src={data.videoThumbnail}></img>
+            </div>
+          ))}
+        </Slider>
+      ) : (
+        <div className="no-content">북마크한 영상이 없습니다.</div>
+      )}
+    </>
   );
 }

@@ -1,33 +1,59 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MyPageNextArrow, MyPagePrevArrow } from "../Slider/Arrow";
 import Slider from "react-slick";
 import { dummyThumbnails } from "../../pages/Main/VideoList/VideoDummy";
 import "./WatchingVideoSlide.css";
+import { VideoResultProps } from "../../pages/Main/VideoList/Video";
+import axios from "axios";
+import { getWatchedVideoList } from "./MyLectureAPI";
 export default function WatchedVideoSlide() {
   const [slideIdx, setSlideIdx] = useState(0);
+  const [watchedSlideList, setWatchedSlideList] = useState<VideoResultProps[]>(
+    []
+  );
   let myPageSlider = {
     dots: false,
-    infinite: true,
+    infinite: false,
     slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToScroll: 1,
     speed: 500,
     nextArrow: <MyPageNextArrow />,
     prevArrow: <MyPagePrevArrow />,
   };
 
+  useEffect(() => {
+    const fetchedWatchedList = async () => {
+      const userId = 2;
+      try {
+        const watchedList = await getWatchedVideoList(userId);
+        console.log("시청완료 영상 조회 성공", watchedList);
+        setWatchedSlideList(watchedList);
+      } catch (error) {
+        console.error("시청완료 영상 조회 실패", error);
+      }
+    };
+    fetchedWatchedList();
+  }, []);
+
   return (
-    <Slider {...myPageSlider}>
-      {dummyThumbnails.map((data, index) => (
-        <div
-          className="thumb"
-          key={index}
-          onMouseEnter={() => setSlideIdx(index)}
-          onMouseLeave={() => setSlideIdx(-1)}
-          style={{ position: "relative", transition: "all 0.3s" }}
-        >
-          <img src={data.videoThumbnail}></img>
-        </div>
-      ))}
-    </Slider>
+    <>
+      {watchedSlideList.length > 0 ? (
+        <Slider {...myPageSlider}>
+          {watchedSlideList.map((data, index) => (
+            <div
+              className="thumb"
+              key={index}
+              onMouseEnter={() => setSlideIdx(index)}
+              onMouseLeave={() => setSlideIdx(-1)}
+              style={{ position: "relative", transition: "all 0.3s" }}
+            >
+              <img src={data.videoThumbnail}></img>
+            </div>
+          ))}
+        </Slider>
+      ) : (
+        <div className="no-content">시청완료된 영상이 없습니다.</div>
+      )}
+    </>
   );
 }

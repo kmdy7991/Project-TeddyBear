@@ -9,7 +9,7 @@ import "./VideoList.css";
 import { dummyThumbnails } from "./VideoDummy";
 import VideoPreview from "./VideoPreview";
 import { VideoResultProps } from "./Video";
-import { getBookMarkedVideoList } from "../../../components/Video/BookmarkList";
+import { getBookMarkedVideoList } from "../../../components/Video/MyLectureAPI";
 import { useNavigate } from "react-router-dom";
 
 function VideoList() {
