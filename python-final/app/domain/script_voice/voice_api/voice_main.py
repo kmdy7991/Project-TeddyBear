@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile,HTTPException
 from fastapi.responses import JSONResponse
 import shutil
 import urllib3
@@ -97,3 +97,29 @@ def stt(speech_file):
 
     # 변환된 텍스트 리스트 반환
     return transcripts
+
+from pydantic import BaseModel
+from google.cloud import translate_v2 as translate
+
+# Pydantic 모델 정의
+class TranslationRequest(BaseModel):
+    text: str
+    target_language: str = "ko"
+
+@voice_router.post("/python/trans/")
+def translate_text(request: TranslationRequest):
+    # Google Cloud Translation 클라이언트 인스턴스화
+    translate_client = translate.Client()
+
+    try:
+        # 텍스트 번역 요청
+        result = translate_client.translate(
+            request.text,
+            target_language=request.target_language
+        )
+    except Exception as e:
+        # 오류 처리
+        raise HTTPException(status_code=500, detail=str(e))
+
+    # 결과 반환
+    return {"original": result['input'], "translated": result['translatedText']}
