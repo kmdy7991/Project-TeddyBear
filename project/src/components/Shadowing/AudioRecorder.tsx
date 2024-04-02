@@ -115,7 +115,6 @@ const AudioComponent = ({ selectedLine }: ShadowingProps) => {
     if (audioUrl) {
       const formData = new FormData(); // FormData 인스턴스 생성
       formData.append("file", audioUrl, "audio.wav"); // 오디오 파일 FormData에 추가
-      formData.append("text", `${text}`);
       console.log(audioUrl);
       try {
         const response = await fetch("/python/upload", {
