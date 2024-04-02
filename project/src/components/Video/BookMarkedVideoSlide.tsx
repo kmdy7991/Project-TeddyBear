@@ -36,7 +36,7 @@ export default function BookMarkedVideoSlide() {
 
   return (
     <>
-      {bookmarkList.length > 0 ? (
+      {bookmarkList && bookmarkList.length > 0 ? (
         <Slider {...myPageSlider}>
           {bookmarkList.map((data, index) => (
             <div

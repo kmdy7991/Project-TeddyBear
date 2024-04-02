@@ -26,13 +26,19 @@ export default function LectureNote({ userId, videoId }: LectureNoteProp) {
   const [content, setContent] = useState("");
   // 저장된 내용있는지 추적
   const [isContentLoaded, setIsContentLoaded] = useState(false);
-
+  const accessToken = localStorage.getItem("access_token");
   useEffect(() => {
     // 강의 노트 조회
     const fetchNote = async () => {
       try {
         const response = await axios.get(
-          `/video-service/note/${userId}/${videoId}`
+          `/api/video-service/note/${userId}/${videoId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          }
         );
         // 노트 내용이 있으면 상태 업데이트
         if (response.data.note) {
@@ -53,11 +59,20 @@ export default function LectureNote({ userId, videoId }: LectureNoteProp) {
   async function handleSubmit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     try {
-      const res = await axios.post(`/video-service/note`, {
-        userId: userId,
-        videoId: videoId,
-        note: content,
-      });
+      const res = await axios.post(
+        `/api/video-service/note`,
+        {
+          userId: userId,
+          videoId: videoId,
+          note: content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       console.log("필기 노트 작성 성공", res.data);
     } catch (err) {
@@ -68,9 +83,18 @@ export default function LectureNote({ userId, videoId }: LectureNoteProp) {
   async function handleEdit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     try {
-      const res = await axios.put(`/video-service/note/${userId}/${videoId}`, {
-        updatedNote: content,
-      });
+      const res = await axios.put(
+        `/api/video-service/note/${userId}/${videoId}`,
+        {
+          updatedNote: content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       console.log("필기 노트 수정 성공", res.data);
       setIsContentLoaded(true); // 저장 후에는 내용이 있으므로 true로 설정
@@ -83,7 +107,13 @@ export default function LectureNote({ userId, videoId }: LectureNoteProp) {
     e.preventDefault();
     try {
       const res = await axios.delete(
-        `/video-service/note/${userId}/${videoId}`
+        `/api/video-service/note/${userId}/${videoId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
       console.log("필기 노트 삭제", res.data);
       setContent("");

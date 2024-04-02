@@ -69,7 +69,7 @@ export default function Watching() {
 
             {isWatching ? (
               <>
-                {watchingList.length > 0 ? (
+                {watchingList && watchingList.length > 0 ? (
                   <div className="myVideoList">
                     {watchingList.map((data, index) => (
                       <div

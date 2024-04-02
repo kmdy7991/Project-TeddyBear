@@ -56,7 +56,7 @@ export default function BookMarked() {
             </button>
           </div>
         </div>
-        {bookmarkList.length > 0 ? (
+        {bookmarkList && bookmarkList.length > 0 ? (
           <div className="myVideoList">
             {bookmarkList.map((data, index) => (
               <div

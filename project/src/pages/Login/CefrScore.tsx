@@ -25,9 +25,9 @@ const CefrScore: React.FC<{ score: number; onClose: () => void }> = ({
     const saveTier = async () => {
       try {
         const response = await axios.put(
-          `/user-service/tier/upgradeTier/${id}`,
+          `/api/user-service/tier/upgradeTier/${id}`,
           {
-            level,
+            tier: level,
           },
           {
             headers: {
