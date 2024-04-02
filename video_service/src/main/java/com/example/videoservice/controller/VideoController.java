@@ -105,7 +105,7 @@ public class VideoController {
     @GetMapping("/note/{userId}/{videoId}") // 필기노트 1개 조회
     public ResponseEntity<ResponseNote> getNote(@PathVariable Long userId, @PathVariable Long videoId) {
         ResponseNote responseNote = videoService.getNote(userId, videoId);
-
+//        System.out.println("responseNote: " + responseNote.getVideo().getId());
         if (responseNote != null) {
             return ResponseEntity.status(HttpStatus.OK).body(responseNote);
         } else {
@@ -116,7 +116,7 @@ public class VideoController {
     @GetMapping("/note/{noteId}") // 필기노트 1개 조회
     public ResponseEntity<ResponseNote> getNote(@PathVariable Long noteId) {
         ResponseNote responseNote = videoService.getNoteByNoteId(noteId);
-
+//        System.out.println("responseNote: " + responseNote.getVideo().getId());
         if (responseNote != null) {
             return ResponseEntity.status(HttpStatus.OK).body(responseNote);
         } else {
