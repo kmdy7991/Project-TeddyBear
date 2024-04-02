@@ -1,5 +1,6 @@
 package com.teddybear.videoservice.service;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teddybear.videoservice.client.LanguageClient;
 import com.teddybear.videoservice.client.UserClient;
@@ -350,7 +351,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public boolean updateNoteByNoteId(Long noteId, UpdateNote updatedNote) {
+    public boolean updateNoteByNoteId(Long noteId, UpdateNote  updatedNote) {
         NoteEntity note = noteRepository.findById(noteId)
                 .orElseThrow(() -> new RuntimeException("Note not found"));
 
@@ -368,7 +369,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public boolean updateNoteContent(Long userId, Long videoId, UpdateNote updatedNote) {
+    public boolean updateNoteContent(Long userId, Long videoId, UpdateNote  updatedNote) {
         // 주어진 userId와 videoId에 해당하는 NoteEntity 찾기
         NoteEntity note = noteRepository.findByUserIdAndVideoId(userId, videoId);
         if (note != null) {
