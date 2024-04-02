@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import Nav from "../../components/Nav/Nav";
 import styles from "./MyPage.module.css";
 import Statistics from "./Statstics/Statstics";
@@ -7,6 +7,10 @@ import MyNote from "./MyNote/MyNote";
 import gold from "../../assets/testTier.png";
 import { useNavigate } from "react-router-dom";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import axios from "axios";
+import { loadingActions } from "../../store/loading";
 
 type tab = "statistics" | "myLecture" | "myNote";
 
@@ -14,11 +18,47 @@ export default function MyPage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<tab>("statistics");
 
+  const [tier, setTier] = useState("");
+  const [level, setLevel] = useState(0);
+  const [tierExp, setTierExp] = useState(0);
+  const [levelExp, setLevelExp] = useState(0);
+
+  const dispatch = useDispatch();
+  const loading = useSelector((state: RootState) => state.loading["PROFILE"]);
+  const nickname = useSelector((state: RootState) => state.user.userNickName);
+  const id = useSelector((state: RootState) => state.user.userId);
   const handleClickTab = (tab: tab) => (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setActiveTab(tab);
     navigate(`${tab}`);
   };
+
+  const accessToken = localStorage.getItem("token");
+
+  useEffect(() => {
+    const fetchTier = async () => {
+      try {
+        dispatch(loadingActions.startLoading("PROFILE"));
+        const response = await axios.get(`/user-service/tier/${id}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        });
+        console.log("유저 티어 조회 성공", response.data);
+        setTier(response.data.tierName.initialLevel);
+        setLevel(response.data.level);
+        setTierExp(response.data.tierExp);
+        setLevelExp(response.data.levelExp);
+      } catch (error) {
+        console.error("유저 티어 조회 실패", error);
+      } finally {
+        dispatch(loadingActions.finishLoading("PROFILE"));
+      }
+    };
+
+    fetchTier();
+  }, []);
 
   function renderPage() {
     switch (activeTab) {
@@ -41,9 +81,9 @@ export default function MyPage() {
           <div className={`${styles.tn}`}>
             <div className={`${styles.tierL}`}>
               <img src={gold} alt="테스트 티어 이미지" />
-              <div className={`${styles.tierName}`}>티어명</div>
+              <div className={`${styles.tierName}`}>{tier}</div>
             </div>
-            <div className={`${styles.nickname}`}>닉네임</div>
+            <div className={`${styles.nickname}`}>{nickname}</div>
           </div>
           <div className={`${styles.exps}`}>
             <div className={`${styles.tier}`}>
