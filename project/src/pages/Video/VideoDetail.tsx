@@ -11,7 +11,7 @@ import Shadowing from "./Shadowing";
 import Word from "./Word";
 import LectureNote from "./LectureNote";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { VideoResultProps } from "../Main/VideoList/Video";
 import IsBookMark from "../../components/Video/IsBookMark";
@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { loadingActions } from "../../store/loading";
 import Loading from "../../components/Loading";
+import dotted from "../../assets/dotted.png";
 import { Root } from "react-dom/client";
 type tab = "mic" | "note" | "word";
 
@@ -58,9 +59,6 @@ export default function VideoDetail() {
     setShowFullDescription(!showFullDescription);
   };
 
-  // 북마크 상태 관리
-  const [isBookmark, setIsBookmark] = useState(false);
-
   const dispatch = useDispatch();
   const videoLoading = useSelector(
     (state: RootState) => state.loading["VIDEO"]
@@ -68,6 +66,15 @@ export default function VideoDetail() {
   const scriptLoading = useSelector(
     (state: RootState) => state.loading["SCRIPT"]
   );
+  // 유저 아이디 꺼내오기
+  const userId = useSelector((state: RootState) => state.user.userId);
+
+  const [watching, setWatching] = useState();
+
+  const navigate = useNavigate();
+
+  const accessToken = localStorage.getItem("token");
+
   useEffect(() => {
     // getVideoDetail
     const fetchVideoData = async () => {
@@ -148,6 +155,29 @@ export default function VideoDetail() {
     setSelectedScriptIdx(index);
   };
 
+  const handleWatch = async () => {
+    try {
+      console.log(userId, videoId);
+      const response = await axios.post(
+        `/video-service/watch`,
+        {
+          videoWatched: false,
+          userId: userId, // 직접 참조
+          videoId: videoData?.id, // 직접 참조
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("시청중인 영상 생성", response.data);
+    } catch (error) {
+      console.error("시청중인 영상 생성 실패", error);
+    }
+  };
+
   function renderComponent() {
     const selectedScriptLine =
       selectedScriptIdx !== null && videoScript[selectedScriptIdx]
@@ -161,7 +191,7 @@ export default function VideoDetail() {
       case "note":
         if (videoData && videoData.id !== undefined) {
           // videoData가 존재하고, videoData.id가 undefined가 아니라면
-          return <LectureNote userId={2} videoId={videoData.id} />; // videoId를 number로 전달합니다.
+          return <LectureNote userId={userId} videoId={videoData.id} />; // videoId를 number로 전달합니다.
         } else {
           return null;
         }
@@ -173,7 +203,7 @@ export default function VideoDetail() {
   return (
     <div className={`${styles.container}`}>
       <Nav />
-      <div className={`${styles.main}`}>
+      <div className={`${styles.main}`} onClick={handleWatch}>
         {videoLoading && scriptLoading && <Loading />}
         <div className={`${styles.youtube}`}>
           <div className={`${styles.vidWrapper}`}>
@@ -194,6 +224,15 @@ export default function VideoDetail() {
             <div className={`${styles.tb}`}>
               <div className={`${styles.videoTitle}`}>
                 {videoData?.videoTitle}
+              </div>
+              <div className={`${styles.testBtn} ${styles.tooltip}`}>
+                {/* App.tsx에서 학습완료페이지/:비디오번호로 동적 수정해야함 */}
+                <button onClick={() => navigate(`/test/:${videoId}`)}>
+                  <img src={dotted} alt="학습중" />
+                </button>
+                <span className={`${styles.tooltipText}`}>
+                  학습을 완료했다면, 테스트를 해보세요!
+                </span>
               </div>
               <div className={`${styles.bookmark}`}>
                 <IsBookMark videoId={videoData?.id} />
