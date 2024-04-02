@@ -39,6 +39,14 @@ public class UserDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class TierNameRequest {
+        String tier;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class TierResponse {
         private String tierName;
         private Long tierExp;

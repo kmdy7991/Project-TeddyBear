@@ -12,14 +12,14 @@ spring:
 
   cors:
     # CORS 구성
-    allowed-origins: http://localhost:8000
+    allowed-origins: http://j10b107.p.ssafy.io:8000
     allowed-methods: GET, POST, PUT, DELETE
     allowed-headers: Authorization, Content-Type
     max-age: 3600
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     generate-ddl: true
     properties:
@@ -35,15 +35,11 @@ spring:
     include: oauth, jwt
 
 eureka:
-  instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-    hostname: user-service
-
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://discovery:8761/eureka
+      defaultZone: http://j10b107.p.ssafy.io:8761/eureka
 
 #logging:
 #  level:

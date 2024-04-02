@@ -18,4 +18,4 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://discovery/eureka
+      defaultZone: http://j10b107.p.ssafy.io/eureka
