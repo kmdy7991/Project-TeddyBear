@@ -67,7 +67,7 @@
 }
 
 .myVidImg {
-  width: 19rem;
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,9 +78,11 @@
 }
 
 .myText {
+  width: 60%;
   display: flex;
   padding: 1rem;
   margin-left: 2rem;
+  /* width: 100%; */
   flex-direction: column;
   justify-content: center;
 }
@@ -88,4 +90,21 @@
 .myVidTitle {
   font-size: 1.5rem;
   font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.no-content-mypage {
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.myDescription {
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
