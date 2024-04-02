@@ -24,4 +24,5 @@ public interface VideoService {
     boolean existBookmarkVideo(RequestBookmarkVideo requestBookmarkVideo);
     boolean updateNoteByNoteId(Long noteId, UpdateNote  updatedNote);
     boolean updateNoteContent(Long userId, Long videoId, UpdateNote  updatedNote);
+    boolean existWatchVideo(Long userId, Long videoId);
 }

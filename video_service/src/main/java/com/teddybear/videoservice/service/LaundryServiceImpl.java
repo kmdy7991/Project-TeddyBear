@@ -65,7 +65,7 @@ public class LaundryServiceImpl implements LaundryService {
     public void exportVideoToJson() {
         List<LaundryEntity> laundryEntities = laundryRepository.findAll();
         ObjectMapper objectMapper = new ObjectMapper();
-        try (FileWriter fileWriter = new FileWriter("C:/Users/SSAFY/Desktop/crawl2. 중복 제거/reVox.json")) {
+        try (FileWriter fileWriter = new FileWriter("C:/Users/SSAFY/Desktop/crawl2. 중복 제거/reYoung.json")) {
 
             objectMapper.writeValue(fileWriter, laundryEntities);
         } catch (IOException e) {
