@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import styles from "./MyNote.module.css";
-import dummy from "./NoteDummy.json";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 
 interface noteProp {
   id?: number;
@@ -10,7 +12,8 @@ interface noteProp {
 }
 
 export default function MyNote() {
-  const userId = 2; // 더미 유저
+  const userId = useSelector((state: RootState) => state.user.userId);
+  console.log(userId);
   const [notes, setNotes] = useState<noteProp[]>([]);
 
   useEffect(() => {
