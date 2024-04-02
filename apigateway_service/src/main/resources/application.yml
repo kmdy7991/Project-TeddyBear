@@ -2,13 +2,11 @@ server:
   port: 8000
 
 eureka:
-  instance:
-    hostname: localhost
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone : http://localhost:8761/eureka
+      defaultZone : http://j10b107.p.ssafy.io:8761/eureka
 
 spring:
   application:
@@ -19,8 +17,7 @@ spring:
         add-to-simple-url-handler-mapping: true
         corsConfigurations:
           '[/**]':
-            allowedOrigins:
-              - "http://localhost:8000"
+            allowedOriginPatterns: '*'
             allow-credentials: true
             allowedHeaders: '*'
             exposedHeaders: '*'
@@ -35,32 +32,44 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/user-service/**
+            - Path=/api/user-service/**
+          filters:
+            - RewritePath=/api/user-service/(?<segment>.*), /user-service/${segment}
 
         - id: word-service
           uri: lb://WORD-SERVICE
           predicates:
-            - Path=/word-service/**
+            - Path=/api/word-service/**
+          filters:
+            - RewritePath=/api/word-service/(?<segment>.*), /word-service/${segment}
 
         - id: video-service
           uri: lb://VIDEO-SERVICE
           predicates:
-            - Path=/video-service/**
+            - Path=/api/video-service/**
+          filters:
+            - RewritePath=/api/video-service/(?<segment>.*), /video-service/$\{segment}
 
         - id: test-service
           uri: lb://TEST-SERVICE
           predicates:
-            - Path=/test-service/**
+            - Path=/api/test-service/**
+          filters:
+            - RewritePath=/api/test-service/(?<segment>.*), /test-service/$\{segment}
 
         - id: script-service
           uri: lb://SCRIPT-SERVICE
           predicates:
-            - Path=/script-service/**
+            - Path=/api/script-service/**
+          filters:
+            - RewritePath=/api/script-service/(?<segment>.*), /script-service/${segment}
 
         - id: category-service
           uri: lb://CATEGORY-SERVICE
           predicates:
-            - Path=/category-service/**
+            - Path=/api/category-service/**
+          filters:
+            - RewritePath=/api/category-service/(?<segment>.*), /category-service/${segment}
 
         - id: python-service
           uri: lb://PYTHON-SERVICE

@@ -53,23 +53,18 @@ public class UserService {
         return false;
     }
 
-    public Boolean upgradeTier(Long id, String firstTier) {
+    public Boolean upgradeTier(Long id, UserDto.TierNameRequest tierNameRequest) {
         Optional<Tier> tier = tierRepository.findByUserId(id);
         if (tier.isPresent()) {
             Tier updatedTier = tier.get().builder()
                     .user(tier.get().getUser())
                     .tierSeq(tier.get().getTierSeq())
-                    .tierName(firstTier)
+                    .tierName(tierNameRequest.getTier())
                     .tierExp(0L)
                     .level(1)
                     .levelExp(0L)
                     .build();
             tierRepository.save(updatedTier);
-
-            //********************************************지운이가 만든 비디오리스트 보내기******************************************************
-//            List<UserDto.VideoDto> videoDtoList = new ArrayList<>();
-//            languageClient.videoIdInfo(new UserDto.PythonDto(videoDtoList, userRepository.findById(id).get().getConcern()));
-
             return true;
         }
         return false;
@@ -155,6 +150,14 @@ public class UserService {
                     .concern(user.get().getConcern())
                     .build();
             return response;
+        }
+        return null;
+    }
+
+    public String findConcernById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            return user.get().getConcern();
         }
         return null;
     }

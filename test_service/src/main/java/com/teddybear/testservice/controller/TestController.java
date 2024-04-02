@@ -3,6 +3,7 @@ package com.teddybear.testservice.controller;
 import com.teddybear.testservice.service.TestService;
 import com.teddybear.testservice.vo.Option;
 import com.teddybear.testservice.vo.ResponseTest;
+import com.teddybear.testservice.vo.ScriptTest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -89,4 +90,10 @@ public class TestController {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+//    @PostMapping("/test-service/test/script/{videoId}")
+//    public ResponseEntity<ScriptTest> getScriptTest(@PathVariable Long videoId) {
+//        ScriptTest respponse = service.getScriptTest(videoId);
+//        return new ResponseEntity<>(respponse, HttpStatus.OK);
+//    }
 }
