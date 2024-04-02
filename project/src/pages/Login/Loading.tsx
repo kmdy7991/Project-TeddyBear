@@ -6,40 +6,41 @@ import { userActions } from "../../store/user";
 
 function Loading() {
   const navigate = useNavigate();
+
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("오키");
     const response = axios.get(`/user-service/fetchId`);
     response
       .then((axiosResponse) => {
-        const id = axiosResponse.data; // 데이터
+        const id = axiosResponse.data.id; // id
+        const accessToken = axiosResponse.data.accessToken; // accessToken
+        // 로컬에 저장
+        localStorage.setItem("access_token", accessToken);
         const nickname = axios.get(`/user-service/checkNickname/${id}`);
         console.log("nickname");
         console.log(nickname);
+        dispatch(
+          userActions.loginUser({
+            userId: id,
+          })
+        );
         nickname
           .then((axiosResponse) => {
             console.log("닉네임");
             console.log(axiosResponse.data);
-            dispatch(
-              userActions.loginUser({
-                userId: id,
-              })
-            );
             if (axiosResponse.data) {
-              const response = axios.get(`/user-service/checkTier/${id}`);
-              response
-                .then((axiosResponse) => {
-                  console.log("티어");
-                  console.log(axiosResponse.data);
-                  if (axiosResponse.data) {
-                    navigate(`/`);
-                  } else {
-                    navigate(`/cefrtest`);
-                  }
-                })
-                .catch((error) => {
-                  console.error(error); // 오류 처리
-                });
+              const TierData = axios.get(`/user-service/checkTier/${id}`);
+              TierData.then((axiosResponse) => {
+                console.log("티어");
+                console.log(axiosResponse.data);
+                if (axiosResponse.data) {
+                  navigate(`/`);
+                } else {
+                  navigate(`/testguide`);
+                }
+              }).catch((error) => {
+                console.error(error); // 오류 처리
+              });
             } else {
               navigate(`/profil`);
             }
