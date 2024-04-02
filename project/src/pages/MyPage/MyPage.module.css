@@ -85,13 +85,12 @@
 
 .tierName {
   position: absolute;
-  bottom: 7rem;
-  left: 39%;
+  bottom: 6.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
-  font-weight: lighter;
+  font-size: 2.5rem;
+  font-weight: 600;
 }
 
 .nickname {

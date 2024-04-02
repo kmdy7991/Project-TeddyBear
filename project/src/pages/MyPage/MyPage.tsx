@@ -46,7 +46,7 @@ export default function MyPage() {
           },
         });
         console.log("유저 티어 조회 성공", response.data);
-        setTier(response.data.tierName.initialLevel);
+        setTier(response.data.tierName);
         setLevel(response.data.level);
         setTierExp(response.data.tierExp);
         setLevelExp(response.data.levelExp);
