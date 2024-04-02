@@ -1,8 +1,8 @@
-package com.example.videoservice.service;
+package com.teddybear.videoservice.service;
 
-import com.example.videoservice.jpa.LaundryEntity;
-import com.example.videoservice.jpa.LaundryRepository;
-import com.example.videoservice.jpa.VideoEntity;
+import com.teddybear.videoservice.jpa.LaundryEntity;
+import com.teddybear.videoservice.jpa.LaundryRepository;
+import com.teddybear.videoservice.jpa.VideoEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
