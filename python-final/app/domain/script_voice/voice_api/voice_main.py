@@ -12,10 +12,11 @@ from fastapi import APIRouter
 voice_router = APIRouter()
   
 import subprocess
-from fastapi import FastAPI, File, UploadFile, HTTPException
-import subprocess
 import shutil
 import os
+
+# # 서비스 계정 키 파일 경로 설정
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./app/domain/script_voice/voice_api/api_key/gothic-jigsaw-405113-ce587ad642ae.json"
 
 @voice_router.post("/python/upload/")
 def create_upload_file(file: UploadFile = File(...)):
@@ -29,11 +30,6 @@ def create_upload_file(file: UploadFile = File(...)):
     print(recognized_text)
     
     return recognized_text
-
-    
-
-# # 서비스 계정 키 파일 경로 설정
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./app/domain/script_voice/voice_api/api_key/gothic-jigsaw-405113-ce587ad642ae.json"
 
 class TextToSpeechRequest(BaseModel):
     text: str
