@@ -56,7 +56,7 @@ function Profil() {
       const birthday = `${year}${month}${day}`; // 생년월일을 문자열로 합침
       try {
         const response = await axios.put(
-          `/user-service/update/${id}`,
+          `/api/user-service/update/${id}`,
           {
             nickname: nickname,
             birthday: birthday,

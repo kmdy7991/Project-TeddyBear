@@ -80,7 +80,15 @@ export default function VideoDetail() {
     const fetchVideoData = async () => {
       try {
         dispatch(loadingActions.startLoading("VIDEO"));
-        const response = await axios.get(`/video-service/video/${videoId}`);
+        const response = await axios.get(
+          `/api/video-service/video/${videoId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         setVideoData(response.data); // 서버 응답을 videoData 상태에 저장
         console.log(response.data);
       } catch (error) {
@@ -102,7 +110,13 @@ export default function VideoDetail() {
           dispatch(loadingActions.startLoading("SCRIPT"));
           console.log(videoData.videoId);
           const response = await axios.get(
-            `/script-service/script/${videoData.videoId}`
+            `/api/script-service/script/${videoData.videoId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json",
+              },
+            }
           );
           setVideoScript(response.data);
         } catch (error) {
@@ -159,7 +173,7 @@ export default function VideoDetail() {
     try {
       console.log(userId, videoId);
       const response = await axios.post(
-        `/video-service/watch`,
+        `/api/video-service/watch`,
         {
           videoWatched: false,
           userId: userId, // 직접 참조

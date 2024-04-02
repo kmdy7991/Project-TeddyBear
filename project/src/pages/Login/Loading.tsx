@@ -16,7 +16,12 @@ function Loading() {
         const accessToken = axiosResponse.data.accessToken; // accessToken
         // 로컬에 저장
         localStorage.setItem("access_token", accessToken);
-        const nickname = axios.get(`/user-service/checkNickname/${id}`);
+        const nickname = axios.get(`/api/user-service/checkNickname/${id}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        });
         console.log("nickname");
         console.log(nickname);
         dispatch(
@@ -29,7 +34,12 @@ function Loading() {
             console.log("닉네임");
             console.log(axiosResponse.data);
             if (axiosResponse.data) {
-              const TierData = axios.get(`/user-service/checkTier/${id}`);
+              const TierData = axios.get(`/api/user-service/checkTier/${id}`, {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                  "Content-Type": "application/json",
+                },
+              });
               TierData.then((axiosResponse) => {
                 console.log("티어");
                 console.log(axiosResponse.data);
