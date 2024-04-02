@@ -9,7 +9,7 @@ import "./VideoList.css";
 import { dummyThumbnails } from "./VideoDummy";
 import VideoPreview from "./VideoPreview";
 import { VideoResultProps } from "./Video";
-import { getBookMarkedVideoList } from "../../../components/Video/BookmarkList";
+import { getBookMarkedVideoList } from "../../../components/Video/MyLectureAPI";
 import { useNavigate } from "react-router-dom";
 
 function VideoList() {
@@ -61,7 +61,7 @@ function VideoList() {
           <span>북마크한 영상</span>
         </div>
         <div>
-          {bmList.length > 0 ? (
+          {bmList && bmList.length > 0 ? (
             <Slider {...sliderSettings(Math.min(5, bmList.length))}>
               {bmList.map((video, index) => (
                 <div

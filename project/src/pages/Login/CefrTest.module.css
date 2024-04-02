@@ -33,7 +33,7 @@
     margin-top: 70px;
     font-size: 70px;
     margin-bottom: 30px;
-    color: rgb(235, 235, 70);
+    color: rgb(252, 252, 26);
 }
 
 .text1 {
@@ -64,8 +64,19 @@
     margin-bottom: 20px;
 }
 
+.option2 {
+    margin-bottom: 5px;
+    padding: 1px 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
 .options {
     display: flex;
     font-size: 20px;
     /* 옵션들을 가로로 배치하기 위해 Flexbox를 사용합니다. */
+}
+
+.options2 {
+    font-size: 20px;
 }
