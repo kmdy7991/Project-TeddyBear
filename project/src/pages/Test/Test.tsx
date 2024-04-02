@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Test.module.css'; // 모듈 CSS를 import합니다.
 import dummyData from './Vox.json';
+import TestScore from './TestScore';
 import Modal from '../../components/Test/TestModal'; 
 import Nav from "../../components/Nav/Nav";
 
@@ -46,6 +47,7 @@ const Test = () => {
   const [isAnswerChecked, setIsAnswerChecked] = useState(false);
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
+  const userId = 1; // 사용자의 ID
 
   useEffect(() => {
     setQuizzes(getRandomSentenceAndBlank(videos[0].video_transcript));
@@ -82,8 +84,6 @@ const Test = () => {
         </div>
         <div className={styles.quebox}>
           <h1>{quizzes[currentQuizIndex]?.sentence}</h1>
-        </div>
-        <div>
           {!isAnswerChecked && (
             <input  className={styles.ansbox}
               type="text"
@@ -91,18 +91,25 @@ const Test = () => {
               onChange={(e) => setUserAnswer(e.target.value)}
               placeholder="빈칸에 들어갈 단어를 입력하세요"
             />
-          )}
+          )}  
+          <div className={styles.check}>
+            {isAnswerChecked && <h1>정답은 "{quizzes[currentQuizIndex]?.blankWord}"입니다.</h1>}
+          </div>          
+
+          
         </div>
+
         <div>
           <button className={styles.button} onClick={handleAnswerSubmission}>{isAnswerChecked ? '다음 문제' : '제출'}</button> {/* 모듈 CSS 클래스를 적용합니다. */}
+          
         </div>
         <div>
-          {isAnswerChecked && <p>정답은 "{quizzes[currentQuizIndex]?.blankWord}"입니다.</p>}
         </div>
 
 
         <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-          <p>총점: {correctAnswersCount * 10}점</p>
+          {/* <p>총점: {correctAnswersCount * 10}점</p> */}
+          <TestScore correctAnswers={correctAnswersCount * 10} userId={userId} onClose={() => setModalOpen(false)}/>
         </Modal>
       </div>
     </div>

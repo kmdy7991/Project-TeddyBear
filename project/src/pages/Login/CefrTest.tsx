@@ -93,7 +93,7 @@ const CefrTest: React.FC = () => {
         </div>
       </div>
       {/* 정답 제출 버튼 */}
-      <button onClick={handleSubmit} className={styles.button}>정답 제출</button>
+      <button onClick={handleSubmit} className={styles.button} disabled={!selectedAnswers.every(answer => answer !== null)}>정답 제출</button>
       {/* 모달 */}
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <CefrScore score={score} onClose={() => setIsOpen(false)} /> {/* CefrScore 컴포넌트 삽입 */}
