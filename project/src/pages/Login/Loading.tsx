@@ -9,7 +9,6 @@ function Loading() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("오키");
     const response = axios.get(`/user-service/fetchId`);
     response
       .then((axiosResponse) => {
