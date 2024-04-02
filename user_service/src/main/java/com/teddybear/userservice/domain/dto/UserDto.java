@@ -73,23 +73,4 @@ public class UserDto {
         private int age;
         private String gender;
     }
-
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class VideoDto {
-        private String videoId;
-        private String videoGrade;
-        private String script;
-    }
-
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class PythonDto {
-        private List<VideoDto> videoDtoList;
-        private String concern;
-    }
 }

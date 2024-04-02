@@ -1,16 +1,17 @@
 package com.teddybear.videoservice.controller;
 
 import com.teddybear.videoservice.service.VideoService;
-import com.example.videoservice.vo.*;
 import com.teddybear.videoservice.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @Slf4j
+@EnableFeignClients
 @RestController
 @RequestMapping("/video-service")
 public class VideoController {
@@ -32,6 +33,12 @@ public class VideoController {
 //        System.out.println("Controller Received videoTitle: " + videoTitle);
 //        log.info("list size = {}", responseVideos.get(0).getVideoTitle());
         List<ResponseVideo> responseVideos = videoService.getVideoByTitle(videoTitle);
+        return ResponseEntity.status(HttpStatus.OK).body(responseVideos);
+    }
+
+    @GetMapping("/videos/user/{userId}") // 유저 맞춤 영상 추천
+    public ResponseEntity<List<VideoDto>> getTailoredVideos(@PathVariable Long userId) {
+        List<VideoDto> responseVideos = videoService.getTailoredVideos(userId);
         return ResponseEntity.status(HttpStatus.OK).body(responseVideos);
     }
 
