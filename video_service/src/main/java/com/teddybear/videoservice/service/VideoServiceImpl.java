@@ -1,7 +1,7 @@
 package com.teddybear.videoservice.service;
 
-import com.example.videoservice.jpa.*;
-import com.example.videoservice.vo.*;
+import com.teddybear.videoservice.jpa.*;
+import com.teddybear.videoservice.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teddybear.videoservice.jpa.*;
 import com.teddybear.videoservice.vo.*;
@@ -345,7 +345,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public boolean updateNoteByNoteId(Long noteId, UpdateNote updatedNote) {
+    public boolean updateNoteByNoteId(Long noteId, com.example.videoservice.vo.UpdateNote updatedNote) {
         NoteEntity note = noteRepository.findById(noteId)
                 .orElseThrow(() -> new RuntimeException("Note not found"));
 
@@ -363,7 +363,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public boolean updateNoteContent(Long userId, Long videoId, UpdateNote updatedNote) {
+    public boolean updateNoteContent(Long userId, Long videoId, com.example.videoservice.vo.UpdateNote updatedNote) {
         // 주어진 userId와 videoId에 해당하는 NoteEntity 찾기
         NoteEntity note = noteRepository.findByUserIdAndVideoId(userId, videoId);
         if (note != null) {
