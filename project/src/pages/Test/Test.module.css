@@ -36,3 +36,25 @@
 .incorrectAnswer {
   color: red;
 }
+
+.quebox {
+  border: 1px solid black;
+  width: 1000px;
+  height: 200px;
+  /* font-size: 30px; */
+  text-align: center;
+}
+
+.scrbox {
+  border: 1px solid black;
+  width: 1000px;
+  height: 150px;
+  /* font-size: 30px; */
+  text-align: center;
+}
+
+.ansbox {
+  width: 500px;
+  height: 50px;
+  text-align: center;
+}
