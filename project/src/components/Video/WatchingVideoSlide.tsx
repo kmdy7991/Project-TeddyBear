@@ -38,7 +38,7 @@ export default function WatchingVideoSlide() {
     <>
       {watchingSlideList.length > 0 ? (
         <Slider {...myPageSlider}>
-          {dummyThumbnails.map((data, index) => (
+          {watchingSlideList.map((data, index) => (
             <div
               className="thumb"
               key={index}
