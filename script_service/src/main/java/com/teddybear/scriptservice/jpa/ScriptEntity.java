@@ -1,4 +1,4 @@
-package com.example.scriptservice.jpa;
+package com.teddybear.scriptservice.jpa;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -79,6 +79,16 @@ public class VideoController {
         return ResponseEntity.status(HttpStatus.OK).body("Watched video saved successfully.");
     }
 
+    @PutMapping("/watch") // 시청 영상 수정
+    public ResponseEntity<String> updateWatchVideo(@RequestBody RequestWatchVideo requestWatchVideo) {
+        try {
+            videoService.updateWatchVideo(requestWatchVideo);
+            return ResponseEntity.ok("Watch status updated successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed to update watch status: " + e.getMessage());
+        }
+    }
+
     @PostMapping("/bookmarkVideo") // 북마크 영상 생성
     public ResponseEntity<String> bookmarkVideo(@RequestBody RequestBookmarkVideo requestBookmarkVideo) {
         videoService.bookmarkVideo(requestBookmarkVideo);
@@ -182,6 +192,12 @@ public class VideoController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found for the given user and video.");
         }
+    }
+
+    @GetMapping("/watch/isExist")
+    public ResponseEntity<Boolean> isWatchVideoExist(@RequestParam Long userId, @RequestParam Long videoId) {
+        boolean isExist = videoService.isWatchVideoExist(userId, videoId);
+        return ResponseEntity.status(HttpStatus.OK).body(isExist);
     }
 
 

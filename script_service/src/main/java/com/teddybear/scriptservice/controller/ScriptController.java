@@ -1,7 +1,7 @@
-package com.example.scriptservice.controller;
+package com.teddybear.scriptservice.controller;
 
-import com.example.scriptservice.service.ScriptService;
-import com.example.scriptservice.vo.ResponseScript;
+import com.teddybear.scriptservice.vo.ResponseScript;
+import com.teddybear.scriptservice.service.ScriptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
