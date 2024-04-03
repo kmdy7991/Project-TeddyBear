@@ -1,35 +1,40 @@
 server:
-  port: 8087
+    port: 8087
 
 spring:
-  application:
-    name: video-service
+    cloud:
+        openfeign:
+            client:
+                config:
+                    user-service:
+                        readTimeout: 36000000
+    application:
+        name: video-service
     data:
-      mongodb:
-        uri: mongodb://ssafy:b107@j10b107.p.ssafy.io:27017/teddybear?authSource=admin
-  datasource:
-    url: jdbc:mysql://j10b107.p.ssafy.io:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
-    username: root
-    password: ssafy
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    generate-ddl: true
-    properties:
-      hibernate:
-        format_sql: true
-    defer-datasource-initialization: true
+        mongodb:
+            uri: mongodb://ssafy:b107@j10b107.p.ssafy.io:27017/teddybear?authSource=admin
+    datasource:
+        url: jdbc:mysql://j10b107.p.ssafy.io:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+        username: root
+        password: ssafy
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+        generate-ddl: true
+        properties:
+            hibernate:
+                format_sql: true
+        # defer-datasource-initialization: true
 
 eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://j10b107.p.ssafy.io:8761/eureka
-
+    client:
+        register-with-eureka: true
+        fetch-registry: true
+        service-url:
+            defaultZone: http://j10b107.p.ssafy.io:8761/eureka
 
 logging:
-  level:
-    org.hibernate.orm.jdbc.bind: trace
+    level:
+        org.hibernate.orm.jdbc.bind: trace
