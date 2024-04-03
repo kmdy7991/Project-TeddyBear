@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document("translated_script")
+@Document(collection = "translated_script")
 public class VideoDto {
     private String video_id;
     private String video_grade;
