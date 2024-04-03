@@ -2,6 +2,8 @@ import React from "react";
 import "./Arrow.css";
 import left from "../../assets/pageleft.png";
 import right from "../../assets/pageright.png";
+import whiteP from "../../assets/whiteprev.png";
+import whiteN from "../../assets/whitenext.png";
 interface ArrowProps {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
@@ -66,6 +68,22 @@ export function PageNextArrow({ onClick }: ArrowProps) {
   return (
     <span className="page-next" onClick={onClick}>
       <img src={right} alt="오" />
+    </span>
+  );
+}
+
+export function CatePrevArrow({ onClick }: ArrowProps) {
+  return (
+    <span className="cate-prev" onClick={onClick}>
+      <img src={whiteP} alt="왼" />
+    </span>
+  );
+}
+
+export function CateNextArrow({ onClick }: ArrowProps) {
+  return (
+    <span className="cate-next" onClick={onClick}>
+      <img src={whiteN} alt="오" />
     </span>
   );
 }
