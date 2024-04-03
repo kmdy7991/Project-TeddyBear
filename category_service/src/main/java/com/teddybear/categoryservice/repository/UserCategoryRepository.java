@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface UserCategoryRepository extends JpaRepository<UserCategory, Long> {
-
+    @Query("SELECT u FROM UserCategory u WHERE u.user.id = :id")
     Optional<UserCategory> findByUserId(Long id);
 }
