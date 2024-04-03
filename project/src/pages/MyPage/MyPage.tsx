@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import axios from "axios";
 import { loadingActions } from "../../store/loading";
+import { userActions } from "../../store/user";
 
 type tab = "statistics" | "myLecture" | "myNote";
 
@@ -73,6 +74,39 @@ export default function MyPage() {
     }
   }
 
+  const handleLogout = async () => {
+    try {
+      // api 주소 고쳐야 함
+      const response = await axios.get(`http://localhost:8086/logout`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("로그아웃 성공", response);
+      window.alert("로그아웃이 완료되었습니다");
+      navigate("/landing");
+      dispatch(userActions.logoutUser());
+    } catch (error) {
+      console.error("로그아웃 실패", error);
+    }
+  };
+
+  const handleQuit = async () => {
+    try {
+      const response = await axios.delete(`/api/user-service/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("회원탈퇴 성공", response.data);
+      window.alert("탈퇴가 완료되었습니다.");
+    } catch (error) {
+      console.error("회원탈퇴 실패", error);
+    }
+  };
+
   return (
     <div className={`${styles.container}`}>
       <Nav />
@@ -83,7 +117,7 @@ export default function MyPage() {
               <img src={gold} alt="테스트 티어 이미지" />
               <div className={`${styles.tierName}`}>{tier}</div>
             </div>
-            {/* <div className={`${styles.nickname}`}>{nickname}</div> */}
+            <div className={`${styles.nickname}`}>닉네임</div>
           </div>
           <div className={`${styles.exps}`}>
             <div className={`${styles.tier}`}>
@@ -96,7 +130,12 @@ export default function MyPage() {
             </div>
           </div>
           <div className={`${styles.setting}`}>
-            <button>프로필 수정하기</button>
+            <div>
+              <button onClick={handleLogout}>로그아웃</button>
+            </div>
+            <div>
+              <button onClick={handleQuit}>회원탈퇴</button>
+            </div>
           </div>
         </div>
         <div className={`${styles.page}`}>

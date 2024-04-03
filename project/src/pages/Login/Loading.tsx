@@ -6,13 +6,14 @@ import { userActions } from "../../store/user";
 
 function Loading() {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
   useEffect(() => {
-    const response = axios.get(`/user-service/fetchId`);
+    const response = axios.get(`/api/user-service/fetchId`);
+    console.log(response);
     response
       .then((axiosResponse) => {
         const id = axiosResponse.data.id; // id
+        console.log(axiosResponse.data.id);
         const accessToken = axiosResponse.data.accessToken; // accessToken
         // 로컬에 저장
         localStorage.setItem("access_token", accessToken);
