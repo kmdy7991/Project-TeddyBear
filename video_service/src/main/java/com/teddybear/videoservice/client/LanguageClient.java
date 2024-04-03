@@ -9,6 +9,6 @@ import java.util.List;
 
 @FeignClient(name = "language-service")
 public interface LanguageClient {
-    @PostMapping("/language/user/info")
-    List<String> videoIdInfo(@RequestBody PythonDto pythonDto);
+    @PostMapping("/recommend/info")
+    List<String> videoIdInfo(PythonDto pythonDto);
 }
