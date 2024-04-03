@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
@@ -12,8 +13,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Document("translated_script")
 public class VideoDto {
-    private String videoId;
-    private String videoGrade;
-    private String script;
+    private String video_id;
+    private String video_grade;
+    private String video_transcript;
 }
