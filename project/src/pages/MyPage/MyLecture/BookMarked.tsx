@@ -20,10 +20,11 @@ export default function BookMarked() {
     (state: RootState) => state.loading["BOOKMARK-LIST"]
   );
 
+  const userId = useSelector((state: RootState) => state.user.userId);
+
   useEffect(() => {
     const fetchBookMarkList = async () => {
       dispatch(loadingActions.startLoading("BOOKMARK-LIST"));
-      const userId = 2;
       try {
         const bookmarkedVideos = await getBookMarkedVideoList(userId);
         setBookmarkList(bookmarkedVideos);

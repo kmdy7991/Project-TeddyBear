@@ -26,6 +26,8 @@ export default function Watched() {
     (state: RootState) => state.loading["WATCHED-LIST"]
   );
 
+  const userId = useSelector((state: RootState) => state.user.userId);
+
   useEffect(() => {
     const fetchWatchedList = async () => {
       dispatch(loadingActions.startLoading("WATCHED-LIST"));
@@ -41,7 +43,7 @@ export default function Watched() {
     };
     fetchWatchedList();
   }, []);
-  const userId = 2;
+
   function handleClickNext(e: MouseEvent<HTMLButtonElement>) {
     setIsWatched(false);
     setIsNext(true);
