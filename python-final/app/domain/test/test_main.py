@@ -32,9 +32,16 @@ async def generate_questions(sentences: List[Sentence]):
     selected_sentences = [sentence.text for sentence in sentences]
     questions = []
     for sentence in selected_sentences:
-        question_text, answer = create_fill_in_the_blank(sentence)
-        question = Question(sentence=question_text, answer=answer)
-        questions.append(question)
+        # 문장을 공백을 기준으로 나누어 단어 리스트를 생성합니다.
+        words = sentence.split()
+        # 단어 수가 1개 이상이고, 생성된 질문 수가 5개 미만인 경우에만 질문을 생성합니다.
+        if len(words) > 1 and len(questions) < 5:
+            question_text, answer = create_fill_in_the_blank(sentence)
+            question = Question(sentence=question_text, answer=answer)
+            questions.append(question)
+        # 이미 5개의 질문을 생성했다면 반복을 종료합니다.
+        if len(questions) >= 5:
+            break
     return questions
 
 @test_router.post("/python/score-quiz/")
