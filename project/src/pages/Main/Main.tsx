@@ -15,6 +15,7 @@ function Main() {
   useEffect(() => {
     const getUser = async () => {
       try {
+        console.log(id);
         const response = await axios.get(`/api/user-service/user/${id}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,

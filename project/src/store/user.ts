@@ -23,8 +23,8 @@ const userSlice = createSlice({
       state.userNickName = action.payload.userNickName;
     },
 
-    logoutUser: (state, action) => {
-      console.log(action.payload.userId);
+    logoutUser: (state) => {
+      localStorage.clear();
       state.userId = 0;
       state.userNickName = "";
       state.isLoggedIn = false;
