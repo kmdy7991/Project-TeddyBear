@@ -1,16 +1,22 @@
 import { useParams } from "react-router-dom";
-import CategoryDummy from "./CategoryDummy";
+import Categories from "./Category";
 import styles from "./CategoryVideoList.module.css";
 import Nav from "../Nav/Nav";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../../store/user";
+import { RootState } from "../../store";
+import { loadingActions } from "../../store/loading";
 export default function CategoryVideoList() {
-  let { categoryId } = useParams<{ categoryId?: string }>();
-  // id에 해당하는 애 찾아서 목록 띄우기
-  // api 연결 시키면 이 방법 말고 다르게 불러와야할듯
-  const categoryData = CategoryDummy.find(
-    (category) => String(category.categoryId) === categoryId
+  let { categoryName } = useParams<{ categoryName?: string }>();
+  const [videoList, setVideoList] = useState([]);
+  const dispatch = useDispatch();
+  const loading = useSelector(
+    (state: RootState) => state.loading["CATEGORY-LIST"]
   );
 
-  const categoryIdx: number = categoryId ? parseInt(categoryId, 10) - 1 : 0;
+  const categoryIdx: number = categoryName ? parseInt(categoryName, 10) - 1 : 0;
   const categoryColors = [
     "#FF99CF",
     "#3392FF",
@@ -26,13 +32,34 @@ export default function CategoryVideoList() {
     background: `linear-gradient(${categoryColors[categoryIdx]}, #402544)`,
   };
 
+  useEffect(() => {
+    const fetchVideoList = async () => {
+      try {
+        dispatch(loadingActions.startLoading("CATEGORY-LIST"));
+        const response = await axios.get(
+          `/api/category-service/category/${categoryName}`
+        );
+        setVideoList(response.data);
+        console.log(
+          `${categoryName} 카테고리 비디오 리스트 조회 성공`,
+          response.data
+        );
+      } catch (error) {
+        console.error("카테고리 비디오 리스트 조회 실패", error);
+      } finally {
+        dispatch(loadingActions.finishLoading("CATEGORY-LIST"));
+      }
+    };
+    fetchVideoList();
+  }, [categoryName]);
+
   // 카테고리 데이터를 사용한 렌더링 로직
   return (
     <div className={`${styles.container}`} style={gradientStyle}>
       <Nav />
-      <div className={`${styles.category}`}>{categoryData?.category}</div>
+      <div className={`${styles.category}`}>{categoryName}</div>
       <div className={`${styles.videolist}`}>
-        {categoryData?.videos.map((video) => (
+        {/* {categoryData?.videos.map((video) => (
           <div className={`${styles.video}`}>
             <div className={`${styles.videoImg}`}>
               <img src={video.thumbnailUrl} alt="썸네일 이미지" />
@@ -45,17 +72,12 @@ export default function CategoryVideoList() {
                 >
                   {video.difficulty}
                 </div>
-                {video.hashtags.map((hash) => (
-                  <div className={`${styles.hash}`}>
-                    <div>{hash}</div>
-                  </div>
-                ))}
               </div>
               <div className={`${styles.title}`}>{video.title}</div>
               <div className={`${styles.description}`}>{video.description}</div>
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );
