@@ -12,8 +12,8 @@ from app.router.recommend_route import recommend_router
 async def start_load(init: FastAPI):
     await eureka_client.init_async(eureka_server="j10b107.p.ssafy.io:8761",
                                    app_name="language-service",
-                                   instance_ip="127.0.0.1",
-                                   instance_port=8778
+                                   instance_ip_network="172.84.0.0/24",
+                                   instance_port=8779
                                    )
     yield
 
