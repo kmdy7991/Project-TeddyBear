@@ -12,6 +12,7 @@ public interface VideoService {
     void exportVideoToJson();
     List<ResponseVideo> getWatchedVideosByUserIdAndWatchedStatus(Long userId, Boolean videoWatched);
     void watchVideo(RequestWatchVideo requestWatchVideo);
+    void updateWatchVideo(RequestWatchVideo requestWatchVideo);
     void bookmarkVideo(RequestBookmarkVideo requestBookmarkVideo);
     List<ResponseVideo> getVideoByUserId(Long userId);
     List<String> getTailoredVideos(Long userId);
@@ -25,5 +26,7 @@ public interface VideoService {
     boolean existBookmarkVideo(RequestBookmarkVideo requestBookmarkVideo);
     boolean updateNoteByNoteId(Long noteId, UpdateNote  updatedNote);
     boolean updateNoteContent(Long userId, Long videoId, UpdateNote  updatedNote);
+
     boolean existWatchVideo(Long userId, Long videoId);
+
 }

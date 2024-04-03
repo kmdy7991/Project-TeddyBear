@@ -14,5 +14,6 @@ public interface VideoRepository extends JpaRepository<VideoEntity, Long> {
     @Query("SELECT v FROM VideoEntity v where v.videoId = :videoId")
     VideoEntity getVideoByVideoId(String videoId);
 
+
 //    List<VideoEntity> findByVideoTitleContaining(String keyword);
 }

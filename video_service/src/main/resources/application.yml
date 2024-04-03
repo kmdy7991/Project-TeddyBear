@@ -14,7 +14,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     generate-ddl: true
     properties:
@@ -28,6 +28,7 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://j10b107.p.ssafy.io:8761/eureka
+
 
 logging:
   level:

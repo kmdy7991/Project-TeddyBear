@@ -8,4 +8,6 @@ import java.util.List;
 public interface WatchVideoRepository extends JpaRepository<WatchVideoEntity, Long> {
     List<WatchVideoEntity> findByUserIdAndVideoWatched(Long userId, boolean videoWatched);
     boolean existsByUserIdAndVideoId(Long userId, Long videoId);
+    boolean existsByUserIdAndVideo_Id(Long userId, Long videoId);
+    WatchVideoEntity findByUserIdAndVideo_Id(Long userId, Long videoId);
 }
