@@ -88,6 +88,21 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    public ResponseVideo getVideoByVideoId(String videoId) {
+        VideoEntity videoEntity = videoRepository.getVideoByVideoId(videoId);
+        ResponseVideo response = ResponseVideo.builder()
+                .id(videoEntity.getId())
+                .videoDiscription(videoEntity.getVideoDescription())
+                .videoId(videoEntity.getVideoId())
+                .videoGrade(videoEntity.getVideoGrade())
+                .videoUrl(videoEntity.getVideoUrl())
+                .videoThumbnail(videoEntity.getVideoThumbnail())
+                .videoTitle(videoEntity.getVideoTitle())
+                .videoTime(videoEntity.getVideoTime()).build();
+        return response;
+    }
+
+    @Override
     public void importVideo() throws Exception {
         JSONParser parser = new JSONParser();
         Reader reader = new FileReader("src/main/resources/VideoCrawling.json");
