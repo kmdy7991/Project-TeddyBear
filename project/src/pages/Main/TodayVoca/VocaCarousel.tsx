@@ -1,16 +1,9 @@
-import React, {
-  Component,
-  MouseEvent,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 import { NextArrow, PrevArrow } from "../../../components/Slider/Arrow";
 import "./VocaCarousel.css";
-import SampleVoca from "./SampleVoca";
 // import VocaModal from "./VocaModal";
 import { VideoResultProps } from "../VideoList/Video";
 import axios from "axios";
@@ -54,8 +47,15 @@ export default function VocaCarousel() {
         dispatch(loadingActions.finishLoading("TODAY-VOCA"));
       }
     };
+    // 처음 데이터를 가져옴
     fetchTodayVoca();
-  }, [tier]);
+
+    // 5분마다 데이터를 가져오기 위한 인터벌 설정
+    const intervalId = setInterval(fetchTodayVoca, 5 * 60 * 1000);
+
+    // 컴포넌트가 언마운트될 때 인터벌 정리
+    return () => clearInterval(intervalId);
+  }, [tier, dispatch]); // `tier`와 `dispatch`가 변경될 때 이펙트를 다시 실행하기 위한 의존성 배열에 포함
 
   let sliderSettings = {
     className: "center",
