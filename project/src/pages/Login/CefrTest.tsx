@@ -84,7 +84,7 @@ const CefrTest: React.FC = () => {
                       checked={selectedAnswers[index] === optionIndex}
                       onChange={() => handleAnswerSelection(index, optionIndex)}
                     />
-                    <label htmlFor={`option_${index}_${optionIndex}`}>{option}</label>
+                    <label htmlFor={`option_${index}_${optionIndex}`}>  {option}</label>
                   </div>
                 ))}
               </div>
@@ -93,6 +93,8 @@ const CefrTest: React.FC = () => {
         </div>
       </div>
       {/* 정답 제출 버튼 */}
+      {/* <button onClick={handleSubmit} className={styles.button} disabled={!selectedAnswers.every(answer => answer !== null)}>정답 제출</button> */}
+      {/* 정답 제출 버튼, 항상 활성화 상태로 수정 */}
       <button onClick={handleSubmit} className={styles.button}>정답 제출</button>
       {/* 모달 */}
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

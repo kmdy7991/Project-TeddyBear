@@ -3,6 +3,11 @@ import styles from './Test.module.css'; // 모듈 CSS를 import합니다.
 import dummyData from './Vox.json';
 import Modal from '../../components/Test/TestModal'; 
 import Nav from "../../components/Nav/Nav";
+import TestScore from './TestScore';
+import { useSelector } from "react-redux"; // 리덕스 스토어의 상태를 가져오기 위해 useSelector 훅 추가
+import { RootState } from "../../store"; // RootState 타입을 가져오는 경로, 실제 경로로 변경해야 함
+
+
 
 
 interface VideoData {
@@ -46,6 +51,8 @@ const Test = () => {
   const [isAnswerChecked, setIsAnswerChecked] = useState(false);
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
+  const userId = useSelector((state: RootState) => state.user.userId);
+
 
   useEffect(() => {
     setQuizzes(getRandomSentenceAndBlank(videos[0].video_transcript));
@@ -82,6 +89,9 @@ const Test = () => {
         </div>
         <div className={styles.quebox}>
           <h1>{quizzes[currentQuizIndex]?.sentence}</h1>
+          <div className={styles.check}>
+            {isAnswerChecked && <p>정답은 "{quizzes[currentQuizIndex]?.blankWord}"입니다.</p>}
+          </div>          
         </div>
         <div>
           {!isAnswerChecked && (
@@ -96,13 +106,13 @@ const Test = () => {
         <div>
           <button className={styles.button} onClick={handleAnswerSubmission}>{isAnswerChecked ? '다음 문제' : '제출'}</button> {/* 모듈 CSS 클래스를 적용합니다. */}
         </div>
-        <div>
-          {isAnswerChecked && <p>정답은 "{quizzes[currentQuizIndex]?.blankWord}"입니다.</p>}
-        </div>
+
 
 
         <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
           <p>총점: {correctAnswersCount * 10}점</p>
+          <TestScore correctAnswers={correctAnswersCount * 10} userId={userId} onClose={() => setModalOpen(false)}/>
+
         </Modal>
       </div>
     </div>
