@@ -285,7 +285,7 @@ public class VideoServiceImpl implements VideoService {
     public List<String > getTailoredVideos(Long userId) {
         if (userClient.findConcernById(userId) != null) {
             return languageClient.videoIdInfo(PythonDto.builder()
-                    .videoDtoList(translatedVideoRepository.findAll())
+                    .videoDtoList(translatedVideoRepository.findAll().subList(0, 10))
                     .concern(userClient.findConcernById(userId))
                     .build());
         }
