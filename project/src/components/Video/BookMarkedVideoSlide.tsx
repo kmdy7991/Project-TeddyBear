@@ -5,15 +5,18 @@ import { dummyThumbnails } from "../../pages/Main/VideoList/VideoDummy";
 import "./WatchingVideoSlide.css";
 import { getBookMarkedVideoList } from "./MyLectureAPI";
 import { VideoResultProps } from "../../pages/Main/VideoList/Video";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 // 북마크 비디오 슬라이드 (마이페이지)
 export default function BookMarkedVideoSlide() {
   const [slideIdx, setSlideIdx] = useState(0);
   const [bookmarkList, setBookmarkList] = useState<VideoResultProps[]>([]);
 
+  const userId = useSelector((state: RootState) => state.user.userId);
   let myPageSlider = {
     dots: false,
-    infinite: true,
+    infinite: false,
     slidesToShow: 4,
     slidesToScroll: 1,
     speed: 500,
@@ -23,7 +26,6 @@ export default function BookMarkedVideoSlide() {
 
   useEffect(() => {
     const fetchBookMarkList = async () => {
-      const userId = 2;
       try {
         const bookmarkedVideos = await getBookMarkedVideoList(userId);
         setBookmarkList(bookmarkedVideos);

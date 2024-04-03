@@ -11,15 +11,17 @@ import VideoPreview from "./VideoPreview";
 import { VideoResultProps } from "./Video";
 import { getBookMarkedVideoList } from "../../../components/Video/MyLectureAPI";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 
 function VideoList() {
   const [bmHoverIndex, setbmHoverIndex] = useState<number>(0); // 북마크 호버 인덱스
   const [tasteHoverIndex, setTasteHoverIndex] = useState<number>(0); // 취향저격 호버 인덱스
   const [bmList, setBmList] = useState<VideoResultProps[]>([]);
   const navigate = useNavigate();
+  const userId = useSelector((state: RootState) => state.user.userId);
   useEffect(() => {
     const fetchBookMarkList = async () => {
-      const userId = 2;
       try {
         const bookmarkedVideos = await getBookMarkedVideoList(userId);
         setBmList(bookmarkedVideos);

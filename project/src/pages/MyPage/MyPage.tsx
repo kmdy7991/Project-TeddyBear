@@ -12,6 +12,7 @@ import { RootState } from "../../store";
 import axios from "axios";
 import { loadingActions } from "../../store/loading";
 import { userActions } from "../../store/user";
+import { GetUserTier } from "../../components/User/UserTier";
 
 type tab = "statistics" | "myLecture" | "myNote";
 
@@ -40,17 +41,12 @@ export default function MyPage() {
     const fetchTier = async () => {
       try {
         dispatch(loadingActions.startLoading("PROFILE"));
-        const response = await axios.get(`/api/user-service/tier/${id}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-        });
-        console.log("유저 티어 조회 성공", response.data);
-        setTier(response.data.tierName);
-        setLevel(response.data.level);
-        setTierExp(response.data.tierExp);
-        setLevelExp(response.data.levelExp);
+        const tiers = await GetUserTier(id);
+        console.log("유저 티어 조회 성공", tiers.data);
+        setTier(tiers.data.tierName);
+        setLevel(tiers.data.level);
+        setTierExp(tiers.data.tierExp);
+        setLevelExp(tiers.data.levelExp);
       } catch (error) {
         console.error("유저 티어 조회 실패", error);
       } finally {
@@ -77,13 +73,13 @@ export default function MyPage() {
   const handleLogout = async () => {
     try {
       // api 주소 고쳐야 함
-      const response = await axios.get(`http://localhost:8086/logout`, {
+      const tiers = await axios.get(`http://localhost:8086/logout`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
       });
-      console.log("로그아웃 성공", response);
+      console.log("로그아웃 성공", tiers);
       window.alert("로그아웃이 완료되었습니다");
       navigate("/landing");
       dispatch(userActions.logoutUser());
@@ -94,14 +90,15 @@ export default function MyPage() {
 
   const handleQuit = async () => {
     try {
-      const response = await axios.delete(`/api/user-service/delete/${id}`, {
+      const tiers = await axios.delete(`/api/user-service/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
       });
-      console.log("회원탈퇴 성공", response.data);
+      console.log("회원탈퇴 성공", tiers.data);
       window.alert("탈퇴가 완료되었습니다.");
+      navigate("/login");
     } catch (error) {
       console.error("회원탈퇴 실패", error);
     }
