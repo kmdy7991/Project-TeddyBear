@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient("category-service")
 public interface CategoryClient {
-    @PostMapping("/category/user")
+    @PostMapping("category-service/category/user")
     Boolean countUpCategory(UserCategoryRequestDto requestDto);
 }
