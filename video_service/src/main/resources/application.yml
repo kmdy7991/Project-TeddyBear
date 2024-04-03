@@ -1,0 +1,38 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: video-service
+  datasource:
+#    url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+    url: jdbc:mysql://j10b107.p.ssafy.io:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+    username: root
+    password: ssafy
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+#  sql:
+#    init:
+#      mode: always
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://discovery:8761/eureka
+
+logging:
+  level:
+#    org.hibernate.type: trace
+#    org.hibernate.sql: debug
+#    org.hibernate.type.descriptor.sql: trace
+    org.hibernate.orm.jdbc.bind: trace
