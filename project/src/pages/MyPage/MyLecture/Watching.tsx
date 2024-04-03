@@ -26,6 +26,8 @@ export default function Watching() {
     setIsWatching(false);
   }
 
+  const userId = useSelector((state: RootState) => state.user.userId);
+
   useEffect(() => {
     const fetchWatchingList = async () => {
       dispatch(loadingActions.startLoading("WATCHING-LIST"));
@@ -45,8 +47,6 @@ export default function Watching() {
   if (!isWatching) {
     return <Watched />;
   }
-
-  const userId = 2;
 
   return (
     <TransitionGroup>
