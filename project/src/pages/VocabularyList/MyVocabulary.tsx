@@ -52,13 +52,17 @@ const MyVocabulary = () => {
 
   return (
     <div className={styles.container}>
-      <h1>북마크 단어장</h1>
-      {currentWords.map(word => (
-        <div key={word.id}>
-          <Card word={word} />
-          <button onClick={() => deleteWord(word.id)}>삭제</button> {/* 삭제 버튼을 Card 외부에 배치 */}
-        </div>
-      ))}
+      <h1 className={styles.text}>북마크 단어장</h1>;
+      <div className={styles.vocard}>
+        {currentWords.map(word => (
+          <div key={word.id}>
+            <Card word={word} />
+            {/* <button onClick={() => deleteWord(word.id)}>삭제</button> 삭제 버튼을 Card 외부에 배치 */}
+          </div>
+        ))}        
+      </div>
+
+
       <Pagination
         cardsPerPage={CARDS_PER_PAGE}
         totalCards={words.length}
