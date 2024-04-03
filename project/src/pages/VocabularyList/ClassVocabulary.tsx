@@ -23,7 +23,7 @@ const ClassVocabulary = () => {
     const fetchWords = async () => {
       try {
         // API로부터 데이터를 받아옵니다.
-        const response = await axios.get(`/word-service/words/${currentTier}`);
+        const response = await axios.get(`/api/word-service/words/${currentTier}`);
         // 응답으로 받은 데이터를 상태에 설정합니다.
         setWords(response.data);
       } catch (error) {
