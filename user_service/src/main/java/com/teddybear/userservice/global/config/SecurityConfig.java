@@ -62,7 +62,7 @@ public class SecurityConfig {
 //                        .anyRequest().authenticated() // 나머지 URL은 로그인한 사용자들에게만 허용
                 )
                 .logout( // 로그아웃 성공 시 / 주소로 이동
-                        (logoutConfig) -> logoutConfig.logoutSuccessUrl("http://localhost:3000/landing")
+                        (logoutConfig) -> logoutConfig.logoutSuccessUrl("http://j10b107.p.ssafy.io/landing")
                 )
                 .oauth2Login(oauth -> oauth
                         .successHandler(oAuth2LoginSuccessHandler) // 동의하고 계속하기를 눌렀을 때 Handler 설정
