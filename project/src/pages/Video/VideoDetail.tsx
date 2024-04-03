@@ -74,6 +74,7 @@ export default function VideoDetail() {
   const navigate = useNavigate();
 
   const accessToken = localStorage.getItem("token");
+  const [videoStringId, setVideoStringId] = useState("");
 
   useEffect(() => {
     // getVideoDetail
@@ -91,6 +92,7 @@ export default function VideoDetail() {
         );
         setVideoData(response.data); // 서버 응답을 videoData 상태에 저장
         console.log(response.data);
+        setVideoStringId(response.data.videoId);
       } catch (error) {
         console.error("비디오 상세 조회 실패:", error);
       } finally {
@@ -191,7 +193,7 @@ export default function VideoDetail() {
       console.error("시청중인 영상 생성 실패", error);
     }
   };
-  console.log(videoId)
+  console.log(videoId);
 
   function renderComponent() {
     const selectedScriptLine =
@@ -242,7 +244,7 @@ export default function VideoDetail() {
               </div>
               <div className={`${styles.testBtn} ${styles.tooltip}`}>
                 {/* App.tsx에서 학습완료페이지/:비디오번호로 동적 수정해야함 */}
-                <button onClick={() => navigate(`/test/${videoId}`)}>
+                <button onClick={() => navigate(`/test/${videoStringId}`)}>
                   <img src={dotted} alt="학습중" />
                 </button>
                 <span className={`${styles.tooltipText}`}>
