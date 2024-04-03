@@ -2,8 +2,8 @@ package com.teddybear.userservice.global.config;
 
 //import com.example.authservice.domain.Role;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.teddybear.userservice.global.jwt.filter.JwtAuthenticationProcessingFilter;
-import com.teddybear.userservice.global.jwt.service.JwtService;
+//import com.teddybear.userservice.global.jwt.filter.JwtAuthenticationProcessingFilter;
+//import com.teddybear.userservice.global.jwt.service.JwtService;
 import com.teddybear.userservice.global.oauth2.handler.OAuth2LoginFailureHandler;
 import com.teddybear.userservice.global.oauth2.handler.OAuth2LoginSuccessHandler;
 import com.teddybear.userservice.global.oauth2.service.CustomOAuth2UserService;
@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
-    private final JwtService jwtService;
+//    private final JwtService jwtService;
     private final UserRepository userRepository;
     private final ObjectMapper objectMapper;
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
@@ -74,13 +74,13 @@ public class SecurityConfig {
         // 원래 스프링 시큐리티 필터 순서가 LogoutFilter 이후에 로그인 필터 동작
         // 따라서, LogoutFilter 이후에 우리가 만든 필터 동작하도록 설정
         // 순서 : LogoutFilter -> JwtAuthenticationProcessingFilter
-        http.addFilterAfter(jwtAuthenticationProcessingFilter(), LogoutFilter.class);
+//        http.addFilterAfter(jwtAuthenticationProcessingFilter(), LogoutFilter.class);
 
         return http.build();
     }
-    @Bean
-    public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
-        JwtAuthenticationProcessingFilter jwtAuthenticationFilter = new JwtAuthenticationProcessingFilter(jwtService, userRepository);
-        return jwtAuthenticationFilter;
-    }
+//    @Bean
+//    public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
+//        JwtAuthenticationProcessingFilter jwtAuthenticationFilter = new JwtAuthenticationProcessingFilter(jwtService, userRepository);
+//        return jwtAuthenticationFilter;
+//    }
 }
