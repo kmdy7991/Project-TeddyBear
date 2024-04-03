@@ -24,12 +24,14 @@ import java.util.stream.Collectors;
 public class WordServiceImpl implements WordService{
     private final BookmarkWordRepository bookmarkWordRepository;
     private final WordRepository wordRepository;
+    private final DailyWordRepository dailyWordRepository;
     @PersistenceContext
     private EntityManager entityManager;
     @Autowired
-    public WordServiceImpl(BookmarkWordRepository bookmarkWordRepository, WordRepository wordRepository) {
+    public WordServiceImpl(BookmarkWordRepository bookmarkWordRepository, WordRepository wordRepository, DailyWordRepository dailyWordRepository) {
         this.bookmarkWordRepository = bookmarkWordRepository;
         this.wordRepository = wordRepository;
+        this.dailyWordRepository = dailyWordRepository;
     }
 
     @Override
@@ -122,8 +124,13 @@ public class WordServiceImpl implements WordService{
 
         }
     }
-    @Scheduled(cron = "0 40 16 * * *") // 매일 오전 5시에 실행
+
+
+//    @Scheduled(cron = "0 46 20 * * *")
+    @Scheduled(fixedRate = 300000) // 5분마다 갱신
     public void createDailyWord() {
+        // 기존 데이터 삭제
+        dailyWordRepository.deleteAll();
         String[] tierArr = {"A1", "A2", "B1", "B2", "C1", "C2"};
 
         for(int i=0; i<6; i++) {
@@ -134,8 +141,14 @@ public class WordServiceImpl implements WordService{
             // DailyWordEntity에 저장
             for(WordEntity wordEntity : selectedWords) {
                 DailyWordEntity dailyWordEntity = DailyWordEntity.builder()
-                        .word(wordEntity)
+                        .wordId(wordEntity.getId())
+                        .eng(wordEntity.getEng())
+                        .kor(wordEntity.getKor())
+                        .part(wordEntity.getPart())
+                        .tier(wordEntity.getTier())
                         .build();
+
+                dailyWordRepository.save(dailyWordEntity);
             }
         }
     }
@@ -153,6 +166,27 @@ public class WordServiceImpl implements WordService{
         }
         return selectedWords;
     }
+
+
+    @Override
+    public List<ResponseWord> getDailyWordByTier(String tier) {
+        List<DailyWordEntity> dailyWordEntities = dailyWordRepository.findByTier(tier);
+        List<ResponseWord> responseWords = new ArrayList<>();
+        for(DailyWordEntity dailyWordEntity : dailyWordEntities) {
+            ResponseWord responseWord = ResponseWord.builder()
+                    .id(dailyWordEntity.getWordId())
+                    .eng(dailyWordEntity.getEng())
+                    .kor(dailyWordEntity.getKor())
+                    .part(dailyWordEntity.getPart())
+                    .tier(dailyWordEntity.getTier())
+                    .build();
+
+            responseWords.add(responseWord);
+        }
+        return responseWords;
+    }
+
+
 
 
 }
