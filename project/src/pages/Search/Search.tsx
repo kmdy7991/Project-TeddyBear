@@ -2,7 +2,7 @@ import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import Nav from "../../components/Nav/Nav";
 import styles from "./Search.module.css";
 import SearchInput from "./SearchInput";
-import CategoryDummy from "../../components/Video/CategoryDummy";
+import Categories from "../../components/Video/Category";
 import CategoryBox from "../../components/Video/CategoryBox";
 import { useNavigate } from "react-router-dom";
 import { VideoResultProps } from "../Main/VideoList/Video";
@@ -127,7 +127,7 @@ function Search() {
           <div className={styles.category}>
             <h2 className={styles.title}>모두 둘러보기</h2>
             <div className={styles.categoryBox}>
-              {CategoryDummy.map((categoryData, index) => (
+              {Categories.map((categoryData, index) => (
                 <CategoryBox key={index} data={categoryData} />
               ))}
             </div>

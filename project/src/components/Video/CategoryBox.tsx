@@ -1,15 +1,12 @@
-import CategoryDummy from "./CategoryDummy";
 import { Category } from "./Category";
+import Categories from "./Category";
 import styles from "./CategoryBox.module.css";
-import art from "../../assets/CategoryTeddy/art.png";
 import culture from "../../assets/CategoryTeddy/culture.png";
 import economy from "../../assets/CategoryTeddy/economy.png";
 import politics from "../../assets/CategoryTeddy/politics.png";
-import nature from "../../assets/CategoryTeddy/nature.png";
 import society from "../../assets/CategoryTeddy/society.png";
 import sport from "../../assets/CategoryTeddy/sport.png";
 import it from "../../assets/CategoryTeddy/it.png";
-import entertainment from "../../assets/CategoryTeddy/entertainment.png";
 import global from "../../assets/CategoryTeddy/global.png";
 import { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +17,7 @@ interface CategoryProps {
 export default function CategoryBox({ data }: CategoryProps) {
   const navigate = useNavigate();
   function handleClick(e: MouseEvent<HTMLDivElement>) {
-    navigate(`/category/${data.categoryId}`);
+    navigate(`/category/${data.category}`);
   }
   const categoryName = data.category;
   // 카테고리명에 따라 카드에 맞는 이미지 배치하기 위한 switch문
