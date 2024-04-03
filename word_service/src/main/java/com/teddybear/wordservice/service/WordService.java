@@ -14,4 +14,5 @@ public interface WordService {
     void createBookmarkword(RequestBookmarkWord requestBookmarkWord);
     void importWord() throws Exception;
     Boolean existBookmarkword(RequestBookmarkWord requestBookmarkWord);
+    List<ResponseWord> getDailyWordByTier(String tier);
 }
