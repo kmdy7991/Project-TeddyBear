@@ -10,5 +10,5 @@ import java.util.List;
 @FeignClient(name = "user-service")
 public interface UserClient {
     @GetMapping("/user-service/user/concern/{userid}")
-    String findConcernById(@PathVariable Long userId);
+    String findConcernById(@PathVariable long userId);
 }
