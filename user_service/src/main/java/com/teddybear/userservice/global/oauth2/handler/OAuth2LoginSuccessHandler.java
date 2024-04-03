@@ -2,7 +2,6 @@ package com.teddybear.userservice.global.oauth2.handler;
 
 import com.teddybear.userservice.domain.entity.Role;
 import com.teddybear.userservice.domain.entity.User;
-import com.teddybear.userservice.global.jwt.service.JwtService;
 import com.teddybear.userservice.domain.repository.UserRepository;
 import com.teddybear.userservice.global.oauth2.dto.CustomOAuth2User;
 import jakarta.servlet.ServletException;
@@ -23,7 +22,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 //@Transactional
 public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
-    private final JwtService jwtService;
     private final UserRepository userRepository;
     private final HttpSession httpSession;
 
@@ -41,10 +39,6 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
     }
 
     private void loginSuccess(HttpServletResponse response, CustomOAuth2User oAuth2User) throws IOException {
-        String accessToken = jwtService.createAccessToken(oAuth2User.getEmail());
-        String refreshToken = jwtService.createRefreshToken();
-        httpSession.setAttribute("accessToken", accessToken);
-
         Optional<User> user = userRepository.findByEmail(oAuth2User.getEmail());
         if (user.isPresent()) {
             User updatedUser = user.get().builder()
@@ -58,7 +52,6 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                     .videoViewTime(user.get().getVideoViewTime())
                     .role(Role.USER)
                     .concern(user.get().getConcern())
-                    .refreshToken(refreshToken)
                     .build();
             userRepository.save(updatedUser);
             System.out.println("...................유저 갱신.................................................");
@@ -69,10 +62,5 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             System.out.println("유저가 없다........................................................................");
             System.out.println("유저가 없다........................................................................");
         }
-        response.addHeader(jwtService.getAccessHeader(), "Bearer " + accessToken);
-        response.addHeader(jwtService.getRefreshHeader(), "Bearer " + refreshToken);
-
-        jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
-        jwtService.updateRefreshToken(oAuth2User.getEmail(), refreshToken);
     }
 }
