@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class UserDto {
     @NoArgsConstructor
@@ -33,6 +32,14 @@ public class UserDto {
         private LocalDateTime videoViewTime;
         private Role role;
         private String concern;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class TierNameRequest {
+        String tier;
     }
 
     @Getter
