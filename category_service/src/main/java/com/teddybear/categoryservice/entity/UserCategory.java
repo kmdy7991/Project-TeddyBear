@@ -1,5 +1,6 @@
 package com.teddybear.categoryservice.entity;
 
+import com.teddybear.categoryservice.entity.userService.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,8 +16,28 @@ public class UserCategory {
     @Column(name = "user_category_seq")
     private Long userCategorySeq;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category", nullable = false)
-    private Category category;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_seq")
+    private User user;
 
+    @Column(columnDefinition = "bigint default 0")
+    private Long life;
+
+    @Column(columnDefinition = "bigint default 0")
+    private Long society;
+
+    @Column(columnDefinition = "bigint default 0")
+    private Long it;
+
+    @Column(columnDefinition = "bigint default 0")
+    private Long sports;
+
+    @Column(columnDefinition = "bigint default 0")
+    private Long world;
+
+    @Column(columnDefinition = "bigint default 0")
+    private Long politics;
+
+    @Column(columnDefinition = "bigint default 0")
+    private Long economy;
 }
