@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="30e7c78c-682b-4c39-8154-d6f07dec9421" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/S10P22B107.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../word_service/src/main/java/com/teddybear/wordservice/jpa/DailyWordEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../word_service/src/main/java/com/teddybear/wordservice/jpa/DailyWordRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../video_service/.idea/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../word_service/src/main/java/com/teddybear/wordservice/service/WordServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../word_service/src/main/java/com/teddybear/wordservice/service/WordServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../word_service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../word_service/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +47,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging deploy/wordservice",
+    "git-widget-placeholder": "deploy/wordservice",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
