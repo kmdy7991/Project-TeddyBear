@@ -1,36 +1,75 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../Login/CefrScore.module.css'
+import axios from 'axios';
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import styles from '../Login/CefrScore.module.css';
 
-// CefrScore 컴포넌트 정의
-const CefrScore: React.FC<{ score: number; onClose: () => void; }> = ({ score, onClose }) => {
-  // 상태 변수 선언: 레벨 상태
+const tierOrder = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']; 
+
+const CefrScore: React.FC<{ score: number; onClose: () => void }> = ({ score, onClose }) => {
   const [pass, setPass] = useState<boolean>(false);
+  const [tier, setTier] = useState<string | null>(null);
+  const [nextTier, setNextTier] = useState<string | null>(null);
+  const userId = useSelector((state: RootState) => state.user.userId);
 
-  // useEffect 훅을 사용하여 합격 여부 결정
   useEffect(() => {
-    // 점수에 따라 합격 여부 결정
-    const isPass = score >= 6;
-    // 합격 여부 상태 업데이트
+    const isPass = score >= 5;
     setPass(isPass);
-  }, [score]);
 
+    const fetchTierInfo = async () => {
+      try {
+        const response = await axios.get(`/api/user-service/tier/${userId}`);
+        const currentTier = response.data.tierName;
+        setTier(currentTier);
 
-  // 합격 여부에 따라 다른 스타일을 적용할 클래스 설정
+        const currentTierIndex = tierOrder.indexOf(currentTier);
+        if (currentTierIndex !== -1 && currentTierIndex < tierOrder.length - 1) {
+          setNextTier(tierOrder[currentTierIndex + 1]);
+        } else {
+          setNextTier(null);
+        }
+      } catch (error) {
+        console.error('티어 정보를 불러오는데 실패했습니다.', error);
+      }
+    };
+
+    // 경험치 업데이트 함수
+    const updateExperience = async (isTierExp: boolean) => {
+      try {
+        await axios.put(`/api/user-service/upgradeExp/${userId}`, {
+          isTierExp,
+          addExp: 10,
+        }, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        console.log("Exp updated successfully");
+      } catch (error) {
+        console.error("경험치 업데이트 실패", error);
+      }
+    };
+
+    if (userId && isPass) {
+      fetchTierInfo();
+      updateExperience(true); // 티어 경험치 10 증가
+      updateExperience(false); // 레벨 경험치 10 증가
+    }
+  }, [score, userId]);
+
   const resultClass = pass ? styles.boxinbox : styles.boxinboxfail;
 
-  // 렌더링
   return (
     <div className={styles.box}>
       <div className={`${styles.boxinbox} ${resultClass}`}>
-        {/* 합격 여부에 따라 메시지 표시 */}
-        <h1 className={styles.inboxtext}>{pass ? 'Level 변경' : '깎이는 경험치'}</h1>
+        <h1 className={styles.inboxtext}>{pass ? `${tier} => ${nextTier}` : `${tier}`}</h1>
       </div>
-      {/* 제목 */}
-      <h1 className={styles.text}>{ pass ? '축하합니다!!' : '안타깝지만 승급 조건을 달성하지 못했습니다.'}</h1>
-      {/* 결과 메시지 */}
-      <h1 className={styles.text}>{ pass ? '티어로 승급하였습니다.' : '학습 후 다시 시도하여 주세요.'}</h1>
+      <h1 className={styles.text}>{pass ? '축하합니다!!' : '안타깝지만 승급 조건을 달성하지 못했습니다.'}</h1>
+      <h1 className={styles.text}>
+        {pass ? `${nextTier}티어로 승급하였습니다.` : '학습 후 다시 시도하여 주세요.'}
+      </h1>
     </div>
   );
 }
 
-export default CefrScore; // 컴포넌트 내보내기
+export default CefrScore;

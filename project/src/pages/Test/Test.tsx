@@ -58,24 +58,23 @@ const Test = () => {
     setQuizzes(getRandomSentenceAndBlank(videos[0].video_transcript));
   }, []);
 
+  // 정답 제출 함수
   const handleAnswerSubmission = () => {
     if (!isAnswerChecked) {
-      // Check the answer
       if (userAnswer.trim().toLowerCase() === quizzes[currentQuizIndex].blankWord.toLowerCase()) {
         setCorrectAnswersCount(correctAnswersCount + 1);
       }
       setIsAnswerChecked(true);
     } else {
-      // Move to the next question or show results
       if (currentQuizIndex < quizzes.length - 1) {
         setCurrentQuizIndex(currentQuizIndex + 1);
-        setUserAnswer('');
-        setIsAnswerChecked(false);
+        setIsAnswerChecked(false); // 다음 문제로 넘어갈 때 정답 확인 상태 초기화
       } else {
         setModalOpen(true);
       }
     }
   };
+  
 
   return (
     <div>
@@ -84,31 +83,29 @@ const Test = () => {
         <div>
           <h1>문제 {currentQuizIndex + 1}</h1>          
         </div>
-        <div className={styles.scrbox}>
+        {/* <div className={styles.scrbox}>
           <h1>번역본</h1>
-        </div>
+        </div> */}
         <div className={styles.quebox}>
           <h1>{quizzes[currentQuizIndex]?.sentence}</h1>
           <div className={styles.check}>
-            {isAnswerChecked && <p>정답은 "{quizzes[currentQuizIndex]?.blankWord}"입니다.</p>}
+            {isAnswerChecked && <h1>정답은 "{quizzes[currentQuizIndex]?.blankWord}"입니다.</h1>}
+          </div> 
+          <div>
+            {!isAnswerChecked && (
+              <input  className={styles.ansbox}
+                type="text"
+                value={userAnswer}
+                onChange={(e) => setUserAnswer(e.target.value)}
+                placeholder="빈칸에 들어갈 단어를 입력하세요"
+              />
+            )}
           </div>          
         </div>
-        <div>
-          {!isAnswerChecked && (
-            <input  className={styles.ansbox}
-              type="text"
-              value={userAnswer}
-              onChange={(e) => setUserAnswer(e.target.value)}
-              placeholder="빈칸에 들어갈 단어를 입력하세요"
-            />
-          )}
-        </div>
+
         <div>
           <button className={styles.button} onClick={handleAnswerSubmission}>{isAnswerChecked ? '다음 문제' : '제출'}</button> {/* 모듈 CSS 클래스를 적용합니다. */}
         </div>
-
-
-
         <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
           <p>총점: {correctAnswersCount * 10}점</p>
           <TestScore correctAnswers={correctAnswersCount * 10} userId={userId} onClose={() => setModalOpen(false)}/>
