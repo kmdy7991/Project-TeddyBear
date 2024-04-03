@@ -51,6 +51,7 @@ public class CategoryServiceImpl implements CategoryService{
                         .economy(userCategory.get().getEconomy())
                         .build();
                 userCategoryRepository.save(created);
+                return true;
             } else if (category.equals("사회")) {
                 UserCategory created = UserCategory.builder()
                         .userCategorySeq(userCategory.get().getUserCategorySeq())
@@ -64,6 +65,7 @@ public class CategoryServiceImpl implements CategoryService{
                         .economy(userCategory.get().getEconomy())
                         .build();
                 userCategoryRepository.save(created);
+                return true;
             } else if (category.equals("IT과학")) {
                 UserCategory created = UserCategory.builder()
                         .userCategorySeq(userCategory.get().getUserCategorySeq())
@@ -77,6 +79,7 @@ public class CategoryServiceImpl implements CategoryService{
                         .economy(userCategory.get().getEconomy())
                         .build();
                 userCategoryRepository.save(created);
+                return true;
             } else if (category.equals("스포츠")) {
                 UserCategory created = UserCategory.builder()
                         .userCategorySeq(userCategory.get().getUserCategorySeq())
@@ -90,6 +93,7 @@ public class CategoryServiceImpl implements CategoryService{
                         .economy(userCategory.get().getEconomy())
                         .build();
                 userCategoryRepository.save(created);
+                return true;
             } else if (category.equals("세계")) {
                 UserCategory created = UserCategory.builder()
                         .userCategorySeq(userCategory.get().getUserCategorySeq())
@@ -103,6 +107,7 @@ public class CategoryServiceImpl implements CategoryService{
                         .economy(userCategory.get().getEconomy())
                         .build();
                 userCategoryRepository.save(created);
+                return true;
             } else if (category.equals("정치")) {
                 UserCategory created = UserCategory.builder()
                         .userCategorySeq(userCategory.get().getUserCategorySeq())
@@ -116,7 +121,8 @@ public class CategoryServiceImpl implements CategoryService{
                         .economy(userCategory.get().getEconomy())
                         .build();
                 userCategoryRepository.save(created);
-            } else {
+                return true;
+            } else if (category.equals("경제")) {
                 UserCategory created = UserCategory.builder()
                         .userCategorySeq(userCategory.get().getUserCategorySeq())
                         .user(userCategory.get().getUser())
@@ -129,8 +135,10 @@ public class CategoryServiceImpl implements CategoryService{
                         .economy(userCategory.get().getEconomy() + 1)
                         .build();
                 userCategoryRepository.save(created);
+                return true;
+            } else {
+                return false;
             }
-            return true;
         }
         return false;
     }
