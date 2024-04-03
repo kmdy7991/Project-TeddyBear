@@ -123,7 +123,11 @@ public class WordServiceImpl implements WordService{
 
         }
     }
-
+``
+    public void createDailyWord() {
+        List<WordEntity> words = wordRepository.findByTier("A1");
+        
+    }
 
 
 }
