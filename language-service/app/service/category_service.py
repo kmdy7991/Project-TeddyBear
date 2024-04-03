@@ -41,10 +41,9 @@ def get_category(requests: list[request_category]):
 
     return responses
 
-
-w2v_path = './models/word2vec.model'
+w2v_path = './app/models/word2vec.model'
 # w2v_path = '../models/word2vec.model'
-category_path = './models/category.h5'
+category_path = './app/models/category.h5'
 # category_path = '../models/category.h5'
 
 label = ['생활문화', '사회', 'IT과학', '스포츠', '세계', '정치', '경제']
