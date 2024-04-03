@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface CategoryService {
     List<CategoryResponseDto> getCategorys();
-
-
+    List<String> getVideosbyCategry(String category);
 }
