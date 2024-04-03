@@ -68,6 +68,12 @@ public class WordController {
         }
     }
 
+    @GetMapping("/dailyWord/{tier}") // 티어에 맞는 오늘의 단어
+    public ResponseEntity<List<ResponseWord>> getDailyWord(@PathVariable String tier) {
+        List<ResponseWord> responseWords = wordService.getDailyWordByTier(tier);
+        return ResponseEntity.status(HttpStatus.OK).body(responseWords);
+    }
+
 
 
 }

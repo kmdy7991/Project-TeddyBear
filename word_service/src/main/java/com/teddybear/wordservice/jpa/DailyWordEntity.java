@@ -13,7 +13,10 @@ public class DailyWordEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
-    @JoinColumn(name = "word_id", referencedColumnName = "id")
-    private WordEntity word;
+    private Long wordId;
+    private String eng;
+    private String kor;
+    private String part;
+    private String tier;
 }
+
