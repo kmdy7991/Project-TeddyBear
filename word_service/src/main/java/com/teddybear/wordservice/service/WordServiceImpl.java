@@ -1,9 +1,7 @@
 package com.teddybear.wordservice.service;
 
-import com.teddybear.wordservice.jpa.BookmarkWordEntity;
-import com.teddybear.wordservice.jpa.BookmarkWordRepository;
-import com.teddybear.wordservice.jpa.WordEntity;
-import com.teddybear.wordservice.jpa.WordRepository;
+
+import com.teddybear.wordservice.jpa.*;
 import com.teddybear.wordservice.vo.RequestBookmarkWord;
 import com.teddybear.wordservice.vo.ResponseWord;
 import jakarta.persistence.EntityManager;
@@ -13,6 +11,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
@@ -123,7 +122,37 @@ public class WordServiceImpl implements WordService{
 
         }
     }
+    @Scheduled(cron = "0 25 16 * * *") // 매일 오전 5시에 실행
+    public void createDailyWord() {
+        String[] tierArr = {"A1", "A2", "B1", "B2", "C1", "C2"};
 
+        for(int i=0; i<6; i++) {
+            List<WordEntity> words = wordRepository.findByTier(tierArr[i]);
+            // 랜덤으로 10개 가져오기
+            List<WordEntity> selectedWords = getRandomWords(words, 10);
+
+            // DailyWordEntity에 저장
+            for(WordEntity wordEntity : selectedWords) {
+                DailyWordEntity dailyWordEntity = DailyWordEntity.builder()
+                        .word(wordEntity)
+                        .build();
+            }
+        }
+    }
+
+    public List<WordEntity> getRandomWords(List<WordEntity> words, int num) {
+        // 복사
+        List<WordEntity> shuffledWords = new ArrayList<>(words);
+        // 섞기
+        Collections.shuffle(shuffledWords);
+        // 저장 리스트 생성
+        List<WordEntity> selectedWords = new ArrayList<>();
+        // 저장
+        for(int i=0; i<num; i++) {
+            selectedWords.add(shuffledWords.get(i));
+        }
+        return selectedWords;
+    }
 
 
 }
