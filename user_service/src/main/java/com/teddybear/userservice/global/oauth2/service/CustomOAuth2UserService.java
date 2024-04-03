@@ -116,24 +116,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         return savedUser;
     }
 
-    private YouTube getYouTubeService(String accessToken) {
-        // HttpTransport와 JsonFactory 명시적 초기화
-        HttpTransport httpTransport = new NetHttpTransport();
-        JsonFactory jsonFactory = new JacksonFactory();
-
-        // 수정된 GoogleCredential 초기화 방법
-        GoogleCredential credential = new GoogleCredential.Builder()
-                .setTransport(httpTransport)
-                .setJsonFactory(jsonFactory)
-                .build()
-                .setAccessToken(accessToken);
-
-        // YouTube 서비스 객체 생성
-        return new YouTube.Builder(httpTransport, jsonFactory, request -> {})
-                .setApplicationName("your-application-name")
-                .build();
-    }
-
     public String fetchSubscriptionList(String accessToken) {
         String concern = "교육";
         BufferedReader in = null;
