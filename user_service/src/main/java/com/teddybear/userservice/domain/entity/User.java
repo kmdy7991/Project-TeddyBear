@@ -27,7 +27,7 @@ public class User {
     @JoinColumn(name = "tier_seq")
     private Tier tier;
 
-    @OneToOne(mappedBy = "userCategory", orphanRemoval = true)
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
     @JoinColumn(name = "user_category_seq")
     private UserCategory userCategory;
 
