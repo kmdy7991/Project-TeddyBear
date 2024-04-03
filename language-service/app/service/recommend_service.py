@@ -70,13 +70,13 @@ def cos_sim(requests: request_recommendInfo):
     origin = preprocess(requests.concern)
     similar_docs.append(origin)
     for i in requests.videoDtoList:
-        similar_docs.append(preprocess(i.script))
+        similar_docs.append(preprocess(i.video_transcript))
 
     similar_docs = vectorized.fit_transform(similar_docs).todense()
 
     result = []
     for i in range(1, len(similar_docs)):
-        result.append((requests.videoDtoList[i].videoId, cosine_similarity(similar_docs[0], similar_docs[i])))
+        result.append((requests.videoDtoList[i].video_id, cosine_similarity(similar_docs[0], similar_docs[i])))
 
     result.sort(key=lambda x: x[1], reverse=True)
     return result[:15]

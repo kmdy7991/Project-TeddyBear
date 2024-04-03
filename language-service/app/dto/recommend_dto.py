@@ -2,9 +2,9 @@ from pydantic import BaseModel
 
 
 class video(BaseModel):
-    videoId: str
-    videoGrade: str
-    script: str
+    video_id: str
+    video_grade: str
+    video_transcript: str
 
 
 class request_recommendInfo(BaseModel):
