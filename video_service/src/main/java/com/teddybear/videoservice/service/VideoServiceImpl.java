@@ -286,7 +286,7 @@ public class VideoServiceImpl implements VideoService {
         log.info("service in = {}", userId);
         if (userClient.findConcernById(userId) != null) {
             return languageClient.videoIdInfo(PythonDto.builder()
-                    .videoDtoList(translatedVideoRepository.findAll().subList(0, 10))
+                    .videoDtoList(translatedVideoRepository.findAll().subList(0, 30))
                     .concern(userClient.findConcernById(userId))
                     .build());
         }
