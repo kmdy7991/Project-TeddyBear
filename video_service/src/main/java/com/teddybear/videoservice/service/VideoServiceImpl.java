@@ -81,7 +81,7 @@ public class VideoServiceImpl implements VideoService {
         return responseVideos;
     }
 
-    @Override
+    @Override // 영상 데이터 생성
     public void importVideo() throws Exception {
         JSONParser parser = new JSONParser();
         Reader reader = new FileReader("src/main/resources/VideoCrawling.json");
@@ -92,22 +92,13 @@ public class VideoServiceImpl implements VideoService {
         for (int i = 0; i < dateArray.size(); i++) {
             JSONObject element = (JSONObject) dateArray.get(i);
 
-//            VideoEntity videoEntity = VideoEntity.builder()
-//                    .videoTitle((String) element.get("video_title"))
-//                    .videoDescription((String) element.get("video_description"))
-//                    .videoUrl((String) element.get("video_url"))
-//                    .videoId((String) element.get("video_id"))
-//                    .videoTime((String) element.get("video_playtime"))
-//                    .videoThumbnail((String) element.get("video_thumbnail"))
-//                    .videoGrade((String) element.get("video_grade"))
-//                    .build();
             VideoEntity videoEntity = VideoEntity.builder()
+                    .videoId((String) element.get("videoId"))
+                    .videoUrl((String) element.get("videoUrl"))
+                    .videoThumbnail((String) element.get("videoThumbnail"))
                     .videoTitle((String) element.get("videoTitle"))
                     .videoDescription((String) element.get("videoDescription"))
-                    .videoUrl((String) element.get("videoUrl"))
-                    .videoId((String) element.get("videoId"))
-                    .videoTime((String) element.get("videoTime"))
-                    .videoThumbnail((String) element.get("videoThumbnail"))
+                    .videoTime((String) element.get("videoPlaytime"))
                     .videoGrade((String) element.get("videoGrade"))
                     .build();
 
@@ -117,11 +108,8 @@ public class VideoServiceImpl implements VideoService {
                 // 중복된 videoId를 추가하려고 할 때 발생하는 예외를 처리
                 // 여기서는 예외를 무시하도록 설정
                 log.error("중복된 videoId를 무시합니다: {}", videoEntity.getVideoId());
-                dupl++;
             }
         }
-
-        System.out.println(dupl);
     }
 
     public void exportVideoToJson() {
