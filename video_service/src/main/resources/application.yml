@@ -4,8 +4,10 @@ server:
 spring:
   application:
     name: video-service
+    data:
+      mongodb:
+        uri: mongodb://ssafy:b107@j10b107.p.ssafy.io:27017/teddybear?authSource=admin
   datasource:
-#    url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
     url: jdbc:mysql://j10b107.p.ssafy.io:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
     username: root
     password: ssafy
@@ -32,7 +34,4 @@ eureka:
 
 logging:
   level:
-#    org.hibernate.type: trace
-#    org.hibernate.sql: debug
-#    org.hibernate.type.descriptor.sql: trace
     org.hibernate.orm.jdbc.bind: trace
