@@ -282,7 +282,8 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public List<String > getTailoredVideos(Long userId) {
+    public List<String> getTailoredVideos(Long userId) {
+        log.info("service in = {}", userId);
         if (userClient.findConcernById(userId) != null) {
             return languageClient.videoIdInfo(PythonDto.builder()
                     .videoDtoList(translatedVideoRepository.findAll().subList(0, 10))
