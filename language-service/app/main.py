@@ -13,7 +13,7 @@ async def start_load(init: FastAPI):
     await eureka_client.init_async(eureka_server="j10b107.p.ssafy.io:8761",
                                    app_name="language-service",
                                    instance_ip_network="172.84.0.0/24",
-                                   instance_port=8779
+                                   instance_port=8778
                                    )
     yield
 
