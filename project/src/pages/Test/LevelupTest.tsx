@@ -44,12 +44,12 @@ const LevelUptest: React.FC = () => {
     const userId = 1; // 사용자 ID (예시)
 
     // 첫 번째 API 요청: 사용자의 tier 정보를 가져옴
-    axios.get(`/user-service/tier/${userId}`)
+    axios.get(`/api/user-service/tier/${userId}`)
       .then(response => {
         const tierName = response.data.tierName; // 응답에서 tierName 추출
         // 두 번째 API 요청: tierName에 해당하는 테스트 질문 세트를 가져옴
         console.log(tierName)
-        return axios.get(`/test-service/test/${tierName}`);
+        return axios.get(`/api/test-service/test/${tierName}`);
       })
       .then(response => {
         // 응답 데이터를 Question 배열로 변환

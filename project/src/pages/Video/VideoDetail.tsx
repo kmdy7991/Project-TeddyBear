@@ -191,6 +191,7 @@ export default function VideoDetail() {
       console.error("시청중인 영상 생성 실패", error);
     }
   };
+  console.log(videoId)
 
   function renderComponent() {
     const selectedScriptLine =
@@ -241,7 +242,7 @@ export default function VideoDetail() {
               </div>
               <div className={`${styles.testBtn} ${styles.tooltip}`}>
                 {/* App.tsx에서 학습완료페이지/:비디오번호로 동적 수정해야함 */}
-                <button onClick={() => navigate(`/test/:${videoId}`)}>
+                <button onClick={() => navigate(`/test/${videoId}`)}>
                   <img src={dotted} alt="학습중" />
                 </button>
                 <span className={`${styles.tooltipText}`}>
