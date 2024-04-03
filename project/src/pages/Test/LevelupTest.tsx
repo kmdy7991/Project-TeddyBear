@@ -6,7 +6,6 @@ import styles from '../Login/CefrTest.module.css'; // 스타일링을 위한 CSS
 import axios from "axios"; // HTTP 요청을 위한 axios 라이브러리
 import LevelupScore from './LevelupScore';
 
-
 // API 응답 타입을 정의하는 인터페이스
 interface TestOption {
   option: string; // 옵션의 텍스트
@@ -41,43 +40,42 @@ const LevelUptest: React.FC = () => {
   const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수
   const [isOpen, setIsOpen] = useState(false); // 모달의 열림/닫힘 상태
 
-useEffect(() => {
-  const userId = 1; // 사용자 ID (예시)
+  useEffect(() => {
+    const userId = 1; // 사용자 ID (예시)
 
-  // 첫 번째 API 요청: 사용자의 tier 정보를 가져옴
-  axios.get(`/user-service/tier/${userId}`)
-    .then(response => {
-      const tierName = response.data.tierName; // 응답에서 tierName 추출
-      // 두 번째 API 요청: tierName에 해당하는 테스트 질문 세트를 가져옴
-      console.log(tierName)
-      return axios.get(`/test-service/test/${tierName}`);
-    })
-    .then(response => {
-      // 응답 데이터를 Question 배열로 변환
-      const questionSets: Question[] = response.data.map((test: Test) => ({
-        id: test.id,
-        question: test.test_question,
-        options: test.options.map((option: TestOption) => option.option),
-        answer: test.options.findIndex((option: TestOption) => option._answer),
-        score: 1, // 점수는 예시값으로 설정
-      }));
+    // 첫 번째 API 요청: 사용자의 tier 정보를 가져옴
+    axios.get(`/api/user-service/tier/${userId}`)
+      .then(response => {
+        const tierName = response.data.tierName; // 응답에서 tierName 추출
+        // 두 번째 API 요청: tierName에 해당하는 테스트 질문 세트를 가져옴
+        console.log(tierName)
+        return axios.get(`/api/test-service/test/${tierName}`);
+      })
+      .then(response => {
+        // 응답 데이터를 Question 배열로 변환
+        const questionSets: Question[] = response.data.map((test: Test) => ({
+          id: test.id,
+          question: test.test_question,
+          options: test.options.map((option: TestOption) => option.option),
+          answer: test.options.findIndex((option: TestOption) => option._answer),
+          score: 1, // 점수는 예시값으로 설정
+        }));
 
-      // 8개의 문제만 선택
-      const limitedQuestions = questionSets.slice(0, 9);
+        // 8개의 문제만 선택
+        const limitedQuestions = questionSets.slice(0, 9);
 
-      // 새로운 질문 세트 생성 및 상태 업데이트
-      const newQuestionSet: QuestionSet = {
-        set_num: 1,
-        setquestion: limitedQuestions,
-      };
+        // 새로운 질문 세트 생성 및 상태 업데이트
+        const newQuestionSet: QuestionSet = {
+          set_num: 1,
+          setquestion: limitedQuestions,
+        };
 
-      // 질문 세트와 선택된 답안들의 초기 상태를 업데이트
-      setQuestionSet([newQuestionSet]);
-      setSelectedAnswers(new Array(limitedQuestions.length).fill(null));
-    })
-    .catch(error => console.error("API 요청 중 오류 발생:", error)); // 오류 처리
-}, []);
-
+        // 질문 세트와 선택된 답안들의 초기 상태를 업데이트
+        setQuestionSet([newQuestionSet]);
+        setSelectedAnswers(new Array(limitedQuestions.length).fill(null));
+      })
+      .catch(error => console.error("API 요청 중 오류 발생:", error)); // 오류 처리
+  }, []);
 
   // 답안 선택 핸들러: 선택된 답안을 상태에 업데이트
   const handleAnswerSelection = (questionIndex: number, selectedAnswer: number) => {
@@ -97,6 +95,9 @@ useEffect(() => {
     setScore(calculatedScore); // 점수 상태 업데이트
     setIsOpen(true); // 모달 열기
   };
+
+  // 모든 문제에 답안이 선택되었는지 확인
+  const allQuestionsAnswered = selectedAnswers.every(answer => answer !== null);
 
   // 컴포넌트의 JSX 구조 및 로직
   return (
@@ -126,11 +127,13 @@ useEffect(() => {
             </div>
           ))}
         </div>
-        <button onClick={handleSubmit} className={styles.button}>정답 제출</button>
+        {allQuestionsAnswered && (
+          <button onClick={handleSubmit} className={styles.button}>정답 제출</button>
+        )}
         {/* 점수 표시를 위한 모달 */}
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <LevelupScore score={score} onClose={() => setIsOpen(false)} />
-        </Modal> 
+        </Modal>
       </div>
     </div>
   );

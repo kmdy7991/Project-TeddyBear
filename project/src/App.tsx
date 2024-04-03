@@ -57,7 +57,7 @@ function App() {
               path="category/:categoryId"
               element={<CategoryVideoList />}
             />
-            <Route path="/test/videoId" element={<Test />} />
+            <Route path="/test/:videoId" element={<Test />} />
             <Route path="levelUptest" element={<LevelUptest />} />
             <Route path="vocalist" element={<VocabularyList />}>
               <Route path="myvoca" element={<MyVocabulary />} />

@@ -24,7 +24,7 @@ const MyVocabulary = () => {
   useEffect(() => {
     const fetchWords = async () => {
       try {
-        const response = await axios.get(`/word-service/bookmarkWords/${userID}`);
+        const response = await axios.get(`/api/word-service/bookmarkWords/${userID}`);
         setWords(response.data);
       } catch (error) {
         console.error('단어를 불러오는데 실패했습니다.', error);
@@ -35,7 +35,7 @@ const MyVocabulary = () => {
 
   const deleteWord = async (wordId: number) => {
     try {
-      await axios.delete(`/word-service/bookmarkWords/${userID}/${wordId}`);
+      await axios.delete(`/api/word-service/bookmarkWords/${userID}/${wordId}`);
       setWords(words.filter(word => word.id !== wordId));
     } catch (error) {
       console.error('단어를 삭제하는데 실패했습니다.', error);
