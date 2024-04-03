@@ -51,13 +51,12 @@
 }
 
 .teddy {
-  height: 250px;
+  height: 20rem;
   position: absolute;
-  bottom: 0%;
-  left: 50;
+  bottom: 0rem;
 }
 
-/* .sp3 {
+.sp3 {
   font-weight: lighter;
   color: #4bb750;
-} */
+}
