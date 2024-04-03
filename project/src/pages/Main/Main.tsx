@@ -11,6 +11,7 @@ function Main() {
   const dispatch = useDispatch();
   const [nickname, setNickName] = useState("");
   const id = useSelector((state: RootState) => state.user.userId);
+  console.log(id);
   const accessToken = localStorage.getItem("access_token");
   useEffect(() => {
     const getUser = async () => {
