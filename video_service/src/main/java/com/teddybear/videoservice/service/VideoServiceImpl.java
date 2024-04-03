@@ -2,7 +2,10 @@ package com.teddybear.videoservice.service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.teddybear.videoservice.client.CategoryClient;
 import com.teddybear.videoservice.client.LanguageClient;
+import com.teddybear.videoservice.client.UserClient;
+import com.teddybear.videoservice.client.dto.UserCategoryRequestDto;
 import com.teddybear.videoservice.jpa.*;
 import com.teddybear.videoservice.vo.*;
 import jakarta.persistence.EntityManager;
@@ -30,7 +33,10 @@ public class VideoServiceImpl implements VideoService {
     private final WatchVideoRepository watchVideoRepository;
     private final BookmarkVideoRepository bookmarkVideoRepository;
     private final NoteRepository noteRepository;
+    private final TranslatedVideoRepository translatedVideoRepository;
     private final LanguageClient languageClient;
+    private final UserClient userClient;
+    private final CategoryClient categoryClient;
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -90,24 +96,16 @@ public class VideoServiceImpl implements VideoService {
         int dupl = 0;
 
         for (int i = 0; i < dateArray.size(); i++) {
+            System.out.println(dateArray);
             JSONObject element = (JSONObject) dateArray.get(i);
 
-//            VideoEntity videoEntity = VideoEntity.builder()
-//                    .videoTitle((String) element.get("video_title"))
-//                    .videoDescription((String) element.get("video_description"))
-//                    .videoUrl((String) element.get("video_url"))
-//                    .videoId((String) element.get("video_id"))
-//                    .videoTime((String) element.get("video_playtime"))
-//                    .videoThumbnail((String) element.get("video_thumbnail"))
-//                    .videoGrade((String) element.get("video_grade"))
-//                    .build();
             VideoEntity videoEntity = VideoEntity.builder()
+                    .videoId((String) element.get("videoId"))
+                    .videoUrl((String) element.get("videoUrl"))
+                    .videoThumbnail((String) element.get("videoThumbnail"))
                     .videoTitle((String) element.get("videoTitle"))
                     .videoDescription((String) element.get("videoDescription"))
-                    .videoUrl((String) element.get("videoUrl"))
-                    .videoId((String) element.get("videoId"))
-                    .videoTime((String) element.get("videoTime"))
-                    .videoThumbnail((String) element.get("videoThumbnail"))
+                    .videoTime((String) element.get("videoPlaytime"))
                     .videoGrade((String) element.get("videoGrade"))
                     .build();
 
@@ -117,11 +115,11 @@ public class VideoServiceImpl implements VideoService {
                 // 중복된 videoId를 추가하려고 할 때 발생하는 예외를 처리
                 // 여기서는 예외를 무시하도록 설정
                 log.error("중복된 videoId를 무시합니다: {}", videoEntity.getVideoId());
-                dupl++;
+//                dupl++;
             }
         }
 
-        System.out.println(dupl);
+//        System.out.println(dupl);
     }
 
     public void exportVideoToJson() {
@@ -191,6 +189,11 @@ public class VideoServiceImpl implements VideoService {
                 .build();
 
         watchVideoRepository.save(watchVideoEntity);
+
+        categoryClient.countUpCategory(UserCategoryRequestDto.builder()
+                        .videoId(videoEntity.getVideoId())
+                        .userId(requestWatchVideo.getUserId())
+                .build());
     }
 
     @Override
@@ -211,7 +214,6 @@ public class VideoServiceImpl implements VideoService {
                     .build();
             bookmarkVideoRepository.save(bookmarkVideoEntity);
         }
-
     }
 
     @Override
@@ -233,14 +235,17 @@ public class VideoServiceImpl implements VideoService {
                     .build();
             responseVideos.add(responseVideo);
         }
-
         return responseVideos;
-
     }
 
     @Override
-    public List<VideoDto> getTailoredVideos(Long userId) {
-//        languageClient.videoIdInfo()
+    public List<String > getTailoredVideos(Long userId) {
+        if (userClient.findConcernById(userId) != null) {
+            return languageClient.videoIdInfo(PythonDto.builder()
+                    .videoDtoList(translatedVideoRepository.findAll())
+                    .concern(userClient.findConcernById(userId))
+                    .build());
+        }
         return null;
     }
 
@@ -380,6 +385,11 @@ public class VideoServiceImpl implements VideoService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean existWatchVideo(Long userId, Long videoId) {
+        return watchVideoRepository.existsByUserIdAndVideoId(userId, videoId);
     }
 
 

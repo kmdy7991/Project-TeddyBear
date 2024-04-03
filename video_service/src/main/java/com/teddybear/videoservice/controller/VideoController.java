@@ -37,9 +37,12 @@ public class VideoController {
     }
 
     @GetMapping("/videos/user/{userId}") // 유저 맞춤 영상 추천
-    public ResponseEntity<List<VideoDto>> getTailoredVideos(@PathVariable Long userId) {
-        List<VideoDto> responseVideos = videoService.getTailoredVideos(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(responseVideos);
+    public ResponseEntity<List<String>> getTailoredVideos(@PathVariable Long userId) {
+        List<String> response = videoService.getTailoredVideos(userId);
+        if (response != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
     @PostMapping("/importVideos") // 영상 넣기
@@ -182,6 +185,13 @@ public class VideoController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found for the given user and video.");
         }
+    }
+
+    @GetMapping("/watch/isExist") // 시청 영상 유무
+    public ResponseEntity<Boolean> existWatchVideo(@RequestParam Long userId,
+                                                   @RequestParam Long videoId){
+        boolean isExist = videoService.existWatchVideo(userId, videoId);
+        return ResponseEntity.status(HttpStatus.OK).body(isExist);
     }
 
 
