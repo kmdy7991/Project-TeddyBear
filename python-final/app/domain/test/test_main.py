@@ -3,6 +3,11 @@ from pydantic import BaseModel
 from typing import List, Optional
 import spacy
 import random
+import os
+from google.cloud import translate_v2 as translate
+
+# # 서비스 계정 키 파일 경로 설정
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./app/domain/script_voice/voice_api/api_key/gothic-jigsaw-405113-ce587ad642ae.json"
 
 test_router = APIRouter()
 
@@ -14,7 +19,9 @@ class Sentence(BaseModel):
 
 class Question(BaseModel):
     sentence: str
+    translated_sentence: Optional[str] = None  # 번역된 문장을 위한 필드 추가
     answer: Optional[str] = None
+
 
 def create_fill_in_the_blank(sentence):
     doc = nlp(sentence)
@@ -32,17 +39,14 @@ async def generate_questions(sentences: List[Sentence]):
     selected_sentences = [sentence.text for sentence in sentences]
     questions = []
     for sentence in selected_sentences:
-        # 문장을 공백을 기준으로 나누어 단어 리스트를 생성합니다.
-        words = sentence.split()
-        # 단어 수가 1개 이상이고, 생성된 질문 수가 5개 미만인 경우에만 질문을 생성합니다.
-        if len(words) > 1 and len(questions) < 5:
-            question_text, answer = create_fill_in_the_blank(sentence)
-            question = Question(sentence=question_text, answer=answer)
-            questions.append(question)
-        # 이미 5개의 질문을 생성했다면 반복을 종료합니다.
+        trans_sen = translate_text(sentence)  # 번역 함수가 비동기일 경우 await 사용
+        question_text, answer = create_fill_in_the_blank(sentence)
+        question = Question(sentence=question_text, translated_sentence=trans_sen, answer=answer)  # 번역된 문장 포함
+        questions.append(question)
         if len(questions) >= 5:
             break
     return questions
+
 
 @test_router.post("/python/score-quiz/")
 async def score_quiz(questions: List[Question]):
@@ -51,3 +55,21 @@ async def score_quiz(questions: List[Question]):
         if question.answer.lower() == create_fill_in_the_blank(question.sentence)[1].lower():
             score += 1
     return {"score": score, "total": len(questions)}
+
+
+def translate_text(text):
+    # Google Cloud Translation 클라이언트 인스턴스화
+    translate_client = translate.Client()
+
+    try:
+        # 텍스트 번역 요청
+        result = translate_client.translate(
+            text,
+            target_language="ko"
+        )
+    except Exception as e:
+        # 오류 처리
+        raise HTTPException(status_code=500, detail=str(e))
+
+    # 결과 반환
+    return result['translatedText']
