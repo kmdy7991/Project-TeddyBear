@@ -1,6 +1,6 @@
 package com.teddybear.categoryservice.client;
 
-import com.teddybear.categoryservice.response.CategoryResponseDto;
+import com.teddybear.categoryservice.dto.CategoryResponseDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 

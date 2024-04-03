@@ -5,8 +5,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-public class CategoryDto {
-
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserCategoryRequestDto {
+    Long userId;
+    String videoId;
 }

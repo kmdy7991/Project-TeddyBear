@@ -1,4 +1,4 @@
-package com.teddybear.categoryservice.response;
+package com.teddybear.categoryservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
