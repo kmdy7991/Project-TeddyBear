@@ -36,6 +36,15 @@ public class VideoController {
         return ResponseEntity.status(HttpStatus.OK).body(responseVideos);
     }
 
+    @GetMapping("/videoDetail/{videoId}") // videoId로 상세 조회
+    public ResponseEntity<ResponseVideo> getVideoDetail(@PathVariable String videoId) {
+        ResponseVideo response = videoService.getVideoByVideoId(videoId);
+        if (response != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+
     @GetMapping("/videos/user/{userId}") // 유저 맞춤 영상 추천
     public ResponseEntity<List<String>> getTailoredVideos(@PathVariable Long userId) {
         List<String> response = videoService.getTailoredVideos(userId);

@@ -7,6 +7,7 @@ import java.util.List;
 public interface VideoService {
     ResponseVideo getVideoById(Long videoId);
     List<ResponseVideo> getVideoByTitle(String videoTitle);
+    ResponseVideo getVideoByVideoId(String videoId);
     void importVideo() throws Exception;
     void exportVideoToJson();
     List<ResponseVideo> getWatchedVideosByUserIdAndWatchedStatus(Long userId, Boolean videoWatched);
