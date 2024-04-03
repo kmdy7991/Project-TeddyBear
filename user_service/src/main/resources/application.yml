@@ -35,9 +35,9 @@ spring:
     include: oauth, jwt
 
 eureka:
-  instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-    hostname: user-service
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#    hostname: user-service
 
   client:
     register-with-eureka: true
