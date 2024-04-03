@@ -1,4 +1,4 @@
-package com.example.scriptservice.jpa;
+package com.teddybear.scriptservice.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

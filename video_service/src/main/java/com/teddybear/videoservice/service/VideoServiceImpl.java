@@ -15,6 +15,7 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -164,12 +165,18 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public void watchVideo(RequestWatchVideo requestWatchVideo) {
+
         // 받은 비디오 Id를 저장해서 videoId에 해당하는 VideoEntity를 뽑음
         Long videoId = requestWatchVideo.getVideoId();
-        System.out.println("videoId: " + videoId);
+        Long userId = requestWatchVideo.getUserId();
+        // 유저 아이디에 영상 아이디가 있으면 추가 안함
+        boolean exists = watchVideoRepository.existsByUserIdAndVideo_Id(userId, videoId);
+
+        if(!exists) {
+//        System.out.println("videoId: " + videoId);
         VideoEntity videoEntity = videoRepository.findById(videoId)
                 .orElseThrow(() -> new IllegalArgumentException("Video with id " + videoId + " not found"));
-        System.out.println("videoEntity: " + videoEntity.getVideoId());
+//        System.out.println("videoEntity: " + videoEntity.getVideoId());
 
         // RequestWatchVideo를 WatchVideoEntity로 변환
         WatchVideoEntity watchVideoEntity = WatchVideoEntity.builder()
@@ -179,6 +186,34 @@ public class VideoServiceImpl implements VideoService {
                 .build();
 
         watchVideoRepository.save(watchVideoEntity);
+        }
+    }
+
+    @Transactional
+    public void updateWatchVideo(RequestWatchVideo requestWatchVideo) {
+        Long userId = requestWatchVideo.getUserId();
+        Long videoId = requestWatchVideo.getVideoId();
+        boolean videoWatched = requestWatchVideo.isVideoWatched();
+
+        // 해당 userId와 videoId를 가진 WatchVideoEntity 조회
+        WatchVideoEntity watchVideoEntity = watchVideoRepository.findByUserIdAndVideo_Id(userId, videoId);
+
+        // 시청 완료 여부 업데이트
+        WatchVideoEntity watchVideoentity = WatchVideoEntity.builder()
+                .id(watchVideoEntity.getId())
+                .userId(watchVideoEntity.getUserId())
+                .video(watchVideoEntity.getVideo())
+                .videoWatched(videoWatched)
+                .build();
+
+        watchVideoRepository.save(watchVideoentity);
+    }
+
+    @Override
+    public boolean isWatchVideoExist(Long userId, Long videoId) {
+        // 유저 아이디에 영상 아이디가 있는지
+        boolean exists = watchVideoRepository.existsByUserIdAndVideo_Id(userId, videoId);
+        return exists;
     }
 
     @Override
@@ -369,6 +404,8 @@ public class VideoServiceImpl implements VideoService {
         }
         return false;
     }
+
+
 
 
 }

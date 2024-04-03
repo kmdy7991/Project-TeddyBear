@@ -1,8 +1,8 @@
-package com.example.scriptservice.service;
+package com.teddybear.scriptservice.service;
 
-import com.example.scriptservice.jpa.ScriptEntity;
-import com.example.scriptservice.jpa.ScriptRepository;
-import com.example.scriptservice.vo.ResponseScript;
+import com.teddybear.scriptservice.jpa.ScriptEntity;
+import com.teddybear.scriptservice.jpa.ScriptRepository;
+import com.teddybear.scriptservice.vo.ResponseScript;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

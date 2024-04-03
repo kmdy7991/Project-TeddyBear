@@ -1,6 +1,6 @@
-package com.example.scriptservice.service;
+package com.teddybear.scriptservice.service;
 
-import com.example.scriptservice.vo.ResponseScript;
+import com.teddybear.scriptservice.vo.ResponseScript;
 
 import java.util.List;
 

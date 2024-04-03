@@ -7,4 +7,8 @@ import java.util.List;
 @Repository
 public interface WatchVideoRepository extends JpaRepository<WatchVideoEntity, Long> {
     List<WatchVideoEntity> findByUserIdAndVideoWatched(Long userId, boolean videoWatched);
+
+    boolean existsByUserIdAndVideo_Id(Long userId, Long videoId);
+
+    WatchVideoEntity findByUserIdAndVideo_Id(Long userId, Long videoId);
 }

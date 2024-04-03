@@ -1,4 +1,4 @@
-package com.example.scriptservice.vo;
+package com.teddybear.scriptservice.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
