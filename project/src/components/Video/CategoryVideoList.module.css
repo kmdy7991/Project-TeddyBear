@@ -1,10 +1,11 @@
 .container {
-  min-height: 100vh;
+  min-height: 110vh;
 }
 
 .videolist {
   display: flex;
   margin: 2rem 2rem;
+  flex-direction: column;
 }
 .category {
   font-size: 6rem;
@@ -21,14 +22,16 @@
   display: flex;
   width: 100%;
   border-radius: 0.3vw;
+  margin-bottom: 2rem;
 }
 
 .videoImg {
   height: 100%;
-  margin: 0 4rem;
+  margin: 0 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 20%;
 }
 
 .videoImg img {
@@ -36,10 +39,12 @@
 }
 
 .text {
+  width: 65%;
   margin: 1rem 2rem;
   display: flex;
   flex-direction: column;
   height: 80%;
+  /* width: 100%; */
 }
 
 .dh {
@@ -73,5 +78,28 @@
 }
 
 .description {
+  width: 100%;
   color: #4c4c4c;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pageIdx button {
+  border: 0;
+  color: white;
+  background-color: transparent;
+  padding: 0.3rem 1rem;
+  margin-right: 0.5rem;
+  margin-left: 3rem;
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+}
+
+.pageIdx button:hover {
+  cursor: pointer;
+}
+
+.paginate {
+  margin: 2rem 0;
 }
