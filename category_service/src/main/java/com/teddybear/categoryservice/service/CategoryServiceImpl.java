@@ -116,7 +116,7 @@ public class CategoryServiceImpl implements CategoryService{
                         .economy(userCategory.get().getEconomy())
                         .build();
                 userCategoryRepository.save(created);
-            } else if (category.equals("경제")) {
+            } else {
                 UserCategory created = UserCategory.builder()
                         .userCategorySeq(userCategory.get().getUserCategorySeq())
                         .user(userCategory.get().getUser())
