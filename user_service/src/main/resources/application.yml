@@ -4,6 +4,7 @@ server:
 spring:
   application:
     name: user-service
+
   datasource:
     url: jdbc:mysql://j10b107.p.ssafy.io:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
     username: root

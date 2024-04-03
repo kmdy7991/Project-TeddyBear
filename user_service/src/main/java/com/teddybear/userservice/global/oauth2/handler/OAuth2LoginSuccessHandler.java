@@ -2,8 +2,8 @@ package com.teddybear.userservice.global.oauth2.handler;
 
 import com.teddybear.userservice.domain.entity.Role;
 import com.teddybear.userservice.domain.entity.User;
-import com.teddybear.userservice.domain.repository.UserRepository;
 import com.teddybear.userservice.global.jwt.service.JwtService;
+import com.teddybear.userservice.domain.repository.UserRepository;
 import com.teddybear.userservice.global.oauth2.dto.CustomOAuth2User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

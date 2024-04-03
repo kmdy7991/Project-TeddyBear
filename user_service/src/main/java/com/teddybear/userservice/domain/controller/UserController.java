@@ -1,7 +1,7 @@
 package com.teddybear.userservice.domain.controller;
 
-import com.teddybear.userservice.domain.dto.UserDto;
 import com.teddybear.userservice.domain.service.UserService;
+import com.teddybear.userservice.domain.dto.UserDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

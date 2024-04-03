@@ -2,12 +2,12 @@ package com.teddybear.userservice.global.config;
 
 //import com.example.authservice.domain.Role;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.teddybear.userservice.domain.repository.UserRepository;
 import com.teddybear.userservice.global.jwt.filter.JwtAuthenticationProcessingFilter;
 import com.teddybear.userservice.global.jwt.service.JwtService;
 import com.teddybear.userservice.global.oauth2.handler.OAuth2LoginFailureHandler;
 import com.teddybear.userservice.global.oauth2.handler.OAuth2LoginSuccessHandler;
 import com.teddybear.userservice.global.oauth2.service.CustomOAuth2UserService;
+import com.teddybear.userservice.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
