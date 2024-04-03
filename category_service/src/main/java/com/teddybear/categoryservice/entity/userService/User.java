@@ -1,6 +1,6 @@
-package com.teddybear.userservice.domain.entity;
+package com.teddybear.categoryservice.entity.userService;
 
-import com.teddybear.userservice.domain.entity.categoryService.UserCategory;
+import com.teddybear.categoryservice.entity.UserCategory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

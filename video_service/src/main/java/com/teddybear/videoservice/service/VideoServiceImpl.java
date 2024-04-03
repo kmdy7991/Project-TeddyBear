@@ -2,8 +2,10 @@ package com.teddybear.videoservice.service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.teddybear.videoservice.client.CategoryClient;
 import com.teddybear.videoservice.client.LanguageClient;
 import com.teddybear.videoservice.client.UserClient;
+import com.teddybear.videoservice.client.dto.UserCategoryRequestDto;
 import com.teddybear.videoservice.jpa.*;
 import com.teddybear.videoservice.vo.*;
 import jakarta.persistence.EntityManager;
@@ -34,6 +36,7 @@ public class VideoServiceImpl implements VideoService {
     private final TranslatedVideoRepository translatedVideoRepository;
     private final LanguageClient languageClient;
     private final UserClient userClient;
+    private final CategoryClient categoryClient;
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -186,6 +189,11 @@ public class VideoServiceImpl implements VideoService {
                 .build();
 
         watchVideoRepository.save(watchVideoEntity);
+
+        categoryClient.countUpCategory(UserCategoryRequestDto.builder()
+                        .videoId(videoEntity.getVideoId())
+                        .userId(requestWatchVideo.getUserId())
+                .build());
     }
 
     @Override

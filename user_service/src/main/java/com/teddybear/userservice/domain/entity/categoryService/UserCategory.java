@@ -1,6 +1,6 @@
-package com.teddybear.categoryservice.entity;
+package com.teddybear.userservice.domain.entity.categoryService;
 
-import com.teddybear.categoryservice.entity.userService.User;
+import com.teddybear.userservice.domain.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
