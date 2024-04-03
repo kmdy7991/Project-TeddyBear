@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store"; // 경로는 프로젝트 설정에 따라 달라질 수 있습니다.
 import TestScore from "./TestScore";
 import Modal from "../../components/Test/TestModal";
 import Nav from "../../components/Nav/Nav";
 import styles from "./Test.module.css";
+import { loadingActions } from "../../store/loading";
+import Loading from "../../components/Loading";
 interface ScriptData {
   id: number;
   content: string;
@@ -16,6 +18,7 @@ interface ScriptData {
 interface Quiz {
   sentence: string;
   answer: string;
+  translated_sentence: string;
 }
 
 const Test = () => {
@@ -33,9 +36,14 @@ const Test = () => {
   // 리덕스 스토어에서 userId 가져오기
   const userId = useSelector((state: RootState) => state.user.userId);
   const accessToken = localStorage.getItem("access_token");
+  const loading = useSelector(
+    (state: RootState) => state.loading["LECTURE-TEST"]
+  );
+  const dispatch = useDispatch();
   useEffect(() => {
     // 비디오 ID를 사용해 해당 스크립트 데이터를 API로부터 받아오는 함수
     const fetchScriptData = async () => {
+      dispatch(loadingActions.startLoading("LECTURE-TEST"));
       try {
         const response = await axios.get(
           `/api/script-service/script/${videoId}`,
@@ -67,23 +75,14 @@ const Test = () => {
             },
           }
         );
-
-        // const generateTrans = await axios.post(
-        //   `/python/trans/`,
-        //   requestBodyKor,
-        //   {
-        //     headers: {
-        //       Authorization: `Bearer ${accessToken}`,
-        //       "Content-Type": "application/json",
-        //     },
-        //   }
-        // );
         setQuizList(generateQuiz.data);
-        // setTranslateList(generateTrans.data);
+        setTranslateList(generateQuiz.data.translated_sentence);
         console.log(quizList);
-        // console.log(generateTrans.data);
+        console.log(translateList);
       } catch (error) {
         console.error("스크립트 데이터 로드 실패", error);
+      } finally {
+        dispatch(loadingActions.finishLoading("LECTURE-TEST"));
       }
     };
 
@@ -92,10 +91,10 @@ const Test = () => {
     }
   }, [videoId]);
 
-  // translateList가 업데이트 될 때 로깅하기 위한 useEffect
   useEffect(() => {
     console.log(quizList);
-  }, [quizList]);
+    console.log(translateList);
+  }, [quizList, translateList]);
 
   const handleAnswerSubmission = () => {
     // 사용자가 답을 아직 제출하지 않았을 경우
@@ -121,7 +120,8 @@ const Test = () => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
+      {loading && <Loading />}
       <Nav />
       <div className={styles.testContainer}>
         <div>
@@ -132,6 +132,9 @@ const Test = () => {
       </div> */}
         <div className={styles.quebox}>
           <h1>{quizList[currentQuizIndex]?.sentence}</h1>
+          <div className={styles.kor}>
+            {quizList[currentQuizIndex]?.translated_sentence}
+          </div>
           <div className={styles.check}>
             {isAnswerChecked && (
               <h1>정답은 "{quizList[currentQuizIndex]?.answer}"입니다.</h1>
