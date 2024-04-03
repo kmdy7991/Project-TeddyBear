@@ -46,7 +46,8 @@ public class VideoController {
     }
 
     @GetMapping("/videos/user/{userId}") // 유저 맞춤 영상 추천
-    public ResponseEntity<List<String>> getTailoredVideos(@PathVariable Long userId) {
+    public ResponseEntity<List<String>> getTailoredVideos(@PathVariable("userId") Long userId) {
+        log.info("userId in = {}", userId)
         List<String> response = videoService.getTailoredVideos(userId);
         if (response != null) {
             return ResponseEntity.status(HttpStatus.OK).body(response);
