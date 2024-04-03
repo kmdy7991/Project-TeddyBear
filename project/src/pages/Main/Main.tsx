@@ -10,6 +10,7 @@ import axios from "axios";
 function Main() {
   const dispatch = useDispatch();
   const [nickname, setNickName] = useState("");
+  const [tier, setTier] = useState("");
   const id = useSelector((state: RootState) => state.user.userId);
   console.log(id);
   const accessToken = localStorage.getItem("access_token");
@@ -32,7 +33,13 @@ function Main() {
     getUser();
   }, [id]);
 
-  dispatch(userActions.loginUser({ userId: id, userNickName: nickname }));
+  dispatch(
+    userActions.loginUser({
+      userId: id,
+      userNickName: nickname,
+      userTier: tier,
+    })
+  );
 
   return (
     <div className={`${styles.container}`}>
