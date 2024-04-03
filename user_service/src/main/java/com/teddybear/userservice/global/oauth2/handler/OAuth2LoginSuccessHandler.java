@@ -32,7 +32,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         log.info("OAuth2 Login 성공!");
         try {
             CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
-            response.sendRedirect("http://localhost:3000/loading");
+            response.sendRedirect("http://j10b107.p.ssafy.io:3000/loading");
             // 프론트에서 기존 유저인지 검사
             loginSuccess(response, oAuth2User); // 로그인에 성공한 경우 access, refresh 토큰 생성
         } catch (Exception e) {
