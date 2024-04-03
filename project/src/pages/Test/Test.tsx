@@ -1,115 +1,171 @@
-import React, { useState, useEffect } from 'react';
-import styles from './Test.module.css'; // 모듈 CSS를 import합니다.
-import dummyData from './Vox.json';
-import Modal from '../../components/Test/TestModal'; 
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store"; // 경로는 프로젝트 설정에 따라 달라질 수 있습니다.
+import TestScore from "./TestScore";
+import Modal from "../../components/Test/TestModal";
 import Nav from "../../components/Nav/Nav";
-import TestScore from './TestScore';
-import { useSelector } from "react-redux"; // 리덕스 스토어의 상태를 가져오기 위해 useSelector 훅 추가
-import { RootState } from "../../store"; // RootState 타입을 가져오는 경로, 실제 경로로 변경해야 함
-
-
-
-
-interface VideoData {
-  video_seq: number;
-  video_id: string;
-  video_url: string;
-  video_thumbnail: string;
-  video_title: string;
-  video_description: string;
-  video_playtime: string;
-  video_transcript: string[];
+import styles from "./Test.module.css";
+interface ScriptData {
+  id: number;
+  content: string;
+  videoId: string;
 }
 
 interface Quiz {
   sentence: string;
-  blankWord: string;
+  answer: string;
 }
 
-// dummyData를 올바른 타입으로 캐스팅합니다. 실제 사용 시 JSON 구조에 맞게 조정하세요.
-const videos: VideoData[] = dummyData as unknown as VideoData[];
-
-const getRandomSentenceAndBlank = (transcript: string[]): Quiz[] => {
-  let quizzes: Quiz[] = [];
-  while (quizzes.length < 5) {
-    const randomIndex = Math.floor(Math.random() * transcript.length);
-    const selectedSentence = transcript[randomIndex];
-    const words = selectedSentence.split(' ');
-    const blankIndex = Math.floor(Math.random() * words.length);
-    const blankWord = words[blankIndex];
-    words[blankIndex] = '_'.repeat(blankWord.length);
-    const questionSentence = words.join(' ');
-    quizzes.push({ sentence: questionSentence, blankWord });
-  }
-  return quizzes;
-};
-
 const Test = () => {
+  const { videoId } = useParams<{ videoId: string }>(); // URL에서 videoId 추출
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
-  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
-  const [userAnswer, setUserAnswer] = useState('');
+
   const [isAnswerChecked, setIsAnswerChecked] = useState(false);
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
+  const [quizList, setQuizList] = useState<Quiz[]>([]);
+  const [translateList, setTranslateList] = useState([]);
+  const [answer, setAnswer] = useState("");
+
+  console.log(videoId);
+  // 리덕스 스토어에서 userId 가져오기
   const userId = useSelector((state: RootState) => state.user.userId);
-
-
+  const accessToken = localStorage.getItem("access_token");
   useEffect(() => {
-    setQuizzes(getRandomSentenceAndBlank(videos[0].video_transcript));
-  }, []);
+    // 비디오 ID를 사용해 해당 스크립트 데이터를 API로부터 받아오는 함수
+    const fetchScriptData = async () => {
+      try {
+        const response = await axios.get(
+          `/api/script-service/script/${videoId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const scriptData: ScriptData[] = response.data;
+        const transcripts = scriptData.map((script) => script.content);
+        console.log(transcripts);
+        const requestBody = transcripts.map((transcript) => ({
+          text: transcript,
+        }));
+        const requestBodyKor = transcripts.map((transcript) => ({
+          text: transcript,
+          target_language: "ko",
+        }));
 
-  // 정답 제출 함수
-  const handleAnswerSubmission = () => {
-    if (!isAnswerChecked) {
-      if (userAnswer.trim().toLowerCase() === quizzes[currentQuizIndex].blankWord.toLowerCase()) {
-        setCorrectAnswersCount(correctAnswersCount + 1);
+        const generateQuiz = await axios.post(
+          `/python/generate-questions/`,
+          requestBody,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        // const generateTrans = await axios.post(
+        //   `/python/trans/`,
+        //   requestBodyKor,
+        //   {
+        //     headers: {
+        //       Authorization: `Bearer ${accessToken}`,
+        //       "Content-Type": "application/json",
+        //     },
+        //   }
+        // );
+        setQuizList(generateQuiz.data);
+        // setTranslateList(generateTrans.data);
+        console.log(quizList);
+        // console.log(generateTrans.data);
+      } catch (error) {
+        console.error("스크립트 데이터 로드 실패", error);
       }
-      setIsAnswerChecked(true);
+    };
+
+    if (videoId) {
+      fetchScriptData();
+    }
+  }, [videoId]);
+
+  // translateList가 업데이트 될 때 로깅하기 위한 useEffect
+  useEffect(() => {
+    console.log(quizList);
+  }, [quizList]);
+
+  const handleAnswerSubmission = () => {
+    // 사용자가 답을 아직 제출하지 않았을 경우
+    if (!isAnswerChecked) {
+      // 정답 확인
+      if (
+        answer.trim().toLowerCase() ===
+        quizList[currentQuizIndex].answer.toLowerCase()
+      ) {
+        setCorrectAnswersCount(correctAnswersCount + 1); // 정답 수 증가
+      }
+      setIsAnswerChecked(true); // 답 확인 상태로 변경
     } else {
-      if (currentQuizIndex < quizzes.length - 1) {
-        setCurrentQuizIndex(currentQuizIndex + 1);
-        setIsAnswerChecked(false); // 다음 문제로 넘어갈 때 정답 확인 상태 초기화
+      // 다음 문제로 넘어가거나 모든 문제를 풀었을 때 처리
+      if (currentQuizIndex < quizList.length - 1) {
+        setCurrentQuizIndex(currentQuizIndex + 1); // 다음 문제로 인덱스 증가
+        setAnswer(""); // 사용자 답 초기화
+        setIsAnswerChecked(false); // 답 확인 상태 초기화
       } else {
-        setModalOpen(true);
+        setModalOpen(true); // 모든 문제를 풀었으므로 모달 표시
       }
     }
   };
-  
 
   return (
     <div>
-      <Nav/>
-      <div className={styles.testContainer}> 
+      <Nav />
+      <div className={styles.testContainer}>
         <div>
-          <h1>문제 {currentQuizIndex + 1}</h1>          
+          <h1>문제 {currentQuizIndex + 1}</h1>
         </div>
         {/* <div className={styles.scrbox}>
-          <h1>번역본</h1>
-        </div> */}
+        <h1>번역본</h1>
+      </div> */}
         <div className={styles.quebox}>
-          <h1>{quizzes[currentQuizIndex]?.sentence}</h1>
+          <h1>{quizList[currentQuizIndex]?.sentence}</h1>
           <div className={styles.check}>
-            {isAnswerChecked && <h1>정답은 "{quizzes[currentQuizIndex]?.blankWord}"입니다.</h1>}
-          </div> 
-          <div>
+            {isAnswerChecked && (
+              <h1>정답은 "{quizList[currentQuizIndex]?.answer}"입니다.</h1>
+            )}
+          </div>
+          <div className={`${styles.inputbtn}`}>
             {!isAnswerChecked && (
-              <input  className={styles.ansbox}
+              <input
+                className={styles.ansbox}
                 type="text"
-                value={userAnswer}
-                onChange={(e) => setUserAnswer(e.target.value)}
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
                 placeholder="빈칸에 들어갈 단어를 입력하세요"
               />
             )}
-          </div>          
+            <div className={`${styles.buttondiv}`}>
+              <button
+                className={styles.button}
+                onClick={handleAnswerSubmission}
+              >
+                {isAnswerChecked ? "다음 문제" : "제출"}
+              </button>{" "}
+              {/* 모듈 CSS 클래스를 적용합니다. */}
+            </div>
+          </div>
         </div>
 
-        <div>
-          <button className={styles.button} onClick={handleAnswerSubmission}>{isAnswerChecked ? '다음 문제' : '제출'}</button> {/* 모듈 CSS 클래스를 적용합니다. */}
-        </div>
         <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
           <p>총점: {correctAnswersCount * 10}점</p>
-          <TestScore correctAnswers={correctAnswersCount * 10} userId={userId} onClose={() => setModalOpen(false)}/>
-
+          <TestScore
+            correctAnswers={correctAnswersCount * 10}
+            userId={userId}
+            onClose={() => setModalOpen(false)}
+          />
         </Modal>
       </div>
     </div>
