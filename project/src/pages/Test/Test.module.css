@@ -16,6 +16,12 @@
   border-radius: 4px;
 }
 
+.kor {
+  font-weight: lighter;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
 .quebox h1 {
   display: flex;
   text-align: center;
@@ -65,7 +71,7 @@
 }
 
 .ansbox {
-  width: 60%;
+  width: 50%;
   height: 3rem;
   text-align: center;
   margin-top: 5rem;
