@@ -122,7 +122,7 @@ public class WordServiceImpl implements WordService{
 
         }
     }
-    @Scheduled(cron = "0 25 16 * * *") // 매일 오전 5시에 실행
+    @Scheduled(cron = "0 35 16 * * *") // 매일 오전 5시에 실행
     public void createDailyWord() {
         String[] tierArr = {"A1", "A2", "B1", "B2", "C1", "C2"};
 
