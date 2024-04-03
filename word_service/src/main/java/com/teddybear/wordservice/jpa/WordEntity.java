@@ -32,4 +32,5 @@ public class WordEntity {
     private List<BookmarkWordEntity> bookmarkHistory;
 
 
+
 }

@@ -6,7 +6,10 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone : http://j10b107.p.ssafy.io:8761/eureka
+#      defaultZone : http://j10b107.p.ssafy.io:8761/eureka
+      defaultZone : http://localhost:8761/eureka
+  instance:
+    hostname: localhost
 
 spring:
   application:
@@ -34,14 +37,14 @@ spring:
           predicates:
             - Path=/api/user-service/**
           filters:
-            - RewritePath=/api/user-service/(?<segment>.*), /user-service/${segment}
+            - RewritePath=/api/user-service/(?<segment>.*), /user-service/$\{segment}
 
         - id: word-service
           uri: lb://WORD-SERVICE
           predicates:
             - Path=/api/word-service/**
           filters:
-            - RewritePath=/api/word-service/(?<segment>.*), /word-service/${segment}
+            - RewritePath=/api/word-service/(?<segment>.*), /word-service/$\{segment}
 
         - id: video-service
           uri: lb://VIDEO-SERVICE
@@ -62,14 +65,14 @@ spring:
           predicates:
             - Path=/api/script-service/**
           filters:
-            - RewritePath=/api/script-service/(?<segment>.*), /script-service/${segment}
+            - RewritePath=/api/script-service/(?<segment>.*), /script-service/$\{segment}
 
         - id: category-service
           uri: lb://CATEGORY-SERVICE
           predicates:
             - Path=/api/category-service/**
           filters:
-            - RewritePath=/api/category-service/(?<segment>.*), /category-service/${segment}
+            - RewritePath=/api/category-service/(?<segment>.*), /category-service/$\{segment}
 
         - id: python-service
           uri: lb://PYTHON-SERVICE

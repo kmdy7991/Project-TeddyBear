@@ -1,9 +1,6 @@
 package com.teddybear.wordservice.service;
 
-import com.teddybear.wordservice.jpa.BookmarkWordEntity;
-import com.teddybear.wordservice.jpa.BookmarkWordRepository;
-import com.teddybear.wordservice.jpa.WordEntity;
-import com.teddybear.wordservice.jpa.WordRepository;
+import com.teddybear.wordservice.jpa.*;
 import com.teddybear.wordservice.vo.RequestBookmarkWord;
 import com.teddybear.wordservice.vo.ResponseWord;
 import jakarta.persistence.EntityManager;
@@ -13,6 +10,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
@@ -25,12 +23,14 @@ import java.util.stream.Collectors;
 public class WordServiceImpl implements WordService{
     private final BookmarkWordRepository bookmarkWordRepository;
     private final WordRepository wordRepository;
+    private final DailyWordRepository dailyWordRepository;
     @PersistenceContext
     private EntityManager entityManager;
     @Autowired
-    public WordServiceImpl(BookmarkWordRepository bookmarkWordRepository, WordRepository wordRepository) {
+    public WordServiceImpl(BookmarkWordRepository bookmarkWordRepository, WordRepository wordRepository, DailyWordRepository dailyWordRepository) {
         this.bookmarkWordRepository = bookmarkWordRepository;
         this.wordRepository = wordRepository;
+        this.dailyWordRepository = dailyWordRepository;
     }
 
     @Override
@@ -123,11 +123,70 @@ public class WordServiceImpl implements WordService{
 
         }
     }
-``
+
+//    @Scheduled(cron = "0 46 20 * * *")
+    @Scheduled(fixedRate = 300000) // 5분마다 갱신
     public void createDailyWord() {
-        List<WordEntity> words = wordRepository.findByTier("A1");
-        
+        // 기존 데이터 삭제
+        dailyWordRepository.deleteAll();
+
+        String[] tierArr = {"A1", "A2", "B1", "B2", "C1", "C2"};
+
+        for(int i=0; i<6; i++) {
+            List<WordEntity> words = wordRepository.findByTier(tierArr[i]);
+            // 랜덤으로 10개 가져오기
+            List<WordEntity> selectedWords = getRandomWords(words, 10);
+
+            // DailyWordEntity에 저장
+            for(WordEntity wordEntity : selectedWords) {
+                DailyWordEntity dailyWordEntity = DailyWordEntity.builder()
+                        .wordId(wordEntity.getId())
+                        .eng(wordEntity.getEng())
+                        .kor(wordEntity.getKor())
+                        .part(wordEntity.getPart())
+                        .tier(wordEntity.getTier())
+                        .build();
+
+                dailyWordRepository.save(dailyWordEntity);
+            }
+
+        }
     }
+
+    public List<WordEntity> getRandomWords(List<WordEntity> words, int num) {
+        // 복사
+        List<WordEntity> shuffledWords = new ArrayList<>(words);
+        // 섞기
+        Collections.shuffle(shuffledWords);
+        // 저장 리스트 생성
+        List<WordEntity> selectedWords = new ArrayList<>();
+        // 저장
+        for(int i=0; i<num; i++) {
+            selectedWords.add(shuffledWords.get(i));
+        }
+        return selectedWords;
+    }
+
+
+    @Override
+    public List<ResponseWord> getDailyWordByTier(String tier) {
+        List<DailyWordEntity> dailyWordEntities = dailyWordRepository.findByTier(tier);
+        List<ResponseWord> responseWords = new ArrayList<>();
+        for(DailyWordEntity dailyWordEntity : dailyWordEntities) {
+            ResponseWord responseWord = ResponseWord.builder()
+                    .id(dailyWordEntity.getWordId())
+                    .eng(dailyWordEntity.getEng())
+                    .kor(dailyWordEntity.getKor())
+                    .part(dailyWordEntity.getPart())
+                    .tier(dailyWordEntity.getTier())
+                    .build();
+
+            responseWords.add(responseWord);
+        }
+        return responseWords;
+    }
+
+
 
 
 }
