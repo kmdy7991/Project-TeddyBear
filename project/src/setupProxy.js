@@ -42,6 +42,14 @@ module.exports = function (app) {
   );
 
   app.use(
+    "/api/category-service",
+    createProxyMiddleware({
+      target: "http://j10b107.p.ssafy.io:8000",
+      changeOrigin: true,
+    })
+  );
+
+  app.use(
     "/python",
     createProxyMiddleware({
       target: "http://j10b107.p.ssafy.io:8779",
