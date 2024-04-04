@@ -75,6 +75,7 @@ export default function LectureNote({ userId, videoId }: LectureNoteProp) {
       );
 
       console.log("필기 노트 작성 성공", res.data);
+      window.alert("필기 노트 작성 완료");
     } catch (err) {
       console.error("필기 노트 작성 실패", err);
     }

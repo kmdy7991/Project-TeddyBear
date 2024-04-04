@@ -7,11 +7,14 @@ import { getBookMarkedVideoList } from "./MyLectureAPI";
 import { VideoResultProps } from "../../pages/Main/VideoList/Video";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { useNavigate } from "react-router-dom";
 
 // 북마크 비디오 슬라이드 (마이페이지)
 export default function BookMarkedVideoSlide() {
   const [slideIdx, setSlideIdx] = useState(0);
   const [bookmarkList, setBookmarkList] = useState<VideoResultProps[]>([]);
+
+  const navigate = useNavigate();
 
   const userId = useSelector((state: RootState) => state.user.userId);
   let myPageSlider = {
@@ -47,6 +50,7 @@ export default function BookMarkedVideoSlide() {
               onMouseEnter={() => setSlideIdx(index)}
               onMouseLeave={() => setSlideIdx(-1)}
               style={{ position: "relative", transition: "all 0.3s" }}
+              onClick={() => navigate(`/video/${data.id}`)}
             >
               <img src={data.videoThumbnail}></img>
             </div>
