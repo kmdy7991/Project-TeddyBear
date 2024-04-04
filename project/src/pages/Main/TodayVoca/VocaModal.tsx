@@ -35,39 +35,39 @@ export default function VocaModal({ onClose, data, isOpen }: VocaModalProps) {
     };
   }, [visible, isOpen]);
 
-  return (
-    <div className={`${styles.background}`} onClick={onClose}>
-      <div
-        className={`${styles.modalBox} ${modalClass}`}
-        onClick={handleModalBoxClick}
-      >
-        <div className={`${styles.vocaCard}`}>
-          <img className={`${styles.bookmark}`} src={bookmark} />
-          <div className={`${styles.word}`}>{data.word}</div>
-          <div>
-            <div className={`${styles.part}`}>({data.partOfSpeech})</div>
-            <div className={`${styles.mean}`}>{data.meaning}</div>
-          </div>
-        </div>
-        <div className={`${styles.todayVideo}`}>
-          <div className={`${styles.title}`}>이 단어가 들어간 영상</div>
-          {/* {data.videos?.map((video) => (
-            <div key={video.id} className={`${styles.video}`}>
-              <div className={`${styles.videoI}`}>
-                <img
-                  src={video.imageUrl}
-                  alt={video.title}
-                  className={styles.videoImage}
-                />
-              </div>
-              <div className={`${styles.videoDes}`}>
-                <div className={`${styles.videoT}`}>{video.title}</div>
-                <div className={`${styles.videoD}`}>{video.description}</div>
-              </div>
-            </div>
-          ))} */}
-        </div>
-      </div>
-    </div>
-  );
+  // return (
+  // <div className={`${styles.background}`} onClick={onClose}>
+  //   <div
+  //     className={`${styles.modalBox} ${modalClass}`}
+  //     onClick={handleModalBoxClick}
+  //   >
+  //     <div className={`${styles.vocaCard}`}>
+  //       <img className={`${styles.bookmark}`} src={bookmark} />
+  //       <div className={`${styles.word}`}>{data}</div>
+  //       <div>
+  //         <div className={`${styles.part}`}>({data.partOfSpeech})</div>
+  //         <div className={`${styles.mean}`}>{data.meaning}</div>
+  //       </div>
+  //     </div>
+  //     <div className={`${styles.todayVideo}`}>
+  //       <div className={`${styles.title}`}>이 단어가 들어간 영상</div>
+  //       {data.videos?.map((video) => (
+  //         <div key={video.id} className={`${styles.video}`}>
+  //           <div className={`${styles.videoI}`}>
+  //             <img
+  //               src={video.imageUrl}
+  //               alt={video.title}
+  //               className={styles.videoImage}
+  //             />
+  //           </div>
+  //           <div className={`${styles.videoDes}`}>
+  //             <div className={`${styles.videoT}`}>{video.title}</div>
+  //             <div className={`${styles.videoD}`}>{video.description}</div>
+  //           </div>
+  //         </div>
+  //       ))}
+  //     </div>
+  //   </div>
+  // </div>
+  // );
 }

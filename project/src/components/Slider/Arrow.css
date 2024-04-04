@@ -5,7 +5,9 @@
 .arr-prev,
 .arr-next,
 .page-next,
-.page-prev {
+.page-prev,
+.cate-next,
+.cate-prev {
   font-size: 0;
   line-height: 0;
   position: absolute;
@@ -45,13 +47,15 @@
 
 .slick-vid-next,
 .arr-next,
-.page-next {
+.page-next,
+.cate-next {
   right: 0;
 }
 
 .slick-vid-prev,
 .arr-prev,
-.page-prev {
+.page-prev,
+.cate-prev {
   left: 0;
 }
 
@@ -60,11 +64,20 @@
   bottom: -15%;
 }
 .page-prev img,
-.page-next img {
+.page-next img,
+.cate-prev img,
+.cate-next img {
   width: 2rem;
 }
 
 .page-prev,
-.page-next {
+.page-next,
+.cate-prev,
+.cate-next {
   bottom: -1rem;
+}
+
+.cate-prev,
+.cate-next {
+  margin-bottom: 2.2rem;
 }

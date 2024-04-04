@@ -1,27 +1,42 @@
+.container {
+  min-height: 100vh;
+}
+
 .testContainer {
-  width: 1000px;
-  margin: 100px auto;
-  padding: 50px;
-  /* border: 1px solid #ddd; */
-  border-radius: 8px;
+  margin: 4rem 5rem;
+  padding-top: 5.5rem;
 }
 
 .input[type="text"] {
-  width: calc(100% - 20px);
-  padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  width: 60%;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
+.kor {
+  font-weight: lighter;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.quebox h1 {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
 .button {
-  padding: 10px 20px;
+  padding: 0.5rem 2rem;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 30px;
   cursor: pointer;
+  margin-top: 1.6rem;
+  margin-left: 2rem;
 }
 
 .button:hover {
@@ -30,39 +45,51 @@
 
 /* 정답 및 오답에 대한 피드백 표시를 위한 스타일 */
 .correctAnswer {
-  color: blue;
+  color: rgb(103, 103, 255);
 }
 
 .incorrectAnswer {
-  color: red;
+  color: rgb(255, 60, 60);
 }
 
 .quebox {
   border: 1px solid black;
-  width: 1000px;
-  height: 250px;
+  /* height: 30rem; */
   /* font-size: 30px; */
   text-align: center;
-  padding-top: 100px;
-  padding-bottom: 50px;
-  margin-top: 20px;
+  padding-top: 8rem;
+  padding-bottom: 5rem;
+  margin-top: 2rem;
 }
 
 .scrbox {
   border: 1px solid black;
-  width: 1000px;
-  height: 150px;
+  /* width: 1000px; */
+  /* height: 150px; */
   /* font-size: 30px; */
   text-align: center;
 }
 
 .ansbox {
-  width: 500px;
-  height: 50px;
+  width: 50%;
+  height: 3rem;
   text-align: center;
-  margin-top: 50px;
+  margin-top: 5rem;
 }
 
 .check {
-  margin-top: 50px;
+  margin-top: 4rem;
+}
+
+.inputbtn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.buttondiv {
+  display: flex;
+  margin-top: 3rem;
+  /* justify-content: center; */
+  align-items: center;
 }
