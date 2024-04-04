@@ -6,7 +6,7 @@ spring:
     name: user-service
 
   datasource:
-    url: jdbc:mysql://j10b107.p.ssafy.io:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+    url: jdbc:mysql://mysql:3306/test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
     username: root
     password: ssafy
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -33,7 +33,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: https://j10b107.p.ssafy.io:8761/eureka
+      defaultZone: http://discovery:8761/eureka
 
 #logging:
 #  level:
