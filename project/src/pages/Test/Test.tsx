@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store"; // 경로는 프로젝트 설정에 따라 달라질 수 있습니다.
 import TestScore from "./TestScore";
@@ -9,6 +9,7 @@ import Nav from "../../components/Nav/Nav";
 import styles from "./Test.module.css";
 import { loadingActions } from "../../store/loading";
 import Loading from "../../components/Loading";
+
 interface ScriptData {
   id: number;
   content: string;
@@ -22,7 +23,16 @@ interface Quiz {
 }
 
 const Test = () => {
+  function useQuery() {
+    const { search } = useLocation();
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+  }
+
   const { videoId } = useParams<{ videoId: string }>(); // URL에서 videoId 추출
+
+  const query = useQuery();
+  const videoStringId = useParams().videoStringId; // `useParams`를 사용하여 경로 파라미터 접근
+  const id = query.get("id"); // 쿼리 파라미터 중 'id' 값을 추출
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
 
   const [isAnswerChecked, setIsAnswerChecked] = useState(false);
@@ -116,6 +126,39 @@ const Test = () => {
       } else {
         setModalOpen(true); // 모든 문제를 풀었으므로 모달 표시
       }
+    }
+  };
+
+  useEffect(() => {
+    if (modalOpen) {
+      // 모달이 열렸을 때 실행할 로직
+      submitVideoWatchData();
+    }
+  }, [modalOpen]); // modalOpen 상태가 변할 때마다 실행
+
+  const submitVideoWatchData = async () => {
+    // 함수에 videoId 파라미터 추가
+    try {
+      const response = await axios.put(
+        `/api/video-service/watch`,
+        {
+          videoWatched: true, // 비디오 시청 상태를 true로 설정
+          userId: userId, // 현재 사용자의 ID
+          videoId: videoId, // 함수 호출 시 전달된 videoId 사용
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`, // 인증 토큰
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Video watch data submitted successfully", response.data);
+      // 성공적으로 데이터를 제출한 후 추가 작업을 여기에 구현할 수 있습니다.
+    } catch (error) {
+      console.error("Failed to submit video watch data", error);
+      // 오류 처리 로직을 여기에 구현할 수 있습니다.
     }
   };
 
