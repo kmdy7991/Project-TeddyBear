@@ -2,9 +2,9 @@ package com.teddybear.userservice.global.oauth2.service;
 
 import com.teddybear.userservice.domain.entity.Tier;
 import com.teddybear.userservice.domain.entity.User;
-import com.teddybear.userservice.domain.entity.categoryService.UserCategory;
+//import com.teddybear.userservice.domain.entity.categoryService.UserCategory;
 import com.teddybear.userservice.domain.repository.TierRepository;
-import com.teddybear.userservice.domain.repository.UserCategoryRepository;
+//import com.teddybear.userservice.domain.repository.UserCategoryRepository;
 import com.teddybear.userservice.domain.repository.UserRepository;
 import com.teddybear.userservice.global.oauth2.dto.CustomOAuth2User;
 import com.teddybear.userservice.global.oauth2.dto.OAuthAttributes;
@@ -43,7 +43,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     private final UserRepository userRepository;
     private final TierRepository tierRepository;
-    private final UserCategoryRepository userCategoryRepository;
+//    private final UserCategoryRepository userCategoryRepository;
     private final HttpSession httpSession;
 
     @Override
@@ -102,16 +102,16 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                         .levelExp(0L)
                         .build());
 
-        userCategoryRepository.save(UserCategory.builder()
-                .user(savedUser)
-                .life(0L)
-                .society(0L)
-                .it(0L)
-                .sports(0L)
-                .world(0L)
-                .politics(0L)
-                .economy(0L)
-                .build());
+//        userCategoryRepository.save(UserCategory.builder()
+//                .user(savedUser)
+//                .life(0L)
+//                .society(0L)
+//                .it(0L)
+//                .sports(0L)
+//                .world(0L)
+//                .politics(0L)
+//                .economy(0L)
+//                .build());
 
         return savedUser;
     }
