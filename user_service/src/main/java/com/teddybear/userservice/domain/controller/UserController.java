@@ -1,13 +1,13 @@
 package com.teddybear.userservice.domain.controller;
 
-import com.teddybear.userservice.domain.dto.UserDto;
 import com.teddybear.userservice.domain.service.UserService;
+import com.teddybear.userservice.domain.dto.UserDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user-service")
+@RequestMapping("/user-service")
 public class UserController {
 
     private final UserService userService;
@@ -53,6 +53,15 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
+    @GetMapping("/user/concern/{id}")
+    public ResponseEntity<String> findConcernById(@PathVariable Long id) throws Exception {
+        String response = userService.findConcernById(id);
+        if (response != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+
     @PostMapping("/findId")
     public ResponseEntity<Long> findIdByEmail(@RequestBody String email) throws Exception {
         Long response = userService.findIdByEmail(email);
@@ -72,8 +81,8 @@ public class UserController {
     }
 
     @PutMapping("/tier/upgradeTier/{id}")
-    public ResponseEntity<String> upgradeTier(@PathVariable Long id, @RequestBody String firstTier) {
-        boolean success = userService.upgradeTier(id, firstTier);
+    public ResponseEntity<String> upgradeTier(@PathVariable Long id, @RequestBody UserDto.TierNameRequest tierNameRequest) {
+        boolean success = userService.upgradeTier(id, tierNameRequest);
         if (success) {
             return ResponseEntity.ok("Tier updated successfully");
         }

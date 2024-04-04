@@ -4,8 +4,14 @@ spring:
       client:
         registration:
           google:
+<<<<<<< HEAD
             client-id: 935815811016-o8tk6f6a3n0o7gngvmb2pto5bps23nr5.apps.googleusercontent.com
             client-secret: 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
+=======
+            client-id: 443022535247-v1gmo6vrei8n1q7bfv6ahfvfo2fj8fs2.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: https://j10b107.p.ssafy.io:8086/login/oauth2/code/google
+>>>>>>> ec8aabd85e550255cb869d10a53699551aeec5e3
             scope:
               - email
               - profile
