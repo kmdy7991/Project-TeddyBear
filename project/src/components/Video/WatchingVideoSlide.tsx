@@ -7,6 +7,7 @@ import { VideoResultProps } from "../../pages/Main/VideoList/Video";
 import { getWatchingVideoList } from "./MyLectureAPI";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { useNavigate } from "react-router-dom";
 export default function WatchingVideoSlide() {
   const [slideIdx, setSlideIdx] = useState(0);
   const [watchingSlideList, setWatchingSlideList] = useState<
@@ -21,6 +22,7 @@ export default function WatchingVideoSlide() {
     nextArrow: <MyPageNextArrow />,
     prevArrow: <MyPagePrevArrow />,
   };
+  const navigate = useNavigate();
 
   const userId = useSelector((state: RootState) => state.user.userId);
 
@@ -48,6 +50,7 @@ export default function WatchingVideoSlide() {
               onMouseEnter={() => setSlideIdx(index)}
               onMouseLeave={() => setSlideIdx(-1)}
               style={{ position: "relative", transition: "all 0.3s" }}
+              onClick={() => navigate(`/video/${data.id}`)}
             >
               <img src={data.videoThumbnail}></img>
             </div>
