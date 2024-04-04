@@ -2,7 +2,9 @@ package com.teddybear.userservice.global.oauth2.service;
 
 import com.teddybear.userservice.domain.entity.Tier;
 import com.teddybear.userservice.domain.entity.User;
+import com.teddybear.userservice.domain.entity.categoryService.UserCategory;
 import com.teddybear.userservice.domain.repository.TierRepository;
+import com.teddybear.userservice.domain.repository.UserCategoryRepository;
 import com.teddybear.userservice.domain.repository.UserRepository;
 import com.teddybear.userservice.global.oauth2.dto.CustomOAuth2User;
 import com.teddybear.userservice.global.oauth2.dto.OAuthAttributes;
@@ -41,6 +43,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     private final UserRepository userRepository;
     private final TierRepository tierRepository;
+    private final UserCategoryRepository userCategoryRepository;
     private final HttpSession httpSession;
 
     @Override
@@ -63,6 +66,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         User createdUser = getUser(extractAttributes, accessToken);
 
         httpSession.setAttribute("id", createdUser.getId());
+        httpSession.setAttribute("AccessToken", accessToken);
 
         return new CustomOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(createdUser.getRole().getKey())),
@@ -98,25 +102,18 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                         .levelExp(0L)
                         .build());
 
+        userCategoryRepository.save(UserCategory.builder()
+                .user(savedUser)
+                .life(0L)
+                .society(0L)
+                .it(0L)
+                .sports(0L)
+                .world(0L)
+                .politics(0L)
+                .economy(0L)
+                .build());
+
         return savedUser;
-    }
-
-    private YouTube getYouTubeService(String accessToken) {
-        // HttpTransport와 JsonFactory 명시적 초기화
-        HttpTransport httpTransport = new NetHttpTransport();
-        JsonFactory jsonFactory = new JacksonFactory();
-
-        // 수정된 GoogleCredential 초기화 방법
-        GoogleCredential credential = new GoogleCredential.Builder()
-                .setTransport(httpTransport)
-                .setJsonFactory(jsonFactory)
-                .build()
-                .setAccessToken(accessToken);
-
-        // YouTube 서비스 객체 생성
-        return new YouTube.Builder(httpTransport, jsonFactory, request -> {})
-                .setApplicationName("your-application-name")
-                .build();
     }
 
     public String fetchSubscriptionList(String accessToken) {

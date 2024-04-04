@@ -2,12 +2,12 @@ package com.teddybear.userservice.global.config;
 
 //import com.example.authservice.domain.Role;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.teddybear.userservice.domain.repository.UserRepository;
-import com.teddybear.userservice.global.jwt.filter.JwtAuthenticationProcessingFilter;
-import com.teddybear.userservice.global.jwt.service.JwtService;
+//import com.teddybear.userservice.global.jwt.filter.JwtAuthenticationProcessingFilter;
+//import com.teddybear.userservice.global.jwt.service.JwtService;
 import com.teddybear.userservice.global.oauth2.handler.OAuth2LoginFailureHandler;
 import com.teddybear.userservice.global.oauth2.handler.OAuth2LoginSuccessHandler;
 import com.teddybear.userservice.global.oauth2.service.CustomOAuth2UserService;
+import com.teddybear.userservice.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
-    private final JwtService jwtService;
+//    private final JwtService jwtService;
     private final UserRepository userRepository;
     private final ObjectMapper objectMapper;
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
@@ -62,7 +62,7 @@ public class SecurityConfig {
 //                        .anyRequest().authenticated() // 나머지 URL은 로그인한 사용자들에게만 허용
                 )
                 .logout( // 로그아웃 성공 시 / 주소로 이동
-                        (logoutConfig) -> logoutConfig.logoutSuccessUrl("http://localhost:3000/landing")
+                        (logoutConfig) -> logoutConfig.logoutSuccessUrl("http://j10b107.p.ssafy.io/landing")
                 )
                 .oauth2Login(oauth -> oauth
                         .successHandler(oAuth2LoginSuccessHandler) // 동의하고 계속하기를 눌렀을 때 Handler 설정
@@ -74,13 +74,13 @@ public class SecurityConfig {
         // 원래 스프링 시큐리티 필터 순서가 LogoutFilter 이후에 로그인 필터 동작
         // 따라서, LogoutFilter 이후에 우리가 만든 필터 동작하도록 설정
         // 순서 : LogoutFilter -> JwtAuthenticationProcessingFilter
-        http.addFilterAfter(jwtAuthenticationProcessingFilter(), LogoutFilter.class);
+//        http.addFilterAfter(jwtAuthenticationProcessingFilter(), LogoutFilter.class);
 
         return http.build();
     }
-    @Bean
-    public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
-        JwtAuthenticationProcessingFilter jwtAuthenticationFilter = new JwtAuthenticationProcessingFilter(jwtService, userRepository);
-        return jwtAuthenticationFilter;
-    }
+//    @Bean
+//    public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
+//        JwtAuthenticationProcessingFilter jwtAuthenticationFilter = new JwtAuthenticationProcessingFilter(jwtService, userRepository);
+//        return jwtAuthenticationFilter;
+//    }
 }

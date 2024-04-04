@@ -1,5 +1,6 @@
 package com.teddybear.userservice.domain.entity;
 
+import com.teddybear.userservice.domain.entity.categoryService.UserCategory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,10 @@ public class User {
     @OneToOne(mappedBy = "user", orphanRemoval = true)
     @JoinColumn(name = "tier_seq")
     private Tier tier;
+
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    @JoinColumn(name = "user_category_seq")
+    private UserCategory userCategory;
 
     @Column(nullable = false)
     private String email;
