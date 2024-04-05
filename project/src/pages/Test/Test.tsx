@@ -206,7 +206,6 @@ const Test = () => {
         </div>
 
         <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-          <p>총점: {correctAnswersCount * 10}점</p>
           <TestScore
             correctAnswers={correctAnswersCount * 10}
             userId={userId}
