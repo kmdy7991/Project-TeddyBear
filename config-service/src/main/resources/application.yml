@@ -1,5 +1,5 @@
 server:
-    port: 8763
+    port: ${CONFIG_HOST}
 
 spring:
     application:
@@ -7,9 +7,9 @@ spring:
 
     rabbitmq:
         host: rabbitmq
-        port: 5672
-        username: ssafy
-        password: b107
+        port: ${RABBIT_PORT}
+        username: ${RABBIT_NAME}
+        password: ${RABBIT_PW}
 
     #  profiles:
     #    active: native
@@ -20,9 +20,9 @@ spring:
                 #        native:
                 #          search-locations: file:///${user.home}/Desktop/git-repo/native
                 git:
-                    uri: https://lab.ssafy.com/kmdy7991/springcloud.git
-                    username: kmdy7991@naver.com
-                    password: w4VXzyDs4Wg9XshL1jRb
+                    uri: ${GIT_URL}
+                    username: ${GIT_ID}
+                    password: ${GIT_TOKEN}
                     default-label: master
 
 management:
@@ -32,4 +32,4 @@ management:
                 include: health, busrefresh
 
 encrypt:
-    key: fdsjafjkhalskhuwetyioghadsjklvbzxj
+    key: ${ENCRYPT}
