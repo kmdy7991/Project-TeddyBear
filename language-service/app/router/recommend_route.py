@@ -7,13 +7,10 @@ recommend_router = APIRouter()
 
 @recommend_router.post("/recommend/info", response_model=list[response_recommend])
 def recommend_item(requests: request_recommendInfo):
-    print(requests)
     result = cos_sim(requests)
 
-    print(result)
     response = []
-    for (key, value) in result.items():
-        print(key)
+    for (key, value) in result:
         response.append(response_recommend(videoId=key))
 
-    return response
+    return response[:15]

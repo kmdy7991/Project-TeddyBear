@@ -67,19 +67,22 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 def cos_sim(requests: request_recommendInfo):
     similar_docs = []
+
     origin = preprocess(requests.concern)
     similar_docs.append(origin)
-    for i in requests.videoDtoList:
-        similar_docs.append(preprocess(i.video_transcript))
-
-    similar_docs = vectorized.fit_transform(similar_docs).todense()
+    
+    for i, idx in enumerate(requests.videoDtoList):
+        similar_docs.append(preprocess(idx.video_transcript))
 
     result = []
-    for i in range(1, len(similar_docs)):
-        result.append((requests.videoDtoList[i].video_id, cosine_similarity(similar_docs[0], similar_docs[i])))
+    similar_text = TfidfVectorizer().fit_transform(similar_docs)
 
-    result.sort(key=lambda x: x[1], reverse=True)
+    for i in range(1, len(similar_docs) - 1):
+        origin = similar_text[0:1]
+        compare = similar_text[i:i + 1]
+        
+        result.append((requests.videoDtoList[i].video_id, cosine_similarity(origin, compare)))
+        
+        result.sort(key=lambda x: x[1], reverse=True)
+
     return result[:15]
-
-
-vectorized = TfidfVectorizer()
