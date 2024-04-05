@@ -24,6 +24,8 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -63,16 +65,13 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public List<ResponseVideo> getVideoByTitle(String videoTitle) {
-//        System.out.println("Service Received videoTitle: " + videoTitle);
-//        log.info("list size = {}", list.size());
-//        log.info("list get = {}", list.get(0).getVideoTitle());
         List<VideoEntity> list = videoRepository.searchTitle(videoTitle);
 
         if (list == null || list.isEmpty()) {
             return null;
         }
         List<ResponseVideo> responseVideos = new ArrayList<>();
-        for(VideoEntity videoEntity : list) {
+        for (VideoEntity videoEntity : list) {
             ResponseVideo responseVideo = ResponseVideo.builder()
                     .id(videoEntity.getId())
                     .videoTitle(videoEntity.getVideoTitle())
@@ -168,7 +167,7 @@ public class VideoServiceImpl implements VideoService {
 
         // VideoEntity를 ResponseVideo로 변환
         List<ResponseVideo> responseVideos = new ArrayList<>();
-        for(VideoEntity videoEntity : videoEntities) {
+        for (VideoEntity videoEntity : videoEntities) {
             ResponseVideo responseVideo = ResponseVideo.builder()
                     .id(videoEntity.getId())
                     .videoTitle(videoEntity.getVideoTitle())
@@ -196,25 +195,25 @@ public class VideoServiceImpl implements VideoService {
         // 유저 아이디에 영상 아이디가 있으면 추가 안함
         boolean exists = watchVideoRepository.existsByUserIdAndVideo_Id(userId, videoId);
 
-        if(!exists) {
+        if (!exists) {
 //        System.out.println("videoId: " + videoId);
-        VideoEntity videoEntity = videoRepository.findById(videoId)
-                .orElseThrow(() -> new IllegalArgumentException("Video with id " + videoId + " not found"));
+            VideoEntity videoEntity = videoRepository.findById(videoId)
+                    .orElseThrow(() -> new IllegalArgumentException("Video with id " + videoId + " not found"));
 //        System.out.println("videoEntity: " + videoEntity.getVideoId());
 
-        // RequestWatchVideo를 WatchVideoEntity로 변환
-        WatchVideoEntity watchVideoEntity = WatchVideoEntity.builder()
-                .videoWatched(requestWatchVideo.isVideoWatched())
-                .userId(requestWatchVideo.getUserId())
-                .video(videoEntity)
-                .build();
+            // RequestWatchVideo를 WatchVideoEntity로 변환
+            WatchVideoEntity watchVideoEntity = WatchVideoEntity.builder()
+                    .videoWatched(requestWatchVideo.isVideoWatched())
+                    .userId(requestWatchVideo.getUserId())
+                    .video(videoEntity)
+                    .build();
 
-        watchVideoRepository.save(watchVideoEntity);
+            watchVideoRepository.save(watchVideoEntity);
 
-        categoryClient.countUpCategory(UserCategoryRequestDto.builder()
-                        .videoId(videoEntity.getVideoId())
-                        .userId(requestWatchVideo.getUserId())
-                .build());
+            categoryClient.countUpCategory(UserCategoryRequestDto.builder()
+                    .videoId(videoEntity.getVideoId())
+                    .userId(requestWatchVideo.getUserId())
+                    .build());
 
         }
     }
@@ -250,7 +249,7 @@ public class VideoServiceImpl implements VideoService {
         boolean exist = bookmarkVideoRepository.existsByVideoIdAndUserId(videoId, userId);
         System.out.println("exist: " + exist);
 
-        if(!exist){
+        if (!exist) {
             BookmarkVideoEntity bookmarkVideoEntity = BookmarkVideoEntity.builder()
                     .userId(userId)
                     .video(videoEntity)
@@ -282,15 +281,13 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public List<String> getTailoredVideos(Long userId) {
-        log.info("service in = {}", userId);
-        if (userClient.findConcernById(userId) != null) {
-            return languageClient.videoIdInfo(PythonDto.builder()
-                    .videoDtoList(translatedVideoRepository.findAll().subList(0, 30))
-                    .concern(userClient.findConcernById(userId))
-                    .build());
-        }
-        return null;
+    public List<ResponseRecommendDto> getTailoredVideos(Long userId) {
+        String concernById = userClient.findConcernById(userId).orElseThrow(NoSuchElementException::new);
+
+        return languageClient.videoIdInfo(PythonDto.builder()
+                .videoDtoList(translatedVideoRepository.findAll().subList(0, 50))
+                .concern("영어 천재가 되고 싶다 오픽 최강 토스 고득점 토익")
+                .build());
     }
 
     @Override
@@ -395,7 +392,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public boolean updateNoteByNoteId(Long noteId, UpdateNote  updatedNote) {
+    public boolean updateNoteByNoteId(Long noteId, UpdateNote updatedNote) {
         NoteEntity note = noteRepository.findById(noteId)
                 .orElseThrow(() -> new RuntimeException("Note not found"));
 
@@ -413,7 +410,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public boolean updateNoteContent(Long userId, Long videoId, UpdateNote  updatedNote) {
+    public boolean updateNoteContent(Long userId, Long videoId, UpdateNote updatedNote) {
         // 주어진 userId와 videoId에 해당하는 NoteEntity 찾기
         NoteEntity note = noteRepository.findByUserIdAndVideoId(userId, videoId);
         if (note != null) {
@@ -435,8 +432,6 @@ public class VideoServiceImpl implements VideoService {
     public boolean existWatchVideo(Long userId, Long videoId) {
         return watchVideoRepository.existsByUserIdAndVideoId(userId, videoId);
     }
-
-
 
 
 }
