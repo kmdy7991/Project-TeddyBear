@@ -4,12 +4,14 @@ interface userReduxProps {
   isLoggedIn: boolean;
   userId: number;
   userNickName: string;
+  userTier: string;
 }
 
 const initialState: userReduxProps = {
   isLoggedIn: false,
   userId: 0,
   userNickName: "",
+  userTier: "",
 };
 
 const userSlice = createSlice({
@@ -21,6 +23,7 @@ const userSlice = createSlice({
       state.userId = action.payload.userId;
       state.isLoggedIn = true;
       state.userNickName = action.payload.userNickName;
+      state.userTier = action.payload.userTier;
     },
 
     logoutUser: (state) => {
@@ -28,6 +31,7 @@ const userSlice = createSlice({
       state.userId = 0;
       state.userNickName = "";
       state.isLoggedIn = false;
+      state.userTier = "";
     },
   },
 });

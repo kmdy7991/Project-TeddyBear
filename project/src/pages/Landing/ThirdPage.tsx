@@ -1,6 +1,7 @@
 import styles from "./thirdPage.module.css";
 import bteddy from "../../assets/blue_teddy.png";
 import { useEffect, useRef, useState } from "react";
+import LoginNav from "../../components/Nav/LoginNav";
 function ThirdPage() {
   const [isVisible, setIsVisible] = useState(false);
   // 요소 참조 저장
@@ -38,6 +39,7 @@ function ThirdPage() {
   }, []);
   return (
     <div ref={descriptionRef} className={`${styles.pageContainer}`}>
+      <LoginNav />
       <div
         className={`${styles.description} ${isVisible ? styles.isVisible : ""}`}
       >

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import pteddy from "../../assets/purple_teddy.png";
 import styles from "./secPage.module.css";
+import LoginNav from "../../components/Nav/LoginNav";
 
 function SecPage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -39,6 +40,7 @@ function SecPage() {
   }, []);
   return (
     <div ref={descriptionRef} className={`${styles.pageContainer}`}>
+      <LoginNav />
       <div
         className={`${styles.description} ${isVisible ? styles.isVisible : ""}`}
       >
