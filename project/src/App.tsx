@@ -54,7 +54,7 @@ function App() {
             </Route>
             <Route path="/video/:videoId" element={<VideoDetail />} />
             <Route
-              path="category/:categoryId"
+              path="category/:categoryName"
               element={<CategoryVideoList />}
             />
             <Route path="/test/:videoId" element={<Test />} />

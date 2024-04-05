@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./fouthPage.module.css";
 import gteddy from "../../assets/green_teddy.png";
+import LoginNav from "../../components/Nav/LoginNav";
 function FourthPage() {
   const [isVisible, setIsVisible] = useState(false);
   // 요소 참조 저장
@@ -38,6 +39,7 @@ function FourthPage() {
   }, []);
   return (
     <div ref={descriptionRef} className={`${styles.pageContainer}`}>
+      <LoginNav />
       <div
         className={`${styles.description} ${isVisible ? styles.isVisible : ""}`}
       >
