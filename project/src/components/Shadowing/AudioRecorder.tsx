@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ShadowingProps } from "../../pages/Video/VideoDetail";
-
+import play from "../../assets/play.png";
+import stop from "../../assets/stop.png";
+import "./AudioRecorder.css";
 // App 컴포넌트 정의
 const AudioComponent = ({ selectedLine }: ShadowingProps) => {
   // 오디오 스트림, MediaRecorder 인스턴스, 녹음 상태, 오디오 소스, 분석기, 오디오 URL, 버튼 활성화 상태를 저장하기 위한 상태 변수
@@ -141,10 +143,10 @@ const AudioComponent = ({ selectedLine }: ShadowingProps) => {
   // 컴포넌트 렌더링: 녹음 시작/중지, 재생, 발음 평가 버튼
   return (
     <>
-      <button onClick={onRec ? onRecAudio : offRecAudio}>
+      <button onClick={onRec ? onRecAudio : offRecAudio} className="rec">
         {onRec ? "녹음 시작" : "녹음 중지"}
       </button>
-      <button onClick={playAndUpload} disabled={!audioUrl}>
+      <button onClick={playAndUpload} disabled={!audioUrl} className="play">
         재생
       </button>
     </>

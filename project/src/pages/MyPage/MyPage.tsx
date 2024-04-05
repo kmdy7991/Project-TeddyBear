@@ -4,7 +4,7 @@ import styles from "./MyPage.module.css";
 import Statistics from "./Statstics/Statstics";
 import MyLecture from "./MyLecture/MyLecture";
 import MyNote from "./MyNote/MyNote";
-import gold from "../../assets/testTier.png";
+import gold from "../../assets/Tier/gold.png";
 import { useNavigate } from "react-router-dom";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,11 +14,11 @@ import { loadingActions } from "../../store/loading";
 import { userActions } from "../../store/user";
 import { GetUserTier } from "../../components/User/UserTier";
 
-type tab = "statistics" | "myLecture" | "myNote";
+type tab = "myLecture" | "myNote";
 
 export default function MyPage() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<tab>("statistics");
+  const [activeTab, setActiveTab] = useState<tab>("myLecture");
 
   const [tier, setTier] = useState("");
   const [level, setLevel] = useState(0);
@@ -59,14 +59,12 @@ export default function MyPage() {
 
   function renderPage() {
     switch (activeTab) {
-      case "statistics":
-        return <Statistics />;
       case "myLecture":
         return <MyLecture />;
       case "myNote":
         return <MyNote />;
       default:
-        return <Statistics />;
+        return <MyLecture />;
     }
   }
 
@@ -112,11 +110,10 @@ export default function MyPage() {
           <div className={`${styles.tn}`}>
             <div className={`${styles.tierL}`}>
               <img src={gold} alt="테스트 티어 이미지" />
-              <div className={`${styles.tierName}`}>{tier}</div>
+              <div className={`${styles.tierName}`}>A2</div>
             </div>
-            <div className={`${styles.nickname}`}>닉네임</div>
           </div>
-          <div className={`${styles.exps}`}>
+          {/* <div className={`${styles.exps}`}>
             <div className={`${styles.tier}`}>
               <div className={`${styles.tierS}`}>티어 이미지</div>
               <div className={`${styles.exp}`}>경험치 퍼센트</div>
@@ -125,7 +122,7 @@ export default function MyPage() {
               <div className={`${styles.level}`}>레벨 이미지</div>
               <div className={`${styles.exp}`}>경험치 퍼센트</div>
             </div>
-          </div>
+          </div> */}
           <div className={`${styles.setting}`}>
             <div>
               <button onClick={handleLogout}>로그아웃</button>
@@ -137,7 +134,7 @@ export default function MyPage() {
         </div>
         <div className={`${styles.page}`}>
           <div className={`${styles.tab}`}>
-            <button
+            {/* <button
               className={
                 activeTab === "statistics"
                   ? `${styles.tabButton} ${styles.tabButtonActive}`
@@ -146,7 +143,7 @@ export default function MyPage() {
               onClick={handleClickTab("statistics")}
             >
               학습 통계
-            </button>
+            </button> */}
             <button
               className={
                 activeTab === "myLecture"

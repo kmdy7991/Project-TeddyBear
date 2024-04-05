@@ -6,6 +6,7 @@ import { VideoResultProps } from "../../pages/Main/VideoList/Video";
 import { getWatchedVideoList } from "./MyLectureAPI";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { useNavigate } from "react-router-dom";
 export default function WatchedVideoSlide() {
   const [slideIdx, setSlideIdx] = useState(0);
   const [watchedSlideList, setWatchedSlideList] = useState<VideoResultProps[]>(
@@ -22,6 +23,7 @@ export default function WatchedVideoSlide() {
   };
 
   const userId = useSelector((state: RootState) => state.user.userId);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchedWatchedList = async () => {
@@ -47,6 +49,7 @@ export default function WatchedVideoSlide() {
               onMouseEnter={() => setSlideIdx(index)}
               onMouseLeave={() => setSlideIdx(-1)}
               style={{ position: "relative", transition: "all 0.3s" }}
+              onClick={() => navigate(`/video/${data.id}`)}
             >
               <img src={data.videoThumbnail}></img>
             </div>
