@@ -203,8 +203,6 @@ export default function VideoDetail() {
     switch (activeTab) {
       case "mic":
         return <Shadowing selectedLine={selectedScriptLine || null} />;
-      case "word":
-        return <Word />;
       case "note":
         if (videoData && videoData.id !== undefined) {
           // videoData가 존재하고, videoData.id가 undefined가 아니라면
@@ -244,7 +242,12 @@ export default function VideoDetail() {
               </div>
               <div className={`${styles.testBtn} ${styles.tooltip}`}>
                 {/* App.tsx에서 학습완료페이지/:비디오번호로 동적 수정해야함 */}
-                <button onClick={() => navigate(`/test/${videoStringId}`)}>
+                <button
+                  onClick={() =>
+                    // videoData?.id를 쿼리 파라미터로 전달
+                    navigate(`/test/${videoStringId}?id=${videoData?.id}`)
+                  }
+                >
                   <img src={dotted} alt="학습중" />
                 </button>
                 <span className={`${styles.tooltipText}`}>
@@ -315,14 +318,6 @@ export default function VideoDetail() {
                 onClick={handleClickTab("note")}
               >
                 <img src={note} alt="강의노트" />
-              </button>
-            </div>
-            <div>
-              <button
-                className={`${styles.tabButton}`}
-                onClick={handleClickTab("word")}
-              >
-                <img src={word} alt="단어장" />
               </button>
             </div>
           </div>

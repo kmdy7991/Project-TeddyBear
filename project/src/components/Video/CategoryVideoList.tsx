@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Categories from "./Category";
 import styles from "./CategoryVideoList.module.css";
 import Nav from "../Nav/Nav";
@@ -17,6 +17,7 @@ export default function CategoryVideoList() {
   const [videoIdList, setVideoIdList] = useState([]);
   const [videoList, setVideoList] = useState<VideoResultProps[]>([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const loading = useSelector(
     (state: RootState) => state.loading["CATEGORY-LIST"]
   );
@@ -176,7 +177,10 @@ export default function CategoryVideoList() {
         <div className={`${styles.category}`}>{categoryName}</div>
         <div className={`${styles.videolist}`}>
           {currentVideos?.map((video) => (
-            <div className={`${styles.video}`}>
+            <div
+              className={`${styles.video}`}
+              onClick={() => navigate(`/video/${video.id}`)}
+            >
               <div className={`${styles.videoImg}`}>
                 <img src={video.videoThumbnail} alt="썸네일 이미지" />
               </div>
