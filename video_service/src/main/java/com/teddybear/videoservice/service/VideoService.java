@@ -15,7 +15,7 @@ public interface VideoService {
     void updateWatchVideo(RequestWatchVideo requestWatchVideo);
     void bookmarkVideo(RequestBookmarkVideo requestBookmarkVideo);
     List<ResponseVideo> getVideoByUserId(Long userId);
-    List<String> getTailoredVideos(Long userId);
+    List<ResponseRecommendDto> getTailoredVideos(Long userId);
     void deleteBookmarkedVideo(RequestBookmarkVideo requestBookmarkVideo);
     void createNote(RequestNote requestNote);
     ResponseNote getNote(Long userId, Long videoId);
