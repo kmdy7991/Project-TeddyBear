@@ -11,8 +11,7 @@ server:
 spring:
   cloud:
     config:
-      name: teddy
-      profile: gate
+      name: gate
 
 
   application:
