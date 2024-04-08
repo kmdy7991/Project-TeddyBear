@@ -22,6 +22,24 @@ export const getBookMarkedVideoList = async (userId: number) => {
   }
 };
 
+export const getTastedVideoList = async (userId: number) => {
+  try {
+    const response = await axios.get(
+      `/api/video-service/videos/user/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log("맞춤형 추천 영상 조회 성공:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("맞춤형 추천 영상 조회 실패", error);
+  }
+};
+
 // 시청완료 영상 조회 api
 export const getWatchedVideoList = async (userId: number) => {
   try {

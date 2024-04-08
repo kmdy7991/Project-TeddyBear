@@ -110,8 +110,9 @@ export default function MyPage() {
           <div className={`${styles.tn}`}>
             <div className={`${styles.tierL}`}>
               <img src={gold} alt="테스트 티어 이미지" />
-              <div className={`${styles.tierName}`}>A2</div>
+              <div className={`${styles.tierName}`}>{tier}</div>
             </div>
+            <div className={`${styles.nickname}`}>{nickname}</div>
           </div>
           {/* <div className={`${styles.exps}`}>
             <div className={`${styles.tier}`}>
