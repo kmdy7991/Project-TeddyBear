@@ -1,8 +1,8 @@
 <div align="center">
-<img src="https://github.com/5T1F/SuQuiz/assets/106129404/efca27ec-d8a1-43bb-a1dc-d6fd813c9643" />
+<img src="" />
 </div>
 
-# SuQuiz(수퀴즈) : 수어 학습 서비스
+# Teddy Bear(테디베어) : 영어 학습 서비스
 ### 목차
 [1. 서비스 소개](#서비스-소개)
 [2. 제작 기간 및 참여 인원](#제작-기간-및-참여-인원)
@@ -34,7 +34,7 @@
 
 | 📌 **문경림** | 📌 **이서윤** | 📌 **최다희** | 📌 **최은희** | 📌 **박지운** | 📌 **이대영** |
 | :------: | :------: | :------: | :------: | :------: | :------: |
-|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/858bc88d-865b-4eda-87f2-093af550aedc" height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/794ca586-edbc-4d13-93a1-123dfd84d5ce" height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/19a8c2a8-ad9e-4af7-aaed-6ad082adf55e"  height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/b41460bd-b02d-4803-b3eb-9e2455cb04be" height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/0ab5b2cf-9d03-4bb8-aa2e-94afb14e837f" height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/0ab5b2cf-9d03-4bb8-aa2e-94afb14e837f" height="120"/>|
+|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/b41460bd-b02d-4803-b3eb-9e2455cb04be" height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/b41460bd-b02d-4803-b3eb-9e2455cb04be" height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/b41460bd-b02d-4803-b3eb-9e2455cb04be" height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/b41460bd-b02d-4803-b3eb-9e2455cb04be" height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/b41460bd-b02d-4803-b3eb-9e2455cb04be" height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/b41460bd-b02d-4803-b3eb-9e2455cb04be" height="120"/>|
 |**팀장**|👩‍💻**FE**|👨‍💻**BE**|👨‍💻**BE**|👨‍💻**BE**|👨‍💻**BE & Infra**|
 | PM | 상태 관리, UI/UX | [APIgateway, discovery, script, video, word] 서비스 | [category, user, video, test] 서비스, 소셜 로그인 | AI 학습, [test] 서비스 | 아키텍처 설계, CI/CD 구축, AI 학습, [language, video, user] 서비스, 소셜 로그인 |
 |[![Github](https://img.shields.io/badge/soberdam-434343?style=for-the-badge&logo=github&logoColor=white)](https://github.com)|[![Github](https://img.shields.io/badge/HyunEnn-59CAEF?style=for-the-badge&logo=github&logoColor=white)](https://github.com/westyunn)|[![Github](https://img.shields.io/badge/yuncheol%20AHN-FFC605?style=for-the-badge&logo=github&logoColor=white)](https://github.com/HeeHiHee)|[![Github](https://img.shields.io/badge/gilukji226-7DF475?style=for-the-badge&logo=github&logoColor=white)](https://github.com/gilukji226) |[![Github](https://img.shields.io/badge/pado7sea-EB3A9D?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Junikarp)|[![Github](https://img.shields.io/badge/pado7sea-EB3A9D?style=for-the-badge&logo=github&logoColor=white)](https://github.com)|
