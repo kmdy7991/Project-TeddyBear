@@ -52,7 +52,7 @@ function VideoList() {
       }
     };
     fetchTasteList();
-  }, [tasteList]);
+  }, [userId]);
 
   useEffect(() => {
     const fetchVideoDetails = async () => {
