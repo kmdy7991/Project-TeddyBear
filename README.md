@@ -45,7 +45,7 @@
 
 | **📌 문경림** | **📌 이서윤** | **📌 최다희** | **📌 최은희** | **📌 박지운** | **📌 이대영** |
 | :------: | :------: | :------: | :------: | :------: | :------: |
-|<img src="/assets/문경림.jpg" height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/794ca586-edbc-4d13-93a1-123dfd84d5ce" height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/19a8c2a8-ad9e-4af7-aaed-6ad082adf55e"  height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/b41460bd-b02d-4803-b3eb-9e2455cb04be" height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/0ab5b2cf-9d03-4bb8-aa2e-94afb14e837f" height="120"/>|<img src="https://github.com/5T1F/SuQuiz/assets/106129404/0ab5b2cf-9d03-4bb8-aa2e-94afb14e837f" height="120"/>|
+|<img src="/assets/문경림.jpg" height="120"/>|<img src="/assets/이서윤.png" height="120"/>|<img src="/assets/최다희.jpg"  height="120"/>|<img src="/assets/최은희.png" height="120"/>|<img src="/assets/박지운.jpg" height="120"/>|<img src="/assets/이대영.jpg" height="120"/>|
 |**팀장**|👩‍💻**FE**|👩‍💻**BE**|👩‍💻**BE**|👨‍💻**BE**|👨‍💻**BE & Infra**|
 | PM | 상태 관리, UI/UX | [APIgateway, discovery, script, video, word] 서비스 | [category, user, video, test] 서비스, 소셜 로그인 | AI 학습, [test] 서비스 | 아키텍처 설계, CI/CD 구축, AI 학습, [language, video, user] 서비스, 소셜 로그인 |
 |[![Github](https://img.shields.io/badge/문경림%20github-434343?style=for-the-badge&logo=github&logoColor=white)](https://github.com/moonsky737)|[![Github](https://img.shields.io/badge/이서윤%20github-4682B4?style=for-the-badge&logo=github&logoColor=white)](https://github.com/westyunn)|[![Github](https://img.shields.io/badge/최다희%20github-97A951?style=for-the-badge&logo=github&logoColor=white)](https://github.com/HeeHiHee)|[![Github](https://img.shields.io/badge/최은희%20github-ffff00?style=for-the-badge&logo=github&logoColor=white)](https://github.com/gilukji226) |[![Github](https://img.shields.io/badge/박지운%20github-ff77ff?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Junikarp)|[![Github](https://img.shields.io/badge/이대영%20github-EB3A9D?style=for-the-badge&logo=github&logoColor=white)](https://github.com/kmdy7991)|
@@ -130,7 +130,7 @@
 &nbsp;
 
 ## 시스템 아키텍처
-
+<img src="/assets/TeddybearArchitecture.png">
 
 &nbsp;
 
