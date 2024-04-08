@@ -13,7 +13,6 @@ function Main() {
   const [nickname, setNickName] = useState("");
   const [tier, setTier] = useState("");
   const id = useSelector((state: RootState) => state.user.userId);
-  console.log(id);
   const accessToken = localStorage.getItem("access_token");
   useEffect(() => {
     const getUser = async () => {
@@ -45,7 +44,7 @@ function Main() {
       }
     };
     fetchTier();
-  }, [tier]);
+  }, []);
 
   dispatch(
     userActions.loginUser({
