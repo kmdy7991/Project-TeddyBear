@@ -6,7 +6,6 @@ import {
   VideoPrevArrow,
 } from "../../../components/Slider/Arrow";
 import "./VideoList.css";
-import { dummyThumbnails } from "./VideoDummy";
 import VideoPreview from "./VideoPreview";
 import { VideoResultProps } from "./Video";
 import {
@@ -47,12 +46,13 @@ function VideoList() {
       try {
         const tastedVideos = await getTastedVideoList(userId);
         setTasteList(tastedVideos);
+        console.log("맞춤형 영상 조회 성공:", tastedVideos);
       } catch (error) {
         console.error("맞춤형 영상 조회 실패", error);
       }
     };
     fetchTasteList();
-  }, [userId]);
+  }, []);
 
   useEffect(() => {
     const fetchVideoDetails = async () => {
@@ -80,7 +80,7 @@ function VideoList() {
     if (tasteList.length > 0) {
       fetchVideoDetails();
     }
-  }, [accessToken]); // accessToken도 의존성 배열에 추가
+  }, []); // accessToken도 의존성 배열에 추가
 
   const sliderSettings = (slidesToShow: number) => {
     return {
