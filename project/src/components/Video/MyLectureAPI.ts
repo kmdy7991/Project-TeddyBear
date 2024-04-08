@@ -22,6 +22,7 @@ export const getBookMarkedVideoList = async (userId: number) => {
   }
 };
 
+// 맞춤형 추천 영상 조회 api
 export const getTastedVideoList = async (userId: number) => {
   try {
     const response = await axios.get(
