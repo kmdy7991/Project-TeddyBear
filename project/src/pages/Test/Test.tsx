@@ -76,7 +76,7 @@ const Test = () => {
         }));
 
         const generateQuiz = await axios.post(
-          `/python/generate-questions/`,
+          `/python/generate-questions`,
           requestBody,
           {
             headers: {
