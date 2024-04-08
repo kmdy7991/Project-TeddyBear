@@ -72,6 +72,7 @@ function VideoList() {
           )
         );
         setTasteVideoDetail(details); // 상태 업데이트 시 .data를 사용하지 않고 여기서 직접 처리
+        console.log("비디오 상세 정보 조회", details);
       } catch (error) {
         console.error("비디오 상세 정보 조회 실패", error);
       }
