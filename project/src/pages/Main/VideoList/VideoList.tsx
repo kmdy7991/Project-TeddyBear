@@ -13,9 +13,11 @@ import {
   getTastedVideoList,
 } from "../../../components/Video/MyLectureAPI";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import axios from "axios";
+import { loadingActions } from "../../../store/loading";
+import Loading from "../../../components/Loading";
 
 function VideoList() {
   const [bmHoverIndex, setbmHoverIndex] = useState<number>(0); // 북마크 호버 인덱스
@@ -32,6 +34,10 @@ function VideoList() {
   const userNickName = useSelector((state: RootState) => state.user.userId);
   const userId = useSelector((state: RootState) => state.user.userId);
   const accessToken = localStorage.getItem("access_token");
+  const dispatch = useDispatch();
+  const loading = useSelector(
+    (state: RootState) => state.loading["TASTE-LIST"]
+  );
   useEffect(() => {
     const fetchBookMarkList = async () => {
       try {
@@ -61,6 +67,7 @@ function VideoList() {
     const fetchVideoDetails = async () => {
       try {
         // Promise.all을 사용하여 모든 비디오 상세 정보를 병렬로 조회
+        dispatch(loadingActions.startLoading("TASTE-LIST"));
         const details = await Promise.all(
           tasteList.map(
             (videoIdObj) =>
@@ -78,13 +85,15 @@ function VideoList() {
         console.log("비디오 상세 정보 조회", details);
       } catch (error) {
         console.error("비디오 상세 정보 조회 실패", error);
+      } finally {
+        dispatch(loadingActions.finishLoading("TASTE-LIST"));
       }
     };
 
     if (tasteList.length > 0) {
       fetchVideoDetails();
     }
-  }, [tasteList, accessToken]); // accessToken도 의존성 배열에 추가
+  }, [tasteList, dispatch]); // accessToken도 의존성 배열에 추가
 
   const sliderSettings = (slidesToShow: number) => {
     return {
@@ -112,6 +121,7 @@ function VideoList() {
 
   return (
     <div className="vcontainer">
+      {loading && <Loading />}
       <div className="주제">
         <div className="vid-title">
           <span>북마크한 영상</span>
