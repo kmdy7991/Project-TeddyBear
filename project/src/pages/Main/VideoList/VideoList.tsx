@@ -80,7 +80,7 @@ function VideoList() {
     if (tasteList.length > 0) {
       fetchVideoDetails();
     }
-  }, [tasteList, accessToken]); // accessToken도 의존성 배열에 추가
+  }, [accessToken]); // accessToken도 의존성 배열에 추가
 
   const sliderSettings = (slidesToShow: number) => {
     return {
