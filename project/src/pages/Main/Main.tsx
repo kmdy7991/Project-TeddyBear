@@ -7,6 +7,7 @@ import { RootState } from "../../store";
 import { userActions } from "../../store/user";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { GetUserTier } from "../../components/User/UserTier";
 function Main() {
   const dispatch = useDispatch();
   const [nickname, setNickName] = useState("");
@@ -32,6 +33,19 @@ function Main() {
     };
     getUser();
   }, [id]);
+
+  useEffect(() => {
+    const fetchTier = async () => {
+      try {
+        const userTier = await GetUserTier(id);
+        setTier(userTier);
+        console.log("유저 티어:", userTier);
+      } catch (error) {
+        console.error("유저 티어 조회 실패", error);
+      }
+    };
+    fetchTier();
+  }, [tier]);
 
   dispatch(
     userActions.loginUser({
