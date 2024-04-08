@@ -42,11 +42,11 @@ export default function MyPage() {
       try {
         dispatch(loadingActions.startLoading("PROFILE"));
         const tiers = await GetUserTier(id);
-        console.log("유저 티어 조회 성공", tiers.data);
-        setTier(tiers.data.tierName);
-        setLevel(tiers.data.level);
-        setTierExp(tiers.data.tierExp);
-        setLevelExp(tiers.data.levelExp);
+        console.log("유저 티어 조회 성공", tiers);
+        setTier(tiers.tierName);
+        setLevel(tiers.level);
+        setTierExp(tiers.tierExp);
+        setLevelExp(tiers.levelExp);
       } catch (error) {
         console.error("유저 티어 조회 실패", error);
       } finally {
@@ -110,7 +110,7 @@ export default function MyPage() {
           <div className={`${styles.tn}`}>
             <div className={`${styles.tierL}`}>
               <img src={gold} alt="테스트 티어 이미지" />
-              <div className={`${styles.tierName}`}>{tier}</div>
+              <div className={`${styles.tierName}`}>{}</div>
             </div>
             <div className={`${styles.nickname}`}>{nickname}</div>
           </div>
