@@ -21,7 +21,10 @@ function VideoList() {
   const [bmHoverIndex, setbmHoverIndex] = useState<number>(0); // 북마크 호버 인덱스
   const [tasteHoverIndex, setTasteHoverIndex] = useState<number>(0); // 취향저격 호버 인덱스
   const [bmList, setBmList] = useState<VideoResultProps[]>([]);
-  const [tasteList, setTasteList] = useState([]);
+  type VideoIdObj = {
+    videoId: string;
+  };
+  const [tasteList, setTasteList] = useState<VideoIdObj[]>([]);
   const [tasteVideoDetail, setTasteVideoDetail] = useState<VideoResultProps[]>(
     []
   );
@@ -60,9 +63,9 @@ function VideoList() {
         // Promise.all을 사용하여 모든 비디오 상세 정보를 병렬로 조회
         const details = await Promise.all(
           tasteList.map(
-            (videoId) =>
+            (videoIdObj) =>
               axios
-                .get(`/api/video-service/videoDetail/${videoId}`, {
+                .get(`/api/video-service/videoDetail/${videoIdObj.videoId}`, {
                   headers: {
                     Authorization: `Bearer ${accessToken}`,
                     "Content-Type": "application/json",
@@ -81,7 +84,7 @@ function VideoList() {
     if (tasteList.length > 0) {
       fetchVideoDetails();
     }
-  }, []); // accessToken도 의존성 배열에 추가
+  }, [tasteList, accessToken]); // accessToken도 의존성 배열에 추가
 
   const sliderSettings = (slidesToShow: number) => {
     return {
