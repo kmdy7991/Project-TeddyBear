@@ -35,7 +35,7 @@ def create_fill_in_the_blank(sentence):
         return sentence, ""
 
 @test_router.post("/python/generate-questions/", response_model=List[Question])
-async def generate_questions(sentences: List[Sentence]):
+def generate_questions(sentences: List[Sentence]):
     selected_sentences = [sentence.text for sentence in sentences]
     questions = []
     for sentence in selected_sentences:
@@ -49,7 +49,7 @@ async def generate_questions(sentences: List[Sentence]):
 
 
 @test_router.post("/python/score-quiz/")
-async def score_quiz(questions: List[Question]):
+def score_quiz(questions: List[Question]):
     score = 0
     for question in questions:
         if question.answer.lower() == create_fill_in_the_blank(question.sentence)[1].lower():
