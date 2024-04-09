@@ -56,4 +56,12 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+
+  app.use(
+    "/logout",
+    createProxyMiddleware({
+      target: "http://j10b107.p.ssafy.io:8086",
+      changeOrigin: true,
+    })
+  );
 };
