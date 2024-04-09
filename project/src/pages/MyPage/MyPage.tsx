@@ -4,7 +4,6 @@ import styles from "./MyPage.module.css";
 import Statistics from "./Statstics/Statstics";
 import MyLecture from "./MyLecture/MyLecture";
 import MyNote from "./MyNote/MyNote";
-import gold from "../../assets/Tier/gold.png";
 import { useNavigate } from "react-router-dom";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +12,7 @@ import axios from "axios";
 import { loadingActions } from "../../store/loading";
 import { userActions } from "../../store/user";
 import { GetUserTier } from "../../components/User/UserTier";
+import { TierImage } from "../../components/User/UserTierImage";
 
 type tab = "myLecture" | "myNote";
 
@@ -68,10 +68,29 @@ export default function MyPage() {
     }
   }
 
+  const tiers: string[] = ["A1", "A2", "B1", "B2", "C1", "C2"];
+  let userTier: number = 0;
+
+  for (let i = 0; i < tiers.length; i++) {
+    if (tiers[i] === tier) {
+      userTier = i;
+    }
+  }
+
+  const maxTierExp = (userTier + 1) * 250 + 250;
+
+  console.log("티어 : " + tier);
+  console.log("티어 경험치 통 : " + maxTierExp);
+
+  const maxLevelExp = level * 50 + 50;
+
+  console.log("레벨 : " + level);
+  console.log("레벨 경험치 통 : " + maxLevelExp);
+
   const handleLogout = async () => {
     try {
       // api 주소 고쳐야 함
-      const tiers = await axios.get(`http://localhost:8086/logout`, {
+      const tiers = await axios.get(`/logout`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
@@ -109,21 +128,27 @@ export default function MyPage() {
         <div className={`${styles.profile}`}>
           <div className={`${styles.tn}`}>
             <div className={`${styles.tierL}`}>
-              <img src={gold} alt="테스트 티어 이미지" />
-              <div className={`${styles.tierName}`}>{tier}</div>
+              <TierImage tier={tier} />
+              <div className={`${styles.tierContainer}`}>
+                <div className={`${styles.tierName}`}>{tier}</div>
+              </div>
             </div>
             <div className={`${styles.nickname}`}>{nickname}</div>
           </div>
-          {/* <div className={`${styles.exps}`}>
+          <div className={`${styles.exps}`}>
             <div className={`${styles.tier}`}>
-              <div className={`${styles.tierS}`}>티어 이미지</div>
+              <div className={`${styles.tierS}`}>
+                <TierImage tier={tier} />
+              </div>
               <div className={`${styles.exp}`}>경험치 퍼센트</div>
             </div>
             <div className={`${styles.tier}`}>
-              <div className={`${styles.level}`}>레벨 이미지</div>
+              <div className={`${styles.level}`}>
+                <span>Lv.{level}</span>
+              </div>
               <div className={`${styles.exp}`}>경험치 퍼센트</div>
             </div>
-          </div> */}
+          </div>
           <div className={`${styles.setting}`}>
             <div>
               <button onClick={handleLogout}>로그아웃</button>

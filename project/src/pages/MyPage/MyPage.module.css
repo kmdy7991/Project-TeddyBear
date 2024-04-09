@@ -77,6 +77,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  position: relative;
 }
 
 .tierL img {
@@ -85,18 +87,26 @@
 
 .tierName {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 정확한 중앙 정렬을 위한 조정 */
   color: #333236;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 4rem;
+  font-size: 1.8rem;
   font-weight: lighter;
+  background-color: #f7eeee;
+  border-radius: 20px;
+  width: 40%;
+  box-shadow: 0 0 20px -10px;
 }
 
 .nickname {
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: 900;
-  margin: 2rem 0;
+  margin-top: 2rem;
+  text-align: center;
 }
 
 .exps {
@@ -107,10 +117,19 @@
   width: 100%;
 }
 
+.tierContainer {
+  width: 100%;
+  position: relative;
+  background-color: #f7eeee;
+}
+
 .tier {
   margin-top: 1rem;
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .exp {
@@ -120,6 +139,7 @@
   text-align: center;
   border-radius: 50px;
   border: 2px solid red;
+  flex: 2;
 }
 
 .setting {
@@ -155,4 +175,28 @@
   opacity: 0;
   transform: scale(0.95);
   transition: opacity 300ms, transform 300ms;
+}
+
+.tierS img {
+  width: 40%;
+}
+
+.tierS {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.level {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.level span {
+  width: 40%;
+}
+
+.levelNum {
+  font-weight: 800;
 }
