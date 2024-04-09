@@ -1,6 +1,7 @@
 import { useState } from "react";
 import yteddy from "../../assets/yellow_teddy.png";
 import styles from "./Login.module.css";
+import google from "../../assets/web_light_sq_SI@3x.png";
 
 function Login() {
   const [isLogin, setIsLogin] = useState(false);
@@ -16,7 +17,9 @@ function Login() {
       <div className={`${styles.description}`}>
         <div className={`${styles.title}`}>TEDDYBEAR</div>
         <div onClick={handleGoogleLogin} className={styles.loginbutton}>
-          <button>구글 소셜 로그인</button>
+          <button>
+            <img src={google} alt="구글 소셜 로그인" />
+          </button>
         </div>
       </div>
       <div className={`${styles.loginimg}`}>
