@@ -145,3 +145,4 @@
 &nbsp;
 
 ## 서비스 시연 영상
+[시연 영상]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/assets/Teddybear_UCC.pdf")
