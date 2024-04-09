@@ -22,15 +22,10 @@ export default function MyPage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<tab>("myLecture");
 
-  // const [tier, setTier] = useState("");
-  // const [level, setLevel] = useState(0);
-  // const [tierExp, setTierExp] = useState(0);
-  // const [levelExp, setLevelExp] = useState(0);
-
-  const [tier, setTier] = useState("A1");
-  const [level, setLevel] = useState(1);
-  const [tierExp, setTierExp] = useState(500);
-  const [levelExp, setLevelExp] = useState(40);
+  const [tier, setTier] = useState("");
+  const [level, setLevel] = useState(0);
+  const [tierExp, setTierExp] = useState(0);
+  const [levelExp, setLevelExp] = useState(0);
   const [nextTier, setNextTier] = useState("");
 
   const dispatch = useDispatch();
