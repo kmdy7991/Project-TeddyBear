@@ -1,0 +1,67 @@
+.exps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.tier {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.exp {
+  margin-left: 0.3rem;
+  width: 80%;
+  /* padding: 0.3rem 3rem; */
+  height: 1rem;
+  text-align: center;
+  border-radius: 50px;
+  /* border: 2px solid red; */
+  background-color: #eee;
+  flex: 2;
+  position: relative;
+  overflow: hidden;
+}
+
+.expFilled {
+  height: 100%;
+  border-radius: 50px;
+}
+
+.expText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 텍스트를 바의 중앙에 위치시킴 */
+  color: #4c4c4c; /* 텍스트 색상을 흰색으로 설정 */
+  font-weight: bold;
+}
+
+.tierS img {
+  width: 40%;
+}
+
+.tierS {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.level {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.level span {
+  width: 40%;
+}
+
+.levelNum {
+  font-weight: 800;
+}

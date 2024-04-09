@@ -109,37 +109,27 @@
   text-align: center;
 }
 
-.exps {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
 .tierContainer {
   width: 100%;
   position: relative;
   background-color: #f7eeee;
 }
 
-.tier {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
+.levelup {
+  margin-top: 3rem;
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-.exp {
-  margin-left: 0.3rem;
-  width: 80%;
-  padding: 0.3rem 3rem;
-  text-align: center;
-  border-radius: 50px;
-  border: 2px solid red;
-  flex: 2;
+.levelupBtn {
+  border: 1px solid #888893;
+  background-color: transparent;
+  padding: 0.5rem 2rem;
+}
+
+.levelup button:hover {
+  cursor: pointer;
 }
 
 .setting {
@@ -177,26 +167,56 @@
   transition: opacity 300ms, transform 300ms;
 }
 
-.tierS img {
-  width: 40%;
-}
-
-.tierS {
+.modalBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  flex: 1;
+  align-items: center;
+  z-index: 1000;
 }
 
-.level {
+.modalContent {
+  background: white;
+  padding: 2rem;
+  border-radius: 5px;
+  width: 40rem;
+  height: 30rem;
+  text-align: center;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  flex: 1;
+  font-size: 1.5rem;
 }
 
-.level span {
-  width: 40%;
-}
-
-.levelNum {
+.modalContent span {
   font-weight: 800;
+}
+
+.modalBtns {
+  display: flex;
+  margin-top: 2rem;
+}
+.modalButton {
+  display: flex;
+  margin-top: 1rem;
+  padding: 0.4rem 2rem;
+  border: none;
+  color: #f7eeee;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.modalOKButton {
+  background-color: #4caf50;
+}
+
+.modalButtonCancel {
+  background-color: #f44336;
 }
