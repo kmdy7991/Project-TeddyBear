@@ -47,8 +47,12 @@ export default function MyNote() {
           <div className={`${styles.note}`} key={index}>
             <div className={`${styles.text}`}>
               <div className={`${styles.vidTitle}`}>{data.id}</div>
-              <div className={`${styles.noteContent}`}>{data.note}</div>
+              <div
+                className={`${styles.noteContent}`}
+                dangerouslySetInnerHTML={{ __html: data.note || "" }} // note가 null이거나 undefined 일 수 있으니, 또는 연산자(||)로 빈 문자열을 기본값으로 제공합니다.
+              />
             </div>
+            <div className={`${styles.created}`}>{data.noteDate}</div>
             <div className={`${styles.created}`}>{data.noteDate}</div>
           </div>
         ))}
