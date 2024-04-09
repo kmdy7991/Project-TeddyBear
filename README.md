@@ -132,9 +132,9 @@
 
 [API 명세서](./docs/Teddybear_API명세서.pdf)
 
-[와이어프레임](./docs/Teddybear_Wireframe.pdf")
+[와이어프레임](./docs/Teddybear_Wireframe.pdf)
 
-[ERD]()
+[ERD](./docs/Teddybear_erd.png)
 
 [중간 발표 자료](./docs/Teddybear_중간발표자료.pdf)
 
