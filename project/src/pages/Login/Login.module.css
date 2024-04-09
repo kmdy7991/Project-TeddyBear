@@ -15,8 +15,14 @@
   margin-bottom: 5vh;
 }
 
+.loginbutton button {
+  border: 0;
+  background-color: transparent;
+}
 
-
+.loginbutton button img {
+  width: 50%;
+}
 
 .teddy {
   height: 300px;
@@ -32,7 +38,6 @@
 .loginbutton {
   padding: 20px 40px;
 }
-
 
 .loginimg {
   display: flex;
