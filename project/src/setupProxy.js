@@ -52,7 +52,7 @@ module.exports = function (app) {
   app.use(
     "/python",
     createProxyMiddleware({
-      target: "http://j10b107.p.ssafy.io:8779",
+      target: "https://j10b107.p.ssafy.io:8779",
       changeOrigin: true,
     })
   );
