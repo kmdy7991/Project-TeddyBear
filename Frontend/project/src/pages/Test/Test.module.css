@@ -1,0 +1,95 @@
+.container {
+  min-height: 100vh;
+}
+
+.testContainer {
+  margin: 4rem 5rem;
+  padding-top: 5.5rem;
+}
+
+.input[type="text"] {
+  width: 60%;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.kor {
+  font-weight: lighter;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.quebox h1 {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.button {
+  padding: 0.5rem 2rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 1.6rem;
+  margin-left: 2rem;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+/* 정답 및 오답에 대한 피드백 표시를 위한 스타일 */
+.correctAnswer {
+  color: rgb(103, 103, 255);
+}
+
+.incorrectAnswer {
+  color: rgb(255, 60, 60);
+}
+
+.quebox {
+  border: 1px solid black;
+  /* height: 30rem; */
+  /* font-size: 30px; */
+  text-align: center;
+  padding-top: 8rem;
+  padding-bottom: 5rem;
+  margin-top: 2rem;
+}
+
+.scrbox {
+  border: 1px solid black;
+  /* width: 1000px; */
+  /* height: 150px; */
+  /* font-size: 30px; */
+  text-align: center;
+}
+
+.ansbox {
+  width: 50%;
+  height: 3rem;
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.check {
+  margin-top: 4rem;
+}
+
+.inputbtn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.buttondiv {
+  display: flex;
+  margin-top: 3rem;
+  /* justify-content: center; */
+  align-items: center;
+}

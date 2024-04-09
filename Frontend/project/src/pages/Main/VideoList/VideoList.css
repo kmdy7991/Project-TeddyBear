@@ -1,0 +1,121 @@
+.vcontainer {
+  margin-top: 2rem;
+}
+
+.container {
+  margin: 0 auto;
+  /* padding: 0px 40px 40px 40px; */
+  text-align: center;
+}
+
+.주제 {
+  margin-top: 3rem;
+}
+
+.no-content {
+  font-size: 1.4rem;
+  margin-bottom: 3rem;
+}
+
+.videoContainer {
+  /* margin: 2vh 0; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.videoContainer:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.slick-slide {
+  display: flex;
+  justify-content: center;
+}
+
+.videoContainer img,
+.y-carousel img {
+  /* display: flex; */
+  border-radius: 0.5vw;
+  width: 18rem;
+}
+
+.slick-slide {
+  transition: 1s;
+  /* transform-origin: 50% 50%; */
+}
+
+.vid-title {
+  /* margin-left: 5rem; */
+  font-size: 28px;
+  font-weight: lighter;
+  color: #4b4b4b;
+  margin-bottom: 1rem;
+}
+
+.vid-title span {
+  font-weight: bold;
+}
+
+.dots_custom {
+  display: inline-block;
+  vertical-align: middle;
+  margin: auto 0;
+  padding: 0;
+  position: absolute;
+  top: -2rem;
+  right: 1rem;
+}
+
+.dots_custom li {
+  background-color: #d1d1d1;
+  display: inline-block;
+  height: 2px;
+  width: 40px;
+  /* position: absolute; */
+  right: 10%;
+  top: -10%;
+  margin-left: 7px;
+}
+
+.dots_custom li button {
+  border: none;
+  background: #d1d1d1;
+  color: transparent;
+  cursor: pointer;
+  display: block;
+  height: 2px;
+  /* width: 100%; */
+  padding: 0;
+}
+
+.dots_custom li.slick-active button {
+  background-color: #aaa;
+  width: 100%;
+}
+
+.thumbnail {
+  /* opacity: 0; */
+  /* visibility: hidden; */
+  /* transition: 2s; */
+  /* height: 30rem; */
+  top: 5%;
+  /* height: 500px; */
+  /* transform: scale(1.3); */
+  /* position: absolute; */
+  /* height: 250px; */
+  z-index: 10;
+  /* overflow: visible; */
+}
+
+/* 마우스 호버 시 확대와 더불어 높이도 시각적으로 커지도록 설정 */
+.thumbnail:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1.2);
+  z-index: 10;
+  transition: 1s;
+}

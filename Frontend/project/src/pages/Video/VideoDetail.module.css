@@ -1,0 +1,226 @@
+.container {
+  min-height: 100vh;
+  padding: 5.5rem 0;
+  overflow: hidden;
+}
+
+.main {
+  display: flex;
+  margin: 1rem 10rem;
+}
+
+.youtube {
+  width: 70%;
+  min-height: 100vh;
+  /* border: 2px solid purple; */
+}
+
+.tabscript {
+  width: 30%;
+  min-height: 100vh;
+  margin-left: 1.3rem;
+}
+
+.vidWrapper {
+  width: 100%;
+  min-height: 50vh;
+  /* border: 2px solid gold; */
+}
+
+.videoText {
+  min-height: 10vh;
+}
+
+.tb {
+  width: 100%;
+  display: flex;
+}
+
+.videoTitle {
+  width: 95%;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-top: 0.6rem;
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+}
+
+.bookmark {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5%;
+}
+
+.descriptionWrapper {
+  padding: 1rem 0;
+  margin-top: 1rem;
+  width: 100%;
+  background-color: #f4f4f4;
+}
+
+.moreButton {
+  margin-left: 1rem;
+  border: 0;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.moreButton:hover {
+  cursor: pointer;
+}
+/* .description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  text-align: justify; 
+} */
+
+.hashList {
+  display: flex;
+}
+
+.hashTag {
+  border: 1px solid #000; /* 예시로 검은색 테두리를 설정 */
+  margin: 1rem 1rem 0 0; /* 해시태그 간의 공간을 추가 */
+  padding: 0.3rem 0.8rem; /* 내부 여백을 추가 */
+  border-radius: 50px;
+  color: #424242;
+}
+
+.content {
+  width: 100%;
+  min-height: 25vh;
+  border: 1px solid #434343;
+  border-radius: 30px;
+  /* background-color: #f4f4f4; */
+  margin-top: 2rem;
+  /* padding: 1rem; */
+}
+
+.tab {
+  display: flex;
+  justify-content: space-around;
+  height: 5vh;
+  align-items: center;
+}
+
+.tabButton {
+  border: 0;
+  border-bottom: 1px solid gray;
+  background-color: transparent;
+}
+
+.tabButton {
+  cursor: pointer;
+}
+
+.tabButton img {
+  height: 2.8rem;
+}
+
+.script {
+  /* border: 2px solid blue; */
+  max-height: 80vh;
+  margin-top: 1rem;
+  background-color: #f4f4f4;
+  border-radius: 30px;
+  padding: 1.2rem;
+}
+
+.scriptContainer {
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.scriptL,
+.scriptLine {
+  font-size: 1.2rem;
+  font-weight: lighter;
+}
+
+.highlight {
+  font-weight: bold;
+  box-shadow: inset 0 -20px 0 #ffd5ec;
+}
+
+.scriptL span:hover {
+  box-shadow: inset 0 -20px 0 #ffd5ec;
+}
+
+.pagination {
+  margin-top: 1rem;
+}
+
+.pagination button {
+  padding: 0.3rem 0.6rem;
+  /* width: 1rem; */
+  border: 0;
+  margin-right: 0.5rem;
+  margin-left: 1.5rem;
+  background-color: transparent;
+}
+
+.scriptContainer p {
+  padding: 8px 14px 8px 4px;
+}
+
+.slick-next {
+  bottom: 50%;
+}
+
+.testBtn {
+  margin-top: 1rem;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  width: 5%;
+  position: relative;
+  display: inline-block;
+}
+
+.testBtn button {
+  border: 0;
+  background-color: transparent;
+}
+
+.testBtn button img {
+  height: 2.5rem;
+}
+
+.testBtn button:hover {
+  cursor: pointer;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltipText {
+  visibility: hidden;
+  width: 8rem;
+  background-color: #ffd5ec;
+  line-height: 1.2rem;
+  color: black;
+  text-align: center;
+  border-radius: 6px;
+  padding: 1rem;
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5rem; /* Use half of the width value (120px / 2 = 60px) */
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+.tooltip:hover .tooltipText {
+  visibility: visible;
+  opacity: 1;
+  cursor: pointer;
+}

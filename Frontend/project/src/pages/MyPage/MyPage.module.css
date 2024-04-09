@@ -1,0 +1,202 @@
+.container {
+  min-height: 100vh;
+  padding: 5.5rem 0;
+}
+.main {
+  /* width: 100vw; */
+  display: flex;
+  margin: 3rem 10rem;
+}
+
+.profile {
+  /* border: 2px solid green; */
+  width: 25%;
+  height: 100vh;
+}
+
+.page {
+  width: 75%;
+  /* border: 2px solid rebeccapurple; */
+  margin-left: 3rem;
+}
+
+.tab {
+  /* height: 7%; */
+  /* margin-left: 2rem; */
+  gap: 4.5rem;
+}
+
+.tabButton {
+  border: none;
+  width: 10rem;
+  background-color: transparent;
+  color: #888893;
+  font-size: 18px;
+  margin-right: 2rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #888893;
+}
+
+.tabButtonActive {
+  border: none;
+  width: 10rem;
+  font-size: 18px;
+  background-color: transparent;
+  border-bottom: 0.2rem solid #333236;
+  margin-right: 2rem;
+  padding: 0.5rem;
+  color: #333236;
+  font-weight: 800;
+}
+
+.tab button:hover {
+  cursor: pointer;
+}
+
+.render {
+  height: 93%;
+  margin-top: 2rem;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 7rem;
+}
+
+.tn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.tierL {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.tierL img {
+  width: 80%;
+}
+
+.tierName {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 정확한 중앙 정렬을 위한 조정 */
+  color: #333236;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: lighter;
+  background-color: #f7eeee;
+  border-radius: 20px;
+  width: 40%;
+  box-shadow: 0 0 20px -10px;
+}
+
+.nickname {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.exps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.tierContainer {
+  width: 100%;
+  position: relative;
+  background-color: #f7eeee;
+}
+
+.tier {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.exp {
+  margin-left: 0.3rem;
+  width: 80%;
+  padding: 0.3rem 3rem;
+  text-align: center;
+  border-radius: 50px;
+  border: 2px solid red;
+  flex: 2;
+}
+
+.setting {
+  width: 100%;
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.setting button {
+  width: 100%;
+  border: 0;
+  background-color: transparent;
+  border-radius: 0.5vw;
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.tierS img {
+  width: 40%;
+}
+
+.tierS {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.level {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.level span {
+  width: 40%;
+}
+
+.levelNum {
+  font-weight: 800;
+}

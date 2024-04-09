@@ -1,0 +1,82 @@
+.questionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.boxflex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.box {
+    /* border: 2px solid black; */
+    border-radius: 30px;
+    padding: 30px;
+    margin: 10px;
+    width: 1000px;
+    background-color: rgb(255, 252, 238);
+}
+
+.button {
+    background-color: white;
+    padding: 10px 50px;
+    margin: 30px;
+    border-radius: 70px;
+    
+}
+
+.titletext {
+    margin-top: 70px;
+    font-size: 70px;
+    margin-bottom: 30px;
+    color: rgb(252, 252, 26);
+}
+
+.text1 {
+    font-size: 33px;
+    margin: 10px;
+}
+
+.text2 {
+    font-size: 20px;
+    margin: 10px;
+}
+
+.questionTitle {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.optionsContainer {
+    margin-top: 10px;
+    padding: 20px;
+    margin-left: 20px;
+}
+
+.option {
+    margin-bottom: 5px;
+    padding: 20px 1px 20px 40px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.option2 {
+    margin-bottom: 5px;
+    padding: 1px 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.options {
+    display: flex;
+    font-size: 20px;
+    /* 옵션들을 가로로 배치하기 위해 Flexbox를 사용합니다. */
+}
+
+.options2 {
+    font-size: 20px;
+}

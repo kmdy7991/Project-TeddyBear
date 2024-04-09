@@ -1,0 +1,15 @@
+server:
+  port: 8081
+
+spring:
+  cloud:
+    config:
+      name: teddy
+      profile: word
+
+
+  application:
+    name: word-service
+
+  config:
+    import: optional:configserver:http://config:8763

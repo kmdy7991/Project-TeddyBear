@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "gothic-jigsaw-405113",
+  "private_key_id": "ce587ad642ae397bb5397a5ba2d98bd77d5f304d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCzApmDMjrVlvSn\n54DKHAY5+qakX/jbqhUM5ZxjGJmTKE3FqCXI6f27B7VyOTKAlrEPMfsH5dLOMTFQ\nVARMRjJZB8lg9euHxinVVjEP0NqIOt5/beQ44d4YzCJH9XlJE1bnaU7yy0vXoSEk\n7SvzdjQ3fdotyI4HWJ6OeQlTAAdR0VpTszL3T8VDn2hV1WI0N0ZUbRzn2bBVsHg5\nGtXfLi/LD4owfzs5n4xB7lfsvHn8OEiSQceqThBiWpUnzFECnr3xCs9w+d9xTFu6\nYjPkv8gmV/e9RPEouGACiVQn/X/5Zf+6SfaSebxMWl5wPoRQ3BG7p/u39WPBJsU9\n1CsOKNBPAgMBAAECggEABf4mSYAa/B+LnTtg0mNRygscHRChciklf0MIk0C1k3mb\n8OwKJ8m9ls9RQbusdyWUU9/meYM2JXT8I6ZMZolLEjPyh+5zrh3yNJQoHFFvn3Pp\nEvcI1uao2seqtiH/p3SgSir6W6J2rYdVZrkR6ZqhcOIjtbirGI/c7wQaTc8Ib7K2\nMApg+2cmkmJ7Dc60ZKuK1PVMEseKEWOcTtkGUDOOwPvuxNngZAoHqU53ibWUtOmS\nlxHcpy2+OJhxFhfpOK0mJdkGLd9Usr59SXWuAD7mFOPzprOp9+2lBWVSitIAf6Cz\nupEGMFcwKadzNvgW108mH5UMjt/F5YsDLxUqOLAKEQKBgQDXSfKWpuBwVlBXPddE\n3NfIxq/2Kk2BWvnCzPjDatmvT4qU0Z65LhXJlZGKVED3Szt52lSGnyw1CYGNrQ11\n+emaL4voO288/2kEwhxQL0UVLaXERCOck1a4cFBhLxXilH3f3sOqlpd6dK0uGnwj\n5qxxMgVscBq76WpPKn88WuM84wKBgQDU3Gnp0QC4ZObRlc3I78Rcl0quyFPYD0mH\noS89BFSfsKVswuoqE6gh9o6k+EOwI8UXc/cWcyqPsp2PAFi45PWvbKXfK5Bm7apl\nNgBo9+IKgej6dMa1AqQNbgLQ4nA2SmWEDk9eQqpsruIPnXuwh1uQ0SQPaAUJs7Es\nycgP2unGpQKBgG/O48IB4MX2zbrBTy9gUmDfbzs1NRNdICFfOkKjF3LIqHwpcXlS\nydXra66fmy3TUIw0K3nO6LKSwUnG+hqvM/bzgoGVfGv9aZkjBnlOU15wWorXqHcE\nviEDk3slbQRDgivmEVBi7UCXn+k1sAslHaGcDN0IS5oT2zZKJ9I8kY9pAoGBAJyD\nJO1jXCA5MO7SM2mXws5CAAvcCKpJM0ui3NUEpiR1Am2iNAOUSIAQhnoOgda1tmm0\nPu4m6BiYwPkwzAvHbk76mEwsABVuk2ev+UU1XuNS+jeOPb1Cn9WwGin1FYUV1ubu\njrVEV4NqY5YPua7nGBC3dshNN8cWdSP1ikD+Of5xAoGBAKmZoW0BgOY2ZyywAxnP\n0iJOHTNeiOzSWdSEPIrMiiYIhmqJBGsiLCg0gXS0J9PiyQvPRNTpBGY1CJYo4N95\nRtmtTX+y7IjHYwnIqyAgslDW6wR1JIOpNel1cyfUD9DZ2I1+uoNAuuHTloeRJ2UQ\nY3SQ9eQsz9g0o0yVHBZPoaFr\n-----END PRIVATE KEY-----\n",
+  "client_email": "teddybear@gothic-jigsaw-405113.iam.gserviceaccount.com",
+  "client_id": "109056585432007330149",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/teddybear%40gothic-jigsaw-405113.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

@@ -1,0 +1,52 @@
+.videoPreviewModal {
+  position: absolute;
+  width: 20rem;
+  height: 30rem;
+  /* height: 300px; */
+  /* top: 1rem; */
+  /* left: 2rem; */
+  /* transform: scale(1.3); */
+  /* transform-origin: 50% 50%; */
+  background-color: white;
+  /* padding: 20px; */
+  box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
+  border-radius: 0.2vw;
+  /* z-index: 100; */
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  /* overflow: hidden; */
+  cursor: pointer;
+  transition: transform 0.3s ease; /* 부드러운 확대/축소를 위한 전환 */
+}
+
+.specialClass {
+  left: -2rem;
+}
+
+.leftSpecial {
+  left: 1rem;
+}
+
+.videoPrImg {
+  display: flex;
+  justify-content: center;
+  /* position: absolute; */
+  /* top: 1rem; */
+  /* right: 50%; */
+  /* left: 50%; */
+}
+
+.videoPrImg img {
+  height: 10rem;
+}
+
+.title {
+  margin-top: 1rem;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.des {
+  font-size: 12px;
+}

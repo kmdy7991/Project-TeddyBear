@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  background-color: white;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  margin-right: 3vw;
+}
+
+.logo {
+  margin-left: 3vw;
+}
+.div_icon {
+  margin-left: 2vw;
+}
+.icon {
+  width: 25px;
+  height: 25px;
+}
+
+.logoicon {
+  width: 80px;
+  height: 80px;
+}
