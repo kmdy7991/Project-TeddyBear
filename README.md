@@ -1,5 +1,5 @@
 <div align="center">
-<img src="" />
+<img src="/assets/Teddybear.png" />
 </div>
 
 # Teddy Bear(테디베어) : 영어 학습 서비스
@@ -124,18 +124,23 @@
 
 &nbsp;
 
-## ERD
-
-
-&nbsp;
-
 ## 시스템 아키텍처
-<img src="/assets/TeddybearArchitecture.png">
+<img src="/docs/Architecture.png">
 
 &nbsp;
 
 ## 개발 산출물
+[기능 명세서]()
 
+[API 명세서]()
+
+[와이어프레임]()
+
+[ERD]()
+
+[중간발표]()
+
+[최종발표]()
 
 &nbsp;
 
