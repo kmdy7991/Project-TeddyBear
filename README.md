@@ -125,22 +125,22 @@
 &nbsp;
 
 ## 시스템 아키텍처
-<img src="/docs/Architecture.png">
+<img src="/docs/Teddybear_Architecture.png">
 
 &nbsp;
 
 ## 개발 산출물
-[기능 명세서]()
+[기능 명세서]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/docs/Teddybear_기능명세서.pdf")
 
-[API 명세서]()
+[API 명세서]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/docs/Teddybear_API명세서.pdf")
 
-[와이어프레임]()
+[와이어프레임]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/docs/Teddybear_Wireframe.pdf")
 
-[ERD]()
+[ERD]("")
 
-[중간발표]()
+[중간 발표 자료]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/docs/Teddybear_중간발표자료.pdf")
 
-[최종발표]()
+[최종 발표 자료]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/docs/Teddybear_최종발표자료.pdf")
 
 &nbsp;
 
