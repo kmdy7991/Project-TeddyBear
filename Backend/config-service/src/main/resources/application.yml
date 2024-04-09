@@ -1,0 +1,35 @@
+server:
+    port: ${CONFIG_HOST}
+
+spring:
+    application:
+        name: config-service
+
+    rabbitmq:
+        host: rabbitmq
+        port: ${RABBIT_PORT}
+        username: ${RABBIT_NAME}
+        password: ${RABBIT_PW}
+
+    #  profiles:
+    #    active: native
+
+    cloud:
+        config:
+            server:
+                #        native:
+                #          search-locations: file:///${user.home}/Desktop/git-repo/native
+                git:
+                    uri: ${GIT_URL}
+                    username: ${GIT_ID}
+                    password: ${GIT_TOKEN}
+                    default-label: master
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: health, busrefresh
+
+encrypt:
+    key: ${ENCRYPT}

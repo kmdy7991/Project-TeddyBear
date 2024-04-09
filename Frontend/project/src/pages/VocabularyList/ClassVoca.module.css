@@ -1,0 +1,84 @@
+/* ClassVoca.module.css */
+.classVocabularyLayout {
+  display: flex;
+  /* 티어 버튼과 카드 컨테이너를 나란히 배치하기 위해 flex 사용 */
+  max-width: 1200px;
+  /* 적당한 최대 너비 설정 */
+  margin: auto;
+  /* 좌우 중앙 정렬 */
+  padding: 20px;
+  /* 상하좌우 패딩 */
+}
+
+.vocabularyContainer {
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  /* justify-content: flex-start; */
+  /* 카드를 왼쪽 정렬 */
+  /* align-items: flex-start; */
+  /* 카드를 위쪽 정렬 */
+  flex-grow: 1;
+  /* 남은 공간을 모두 채움 */
+  margin-bottom: 20px;
+  /* 페이지네이션과의 여백 설정 */
+}
+
+.vocard {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: flex-start; */
+  /* 왼쪽 정렬로 변경 */
+  /* margin-left: 150px; */
+  margin-right: -150px;
+}
+
+.tierButtonContainer {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  margin-left: -100px;
+  margin-top: 100px;
+  /* 카드 컨테이너와의 여백 설정 */
+}
+
+.paginationContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* 페이지네이션을 중앙 정렬 */
+  margin-top: 50px;
+}
+
+.tierButton {
+  padding: 0.5rem 1rem;
+  margin: 5px 0;
+  /* 위아래 여백 */
+  background-color: white;
+  /* border: 1px solid #ddd; */
+  border: none;
+  cursor: pointer;
+  font-size: 30px;
+
+}
+
+.tierButton.active {
+  font-weight: bold;
+  border-bottom: 2px solid black;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px;
+  width: calc(25% - 20px);
+  /* 한 줄에 4개의 카드가 들어가도록 너비 조정 */
+  max-width: calc(25% - 20px);
+  /* 최대 너비 설정 */
+  height: 150px;
+}
+
+.text {
+  margin-top: -80px;
+  margin-left: 200px;
+}

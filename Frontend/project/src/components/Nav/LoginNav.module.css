@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  display: flex;
+  position: fixed;
+  top: 0;
+  padding: 2vh 0;
+  justify-content: flex-end;
+  z-index: 1;
+}
+
+.navLogin {
+  padding: 0.5rem 2rem;
+  background-color: #50a2ff;
+  border-radius: 20px;
+  display: flex;
+  margin-right: 3vw;
+}
+
+.navLogin a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
+}

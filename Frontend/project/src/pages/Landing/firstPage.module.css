@@ -1,0 +1,85 @@
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 10%;
+}
+
+.title {
+  color: #ffd155;
+  font-size: 64px;
+  text-align: center;
+  font-weight: 1000;
+  margin-bottom: 5vh;
+}
+.slogan {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #808080;
+  font-size: 18px;
+  letter-spacing: 3px;
+}
+
+.firstimg {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom: -14%;
+}
+
+.teddy {
+  height: 30rem;
+  /* position: absolute; */
+}
+
+.pageContainer {
+  height: 100vh;
+  /* position: relative; */
+}
+
+/* 스크롤 아이콘 디자인 */
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 300px;
+  position: absolute;
+  bottom: 5.5rem;
+}
+.scroll {
+  width: 60px;
+  height: 60px;
+  bottom: 0;
+  border: 2px solid #333;
+  border-radius: 50%;
+  position: relative;
+  animation: down 1.5s infinite;
+}
+.scroll::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 18px;
+  width: 18px;
+  height: 18px;
+  border-left: 2px solid #333;
+  border-bottom: 2px solid #333;
+  transform: rotate(-45deg);
+}
+
+/* 아래로 이동하는 애니메이션 */
+@keyframes down {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translateY(15px);
+  }
+  40% {
+    transform: translate(0);
+  }
+}

@@ -1,0 +1,18 @@
+server:
+  port: 8086
+
+spring:
+  cloud:
+    config:
+      name: teddy
+      profile: user
+
+
+  application:
+    name: user-service
+
+  config:
+    import: optional:configserver:http://config:8763
+logging:
+  file:
+    path: /log/

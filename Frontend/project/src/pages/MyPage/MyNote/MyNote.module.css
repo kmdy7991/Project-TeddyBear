@@ -1,0 +1,61 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  border: 1px solid #878787;
+  background-color: #fffff4;
+  border-radius: 2vw;
+}
+.tdtext {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+}
+.noteList {
+  width: 100%;
+}
+
+.title {
+  font-weight: 900;
+  font-size: 1.8rem;
+}
+
+.text {
+  margin-bottom: 1rem;
+}
+
+.detail {
+  font-size: 1.4rem;
+  font-weight: lighter;
+}
+
+.note {
+  /* width: 100%; */
+  margin: 2rem;
+  border: 1px solid #878787;
+  background-color: white;
+  border-radius: 0.5vw;
+  padding: 2rem 1rem;
+  position: relative;
+  box-shadow: 0 0 20px -10px;
+}
+
+.vidTitle {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.noteContent {
+  width: 100%;
+  font-weight: lighter;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.created {
+  font-size: 0.8rem;
+  position: absolute;
+  right: 1rem;
+}

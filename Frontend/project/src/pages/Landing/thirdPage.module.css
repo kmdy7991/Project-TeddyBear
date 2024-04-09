@@ -1,0 +1,58 @@
+.description {
+  display: flex;
+  flex-direction: column;
+  /* margin-top: 6%; */
+  margin-left: 3rem;
+  padding-top: 10%;
+  position: relative;
+  opacity: 0;
+}
+.isVisible {
+  animation: fadeInDown 1s forwards; /* isVisible이 true일 때 애니메이션 실행 */
+  opacity: 1;
+}
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
+.pageContainer {
+  min-height: 100vh;
+  position: relative;
+  /* padding-top: 4rem; */
+}
+.secimg {
+  display: flex;
+  justify-content: center;
+}
+
+.slogan {
+  display: flex;
+  color: #808080;
+  font-size: 24px;
+  font-weight: lighter;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 900;
+  color: #2492ff;
+  margin-bottom: 5vh;
+}
+
+.teddy {
+  height: 20rem;
+  position: absolute;
+  bottom: 0rem;
+}
+
+.sp3 {
+  font-weight: lighter;
+  color: #2492ff;
+}

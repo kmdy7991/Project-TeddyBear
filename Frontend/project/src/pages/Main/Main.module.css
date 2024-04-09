@@ -1,0 +1,7 @@
+.mainContent {
+  padding-top: 5rem;
+  /* display: flex; */
+  min-height: 130vh;
+  margin: 0 5rem 10rem 5rem;
+  /* overflow-x: hidden; */
+}

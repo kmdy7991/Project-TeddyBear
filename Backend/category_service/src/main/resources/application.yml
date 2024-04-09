@@ -1,0 +1,14 @@
+server:
+  port: 8085
+
+spring:
+  cloud:
+    config:
+      name: teddy
+      profile: category
+
+  application:
+    name: category-service
+
+  config:
+    import: optional:configserver:http://config:8763

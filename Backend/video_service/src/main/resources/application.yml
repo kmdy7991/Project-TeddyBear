@@ -1,0 +1,15 @@
+server:
+    port: 8087
+
+spring:
+    cloud:
+        config:
+            name: teddy
+            profile: video
+
+
+    application:
+        name: video-service
+
+    config:
+        import: optional:configserver:http://config:8763

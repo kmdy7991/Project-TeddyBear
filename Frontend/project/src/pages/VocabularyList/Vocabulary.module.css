@@ -1,0 +1,27 @@
+.tabs {
+  display: flex;
+  /* justify-content: center; */
+  margin-left: 200px;
+  margin-top: 85px;
+}
+
+.tabs button {
+  margin: 0 5px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  /* border: 1px solid black; */
+  font-size: 20px;
+}
+
+/* .tabs button:hover {
+  border-bottom: 2px solid blue;
+} */
+
+.active {
+  font-weight: bold;
+}
+
+.nav {
+  height: 50px;
+}

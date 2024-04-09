@@ -1,0 +1,37 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.boxinbox {
+  background-color: rgb(132, 192, 251);
+  border-radius: 30px;
+  width: 350px;
+  height: 200px;
+  margin-top: 30px;
+}
+
+.boxinboxfail {
+  background-color: rgb(245, 64, 64);
+  border-radius: 30px;
+  width: 350px;
+  height: 200px;
+  margin-top: 30px;
+}
+
+.inboxtext {
+  text-align: center; /* 텍스트를 수평 중앙으로 정렬합니다. */
+  display: flex;
+  align-items: center; /* 텍스트를 수직 중앙으로 정렬합니다. */
+  justify-content: center; /* 텍스트를 수평 중앙으로 정렬합니다. */
+  height: 100%; /* 부모 요소(.boxinbox)의 높이에 따라 텍스트를 수직 중앙으로 정렬합니다. */
+  font-size: 70px;
+}
+
+.text {
+  font-size: 25px;
+  margin-top: 15px;
+}

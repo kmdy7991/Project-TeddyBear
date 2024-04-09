@@ -1,0 +1,14 @@
+server:
+  port: 8082
+
+spring:
+  cloud:
+    config:
+      name: teddy
+      profile: script
+
+  application:
+    name: script-service
+
+  config:
+    import: optional:configserver:http://config:8763

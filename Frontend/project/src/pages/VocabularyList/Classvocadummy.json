@@ -1,0 +1,632 @@
+[
+  {
+    "tier": "A1",
+    "id": 1,
+    "eng": "apple",
+    "kor": "사과",
+    "part": "noun"
+  },
+  {
+    "tier": "A2",
+    "id": 2,
+    "eng": "banana",
+    "kor": "바나나",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 3,
+    "eng": "carrot",
+    "kor": "당근",
+    "part": "noun"
+  },
+  {
+    "tier": "A1",
+    "id": 4,
+    "eng": "dog",
+    "kor": "개",
+    "part": "noun"
+  },
+  {
+    "tier": "A2",
+    "id": 5,
+    "eng": "elephant",
+    "kor": "코끼리",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 6,
+    "eng": "flower",
+    "kor": "꽃",
+    "part": "noun"
+  },
+  {
+    "tier": "A1",
+    "id": 7,
+    "eng": "guitar",
+    "kor": "기타",
+    "part": "noun"
+  },
+  {
+    "tier": "A2",
+    "id": 8,
+    "eng": "hat",
+    "kor": "모자",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 9,
+    "eng": "ice cream",
+    "kor": "아이스크림",
+    "part": "noun"
+  },
+  {
+    "tier": "A1",
+    "id": 10,
+    "eng": "jacket",
+    "kor": "재킷",
+    "part": "noun"
+  },
+  {
+    "tier": "A2",
+    "id": 11,
+    "eng": "kangaroo",
+    "kor": "캥거루",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 12,
+    "eng": "lion",
+    "kor": "사자",
+    "part": "noun"
+  },
+  {
+    "tier": "A1",
+    "id": 13,
+    "eng": "moon",
+    "kor": "달",
+    "part": "noun"
+  },
+  {
+    "tier": "A2",
+    "id": 14,
+    "eng": "notebook",
+    "kor": "노트북",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 15,
+    "eng": "orange",
+    "kor": "오렌지",
+    "part": "noun"
+  },
+  {
+    "tier": "A1",
+    "id": 16,
+    "eng": "pencil",
+    "kor": "연필",
+    "part": "noun"
+  },
+  {
+    "tier": "A2",
+    "id": 17,
+    "eng": "queen",
+    "kor": "여왕",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 18,
+    "eng": "rose",
+    "kor": "장미",
+    "part": "noun"
+  },
+  {
+    "tier": "A1",
+    "id": 19,
+    "eng": "sun",
+    "kor": "태양",
+    "part": "noun"
+  },
+  {
+    "tier": "A2",
+    "id": 20,
+    "eng": "tiger",
+    "kor": "호랑이",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 21,
+    "eng": "umbrella",
+    "kor": "우산",
+    "part": "noun"
+  },
+  {
+    "tier": "A1",
+    "id": 22,
+    "eng": "vase",
+    "kor": "꽃병",
+    "part": "noun"
+  },
+  {
+    "tier": "A2",
+    "id": 23,
+    "eng": "whale",
+    "kor": "고래",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 24,
+    "eng": "xylophone",
+    "kor": "실로폰",
+    "part": "noun"
+  },
+  {
+    "tier": "A1",
+    "id": 25,
+    "eng": "yacht",
+    "kor": "요트",
+    "part": "noun"
+  },
+  {
+    "tier": "A2",
+    "id": 26,
+    "eng": "zebra",
+    "kor": "얼룩말",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 27,
+    "eng": "apricot",
+    "kor": "산도둑",
+    "part": "noun"
+  },
+  {
+    "tier": "A1",
+    "id": 28,
+    "eng": "bee",
+    "kor": "벌",
+    "part": "noun"
+  },
+  {
+    "tier": "A2",
+    "id": 29,
+    "eng": "cherry",
+    "kor": "체리",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 30,
+    "eng": "dolphin",
+    "kor": "돌고래",
+    "part": "noun"
+  },
+    {
+    "tier": "B1",
+    "id": 31,
+    "eng": "umbrella",
+    "kor": "우산",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 32,
+    "eng": "keyboard",
+    "kor": "키보드",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 33,
+    "eng": "camera",
+    "kor": "카메라",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 34,
+    "eng": "tree",
+    "kor": "나무",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 35,
+    "eng": "mountain",
+    "kor": "산",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 36,
+    "eng": "bicycle",
+    "kor": "자전거",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 37,
+    "eng": "coffee",
+    "kor": "커피",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 38,
+    "eng": "book",
+    "kor": "책",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 39,
+    "eng": "pen",
+    "kor": "펜",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 40,
+    "eng": "computer",
+    "kor": "컴퓨터",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 41,
+    "eng": "television",
+    "kor": "텔레비전",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 42,
+    "eng": "window",
+    "kor": "창문",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 43,
+    "eng": "table",
+    "kor": "테이블",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 44,
+    "eng": "chair",
+    "kor": "의자",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 45,
+    "eng": "dog",
+    "kor": "개",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 46,
+    "eng": "cat",
+    "kor": "고양이",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 47,
+    "eng": "bird",
+    "kor": "새",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 48,
+    "eng": "flower",
+    "kor": "꽃",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 49,
+    "eng": "river",
+    "kor": "강",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 50,
+    "eng": "ocean",
+    "kor": "바다",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 51,
+    "eng": "phone",
+    "kor": "전화",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 52,
+    "eng": "clock",
+    "kor": "시계",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 53,
+    "eng": "car",
+    "kor": "자동차",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 54,
+    "eng": "house",
+    "kor": "집",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 55,
+    "eng": "shoes",
+    "kor": "신발",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 56,
+    "eng": "shirt",
+    "kor": "셔츠",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 57,
+    "eng": "pants",
+    "kor": "바지",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 58,
+    "eng": "hat",
+    "kor": "모자",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 59,
+    "eng": "socks",
+    "kor": "양말",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 60,
+    "eng": "guitar",
+    "kor": "기타",
+    "part": "noun"
+  },
+    {
+    "tier": "B1",
+    "id": 61,
+    "eng": "bike",
+    "kor": "자전거",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 62,
+    "eng": "bus",
+    "kor": "버스",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 63,
+    "eng": "train",
+    "kor": "기차",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 64,
+    "eng": "airplane",
+    "kor": "비행기",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 65,
+    "eng": "ship",
+    "kor": "배",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 66,
+    "eng": "helicopter",
+    "kor": "헬리콥터",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 67,
+    "eng": "rocket",
+    "kor": "로켓",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 68,
+    "eng": "space",
+    "kor": "우주",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 69,
+    "eng": "moon",
+    "kor": "달",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 70,
+    "eng": "sun",
+    "kor": "태양",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 71,
+    "eng": "star",
+    "kor": "별",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 72,
+    "eng": "planet",
+    "kor": "행성",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 73,
+    "eng": "astronaut",
+    "kor": "우주 비행사",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 74,
+    "eng": "alien",
+    "kor": "외계인",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 75,
+    "eng": "galaxy",
+    "kor": "은하수",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 76,
+    "eng": "earth",
+    "kor": "지구",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 77,
+    "eng": "oxygen",
+    "kor": "산소",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 78,
+    "eng": "water",
+    "kor": "물",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 79,
+    "eng": "fire",
+    "kor": "불",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 80,
+    "eng": "wind",
+    "kor": "바람",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 81,
+    "eng": "rain",
+    "kor": "비",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 82,
+    "eng": "snow",
+    "kor": "눈",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 83,
+    "eng": "ice",
+    "kor": "얼음",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 84,
+    "eng": "storm",
+    "kor": "폭풍",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 85,
+    "eng": "lightning",
+    "kor": "번개",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 86,
+    "eng": "thunder",
+    "kor": "천둥",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 87,
+    "eng": "cloud",
+    "kor": "구름",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 88,
+    "eng": "rainbow",
+    "kor": "무지개",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 89,
+    "eng": "sky",
+    "kor": "하늘",
+    "part": "noun"
+  },
+  {
+    "tier": "B1",
+    "id": 90,
+    "eng": "earthquake",
+    "kor": "지진",
+    "part": "noun"
+  }
+]

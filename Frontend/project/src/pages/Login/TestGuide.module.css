@@ -1,0 +1,54 @@
+.fullbox {
+  height: 100%;
+  width: 100%;
+}
+
+.guidebox {
+  background-color: rgb(242, 242, 242);
+  border-radius: 8px;
+  padding: 24px;
+  width: 60vw;
+  height: 60vh; 
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.leveltext {
+  text-align: center;
+  margin-top: 10vh;
+  margin-bottom: 7vh;
+  font-size: 4rem;
+  color: rgb(255, 218, 3);
+}
+
+.guidetext {
+  text-align: center;
+  margin-top: 5vh;
+  margin-bottom: 7vh;
+  font-size: 40px;
+}
+
+.center {
+  width: 50vw;
+  height: 25vh;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin: auto;
+  text-align: left;
+  font-size: 1rem;
+
+}
+
+.button {
+  background-color:  rgb(255, 218, 3);
+  border-color:  rgb(255, 218, 3);
+  border-radius: 30px;
+  padding: 7px 60px;
+  font-size: 1rem;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

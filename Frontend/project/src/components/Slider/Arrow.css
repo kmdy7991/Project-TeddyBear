@@ -1,0 +1,83 @@
+.slick-prev,
+.slick-next,
+.slick-vid-next,
+.slick-vid-prev,
+.arr-prev,
+.arr-next,
+.page-next,
+.page-prev,
+.cate-next,
+.cate-prev {
+  font-size: 0;
+  line-height: 0;
+  position: absolute;
+  transform: translate(0, -50%);
+  display: block;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.arr-next,
+.arr-prev {
+  width: 1.5rem;
+  height: 70%;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+}
+
+.slick-next,
+.slick-prev {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  top: 40%;
+  color: transparent;
+  border: none;
+  outline: none;
+}
+
+.slick-vid-next,
+.slick-vid-prev {
+  position: absolute;
+  width: 30px;
+  height: 11rem;
+  top: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.slick-vid-next,
+.arr-next,
+.page-next,
+.cate-next {
+  right: 0;
+}
+
+.slick-vid-prev,
+.arr-prev,
+.page-prev,
+.cate-prev {
+  left: 0;
+}
+
+.arr-prev,
+.arr-next {
+  bottom: -15%;
+}
+.page-prev img,
+.page-next img,
+.cate-prev img,
+.cate-next img {
+  width: 2rem;
+}
+
+.page-prev,
+.page-next,
+.cate-prev,
+.cate-next {
+  bottom: -1rem;
+}
+
+.cate-prev,
+.cate-next {
+  margin-bottom: 2.2rem;
+}

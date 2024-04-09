@@ -1,0 +1,15 @@
+server:
+  port: 8084
+
+spring:
+  cloud:
+    config:
+      name: teddy
+      profile: test
+
+
+  application:
+    name: test-service
+
+  config:
+    import: optional:configserver:http://config:8763

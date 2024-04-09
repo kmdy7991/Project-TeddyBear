@@ -1,0 +1,110 @@
+.myContent {
+  display: flex;
+  flex-direction: column;
+  /* position: relative; */
+  margin-bottom: 3rem;
+}
+
+.fade-enter {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 300ms, visibility 300ms;
+}
+
+.fade-exit {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 300ms, visibility 300ms;
+}
+
+.myTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5vh;
+}
+
+.myVideoList {
+  display: flex;
+  flex-direction: column;
+}
+
+.bnt {
+  display: flex;
+  width: 94%;
+  justify-content: space-between;
+}
+
+.myBtn button {
+  border: 0;
+  background-color: transparent;
+  margin: 0.4rem;
+}
+
+.myBtn button:hover {
+  cursor: pointer;
+}
+.myBtnImg {
+  width: 2rem;
+}
+
+.myVideo {
+  width: 90%;
+  border: 1px solid black;
+  margin: 3vh 0;
+  padding: 1vh 1vw;
+  border-radius: 0.5vw;
+  display: flex;
+}
+
+.myVidImg {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.myVidImg img {
+  width: 100%;
+  border-radius: 1rem;
+}
+
+.myText {
+  width: 60%;
+  display: flex;
+  padding: 1rem;
+  margin-left: 2rem;
+  /* width: 100%; */
+  flex-direction: column;
+  justify-content: center;
+}
+
+.myVidTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.no-content-mypage {
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.myDescription {
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
