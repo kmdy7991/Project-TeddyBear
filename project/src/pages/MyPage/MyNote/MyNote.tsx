@@ -43,16 +43,11 @@ export default function MyNote() {
                 },
               }
             );
-
-            // 상세 정보를 포함한 새로운 객체를 반환
-            return {
-              ...note,
-              videoTitle: detailResponse.data.videoTitle,
-            };
+            return detailResponse.data;
           })
         );
-
         setNotes(notesWithDetails);
+        console.log("노트 상세 조회:", notes);
       } catch (error) {
         console.error("노트 리스트 조회 실패", error);
       }
