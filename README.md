@@ -130,19 +130,19 @@
 &nbsp;
 
 ## 개발 산출물
-[기능 명세서]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/-/raw/master/docs/Teddybear_기능명세서.pdf")
+[기능 명세서](./docs/Teddybear_기능명세서.pdf)
 
-[API 명세서]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/-/raw/master/docs/Teddybear_API명세서.pdf")
+[API 명세서](./docs/Teddybear_API명세서.pdf)
 
-[와이어프레임]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/-/raw/master/docs/Teddybear_Wireframe.pdf")
+[와이어프레임](./docs/Teddybear_Wireframe.pdf")
 
-[ERD]("")
+[ERD]()
 
-[중간 발표 자료]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/-/raw/master/docs/Teddybear_중간발표자료.pdf")
+[중간 발표 자료](./docs/Teddybear_중간발표자료.pdf)
 
-[최종 발표 자료]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/-/raw/master/docs/Teddybear_최종발표자료.pdf")
+[최종 발표 자료](./docs/Teddybear_최종발표자료.pdf)
 
 &nbsp;
 
 ## 서비스 시연 영상
-[시연 영상]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/-/raw/master/assets/Teddybear_UCC.mp4?ref_type=heads")
+[시연 영상](./assets/Teddybear_UCC.mp4)
