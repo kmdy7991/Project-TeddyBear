@@ -1,5 +1,5 @@
 <div align="center">
-<img src="" />
+<img src="/assets/Teddybear.png" />
 </div>
 
 # Teddy Bear(테디베어) : 영어 학습 서비스
@@ -124,19 +124,25 @@
 
 &nbsp;
 
-## ERD
-
-
-&nbsp;
-
 ## 시스템 아키텍처
-<img src="/assets/TeddybearArchitecture.png">
+<img src="/docs/Teddybear_Architecture.png">
 
 &nbsp;
 
 ## 개발 산출물
+[기능 명세서]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/docs/Teddybear_기능명세서.pdf")
 
+[API 명세서]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/docs/Teddybear_API명세서.pdf")
+
+[와이어프레임]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/docs/Teddybear_Wireframe.pdf")
+
+[ERD]("")
+
+[중간 발표 자료]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/docs/Teddybear_중간발표자료.pdf")
+
+[최종 발표 자료]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/docs/Teddybear_최종발표자료.pdf")
 
 &nbsp;
 
 ## 서비스 시연 영상
+[시연 영상]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/assets/Teddybear_UCC.pdf")
