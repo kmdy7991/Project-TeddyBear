@@ -130,7 +130,7 @@
 &nbsp;
 
 ## 개발 산출물
-[기능 명세서]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/-/raw/master/docs/Teddybear_기능명세서.pdf")
+[기능 명세서]("./docs/Teddybear_기능명세서.pdf")
 
 [API 명세서]("https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B107/-/raw/master/docs/Teddybear_API명세서.pdf")
 
