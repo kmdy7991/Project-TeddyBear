@@ -47,8 +47,8 @@ const Card: React.FC<CardProps> = ({ word }) => {
             `/api/word-service/bookmarkWords/isExist`,
             {
               params: {
-                // userId: userId,
-                userId: 1,
+                userId: userId,
+                // userId: 1,
                 wordId: word.id,
               },
               headers: {
@@ -79,8 +79,8 @@ const Card: React.FC<CardProps> = ({ word }) => {
         const response = await axios.post(
           `/api/word-service/bookmarkWords`,
           {
-            // userId: userId,
-            userId: 1,
+            userId: userId,
+            // userId: 1,
             wordId: word.id,
           },
           {
@@ -95,8 +95,8 @@ const Card: React.FC<CardProps> = ({ word }) => {
       } else {
         // 이ㅈㅔ 삭제
         const response = await axios.delete(
-          // `/api/word-service/bookmarkWords/${userId}/${word.id}`,
-          `/api/word-service/bookmarkWords/${1}/${word.id}`,
+          `/api/word-service/bookmarkWords/${userId}/${word.id}`,
+          // `/api/word-service/bookmarkWords/${1}/${word.id}`,
           {
             headers: {
               // headers를 여기에 포함시킵니다.
