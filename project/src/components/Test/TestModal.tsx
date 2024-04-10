@@ -25,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({
   expCount,
 }) => {
   const navigate = useNavigate();
-  console.log(userId, videoId);
+  console.log(expCount);
   const accessToken = localStorage.getItem("access_token");
 
   const updateExp = async (isTierExp: boolean) => {
@@ -51,11 +51,6 @@ const Modal: React.FC<ModalProps> = ({
       console.error("경험치 업데이트 실패", error);
     }
   };
-  if (userId && expCount) {
-    updateExp(false);
-    updateExp(true);
-  }
-
   const handleSubmit = async () => {
     try {
       if (userId && videoId) {
