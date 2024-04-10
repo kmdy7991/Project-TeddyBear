@@ -9,7 +9,7 @@ import java.util.List;
 public interface WordService {
     List<ResponseWord> getWordsByTier(String tier, String value);
     ResponseWord getWord(Long wordId);
-    List<WordEntity> getBookmarkWordsBy(Long userId, String value);
+    List<WordEntity> getBookmarkWordsBy(Long userId);
     void deleteBookmarkByUserIdAndWordId(Long userId, WordEntity wordId);
     void createBookmarkword(RequestBookmarkWord requestBookmarkWord);
     void importWord() throws Exception;

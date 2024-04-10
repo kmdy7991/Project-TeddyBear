@@ -57,18 +57,35 @@ public class WordServiceImpl implements WordService{
                 .build();
     }
 
+//    @Override
+//    public List<WordEntity> getBookmarkWordsBy(Long userId) {
+//        List<BookmarkWordEntity> bookmarkWordEntities = bookmarkWordRepository.findByUserId(userId);
+//        if (!bookmarkWordEntities.isEmpty()) {
+//            List<Long> wordIds = bookmarkWordEntities.stream()
+//                    .map(bookmarkWordEntity -> bookmarkWordEntity.getWord().getId())
+//                    .collect(Collectors.toList());
+//            return wordRepository.findAllByIdIn(wordIds);
+//        } else {
+//            return new ArrayList<>(); // 유저에 해당하는 북마크된 단어가 없을 경우 빈 리스트를 반환
+//        }
+//    }
+
+
     @Override
-    public List<WordEntity> getBookmarkWordsBy(Long userId, String value) {
-        List<BookmarkWordEntity> bookmarkWordEntities = bookmarkWordRepository.findByUserId(userId);
-        if (!bookmarkWordEntities.isEmpty()) {
-            List<Long> wordIds = bookmarkWordEntities.stream()
-                    .map(bookmarkWordEntity -> bookmarkWordEntity.getWord().getId())
-                    .collect(Collectors.toList());
-            return wordRepository.findAllByIdIn(wordIds);
+    public List<WordEntity> getBookmarkWordsBy(Long userId) {
+        List<BookmarkWordEntity> bookmarkedWords = bookmarkWordRepository.findByUserId(userId);
+        if(!bookmarkedWords.isEmpty()){
+            return bookmarkedWords.stream()
+                    .map(BookmarkWordEntity::getWord)
+                    .toList();
         } else {
-            return new ArrayList<>(); // 유저에 해당하는 북마크된 단어가 없을 경우 빈 리스트를 반환
+            return new ArrayList<>();
         }
     }
+
+
+
+
 
     @Override
     public void deleteBookmarkByUserIdAndWordId(Long userId, WordEntity wordId) {
