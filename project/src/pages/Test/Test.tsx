@@ -33,8 +33,8 @@ const Test = () => {
   const query = useQuery();
   const videoStringId = useParams().videoStringId; // `useParams`를 사용하여 경로 파라미터 접근
   const id = query.get("id"); // 쿼리 파라미터 중 'id' 값을 추출
+  const videoIdNumber = id ? parseInt(id, 10) : 0;
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
-
   const [isAnswerChecked, setIsAnswerChecked] = useState(false);
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
@@ -205,7 +205,12 @@ const Test = () => {
           </div>
         </div>
 
-        <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+        <Modal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          videoId={videoIdNumber} // videoId를 숫자로 변환하여 전달
+          userId={userId}
+        >
           <p>총점: {correctAnswersCount * 10}점</p>
           <TestScore
             correctAnswers={correctAnswersCount * 10}
