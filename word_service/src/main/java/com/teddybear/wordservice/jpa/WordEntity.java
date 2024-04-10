@@ -28,7 +28,7 @@ public class WordEntity {
     @Column(nullable = false, length = 2)
     private String tier;
 
-    @OneToMany(mappedBy = "word")
+    @OneToMany(mappedBy = "word", fetch = FetchType.EAGER)
     private List<BookmarkWordEntity> bookmarkHistory;
 
 
