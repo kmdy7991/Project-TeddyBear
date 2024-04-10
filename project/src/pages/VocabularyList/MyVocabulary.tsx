@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
 // Word 인터페이스 정의
-interface Word {
+export interface Word {
   id: number;
   eng: string;
   kor: string;
@@ -17,6 +17,7 @@ interface Word {
 
 const MyVocabulary = () => {
   const userID = useSelector((state: RootState) => state.user.userId);
+  // const userID = 5;
   const [words, setWords] = useState<Word[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const CARDS_PER_PAGE = 12;
@@ -27,7 +28,8 @@ const MyVocabulary = () => {
         const response = await axios.get(
           `/api/word-service/bookmarkWords/${userID}`
         );
-        setWords(response.data);
+        // setWords(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("단어를 불러오는데 실패했습니다.", error);
       }
@@ -56,12 +58,12 @@ const MyVocabulary = () => {
     <div className={styles.container}>
       <h1 className={styles.text}>북마크 단어장</h1>;
       <div className={styles.vocard}>
-        {currentWords.map((word) => (
-          <div key={word.id}>
-            <Card word={word} />
-            {/* <button onClick={() => deleteWord(word.id)}>삭제</button> 삭제 버튼을 Card 외부에 배치 */}
-          </div>
-        ))}
+        {currentWords &&
+          currentWords?.map((word) => (
+            <div key={word.id}>
+              <Card word={word} />
+            </div>
+          ))}
       </div>
       <Pagination
         cardsPerPage={CARDS_PER_PAGE}
