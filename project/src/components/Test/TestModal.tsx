@@ -23,6 +23,7 @@ const Modal: React.FC<ModalProps> = ({
   videoId,
 }) => {
   const navigate = useNavigate();
+  console.log(userId, videoId);
   const accessToken = localStorage.getItem("access_token");
   const handleSubmit = async () => {
     try {
