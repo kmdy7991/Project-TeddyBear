@@ -77,7 +77,7 @@ public class WordServiceImpl implements WordService{
         if(!bookmarkedWords.isEmpty()){
             return bookmarkedWords.stream()
                     .map(BookmarkWordEntity::getWord)
-                    .toList();
+                    .collect(Collectors.toList());
         } else {
             return new ArrayList<>();
         }

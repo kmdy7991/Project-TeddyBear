@@ -14,7 +14,7 @@ public class BookmarkWordEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "word", nullable = false)
     private WordEntity word;
 
