@@ -33,7 +33,7 @@ public class WordController {
 
     @GetMapping("/bookmarkWords/{userId}") // 북마크 단어 조회
     public ResponseEntity<List<WordEntity>> getBookmarkwords(@PathVariable Long userId) {
-        List<WordEntity> bookmarkList = wordService.getBookmarkWordsBy(userId, value);
+        List<WordEntity> bookmarkList = wordService.getBookmarkWordsBy(userId);
 
         return ResponseEntity.status(HttpStatus.OK).body(bookmarkList);
     }
