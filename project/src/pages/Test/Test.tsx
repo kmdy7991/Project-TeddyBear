@@ -177,6 +177,7 @@ const Test = () => {
           onClose={() => setModalOpen(false)}
           videoId={videoIdNumber} // videoId를 숫자로 변환하여 전달
           userId={userId}
+          expCount={correctAnswersCount * 2}
         >
           <p>총점: {correctAnswersCount * 10}점</p>
           <TestScore
