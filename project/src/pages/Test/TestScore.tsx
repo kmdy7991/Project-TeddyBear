@@ -14,6 +14,7 @@ const TestScore: React.FC<TestScoreProps> = ({
   onClose,
 }) => {
   const [score, setScore] = useState<number>(0);
+  const [expScore, setExpScore] = useState<number>(0);
   const [userName, setUserName] = useState<string>("");
   const accessToken = localStorage.getItem("access_token");
 
@@ -36,6 +37,8 @@ const TestScore: React.FC<TestScoreProps> = ({
     const newScore = correctAnswers * 10;
     const expScore = correctAnswers * 2;
     setScore(newScore);
+    setExpScore(expScore);
+    console.log("업뎃할 경험치", expScore);
     // 여기서는 어떤 값을 반환하지 않아야 합니다.
     const updateExp = async (isTierExp: boolean) => {
       try {
