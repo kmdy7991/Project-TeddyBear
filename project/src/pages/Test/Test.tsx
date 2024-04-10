@@ -129,39 +129,6 @@ const Test = () => {
     }
   };
 
-  useEffect(() => {
-    if (modalOpen) {
-      // 모달이 열렸을 때 실행할 로직
-      submitVideoWatchData();
-    }
-  }, [modalOpen]); // modalOpen 상태가 변할 때마다 실행
-
-  const submitVideoWatchData = async () => {
-    // 함수에 videoId 파라미터 추가
-    try {
-      const response = await axios.put(
-        `/api/video-service/watch`,
-        {
-          videoWatched: true, // 비디오 시청 상태를 true로 설정
-          userId: userId, // 현재 사용자의 ID
-          videoId: videoId, // 함수 호출 시 전달된 videoId 사용
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`, // 인증 토큰
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      console.log("Video watch data submitted successfully", response.data);
-      // 성공적으로 데이터를 제출한 후 추가 작업을 여기에 구현할 수 있습니다.
-    } catch (error) {
-      console.error("Failed to submit video watch data", error);
-      // 오류 처리 로직을 여기에 구현할 수 있습니다.
-    }
-  };
-
   return (
     <div className={styles.container}>
       {loading && <Loading />}
