@@ -28,6 +28,6 @@ public class WordEntity {
     @Column(nullable = false, length = 2)
     private String tier;
 
-    @OneToMany(mappedBy = "word", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "word", fetch = FetchType.LAZY)
     private List<BookmarkWordEntity> bookmarkHistory;
 }
