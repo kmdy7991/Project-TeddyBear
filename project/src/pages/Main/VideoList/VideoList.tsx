@@ -31,7 +31,9 @@ function VideoList() {
     []
   );
   const navigate = useNavigate();
-  const userNickName = useSelector((state: RootState) => state.user.userId);
+  const userNickName = useSelector(
+    (state: RootState) => state.user.userNickName
+  );
   const userId = useSelector((state: RootState) => state.user.userId);
   const accessToken = localStorage.getItem("access_token");
   const dispatch = useDispatch();
