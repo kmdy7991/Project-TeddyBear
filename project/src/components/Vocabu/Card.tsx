@@ -4,8 +4,9 @@ import styles from "./Card.module.css";
 import blankBookmark from "../../assets/bookmark.png";
 import fullBookmark from "../../assets/material-symbols_bookmark.png";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { CardActions } from "../../store/cardBookmark";
 
 interface Word {
   id: number;
@@ -35,52 +36,51 @@ const Card: React.FC<CardProps> = ({ word }) => {
   // 단어의 티어에 해당하는 배경색 지정
   const backgroundColor =
     tierColors[word.tier as keyof typeof tierColors] || "#FFFFFF";
-  const [isBookmark, setIsBookmark] = useState(false);
+  // const [isBookmark, setIsBookmark] = useState(false);
   const userId = useSelector((state: RootState) => state.user.userId);
+  // const userId = 5;
   const accessToken = localStorage.getItem("access_token");
 
-  useEffect(() => {
-    const checkBookmark = async () => {
-      if (word.id) {
-        try {
-          const response = await axios.get(
-            `/api/word-service/bookmarkWords/isExist`,
-            {
-              params: {
-                userId: userId,
-                // userId: 1,
-                wordId: word.id,
-              },
-              headers: {
-                // 여기에 headers를 포함시킵니다.
-                Authorization: `Bearer ${accessToken}`,
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          console.log("북마크 유무 조회 성공", response.data);
-          setIsBookmark(response.data);
-        } catch (error) {
-          console.error("북마크 조회 실패", error);
-          setIsBookmark(false);
-        }
-      }
-    };
-    checkBookmark();
-  }, [word.id]);
+  const dispatch = useDispatch();
+  const bookmarks = useSelector((state: RootState) => state.cardBookmark);
+  const isBookmark = bookmarks.some((bookmark) => bookmark.id === word.id);
+
+  // useEffect(() => {
+  //   const checkBookmark = async () => {
+  //     if (word.id) {
+  //       try {
+  //         const response = await axios.get(
+  //           `/api/word-service/bookmarkWords/isExist`,
+  //           {
+  //             params: {
+  //               userId: userId,
+  //               wordId: word.id,
+  //             },
+  //             headers: {
+  //               // 여기에 headers를 포함시킵니다.
+  //               Authorization: `Bearer ${accessToken}`,
+  //               "Content-Type": "application/json",
+  //             },
+  //           }
+  //         );
+  //         console.log("북마크 유무 조회 성공", response.data);
+  //         setIsBookmark(response.data);
+  //       } catch (error) {
+  //         console.error("북마크 조회 실패", error);
+  //         setIsBookmark(false);
+  //       }
+  //     }
+  //   };
+  //   checkBookmark();
+  // }, [word.id]);
 
   const handleToggleBookmark = async () => {
     try {
-      const newBookMark = !isBookmark;
-      setIsBookmark(newBookMark);
-
-      // 현재 북마크 상태에 따라서 북마크 추가or삭제
-      if (newBookMark) {
+      if (!isBookmark) {
         const response = await axios.post(
           `/api/word-service/bookmarkWords`,
           {
             userId: userId,
-            // userId: 1,
             wordId: word.id,
           },
           {
@@ -91,6 +91,7 @@ const Card: React.FC<CardProps> = ({ word }) => {
             },
           }
         );
+        dispatch(CardActions.addBookmark(word));
         console.log("북마크 추가 성공", response.data);
       } else {
         // 이ㅈㅔ 삭제
@@ -106,6 +107,7 @@ const Card: React.FC<CardProps> = ({ word }) => {
           }
         );
         console.log("북마크 삭제 성공", response.data);
+        dispatch(CardActions.removeBookmark(word.id));
       }
     } catch (error) {
       console.error("북마크 실패", error);
