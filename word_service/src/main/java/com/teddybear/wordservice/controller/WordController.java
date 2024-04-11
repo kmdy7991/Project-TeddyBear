@@ -39,8 +39,8 @@ public class WordController {
     }
 
     @DeleteMapping("/bookmarkWords/{userId}/{wordId}") // 북마크 단어 삭제
-    public ResponseEntity<String> deleteBookmarkByUserIdAndWordId(@PathVariable Long userId, @PathVariable WordEntity wordId) {
-        wordService.deleteBookmarkByUserIdAndWordId(userId, wordId);
+    public ResponseEntity<String> deleteBookmarkword(@PathVariable Long userId, @PathVariable Long wordId) {
+        wordService.deleteBookmark(userId, wordId);
         return ResponseEntity.status(HttpStatus.OK).body("Bookmark deleted successfully.");
     }
 

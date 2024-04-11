@@ -97,8 +97,8 @@ public class WordServiceImpl implements WordService{
 
 
     @Override
-    public void deleteBookmarkByUserIdAndWordId(Long userId, WordEntity wordId) {
-        bookmarkWordRepository.deleteByUserIdAndWordId(userId, wordId);
+    public void deleteBookmark(Long userId, Long wordId) {
+        bookmarkWordRepository.deleteWord(userId, wordId);
     }
 
     @Override
