@@ -34,7 +34,7 @@ def create_upload_file(file: UploadFile = File(...)):
 class TextToSpeechRequest(BaseModel):
     text: str
 
-@voice_router.post("/python/text-to-speech/")
+@voice_router.post("/python/text-to-speech")
 def text_to_speech(request: TextToSpeechRequest):
     text = request.text
     # 클라이언트 초기화
