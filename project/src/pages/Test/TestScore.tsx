@@ -44,7 +44,7 @@ const TestScore: React.FC<TestScoreProps> = ({
       try {
         if (userId) {
           const response = await axios.put(
-            `/api/user-service/upgradeExp/${userId}`,
+            `/api/user-service/tier/upgradeExp/${userId}`,
             {
               isTierExp,
               addExp: expScore,
