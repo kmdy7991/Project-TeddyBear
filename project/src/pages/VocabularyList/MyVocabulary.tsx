@@ -28,7 +28,7 @@ const MyVocabulary = () => {
         const response = await axios.get(
           `/api/word-service/bookmarkWords/${userID}`
         );
-        // setWords(response.data);
+        setWords(response.data);
         console.log(response.data);
       } catch (error) {
         console.error("단어를 불러오는데 실패했습니다.", error);
