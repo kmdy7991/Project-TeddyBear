@@ -9,7 +9,11 @@ import java.util.List;
 public interface BookmarkWordRepository extends JpaRepository<BookmarkWordEntity, Long>  {
     List<BookmarkWordEntity> findByUserId(Long userId);
 
-    void deleteByUserIdAndWordId(Long userId, WordEntity wordId);
+//    void deleteByUserIdAndWordId(Long userId, WordEntity wordId);
+
+    @Modifying
+    @Query("DELETE FROM BookmarkWordEntity b WHERE b.userId = :userId AND b.word.id = :wordId")
+    void deleteWord(Long userId, Long wordId);
 
     boolean existsByIdAndUserId(Long wordId, Long userId);
 }
