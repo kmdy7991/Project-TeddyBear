@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 import chromedriver_autoinstaller
 import json
 from selenium.common.exceptions import NoSuchElementException
-from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound
 from win10toast import ToastNotifier
 from youtube_transcript_api._errors import TranscriptsDisabled
 
@@ -15,11 +15,10 @@ chrome_options = Options()
 chrome_options.add_argument("headless")  # headless 모드로 설정
 
 
-video_seq = 409
+video_seq = 436
 
 video_links = [
-    "https://www.youtube.com/watch?v=mSLRtzVkK-w",
-    "https://www.youtube.com/watch?v=FWTNMzK9vG4",
+
 ]
 
 def extract_video_id(video_link):
@@ -36,7 +35,7 @@ def generate_thumbnail_url(video_id):
 
 # 이전에 저장된 데이터 불러오기
 try:
-    with open('crawl.json', 'r', encoding='utf8') as f:
+    with open('craw\.json', 'r', encoding='utf8') as f:
         data = json.load(f)
 except FileNotFoundError:
     data = []
@@ -54,9 +53,21 @@ for link in video_links:
     video_title = driver.find_element(By.CSS_SELECTOR, "#title > h1 > yt-formatted-string").text
 
     # 등록 날짜
-    time.sleep(1)
+    time.sleep(2)
     playtime_selector = "#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > div.ytp-time-display.notranslate > span:nth-child(2) > span.ytp-time-duration"
     playtime = driver.find_element(By.CSS_SELECTOR, playtime_selector).text
+
+    try:
+        minutes, seconds = map(int, playtime.split(':'))
+        if minutes < 1:
+            print("재생시간이 1분 미만입니다.")
+            driver.quit()
+            continue
+    except ValueError:
+        print(playtime + "잘못된 형식의 재생시간입니다.")
+        driver.quit()
+        continue
+
     
     # 설정 더보기 클릭
     time.sleep(2)
@@ -84,13 +95,15 @@ for link in video_links:
     time.sleep(1)
 
     # 영상 요약 받아오기
-    time.sleep(2)
     discription_selector = "#description-inline-expander > yt-attributed-string > span > span"
     discription = driver.find_element(By.CSS_SELECTOR, discription_selector)
     time.sleep(1)
     
     try:
-        transcript = YouTubeTranscriptApi.get_transcript(video_id)
+        try:
+            transcript = YouTubeTranscriptApi.get_transcript(video_id)
+        except NoTranscriptFound:
+            transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['en-GB'])
         timeline_removed_results = []
     
         # 스크립트 내용 추출
