@@ -44,11 +44,15 @@ export default function MyPage() {
       try {
         dispatch(loadingActions.startLoading("PROFILE"));
         const tiers = await GetUserTier(id);
-        console.log("유저 티어 조회 성공", tiers);
+        // console.log("유저 티어 조회 성공", tiers);
         setTier(tiers.tierName);
         setLevel(tiers.level);
         setTierExp(tiers.tierExp);
         setLevelExp(tiers.levelExp);
+        // setTier("B2");
+        // setLevel(1);
+        // setTierExp(10);
+        // setLevelExp(10);
       } catch (error) {
         console.error("유저 티어 조회 실패", error);
       } finally {
