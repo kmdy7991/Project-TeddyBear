@@ -28,29 +28,6 @@ const Modal: React.FC<ModalProps> = ({
   console.log(expCount);
   const accessToken = localStorage.getItem("access_token");
 
-  const updateExp = async (isTierExp: boolean) => {
-    try {
-      if (userId && expCount) {
-        const response = await axios.put(
-          `/api/user-service/upgradeExp/${userId}`,
-          {
-            isTierExp,
-            addExp: expCount,
-          },
-          {
-            headers: {
-              // headers를 여기에 포함시킵니다.
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        console.log("경험치 업데이트 완료", response.data);
-      }
-    } catch (error) {
-      console.error("경험치 업데이트 실패", error);
-    }
-  };
   const handleSubmit = async () => {
     try {
       if (userId && videoId) {
@@ -70,9 +47,6 @@ const Modal: React.FC<ModalProps> = ({
           }
         );
         console.log("시청완료 영상 완", response.data);
-        await updateExp(true);
-        await updateExp(false);
-
         window.alert("영상 시청이 완료되었습니다.");
       }
     } catch (error) {

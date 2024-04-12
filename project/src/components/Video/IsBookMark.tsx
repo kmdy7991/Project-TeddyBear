@@ -50,7 +50,7 @@ export default function IsBookMark({ videoId }: BookmarkProp) {
       // 토글 위해 현재 상태랑 반대 값 설정
       const newBookMark = !isBookmark;
       setIsBookmark(newBookMark);
-
+      console.log(newBookMark, videoId);
       // 북마크 상태에 따라서 북마크 추가/삭제 api 호출 ㄱㄱ
       if (newBookMark) {
         const response = await axios.post(
