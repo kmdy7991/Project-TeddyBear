@@ -32,7 +32,7 @@ public class UserController {
         if (success) {
             return ResponseEntity.ok("User updated successfully");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User updating failed");
     }
 
     @DeleteMapping("/delete/{id}")
@@ -41,7 +41,7 @@ public class UserController {
         if (result) {
             return ResponseEntity.status(HttpStatus.OK).body("User deleted successfully.");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User deleting failed");
     }
 
     @GetMapping("/user/{id}")
@@ -86,7 +86,7 @@ public class UserController {
         if (success) {
             return ResponseEntity.ok("Tier updated successfully");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tier updating failed");
     }
 
     @PutMapping("/tier/upgradeExp/{id}")
@@ -95,7 +95,7 @@ public class UserController {
         if (success) {
             return ResponseEntity.ok("Exp updated successfully");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Exp updating failed");
     }
 
     @GetMapping("/checkNickname/{id}")
