@@ -22,7 +22,7 @@ export default function MyPage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<tab>("myLecture");
 
-  const [tier, setTier] = useState("");
+  // const [tier, setTier] = useState("");
   const [level, setLevel] = useState(0);
   const [tierExp, setTierExp] = useState(0);
   const [levelExp, setLevelExp] = useState(0);
@@ -32,6 +32,7 @@ export default function MyPage() {
 
   const nickname = useSelector((state: RootState) => state.user.userNickName);
   const id = useSelector((state: RootState) => state.user.userId);
+  const tier = useSelector((state: RootState) => state.user.userTier);
   const handleClickTab = (tab: tab) => (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setActiveTab(tab);
@@ -44,7 +45,7 @@ export default function MyPage() {
         dispatch(loadingActions.startLoading("PROFILE"));
         const tiers = await GetUserTier(id);
         console.log("유저 티어 조회 성공", tiers);
-        setTier(tiers.tierName);
+        // setTier(tiers.tierName);
         setLevel(tiers.level);
         setTierExp(tiers.tierExp);
         setLevelExp(tiers.levelExp);
