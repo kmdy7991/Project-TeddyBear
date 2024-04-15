@@ -33,8 +33,8 @@ const Test = () => {
   const query = useQuery();
   const videoStringId = useParams().videoStringId; // `useParams`를 사용하여 경로 파라미터 접근
   const id = query.get("id"); // 쿼리 파라미터 중 'id' 값을 추출
+  const videoIdNumber = id ? parseInt(id, 10) : 0;
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
-
   const [isAnswerChecked, setIsAnswerChecked] = useState(false);
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
@@ -129,39 +129,6 @@ const Test = () => {
     }
   };
 
-  useEffect(() => {
-    if (modalOpen) {
-      // 모달이 열렸을 때 실행할 로직
-      submitVideoWatchData();
-    }
-  }, [modalOpen]); // modalOpen 상태가 변할 때마다 실행
-
-  const submitVideoWatchData = async () => {
-    // 함수에 videoId 파라미터 추가
-    try {
-      const response = await axios.put(
-        `/api/video-service/watch`,
-        {
-          videoWatched: true, // 비디오 시청 상태를 true로 설정
-          userId: userId, // 현재 사용자의 ID
-          videoId: videoId, // 함수 호출 시 전달된 videoId 사용
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`, // 인증 토큰
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      console.log("Video watch data submitted successfully", response.data);
-      // 성공적으로 데이터를 제출한 후 추가 작업을 여기에 구현할 수 있습니다.
-    } catch (error) {
-      console.error("Failed to submit video watch data", error);
-      // 오류 처리 로직을 여기에 구현할 수 있습니다.
-    }
-  };
-
   return (
     <div className={styles.container}>
       {loading && <Loading />}
@@ -205,7 +172,13 @@ const Test = () => {
           </div>
         </div>
 
-        <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+        <Modal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          videoId={videoIdNumber} // videoId를 숫자로 변환하여 전달
+          userId={userId}
+          expCount={correctAnswersCount * 2}
+        >
           <p>총점: {correctAnswersCount * 10}점</p>
           <TestScore
             correctAnswers={correctAnswersCount * 10}

@@ -83,6 +83,7 @@ public class UserService {
             if (request.isTierExp()) {
                 if (userTier < 5 && (tier.get().getTierExp() + request.getAddExp() - 250) / 250 > userTier) {
                     Tier updatedExp = tier.get().builder()
+                            .user(tier.get().getUser())
                             .tierSeq(tier.get().getTierSeq())
                             .tierName(tiers[userTier + 1])
                             .tierExp(tier.get().getTierExp() + request.getAddExp() - ((userTier + 1) * 250L + 250))
@@ -92,6 +93,7 @@ public class UserService {
                     tierRepository.save(updatedExp);
                 } else {
                     Tier updatedExp = tier.get().builder()
+                            .user(tier.get().getUser())
                             .tierSeq(tier.get().getTierSeq())
                             .tierName(tier.get().getTierName())
                             .tierExp(tier.get().getTierExp() + request.getAddExp())
@@ -103,6 +105,7 @@ public class UserService {
             } else {
                 if ((tier.get().getLevelExp() + request.getAddExp() - 50) / 50 > tier.get().getLevel() - 1) {
                     Tier updatedExp = tier.get().builder()
+                            .user(tier.get().getUser())
                             .tierSeq(tier.get().getTierSeq())
                             .tierName(tier.get().getTierName())
                             .tierExp(tier.get().getTierExp())
@@ -112,6 +115,7 @@ public class UserService {
                     tierRepository.save(updatedExp);
                 } else {
                     Tier updatedExp = tier.get().builder()
+                            .user(tier.get().getUser())
                             .tierSeq(tier.get().getTierSeq())
                             .tierName(tier.get().getTierName())
                             .tierExp(tier.get().getTierExp())

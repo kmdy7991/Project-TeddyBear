@@ -11,6 +11,7 @@ import { VideoResultProps } from "./Video";
 import {
   getBookMarkedVideoList,
   getTastedVideoList,
+  getWatchingVideoList,
 } from "../../../components/Video/MyLectureAPI";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +24,7 @@ function VideoList() {
   const [bmHoverIndex, setbmHoverIndex] = useState<number>(0); // 북마크 호버 인덱스
   const [tasteHoverIndex, setTasteHoverIndex] = useState<number>(0); // 취향저격 호버 인덱스
   const [bmList, setBmList] = useState<VideoResultProps[]>([]);
+  const [watchingList, setWatchingList] = useState<VideoResultProps[]>([]);
   type VideoIdObj = {
     videoId: string;
   };
@@ -31,7 +33,9 @@ function VideoList() {
     []
   );
   const navigate = useNavigate();
-  const userNickName = useSelector((state: RootState) => state.user.userId);
+  const userNickName = useSelector(
+    (state: RootState) => state.user.userNickName
+  );
   const userId = useSelector((state: RootState) => state.user.userId);
   const accessToken = localStorage.getItem("access_token");
   const dispatch = useDispatch();
@@ -48,6 +52,18 @@ function VideoList() {
       }
     };
     fetchBookMarkList();
+  }, []);
+
+  useEffect(() => {
+    const fetchWatchingList = async () => {
+      try {
+        const watchingVideos = await getWatchingVideoList(userId);
+        setWatchingList(watchingVideos);
+      } catch (error) {
+        console.error("시청중인 영상 조회 실패", error);
+      }
+    };
+    fetchWatchingList();
   }, []);
 
   useEffect(() => {
@@ -124,12 +140,12 @@ function VideoList() {
     <div className="vcontainer">
       <div className="주제">
         <div className="vid-title">
-          <span>북마크한 영상</span>
+          <span>시청중인 영상</span>
         </div>
         <div>
-          {bmList && bmList.length > 0 ? (
-            <Slider {...sliderSettings(Math.min(5, bmList.length))}>
-              {bmList.map((video, index) => (
+          {watchingList && watchingList.length > 0 ? (
+            <Slider {...sliderSettings(Math.min(5, watchingList.length))}>
+              {watchingList.map((video, index) => (
                 <div
                   className="videoContainer"
                   key={index}
@@ -152,7 +168,7 @@ function VideoList() {
               ))}
             </Slider>
           ) : (
-            <div className="no-content">북마크한 영상이 없습니다.</div>
+            <div className="no-content">시청중인 영상이 없습니다.</div>
           )}
         </div>
       </div>
@@ -196,29 +212,40 @@ function VideoList() {
           </div>
         )}
       </div>
-      {/* <div className="vid-title">
-        <span>10대 남성</span>이 좋아하는 컨텐츠
-      </div>
-      <div>
-        <Slider {...sliderSettings}>
-          {dummyThumbnails.map((data, index) => (
-            <div
-              className="slick-slide v-container y-carousel"
-              key={index}
-              onMouseEnter={() => setHoverIndex(index)}
-              onMouseLeave={() => setHoverIndex(-1)}
-              style={{ position: "relative", transition: "all 0.3s" }}
-            >
-              <img src={data.imageUrl}></img>
-              {hoverIndex === index && (
-                <div className="thumbnail" style={{ transition: "0.5s" }}>
-                  <VideoPreview video={data} index={index} />
+      <div className="주제">
+        <div className="vid-title">
+          <span>북마크한 영상</span>
+        </div>
+        <div>
+          {bmList && bmList.length > 0 ? (
+            <Slider {...sliderSettings(Math.min(5, bmList.length))}>
+              {bmList.map((video, index) => (
+                <div
+                  className="videoContainer"
+                  key={index}
+                  onMouseEnter={() => setbmHoverIndex(index)}
+                  onMouseLeave={() => setbmHoverIndex(-1)}
+                  style={{ position: "relative", transition: "all 0.3s" }}
+                  onClick={() => navigate(`/video/${video.id}`)}
+                >
+                  <img src={video.videoThumbnail} alt="비디오 썸네일" />
+                  {/* {bmHoverIndex === index && (
+                    <div className="thumbnail" style={{ transition: "0.5s" }}>
+                      <VideoPreview
+                        video={video}
+                        index={index}
+                        hoverIndex={bmHoverIndex}
+                      />
+                    </div>
+                  )} */}
                 </div>
-              )}
-            </div>
-          ))}
-        </Slider>
-      </div> */}
+              ))}
+            </Slider>
+          ) : (
+            <div className="no-content">북마크한 영상이 없습니다.</div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

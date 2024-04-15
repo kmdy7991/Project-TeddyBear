@@ -13,6 +13,3 @@ spring:
 
   config:
     import: optional:configserver:http://config:8763
-logging:
-  file:
-    path: /log/

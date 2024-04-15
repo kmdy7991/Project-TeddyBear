@@ -26,9 +26,9 @@ export default function VocaCarousel() {
   const [selectedVoca, setSelectedVoca] = useState<VocaData | null>(null);
   const dispatch = useDispatch();
 
-  // const tier = useSelector((state: RootState) => state.user.userTier);
+  const tier = useSelector((state: RootState) => state.user.userTier);
   // 더미 티어
-  const tier = "B2";
+  // const tier = "C1";
 
   const loading = useSelector(
     (state: RootState) => state.loading["TODAY-VOCA"]
