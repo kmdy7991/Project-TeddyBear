@@ -30,7 +30,4 @@ public class WordEntity {
 
     @OneToMany(mappedBy = "word")
     private List<BookmarkWordEntity> bookmarkHistory;
-
-
-
 }

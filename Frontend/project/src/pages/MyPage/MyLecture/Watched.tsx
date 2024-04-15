@@ -90,7 +90,6 @@ export default function Watched() {
                     <img src={data.videoThumbnail} />
                   </div>
                   <div className="myText">
-                    zzz
                     <div className="myVidTitle">{data.videoTitle}</div>
                     <div className="myDescription">{data.videoDiscription}</div>
                   </div>

@@ -32,15 +32,15 @@ public class WordController {
     }
 
     @GetMapping("/bookmarkWords/{userId}") // 북마크 단어 조회
-    public ResponseEntity<List<WordEntity>> getBookmarkwords(@PathVariable Long userId, @RequestParam(required = false, defaultValue = "word", value = "orderby") String value) {
-        List<WordEntity> bookmarkList = wordService.getBookmarkWordsBy(userId, value);
+    public ResponseEntity<List<ResponseWord>> getBookmarkwords(@PathVariable Long userId) {
+        List<ResponseWord> bookmarkList = wordService.getBookmarkWordsBy(userId);
 
         return ResponseEntity.status(HttpStatus.OK).body(bookmarkList);
     }
 
     @DeleteMapping("/bookmarkWords/{userId}/{wordId}") // 북마크 단어 삭제
-    public ResponseEntity<String> deleteBookmarkByUserIdAndWordId(@PathVariable Long userId, @PathVariable WordEntity wordId) {
-        wordService.deleteBookmarkByUserIdAndWordId(userId, wordId);
+    public ResponseEntity<String> deleteBookmarkword(@PathVariable Long userId, @PathVariable Long wordId) {
+        wordService.deleteBookmark(userId, wordId);
         return ResponseEntity.status(HttpStatus.OK).body("Bookmark deleted successfully.");
     }
 

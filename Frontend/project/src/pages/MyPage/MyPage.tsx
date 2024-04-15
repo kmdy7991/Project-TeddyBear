@@ -13,6 +13,8 @@ import { loadingActions } from "../../store/loading";
 import { userActions } from "../../store/user";
 import { GetUserTier } from "../../components/User/UserTier";
 import { TierImage } from "../../components/User/UserTierImage";
+import UserExp from "../../components/User/UserExp";
+import LevelUptest from "../Test/LevelupTest";
 
 type tab = "myLecture" | "myNote";
 
@@ -24,29 +26,33 @@ export default function MyPage() {
   const [level, setLevel] = useState(0);
   const [tierExp, setTierExp] = useState(0);
   const [levelExp, setLevelExp] = useState(0);
+  const [nextTier, setNextTier] = useState("");
 
   const dispatch = useDispatch();
-  const loading = useSelector((state: RootState) => state.loading["PROFILE"]);
+
   const nickname = useSelector((state: RootState) => state.user.userNickName);
   const id = useSelector((state: RootState) => state.user.userId);
+  // const tier = useSelector((state: RootState) => state.user.userTier);
   const handleClickTab = (tab: tab) => (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setActiveTab(tab);
     navigate(`${tab}`);
   };
 
-  const accessToken = localStorage.getItem("token");
-
   useEffect(() => {
     const fetchTier = async () => {
       try {
         dispatch(loadingActions.startLoading("PROFILE"));
         const tiers = await GetUserTier(id);
-        console.log("유저 티어 조회 성공", tiers);
+        // console.log("유저 티어 조회 성공", tiers);
         setTier(tiers.tierName);
         setLevel(tiers.level);
         setTierExp(tiers.tierExp);
         setLevelExp(tiers.levelExp);
+        // setTier("B2");
+        // setLevel(1);
+        // setTierExp(10);
+        // setLevelExp(10);
       } catch (error) {
         console.error("유저 티어 조회 실패", error);
       } finally {
@@ -56,17 +62,6 @@ export default function MyPage() {
 
     fetchTier();
   }, []);
-
-  function renderPage() {
-    switch (activeTab) {
-      case "myLecture":
-        return <MyLecture />;
-      case "myNote":
-        return <MyNote />;
-      default:
-        return <MyLecture />;
-    }
-  }
 
   const tiers: string[] = ["A1", "A2", "B1", "B2", "C1", "C2"];
   let userTier: number = 0;
@@ -87,16 +82,47 @@ export default function MyPage() {
   console.log("레벨 : " + level);
   console.log("레벨 경험치 통 : " + maxLevelExp);
 
+  useEffect(() => {
+    const currentTierIndex = tiers.indexOf(tier);
+    if (currentTierIndex >= 0 && currentTierIndex < tiers.length - 1) {
+      setNextTier(tiers[currentTierIndex + 1]);
+    }
+  }, [tier]);
+
+  function renderPage() {
+    switch (activeTab) {
+      case "myLecture":
+        return <MyLecture />;
+      case "myNote":
+        return <MyNote />;
+      default:
+        return <MyLecture />;
+    }
+  }
+
+  const accessToken = localStorage.getItem("token");
+
+  const [showLevelUpModal, setShowLevelUpModal] = useState(false);
+
+  const handleShowLevelUpModal = (e: MouseEvent<HTMLButtonElement>) => {
+    setShowLevelUpModal(true);
+  };
+
+  const handleConfirmLevelUp = () => {
+    navigate("/levelUptest");
+    setShowLevelUpModal(false);
+  };
+
   const handleLogout = async () => {
     try {
       // api 주소 고쳐야 함
-      const tiers = await axios.get(`/logout`, {
+      const logout = await axios.get(`/logout`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
       });
-      console.log("로그아웃 성공", tiers);
+      console.log("로그아웃 성공", logout);
       window.alert("로그아웃이 완료되었습니다");
       navigate("/landing");
       dispatch(userActions.logoutUser());
@@ -107,13 +133,13 @@ export default function MyPage() {
 
   const handleQuit = async () => {
     try {
-      const tiers = await axios.delete(`/api/user-service/delete/${id}`, {
+      const quit = await axios.delete(`/api/user-service/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
       });
-      console.log("회원탈퇴 성공", tiers.data);
+      console.log("회원탈퇴 성공", quit.data);
       window.alert("탈퇴가 완료되었습니다.");
       navigate("/login");
     } catch (error) {
@@ -135,20 +161,50 @@ export default function MyPage() {
             </div>
             <div className={`${styles.nickname}`}>{nickname}</div>
           </div>
-          <div className={`${styles.exps}`}>
-            <div className={`${styles.tier}`}>
-              <div className={`${styles.tierS}`}>
-                <TierImage tier={tier} />
-              </div>
-              <div className={`${styles.exp}`}>경험치 퍼센트</div>
+          <UserExp
+            tier={tier}
+            tierExp={tierExp}
+            level={level}
+            levelExp={levelExp}
+            maxTierExp={maxTierExp}
+            maxLevelExp={maxLevelExp}
+          />
+          {tierExp === maxTierExp && (
+            <div className={styles.levelup}>
+              <>
+                <button
+                  className={`${styles.levelupBtn}`}
+                  onClick={handleShowLevelUpModal}
+                >
+                  승급 테스트 참여하기
+                </button>
+                {showLevelUpModal && (
+                  <div className={styles.modalBackground}>
+                    <div className={styles.modalContent}>
+                      <p>
+                        <span>{nextTier}</span>에 도전하세요!
+                      </p>
+                      <p>5문제 이상 맞힐 시 승급할 수 있습니다.</p>
+                      <div className={styles.modalBtns}>
+                        <button
+                          className={`${styles.modalButton} ${styles.modalOKButton}`}
+                          onClick={handleConfirmLevelUp}
+                        >
+                          확인
+                        </button>
+                        <button
+                          className={`${styles.modalButton} ${styles.modalButtonCancel}`}
+                          onClick={() => setShowLevelUpModal(false)}
+                        >
+                          취소
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
             </div>
-            <div className={`${styles.tier}`}>
-              <div className={`${styles.level}`}>
-                <span>Lv.{level}</span>
-              </div>
-              <div className={`${styles.exp}`}>경험치 퍼센트</div>
-            </div>
-          </div>
+          )}
           <div className={`${styles.setting}`}>
             <div>
               <button onClick={handleLogout}>로그아웃</button>
